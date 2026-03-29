@@ -3,78 +3,594 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Golfie — Play. Share. Rise.</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
+  <title>Golfie — ラウンドを、かたちにしよう。</title>
+  <meta name="description" content="ゴルフスコアをWordleグリッドで可視化。スコアを見せずにラウンドの"かたち"をシェアする、新しいゴルフソーシャルアプリ。">
+  <meta property="og:title" content="Golfie — ラウンドを、かたちにしよう。">
+  <meta property="og:description" content="18ホールが、ひとつの美しいグリッドに。スコアを見せずにゴルフをシェアしよう。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mygolfie.app">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='80' font-weight='900' fill='%232D5A27' font-family='Arial'>G</text></svg>">
   <style>
     :root {
       --primary: #2D5A27;
+      --primary-dark: #1A3A18;
+      --primary-darker: #0E220D;
       --primary-light: #E8F5E9;
-      --bg: #FAFAFA;
-      --text: #212121;
-      --text-secondary: #616161;
+      --primary-muted: #81C784;
+      --bg: #FFFFFF;
+      --bg-alt: #F4F7F4;
+      --bg-dark: #111411;
+      --text: #1A1A1A;
+      --text-sub: #555;
+      --text-muted: #999;
+      --border: #E2E6E2;
+      --gc-eagle: #FFD700; --gc-birdie: #EF5350; --gc-par: #4CAF50;
+      --gc-bogey: #42A5F5; --gc-double: #5C6BC0; --gc-triple: #546E7A;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --primary: #81C784;
-        --primary-light: #1B3A1A;
-        --bg: #121212;
-        --text: #E0E0E0;
-        --text-secondary: #9E9E9E;
+        --primary: #81C784; --primary-dark: #111; --primary-darker: #0A0A0A;
+        --primary-light: #1B3A1A; --primary-muted: #4CAF50;
+        --bg: #0E0E0E; --bg-alt: #161816; --bg-dark: #080A08;
+        --text: #E8E8E8; --text-sub: #AAA; --text-muted: #666; --border: #2A2C2A;
       }
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 40px 20px;
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;
+      background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;
+      overflow-x:hidden;animation:pgIn .6s ease-out;
     }
-    .logo { font-size: 64px; margin-bottom: 16px; }
-    h1 { font-size: 36px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
-    .tagline { font-size: 18px; color: var(--text-secondary); margin-bottom: 48px; letter-spacing: 2px; }
-    .coming-soon {
-      font-size: 14px;
-      color: var(--text-secondary);
-      background: var(--primary-light);
-      padding: 12px 32px;
-      border-radius: 24px;
-      margin-bottom: 48px;
+    @keyframes pgIn{from{opacity:0}to{opacity:1}}
+    .sp{display:none}
+    @media(max-width:640px){.sp{display:inline}}
+
+    /* ===== LOGO ===== */
+    .logo{
+      font-size:15px;font-weight:900;letter-spacing:6px;
+      color:var(--primary);text-transform:uppercase;
+      text-decoration:none;
     }
-    .links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-    .links a {
-      color: var(--primary);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border: 1px solid var(--primary);
-      border-radius: 8px;
-      transition: all 0.2s;
+    .logo-hero{
+      font-size:clamp(20px,4vw,28px);font-weight:900;letter-spacing:clamp(8px,2vw,14px);
+      color:var(--primary);text-transform:uppercase;
+      margin-bottom:32px;display:inline-block;
     }
-    .links a:hover { background: var(--primary); color: white; }
-    .footer {
-      position: fixed;
-      bottom: 20px;
-      font-size: 12px;
-      color: var(--text-secondary);
+
+    /* ===== NAV ===== */
+    nav{
+      position:fixed;top:0;width:100%;z-index:100;
+      background:rgba(255,255,255,.9);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid transparent;padding:14px 24px;
+      display:flex;justify-content:space-between;align-items:center;
+      transition:border-color .3s,box-shadow .3s;
     }
+    nav.scrolled{border-bottom-color:var(--border);box-shadow:0 1px 12px rgba(0,0,0,.05)}
+    @media(prefers-color-scheme:dark){
+      nav{background:rgba(14,14,14,.9)}
+      nav.scrolled{box-shadow:0 1px 12px rgba(0,0,0,.4)}
+    }
+    .nav-r{display:flex;gap:4px}
+    .nav-r a{
+      padding:8px 14px;border-radius:8px;text-decoration:none;
+      font-size:12px;font-weight:700;color:var(--text-muted);
+      transition:all .2s;letter-spacing:1px;
+    }
+    .nav-r a.active{color:var(--primary);background:var(--primary-light)}
+    .nav-r a:hover{color:var(--primary)}
+
+    /* ===== SHARED ===== */
+    section{padding:100px 24px;position:relative}
+    .si{max-width:840px;margin:0 auto}
+    .sl{
+      font-size:11px;font-weight:800;color:var(--primary-muted);
+      letter-spacing:5px;text-transform:uppercase;margin-bottom:14px;text-align:center;
+    }
+    .st{
+      font-size:clamp(24px,5vw,36px);font-weight:800;
+      text-align:center;margin-bottom:14px;line-height:1.35;
+    }
+    .ss{
+      font-size:15px;color:var(--text-sub);text-align:center;
+      max-width:480px;margin:0 auto 56px;line-height:1.8;
+    }
+    .fu{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+    .fu.v{opacity:1;transform:translateY(0)}
+
+    /* ===== HERO ===== */
+    .hero{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      padding:120px 24px 80px;text-align:center;
+      background:var(--bg);
+    }
+    .hero-in{max-width:680px}
+    .hero h1{
+      font-size:clamp(28px,6.5vw,48px);font-weight:800;
+      line-height:1.3;margin-bottom:18px;white-space:nowrap;
+    }
+    @media(max-width:480px){.hero h1{white-space:normal;font-size:28px}}
+    .hero h1 em{font-style:normal;color:var(--primary)}
+    .hero .sub{
+      font-size:clamp(14px,2.5vw,17px);color:var(--text-sub);
+      margin-bottom:40px;line-height:1.8;
+    }
+    /* Phone */
+    .pw{display:flex;justify-content:center;margin-bottom:44px}
+    .ph{
+      width:clamp(220px,50vw,270px);background:var(--bg-alt);
+      border-radius:32px;border:2px solid var(--border);
+      padding:40px 16px 24px;position:relative;
+      box-shadow:0 20px 50px rgba(0,0,0,.08),0 0 60px rgba(45,90,39,.08);
+    }
+    @media(prefers-color-scheme:dark){
+      .ph{background:#181A18;border-color:#2A2C2A;
+        box-shadow:0 20px 50px rgba(0,0,0,.4),0 0 60px rgba(129,199,132,.06)}
+    }
+    .ph::before{
+      content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);
+      width:60px;height:5px;border-radius:3px;background:var(--border);
+    }
+    .pt{text-align:center;margin-bottom:12px}
+    .pt .l1{font-size:9px;font-weight:700;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase}
+    .pt .pt-gs{margin-top:6px}
+    .pt .l2{font-size:13px;font-weight:700;color:var(--text);margin-top:2px}
+    .pt .l3{font-size:22px;font-weight:900;color:var(--primary);margin-top:2px}
+    .mg{display:grid;grid-template-columns:repeat(9,1fr);gap:3px}
+    .mg .c{width:100%;aspect-ratio:1;border-radius:3px;opacity:0;animation:ci .4s ease-out forwards}
+    @keyframes ci{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+    .pb{
+      display:flex;justify-content:space-around;margin-top:12px;
+      padding-top:10px;border-top:1px solid var(--border);
+    }
+    .pb .s{text-align:center}
+    .pb .n{font-size:14px;font-weight:800;color:var(--text)}
+    .pb .l{font-size:8px;color:var(--text-muted);font-weight:700;letter-spacing:1px}
+
+    .cg{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .cta{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:14px 36px;border-radius:12px;background:var(--primary);color:#fff;
+      font-size:14px;font-weight:700;text-decoration:none;letter-spacing:.5px;
+      transition:all .3s;border:none;cursor:pointer;
+    }
+    .cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,90,39,.25)}
+    .cta-s{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:14px 36px;border-radius:12px;background:transparent;color:var(--primary);
+      font-size:14px;font-weight:700;text-decoration:none;letter-spacing:.5px;
+      border:2px solid var(--primary);transition:all .3s;
+    }
+    .cta-s:hover{background:var(--primary-light)}
+
+    /* ===== GRID ===== */
+    .grid-s{background:var(--bg-alt)}
+    .ge{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+    @media(max-width:768px){.ge{grid-template-columns:1fr;gap:32px}}
+    .gv{background:var(--bg);border-radius:20px;padding:28px;border:1px solid var(--border)}
+    .gd{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-bottom:16px}
+    .gd .gc{width:100%;aspect-ratio:1;border-radius:4px;opacity:0;transform:scale(.5);transition:all .4s ease-out}
+    .gd.an .gc{opacity:1;transform:scale(1)}
+    .gl{display:flex;flex-wrap:wrap;gap:10px}
+    .gli{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text-sub)}
+    .gld{width:12px;height:12px;border-radius:3px}
+    .gt h3{font-size:clamp(20px,4vw,26px);font-weight:800;margin-bottom:10px;line-height:1.35}
+    .gt p{font-size:14px;color:var(--text-sub);line-height:1.8;margin-bottom:14px}
+    .gt .hl{
+      display:inline-block;padding:5px 14px;border-radius:8px;
+      background:var(--primary-light);color:var(--primary);
+      font-size:12px;font-weight:700;letter-spacing:.5px;
+    }
+
+    /* ===== PRIVACY ===== */
+    .pc{
+      max-width:580px;margin:0 auto;background:var(--bg-alt);
+      border-radius:20px;padding:36px;border:1px solid var(--border);text-align:center;
+    }
+    .pc-i{font-size:22px;width:48px;height:48px;border-radius:14px;background:var(--primary-light);
+      display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--primary);font-weight:900;line-height:1}
+    .pls{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .pl{padding:14px 18px;border-radius:12px;background:var(--bg);border:1px solid var(--border);text-align:center;min-width:110px;transition:transform .2s}
+    .pl:hover{transform:translateY(-2px)}
+    .pl.act{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-light)}
+    .pl .pi{font-size:18px;margin-bottom:4px}
+    .pl .pn{font-size:12px;font-weight:700;color:var(--text)}
+    .pl .pd{font-size:10px;color:var(--text-muted)}
+    .pnt{
+      margin-top:20px;padding:14px;border-radius:12px;
+      background:var(--primary-light);font-size:13px;color:var(--primary);
+      font-weight:600;line-height:1.7;
+    }
+
+    /* ===== SOCIAL ===== */
+    .soc-s{background:var(--bg-alt)}
+    .sg{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    @media(max-width:768px){.sg{grid-template-columns:1fr}}
+    .sc{
+      padding:28px;border-radius:16px;background:var(--bg);
+      border:1px solid var(--border);transition:all .3s;
+    }
+    .sc:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.05)}
+    .sc-i{
+      width:40px;height:40px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:14px;font-weight:900;margin-bottom:14px;color:#fff;
+    }
+    .sc:nth-child(1) .sc-i{background:#4CAF50}
+    .sc:nth-child(2) .sc-i{background:#42A5F5}
+    .sc:nth-child(3) .sc-i{background:#FF9800}
+    .sc:nth-child(4) .sc-i{background:#9C27B0}
+    .sc h3{font-size:16px;font-weight:700;margin-bottom:6px}
+    .sc p{font-size:13px;color:var(--text-sub);line-height:1.7}
+
+    /* ===== COMPE ===== */
+    .cf{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+    @media(max-width:768px){.cf{grid-template-columns:1fr}}
+    .cs{display:flex;flex-direction:column;gap:24px}
+    .cs-item{display:flex;gap:14px;align-items:flex-start}
+    .cs-n{
+      width:36px;height:36px;border-radius:10px;background:var(--primary);color:#fff;
+      display:flex;align-items:center;justify-content:center;
+      font-size:15px;font-weight:800;flex-shrink:0;
+    }
+    .cs-b h4{font-size:15px;font-weight:700;margin-bottom:3px}
+    .cs-b p{font-size:13px;color:var(--text-sub);line-height:1.6}
+    .cv{
+      background:var(--primary-light);border-radius:20px;padding:32px;
+      text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;
+    }
+    .cv-trophy{font-size:48px}
+    .cv-cap{font-size:13px;font-weight:700;color:var(--primary);letter-spacing:1px}
+    .tb{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+    .tbi{padding:5px 12px;border-radius:16px;font-size:11px;font-weight:600;background:var(--bg);border:1px solid var(--border)}
+    .cv-free{font-size:12px;color:var(--text-muted)}
+
+    /* ===== GOLFIE SCORE ===== */
+    .gs-s{background:var(--bg-alt)}
+    .gs-card{max-width:620px;margin:0 auto;background:var(--bg);border-radius:20px;padding:36px;border:1px solid var(--border)}
+    .gs-axes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+    @media(max-width:640px){.gs-axes{grid-template-columns:1fr}}
+    .gs-ax{text-align:center;padding:20px 14px;border-radius:14px;transition:transform .2s}
+    .gs-ax:hover{transform:translateY(-2px)}
+    .gs-ax:nth-child(1){background:#E8F5E9}
+    .gs-ax:nth-child(2){background:#FFF3E0}
+    .gs-ax:nth-child(3){background:#F3E5F5}
+    @media(prefers-color-scheme:dark){
+      .gs-ax:nth-child(1){background:#152015}
+      .gs-ax:nth-child(2){background:#201A10}
+      .gs-ax:nth-child(3){background:#1A1520}
+    }
+    .gs-dot{width:10px;height:10px;border-radius:50%;margin:0 auto 10px}
+    .gs-ax:nth-child(1) .gs-dot{background:#4CAF50}
+    .gs-ax:nth-child(2) .gs-dot{background:#FF9800}
+    .gs-ax:nth-child(3) .gs-dot{background:#9C27B0}
+    .gs-ax .nm{font-size:15px;font-weight:800;margin-bottom:2px;letter-spacing:2px}
+    .gs-ax .sb{font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px}
+    .gs-ax .ds{font-size:12px;color:var(--text-sub);line-height:1.6}
+    .gs-msg{
+      text-align:center;font-size:14px;color:var(--text-sub);line-height:1.8;
+      padding-top:16px;border-top:1px solid var(--border);
+    }
+    .gs-msg strong{color:var(--primary);font-weight:700}
+
+    /* ===== FAQ ===== */
+    .faq-wrap{max-width:560px}
+    .faq-list{margin:0 auto}
+    .faq-i{border-bottom:1px solid var(--border)}
+    .faq-q{
+      width:100%;padding:18px 0;background:none;border:none;cursor:pointer;
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:15px;font-weight:600;color:var(--text);text-align:left;font-family:inherit;
+    }
+    .faq-q::after{content:'+';font-size:20px;color:var(--primary-muted);transition:transform .3s;flex-shrink:0;margin-left:12px}
+    .faq-i.open .faq-q::after{transform:rotate(45deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease-out}
+    .faq-a-in{padding:0 0 18px;font-size:14px;color:var(--text-sub);line-height:1.7}
+    .faq-i.open .faq-a{max-height:300px}
+
+    /* ===== MID CTA ===== */
+    .mid-cta{text-align:center;padding:72px 24px;background:var(--bg)}
+    .mid-tag{margin-bottom:20px}
+
+    /* ===== FINAL CTA ===== */
+    .fc{
+      background:var(--bg-dark);
+      color:#fff;text-align:center;padding:100px 24px 100px;
+    }
+    .fc .logo-hero{color:var(--primary-muted);margin-bottom:16px}
+    .fc h2{
+      font-size:clamp(26px,5.5vw,44px);font-weight:800;
+      margin-bottom:10px;line-height:1.3;color:#fff;
+    }
+    .fc .tagline{
+      font-size:13px;font-weight:700;letter-spacing:6px;
+      color:var(--primary-muted);text-transform:uppercase;margin-bottom:10px;
+    }
+    .fc .brand-msg{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:40px;font-weight:500}
+    .fc .cta{background:var(--primary-muted);color:var(--bg-dark)}
+    .fc .cta:hover{box-shadow:0 8px 24px rgba(129,199,132,.3)}
+
+    /* ===== FOOTER ===== */
+    footer{padding:36px 24px;text-align:center;border-top:1px solid var(--border)}
+    footer .fl{margin-bottom:10px}
+    footer .fl a{color:var(--text-sub);text-decoration:none;font-size:13px;margin:0 10px;transition:color .2s}
+    footer .fl a:hover{color:var(--primary)}
+    footer .fc2{font-size:11px;color:var(--text-muted)}
+
+    /* i18n */
+    [class*="lj"],[class*="le"],[class*="lk"]{display:none}
+    .lj.a,.le.a,.lk.a{display:block}
+    .ilj,.ile,.ilk{display:none}
+    .ilj.a,.ile.a,.ilk.a{display:inline}
   </style>
 </head>
 <body>
-  <div class="logo">⛳</div>
-  <h1>Golfie</h1>
+
+<nav>
+  <a href="#" class="logo">GOLFIE</a>
+  <div class="nav-r">
+    <a href="#" class="active" onclick="sl('ja');return false">JP</a>
+    <a href="#" onclick="sl('en');return false">EN</a>
+    <a href="#" onclick="sl('ko');return false">KR</a>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<div class="hero">
+  <div class="hero-in">
+    <div class="logo-hero">GOLFIE</div>
+    <h1>
+      <span class="lj a">ラウンドを、<em>かたち</em>にしよう。</span>
+      <span class="le">Shape your <em>round</em>.</span>
+      <span class="lk">라운드를, <em>형태</em>로 만들자.</span>
+    </h1>
+    <p class="sub">
+      <span class="lj a">18ホールが、ひとつの美しいグリッドに。<br class="sp">スコアを見せるかどうかは、あなた次第。</span>
+      <span class="le">18 holes become one beautiful grid.<br class="sp">You choose what to share.</span>
+      <span class="lk">18홀이 하나의 아름다운 그리드로.<br class="sp">무엇을 공유할지는 당신이 결정.</span>
+    </p>
+    <div class="pw">
+      <div class="ph">
+        <div class="pt">
+          <div class="l1"><span class="ilj a">最新ラウンド</span><span class="ile">LATEST ROUND</span><span class="ilk">최근 라운드</span></div>
+          <div class="l2"><span class="ilj a">リビエラカントリークラブ</span><span class="ile">Riviera Country Club</span><span class="ilk">리비에라 컨트리클럽</span></div>
+          <div class="l1 pt-gs">GOLFIE SCORE</div>
+          <div class="l3">72</div>
+        </div>
+        <div class="mg" id="hG"></div>
+        <div class="pb">
+          <div class="s"><div class="n">42</div><div class="l"><span class="ilj a">前半</span><span class="ile">OUT</span><span class="ilk">전반</span></div></div>
+          <div class="s"><div class="n">44</div><div class="l"><span class="ilj a">後半</span><span class="ile">IN</span><span class="ilk">후반</span></div></div>
+          <div class="s"><div class="n">86</div><div class="l"><span class="ilj a">合計</span><span class="ile">TOTAL</span><span class="ilk">합계</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="cg">
+      <a href="mailto:golfie.notify@gmail.com?subject=Golfie%20Notify&body=Notify%20me%20at%20launch" class="cta">
+        <span class="ilj a">リリース通知を受け取る</span>
+        <span class="ile">Get Notified at Launch</span>
+        <span class="ilk">출시 알림 받기</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 2. GRID -->
+<section class="grid-s">
+  <div class="si fu">
+    <div class="sl">Wordle Grid</div>
+    <div class="ge">
+      <div class="gv">
+        <div class="gd" id="dG"></div>
+        <div class="gl">
+          <div class="gli"><div class="gld" style="background:var(--gc-eagle)"></div><span class="ilj a">イーグル</span><span class="ile">Eagle</span><span class="ilk">이글</span></div>
+          <div class="gli"><div class="gld" style="background:var(--gc-birdie)"></div><span class="ilj a">バーディー</span><span class="ile">Birdie</span><span class="ilk">버디</span></div>
+          <div class="gli"><div class="gld" style="background:var(--gc-par)"></div><span class="ilj a">パー</span><span class="ile">Par</span><span class="ilk">파</span></div>
+          <div class="gli"><div class="gld" style="background:var(--gc-bogey)"></div><span class="ilj a">ボギー</span><span class="ile">Bogey</span><span class="ilk">보기</span></div>
+          <div class="gli"><div class="gld" style="background:var(--gc-double)"></div><span class="ilj a">ダブルボギー</span><span class="ile">Double</span><span class="ilk">더블보기</span></div>
+          <div class="gli"><div class="gld" style="background:var(--gc-triple)"></div><span class="ilj a">トリプル+</span><span class="ile">Triple+</span><span class="ilk">트리플+</span></div>
+        </div>
+      </div>
+      <div class="gt">
+        <h3>
+          <span class="lj a">18ホールが、<br class="sp">ひとつの"かたち"に。</span>
+          <span class="le">18 holes become<br class="sp">one shape.</span>
+          <span class="lk">18홀이,<br class="sp">하나의 '형태'로.</span>
+        </h3>
+        <p>
+          <span class="lj a">各ホールの結果が色に変わり、あなただけのグリッドパターンが生まれる。同じグリッドは二つとない。</span>
+          <span class="le">Each hole becomes a color, creating your unique pattern. No two grids are ever alike.</span>
+          <span class="lk">각 홀의 결과가 색으로 변해, 나만의 패턴이 탄생합니다. 같은 그리드는 없습니다.</span>
+        </p>
+        <span class="hl">
+          <span class="ilj a">世界初のゴルフスコア可視化</span>
+          <span class="ile">World's first golf score visualization</span>
+          <span class="ilk">세계 최초 골프 스코어 시각화</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PRIVACY -->
+<section>
+  <div class="si fu">
+    <div class="sl">Privacy First</div>
+    <div class="st">
+      <span class="lj a">スコアは、あなただけのもの。</span>
+      <span class="le">Your score, your secret.</span>
+      <span class="lk">스코어는, 나만의 비밀.</span>
+    </div>
+    <div class="ss">
+      <span class="lj a">グリッドだけでも、数字付きでも。公開範囲はあなたが選べる。</span>
+      <span class="le">Grid only, or with numbers. You control who sees what.</span>
+      <span class="lk">그리드만으로도, 숫자와 함께도. 공개 범위는 당신이 결정.</span>
+    </div>
+    <div class="pc">
+      <div class="pc-i">&#x1F6E1;</div>
+      <div class="pls">
+        <div class="pl"><div class="pi">🌐</div><div class="pn"><span class="ilj a">全員</span><span class="ile">Everyone</span><span class="ilk">전체</span></div><div class="pd"><span class="ilj a">フォロワー以外も</span><span class="ile">All users</span><span class="ilk">모든 사용자</span></div></div>
+        <div class="pl act"><div class="pi">👥</div><div class="pn"><span class="ilj a">フォロワーのみ</span><span class="ile">Followers</span><span class="ilk">팔로워만</span></div><div class="pd"><span class="ilj a">デフォルト</span><span class="ile">Default</span><span class="ilk">기본값</span></div></div>
+        <div class="pl"><div class="pi">🔒</div><div class="pn"><span class="ilj a">非公開</span><span class="ile">Private</span><span class="ilk">비공개</span></div><div class="pd"><span class="ilj a">自分だけ</span><span class="ile">Only you</span><span class="ilk">나만</span></div></div>
+      </div>
+      <div class="pnt">
+        <span class="lj a">グリッドにスコアの数字は含まれません。<br class="sp">数字を公開するかはあなたの自由。初心者も上級者も、自分らしく楽しもう。</span>
+        <span class="le">The grid contains no score numbers.<br class="sp">Share numbers if you want — or keep them private. Your call.</span>
+        <span class="lk">그리드에 스코어 숫자는 없습니다.<br class="sp">숫자를 공개할지는 당신의 자유. 나답게 즐기세요.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SOCIAL -->
+<section class="soc-s">
+  <div class="si fu">
+    <div class="sl">Social</div>
+    <div class="st">
+      <span class="lj a">仲間が、あなたのプレーを称える。</span>
+      <span class="le">Friends celebrate your play.</span>
+      <span class="lk">동료가 당신의 플레이를 칭찬합니다.</span>
+    </div>
+    <div class="ss">
+      <span class="lj a">ゴルフ仲間だけの、あたたかいSNS。</span>
+      <span class="le">A warm social network, just for golfers.</span>
+      <span class="lk">골프 친구만의 따뜻한 SNS.</span>
+    </div>
+    <div class="sg">
+      <div class="sc"><div class="sc-i">K</div><h3>Kudos</h3><p><span class="lj a">仲間のラウンドを称えよう。「ナイスリカバリー」「グリーンマスター」—— いいね以上の、ゴルファー同士のリスペクト。</span><span class="le">"Nice Recovery," "Green Master" — more than a like, it's golfer-to-golfer respect.</span><span class="lk">"나이스 리커버리", "그린 마스터" — 좋아요 이상의 리스펙트.</span></p></div>
+      <div class="sc"><div class="sc-i">F</div><h3>Feed</h3><p><span class="lj a">仲間のラウンドがフィードに流れてくる。グリッドを見て、Kudosを送ろう。スコアのプレッシャーなく、ゴルフを楽しむ空間。</span><span class="le">See friends' rounds in your feed. Send Kudos. Enjoy golf without pressure.</span><span class="lk">친구의 라운드가 피드에. Kudos를 보내세요. 부담 없이 골프를 즐기는 공간.</span></p></div>
+      <div class="sc"><div class="sc-i">R</div><h3>Ranking</h3><p><span class="lj a">自己成長ビューで軌跡を振り返ろう。ランクが上がるとバッジが進化する。</span><span class="le">Track your journey. Earn evolving badges as your rank rises.</span><span class="lk">성장 뷰에서 궤적을 돌아보세요. 랭크에 따라 배지가 진화.</span></p></div>
+      <div class="sc"><div class="sc-i">ID</div><h3>Golfie ID</h3><p><span class="lj a">あなた専用のゴルフカード。ランク、スコア、履歴がひとつに。見せたくなるデザイン。</span><span class="le">Your personal golf card. Rank, score, history — all in one beautiful design.</span><span class="lk">나만의 골프 카드. 랭크, 스코어, 기록이 하나에. 보여주고 싶은 디자인.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Mid CTA -->
+<div class="mid-cta">
+  <p class="sl mid-tag">Play. Share. Rise.</p>
+  <div class="cg">
+    <a href="mailto:golfie.notify@gmail.com?subject=Golfie%20Notify&body=Notify%20me%20at%20launch" class="cta">
+      <span class="ilj a">リリース通知を受け取る</span><span class="ile">Get Notified</span><span class="ilk">출시 알림 받기</span>
+    </a>
+  </div>
+</div>
+
+<!-- 5. COMPE -->
+<section>
+  <div class="si fu">
+    <div class="sl">Competition</div>
+    <div class="st">
+      <span class="lj a">コンペの思い出が、美しい記録に。</span>
+      <span class="le">Turn comps into beautiful memories.</span>
+      <span class="lk">대회의 추억이, 아름다운 기록으로.</span>
+    </div>
+    <div class="cf">
+      <div class="cs">
+        <div class="cs-item"><div class="cs-n">1</div><div class="cs-b"><h4><span class="ilj a">3タップで作成</span><span class="ile">Create in 3 taps</span><span class="ilk">3번 탭으로 생성</span></h4><p><span class="ilj a">コンペ名、日時、コースを入力。招待リンクを共有しよう。</span><span class="ile">Enter name, date, course. Share the invite link.</span><span class="ilk">대회명, 일시, 코스 입력. 초대 링크를 공유.</span></p></div></div>
+        <div class="cs-item"><div class="cs-n">2</div><div class="cs-b"><h4><span class="ilj a">各自スコアを入力</span><span class="ile">Everyone enters scores</span><span class="ilk">각자 스코어 입력</span></h4><p><span class="ilj a">各自のスマホで入力。面倒な集計から、解放されよう。</span><span class="ile">Each player enters on their phone. Free from spreadsheets.</span><span class="ilk">각자 스마트폰으로 입력. 번거로운 집계에서 해방.</span></p></div></div>
+        <div class="cs-item"><div class="cs-n">3</div><div class="cs-b"><h4><span class="ilj a">結果発表の瞬間</span><span class="ile">The reveal moment</span><span class="ilk">결과 발표의 순간</span></h4><p><span class="ilj a">アニメーションで結果を発表。個人タイトルも自動付与。</span><span class="ile">Animated results reveal. Personal titles auto-assigned.</span><span class="ilk">애니메이션으로 결과 발표. 개인 타이틀 자동 부여.</span></p></div></div>
+      </div>
+      <div class="cv">
+        <div class="cv-trophy">🏆</div>
+        <div class="cv-cap"><span class="ilj a">自動付与タイトル</span><span class="ile">Auto-assigned titles</span><span class="ilk">자동 부여 타이틀</span></div>
+        <div class="tb">
+          <span class="tbi"><span class="ilj a">チャンピオン</span><span class="ile">Champion</span><span class="ilk">챔피언</span></span>
+          <span class="tbi"><span class="ilj a">イーグルハンター</span><span class="ile">Eagle Hunter</span><span class="ilk">이글 헌터</span></span>
+          <span class="tbi"><span class="ilj a">カムバックキング</span><span class="ile">Comeback King</span><span class="ilk">컴백 킹</span></span>
+          <span class="tbi"><span class="ilj a">安定王</span><span class="ile">Steady Eddie</span><span class="ilk">안정왕</span></span>
+          <span class="tbi"><span class="ilj a">後半の鬼</span><span class="ile">Back Nine Hero</span><span class="ilk">후반의 영웅</span></span>
+          <span class="tbi"><span class="ilj a">パーセーブ王</span><span class="ile">Par Save King</span><span class="ilk">파 세이브 킹</span></span>
+        </div>
+        <div class="cv-free"><span class="ilj a">月3回・8人まで無料</span><span class="ile">Free: 3/month, up to 8</span><span class="ilk">월 3회, 8인 무료</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. GOLFIE SCORE -->
+<section class="gs-s">
+  <div class="si fu">
+    <div class="sl">Golfie Score</div>
+    <div class="st">
+      <span class="lj a">スコアだけが、ゴルフじゃない。</span>
+      <span class="le">Golf is more than your score.</span>
+      <span class="lk">스코어만이 골프의 전부가 아니다.</span>
+    </div>
+    <div class="ss">
+      <span class="lj a">あなたのゴルフを、3つの軸で。</span>
+      <span class="le">Three dimensions of your golf.</span>
+      <span class="lk">3가지 축으로 바라보는 당신의 골프.</span>
+    </div>
+    <div class="gs-card">
+      <div class="gs-axes">
+        <div class="gs-ax"><div class="gs-dot"></div><div class="nm">PLAY</div><div class="sb"><span class="ilj a">スコア実力</span><span class="ile">Ability</span><span class="ilk">실력</span></div><div class="ds"><span class="ilj a">安定性、パーセーブ率、ベストとの差。</span><span class="ile">Consistency, par saves, gap from best.</span><span class="ilk">안정성, 파 세이브율, 베스트와의 차이.</span></div></div>
+        <div class="gs-ax"><div class="gs-dot"></div><div class="nm">VIBE</div><div class="sb"><span class="ilj a">ゴルフ熱量</span><span class="ile">Passion</span><span class="ilk">열정</span></div><div class="ds"><span class="ilj a">ラウンド頻度、Kudos、コンペ参加。</span><span class="ile">Frequency, Kudos, comp participation.</span><span class="ilk">빈도, Kudos, 대회 참가.</span></div></div>
+        <div class="gs-ax"><div class="gs-dot"></div><div class="nm">STYLE</div><div class="sb"><span class="ilj a">ゴルフライフ</span><span class="ile">Lifestyle</span><span class="ilk">라이프</span></div><div class="ds"><span class="ilj a">コースバリエーション、記録の充実度。</span><span class="ile">Course variety, record richness.</span><span class="ilk">코스 다양성, 기록 충실도.</span></div></div>
+      </div>
+      <div class="gs-msg">
+        <span class="lj a">スコアが良い日も、そうでない日も。<br><strong>ゴルフを楽しんでいる人が、いちばん輝く。</strong></span>
+        <span class="le">Good days and tough days.<br><strong>Those who enjoy golf shine the brightest.</strong></span>
+        <span class="lk">좋은 날도, 그렇지 않은 날도.<br><strong>골프를 즐기는 사람이, 가장 빛나는 법.</strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FAQ -->
+<section>
+  <div class="si fu faq-wrap">
+    <div class="sl">FAQ</div>
+    <div class="faq-list">
+      <div class="faq-i"><button class="faq-q" onclick="tF(this)"><span><span class="ilj a">無料で使えるの？</span><span class="ile">Is it free?</span><span class="ilk">무료인가요?</span></span></button><div class="faq-a"><div class="faq-a-in"><span class="lj a">基本機能は完全無料。コンペは月3回・8人まで無料です。</span><span class="le">Core features are free. Comps free: 3/month, 8 players.</span><span class="lk">기본 기능 완전 무료. 대회 월 3회, 8인 무료.</span></div></div></div>
+      <div class="faq-i"><button class="faq-q" onclick="tF(this)"><span><span class="ilj a">初心者でも使える？</span><span class="ile">Beginner-friendly?</span><span class="ilk">초보자도 OK?</span></span></button><div class="faq-a"><div class="faq-a-in"><span class="lj a">もちろん。スコアは非公開にできるので、気軽に楽しめます。</span><span class="le">Of course. Keep scores private and enjoy without worry.</span><span class="lk">물론이죠. 스코어를 비공개로 하고 부담 없이 즐기세요.</span></div></div></div>
+      <div class="faq-i"><button class="faq-q" onclick="tF(this)"><span><span class="ilj a">データは安全？</span><span class="ile">Is my data safe?</span><span class="ilk">데이터는 안전?</span></span></button><div class="faq-a"><div class="faq-a-in"><span class="lj a">全通信暗号化。広告トラッキング一切なし。アカウント削除で完全消去。</span><span class="le">All encrypted. Zero ad tracking. Delete account to erase all data.</span><span class="lk">전 통신 암호화. 광고 추적 없음. 계정 삭제로 완전 삭제.</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FINAL CTA -->
+<div class="fc">
+  <div class="logo-hero">GOLFIE</div>
+  <h2>
+    <span class="lj a">ラウンドを、<br class="sp">かたちにしよう。</span>
+    <span class="le">Shape your round.</span>
+    <span class="lk">라운드를, <br class="sp">형태로 만들자.</span>
+  </h2>
   <p class="tagline">Play. Share. Rise.</p>
-  <p class="coming-soon">Coming Soon — April 2026</p>
-  <div class="links">
+  <p class="brand-msg">
+    <span class="ilj a">ゴルフを楽しんでいる人が、いちばん輝く。</span>
+    <span class="ile">Those who enjoy golf shine the brightest.</span>
+    <span class="ilk">골프를 즐기는 사람이, 가장 빛나는 법.</span>
+  </p>
+  <div class="cg">
+    <a href="mailto:golfie.notify@gmail.com?subject=Golfie%20Notify&body=Notify%20me%20at%20launch" class="cta">
+      <span class="ilj a">リリース通知を受け取る</span><span class="ile">Get Notified</span><span class="ilk">출시 알림 받기</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">
     <a href="privacy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>
+    <a href="mailto:support@golfie.app">Contact</a>
   </div>
-  <div class="footer">&copy; 2026 Golfie</div>
+  <div class="fc2">&copy; 2026 KANOPY Inc. — Golfie</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',scrollY>20)});
+const gc=['#FFD700','#EF5350','#4CAF50','#42A5F5','#5C6BC0','#546E7A'];
+function mg(id,p){const g=document.getElementById(id);p.forEach((c,i)=>{const d=document.createElement('div');d.className='c';d.style.backgroundColor=gc[c-1]||gc[2];d.style.animationDelay=(i*70)+'ms';g.appendChild(d)})}
+function md(id){const g=document.getElementById(id);[3,4,3,2,3,3,4,1,3,3,3,2,4,3,3,2,3,3].forEach(c=>{const d=document.createElement('div');d.className='gc';d.style.backgroundColor=gc[c-1]||gc[2];g.appendChild(d)})}
+mg('hG',[3,2,3,4,3,3,2,3,4,3,3,1,3,3,4,3,2,3]);md('dG');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.15});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+const dg=document.getElementById('dG');
+new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){dg.classList.add('an');dg.querySelectorAll('.gc').forEach((c,i)=>{c.style.transitionDelay=(i*50)+'ms'})}})},{threshold:.3}).observe(dg);
+function tF(b){const i=b.parentElement;const o=i.classList.contains('open');document.querySelectorAll('.faq-i').forEach(x=>x.classList.remove('open'));if(!o)i.classList.add('open')}
+function sl(l){['ja','en','ko'].forEach(x=>{const s=x==='ja'?'lj':x==='en'?'le':'lk';const si=x==='ja'?'ilj':x==='en'?'ile':'ilk';document.querySelectorAll(`.${s},.${si}`).forEach(e=>{e.classList.toggle('a',x===l)})});document.querySelectorAll('.nav-r a').forEach(a=>a.classList.remove('active'));event.target.classList.add('active');document.documentElement.lang=l}
+</script>
 </body>
 </html>
