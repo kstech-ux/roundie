@@ -52,7 +52,11 @@
       transition:border-color .3s,box-shadow .3s;
     }
     nav.scrolled{border-bottom-color:var(--border);box-shadow:0 1px 12px rgba(0,0,0,.4)}
-    .nav-r{display:flex;gap:4px}
+    .nav-r{display:flex;align-items:center;gap:4px}
+    .nav-links{display:flex;gap:4px;margin-right:16px}
+    .nav-links a{font-size:10px;font-weight:500;color:var(--text-muted);text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:color .3s;padding:8px 12px}
+    .nav-links a:hover{color:var(--text)}
+    @media(max-width:768px){.nav-links{display:none}}
     .nav-r a{
       padding:8px 14px;border-radius:8px;text-decoration:none;
       font-size:12px;font-weight:700;color:var(--text-muted);
@@ -403,6 +407,13 @@
     ROUNDIE
   </a>
   <div class="nav-r">
+    <div class="nav-links">
+      <a href="#grid">Grid</a>
+      <a href="#social">Social</a>
+      <a href="#compe">Compe</a>
+      <a href="#score">Score</a>
+      <a href="#pricing">Pricing</a>
+    </div>
     <a href="#" class="active" onclick="sl('ja');return false">JP</a>
     <a href="#" onclick="sl('en');return false">EN</a>
     <a href="#" onclick="sl('ko');return false">KR</a>
