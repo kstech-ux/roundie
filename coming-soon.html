@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROUNDIE — Coming Soon</title>
+  <meta name="description" content="ROUNDIE — Shape your round. Coming April 2026.">
+  <meta property="og:title" content="ROUNDIE — Coming Soon">
+  <meta property="og:description" content="Shape your round. Coming soon.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://roundie.app">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='70' font-weight='900' fill='%2381C784' font-family='Arial'>R</text></svg>">
+  <style>
+    :root{--bg:#060608;--card:#0E0E14;--t1:#F0F0F2;--t2:#6E6E7E;--t3:#3A3A4A;--ac:#81C784;--acg:rgba(129,199,132,.1);--bd:rgba(255,255,255,.05)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;text-align:center;padding:60px 24px 40px}
+
+    .logo{font-size:clamp(24px,5vw,36px);font-weight:900;letter-spacing:clamp(8px,2vw,16px);color:var(--ac);margin-bottom:32px}
+    .tag{font-size:clamp(13px,2vw,16px);color:var(--t2);margin-bottom:8px;font-weight:300;line-height:1.8}
+    .tag em{font-style:normal;color:var(--t1);font-weight:500}
+    .soon{font-size:12px;color:var(--t3);letter-spacing:3px;font-weight:600;margin-top:24px;margin-bottom:64px}
+
+    /* Pricing */
+    .pricing-title{font-size:9px;font-weight:700;letter-spacing:6px;color:var(--ac);text-transform:uppercase;margin-bottom:12px}
+    .pricing-sub{font-size:clamp(16px,2.5vw,22px);font-weight:600;color:var(--t1);margin-bottom:48px;letter-spacing:-.3px}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto 32px}
+    @media(max-width:768px){.pricing-grid{grid-template-columns:1fr;gap:16px;max-width:400px}}
+
+    .price-card{padding:32px 24px;border-radius:14px;background:var(--card);border:1px solid var(--bd);position:relative;transition:all .3s;text-align:left;display:flex;flex-direction:column}
+    .price-card:hover{transform:translateY(-3px)}
+    .price-card.featured{border-color:var(--ac);box-shadow:0 0 40px var(--acg)}
+    .price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--ac);color:var(--bg);font-size:8px;font-weight:700;letter-spacing:2px;padding:3px 12px;border-radius:20px;text-transform:uppercase;white-space:nowrap}
+    .price-name{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--t2);margin-bottom:14px}
+    .price-card.featured .price-name{color:var(--ac)}
+    .price-amount{font-size:clamp(28px,4vw,36px);font-weight:700;margin-bottom:4px}
+    .price-amount .unit{font-size:13px;color:var(--t2);font-weight:400}
+    .price-sub{font-size:11px;color:var(--t3);margin-bottom:20px;min-height:32px}
+    .price-sub .save{color:var(--ac);font-weight:600}
+    .price-features{list-style:none;margin-bottom:24px;flex:1}
+    .price-features li{font-size:12px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--bd)}
+    .price-features li::before{content:'✓ ';color:var(--ac);font-weight:700}
+    .price-cta{display:block;text-align:center;padding:10px 20px;margin-top:auto;border-radius:6px;font-size:10px;font-weight:600;letter-spacing:1px;text-decoration:none;transition:all .35s}
+    .price-cta.soon{background:transparent;color:var(--t3);border:1px solid var(--bd);cursor:default}
+    .price-cta.act{background:var(--ac);color:var(--bg)}
+
+    .pricing-note{font-size:11px;color:var(--t3);max-width:600px;margin:0 auto}
+    .links{margin-top:48px;display:flex;gap:16px;justify-content:center}
+    .links a{font-size:11px;color:var(--t3);text-decoration:none;transition:color .2s}
+    .links a:hover{color:var(--ac)}
+    .copy{margin-top:48px;font-size:9px;color:#2A2A3A;letter-spacing:1px}
+  </style>
+</head>
+<body>
+
+  <div style="margin-bottom:20px">
+    <svg width="56" height="56" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#0A0A0A"/><circle cx="24" cy="24" r="19.2" fill="none" stroke="#fff" stroke-width="2.3" stroke-dasharray="2.16 1.44" stroke-linecap="round"/><circle cx="24" cy="24" r="14.4" fill="none" stroke="#81C784" stroke-width="2" stroke-dasharray="2.16 1.44" stroke-linecap="round"/><circle cx="24" cy="4.8" r="2.2" fill="#fff"/><circle cx="43.2" cy="24" r="2.2" fill="#fff"/><circle cx="24" cy="43.2" r="2.2" fill="#fff"/><circle cx="4.8" cy="24" r="2.2" fill="#fff"/><text x="24" y="29.5" font-family="Arial Black,sans-serif" font-weight="900" font-size="17.8" fill="#81C784" text-anchor="middle">R</text></svg>
+  </div>
+  <div class="logo">ROUNDIE</div>
+  <p class="tag">Shape your <em>round</em>.</p>
+  <p class="soon">COMING APRIL 2026</p>
+
+  <!-- PRICING -->
+  <div class="pricing-title">Pricing</div>
+  <p class="pricing-sub">Start free. Upgrade when you're ready.</p>
+
+  <div class="pricing-grid">
+    <!-- FREE -->
+    <div class="price-card">
+      <div class="price-name">FREE</div>
+      <div class="price-amount">¥0</div>
+      <div class="price-sub">For everyone — free forever</div>
+      <ul class="price-features">
+        <li>Score recording & Wordle grid</li>
+        <li>Competitions (3/mo, 8 players)</li>
+        <li>Feed, Kudos & Ranking</li>
+        <li>Grid sharing (with logo)</li>
+        <li>Basic statistics</li>
+      </ul>
+      <span class="price-cta act">Free at launch</span>
+    </div>
+
+    <!-- COMPE PACK -->
+    <div class="price-card">
+      <div class="price-name">COMPE PACK</div>
+      <div class="price-amount">¥980<span class="unit">/event</span></div>
+      <div class="price-sub">For organizers — pay only when you host</div>
+      <ul class="price-features">
+        <li>Everything in Free, plus:</li>
+        <li>Up to 40 players per event</li>
+        <li>Auto scoring & ranking</li>
+        <li>Result reveal animation</li>
+        <li>Shareable result cards</li>
+      </ul>
+      <span class="price-cta soon">Coming soon</span>
+    </div>
+
+    <!-- ROUNDIE PRO -->
+    <div class="price-card featured">
+      <div class="price-badge">BEST VALUE</div>
+      <div class="price-name">ROUNDIE Pro</div>
+      <div class="price-amount">¥650<span class="unit">/mo</span></div>
+      <div class="price-sub">or ¥7,800/year</div>
+      <ul class="price-features">
+        <li>Everything in Free, plus:</li>
+        <li><strong>Unlimited</strong> competitions & players</li>
+        <li>Auto scoring & ranking</li>
+        <li>Result reveal animation</li>
+        <li>Shareable result cards</li>
+      </ul>
+      <span class="price-cta soon">Coming soon</span>
+    </div>
+  </div>
+
+  <p class="pricing-note">All core features are free forever — no credit card required.<br>Paid plans are coming after launch. *Pricing and features are subject to change.</p>
+
+  <div class="links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+  <div class="copy">&copy; 2026 KANOPY Inc.</div>
+
+</body>
+</html>
