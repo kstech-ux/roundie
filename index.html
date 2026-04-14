@@ -242,6 +242,22 @@
     .soc-sub{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     @media(max-width:768px){.soc-sub{grid-template-columns:repeat(2,1fr);gap:12px}}
     @media(max-width:480px){.soc-sub{grid-template-columns:1fr;gap:12px}}
+    /* Feature blocks */
+    .feat-block{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:64px 0;border-bottom:1px solid var(--border)}
+    .feat-block:last-child{border-bottom:none}
+    .feat-block.reverse{direction:rtl}
+    .feat-block.reverse>*{direction:ltr}
+    .feat-block-text{display:flex;flex-direction:column;gap:12px}
+    .feat-block-text .feat-label{font-size:10px;font-weight:800;letter-spacing:4px;color:var(--primary);text-transform:uppercase}
+    .feat-block-text h3{font-size:clamp(20px,3vw,26px);font-weight:700;line-height:1.35}
+    .feat-block-text p{font-size:14px;color:var(--text-sub);line-height:1.8}
+    .feat-block-text .feat-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+    .feat-block-text .feat-tag{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;background:var(--primary-light);color:var(--primary)}
+    .feat-block-visual{border-radius:16px;background:var(--bg-alt);border:1px solid var(--border);padding:24px;overflow:hidden}
+    @media(max-width:768px){
+      .feat-block{grid-template-columns:1fr;gap:24px;padding:48px 0}
+      .feat-block.reverse{direction:ltr}
+    }
     .sc{padding:24px;border-radius:16px;background:var(--bg);border:1px solid var(--border);transition:all .4s;text-align:center;cursor:pointer;position:relative;overflow:hidden}
     .sc:hover,.sc.active{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.3);border-color:var(--primary)}
     .sc-i{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;margin:0 auto 12px;color:#fff;transition:transform .3s}
@@ -501,9 +517,9 @@
   <div class="si fu">
     <div class="sl">Why ROUNDIE</div>
     <div class="st">
-      <span class="lj a">ラウンドの記憶、<br class="sp">ちゃんと残せてる？</span>
-      <span class="le">Are you keeping<br class="sp">your round memories?</span>
-      <span class="lk">라운드의 기억,<br class="sp">제대로 남기고 있나요?</span>
+      <span class="lj a">ラウンドの記憶、<br class="sp">残しませんか？</span>
+      <span class="le">Why not keep<br class="sp">your round memories?</span>
+      <span class="lk">라운드의 기억,<br class="sp">남겨보지 않으시겠어요?</span>
     </div>
     <div class="ss">
       <span class="lj a">朝の緊張感、最高のショット、仲間との笑い声。<br class="sp">ゴルフの体験は、数字だけじゃ残せない。<br class="sp">ROUNDIEなら、体験も記憶もまるごと、<br class="sp">美しく残して仲間とシェアできる。</span>
@@ -518,125 +534,112 @@
   <div class="si fu">
     <div class="sl">Social</div>
     <div class="st">
-      <span class="lj a">仲間のラウンドが、<br class="sp">フィードに届く。</span>
-      <span class="le">Your friends' rounds, delivered to your feed.</span>
-      <span class="lk">동료의 라운드가 피드에 도착한다.</span>
-    </div>
-    <div class="ss">
-      <span class="lj a">ゴルフ仲間だけの、あたたかいSNS。</span>
-      <span class="le">A warm social network, just for golfers.</span>
-      <span class="lk">골프 친구만의 따뜻한 SNS.</span>
+      <span class="lj a">ゴルフ仲間だけの、<br class="sp">あたたかいSNS。</span>
+      <span class="le">A warm social network,<br class="sp">just for golfers.</span>
+      <span class="lk">골프 친구만의<br class="sp">따뜻한 SNS.</span>
     </div>
 
-    <!-- Feed: Main Visual -->
-    <div class="feed-hero">
-      <div class="feed-hero-grid">
-        <div>
-          <h3><span class="ilj a">Feed</span><span class="ile">Feed</span><span class="ilk">Feed</span></h3>
-          <p class="feed-desc">
-            <span class="lj a">仲間が今日どんなラウンドだったか、<br class="sp">ひと目でわかる。<br class="sp">グリッドを見て、Kudosを送ろう。</span>
-            <span class="le">See how your friends played today at a glance. Check their grids and send Kudos.</span>
-            <span class="lk">동료가 오늘 어떤 라운드였는지 한눈에 알 수 있다. 그리드를 보고 Kudos를 보내자.</span>
-          </p>
-          <div class="feed-tag">
-            <span class="ilj a">ゴルフの楽しさを、仲間と分かち合おう。</span>
-            <span class="ile">Share the joy of golf with your crew.</span>
-            <span class="ilk">골프의 즐거움을 동료와 나누자.</span>
-          </div>
+    <!-- FEED -->
+    <div class="feat-block">
+      <div class="feat-block-text">
+        <div class="feat-label">Feed</div>
+        <h3><span class="lj a">仲間のラウンドが、<br class="sp">フィードに届く。</span><span class="le">Your friends' rounds,<br class="sp">delivered to your feed.</span><span class="lk">동료의 라운드가<br class="sp">피드에 도착한다.</span></h3>
+        <p><span class="lj a">ラウンドが終わったらアプリを開こう。<br class="sp">仲間の今日のグリッドが並んでいる。<br class="sp">写真やコメントも添えて、<br class="sp">ゴルフの1日を仲間と共有できる。</span><span class="le">Open the app after your round. Your friends' grids are waiting. Add photos and comments to share your golf day together.</span><span class="lk">라운드가 끝나면 앱을 열자. 동료의 오늘의 그리드가 나란히. 사진과 코멘트를 더해 골프의 하루를 공유.</span></p>
+        <div class="feat-tags">
+          <span class="feat-tag"><span class="ilj a">グリッド</span><span class="ile">Grids</span><span class="ilk">그리드</span></span>
+          <span class="feat-tag"><span class="ilj a">写真</span><span class="ile">Photos</span><span class="ilk">사진</span></span>
+          <span class="feat-tag"><span class="ilj a">コメント</span><span class="ile">Comments</span><span class="ilk">코멘트</span></span>
         </div>
-        <div class="feed-mock">
-          <div class="feed-item">
-            <div class="feed-item-head">
-              <div class="feed-item-av">Y</div>
-              <div><div class="feed-item-name">Yuki</div><div class="feed-item-course"><span class="ilj a">ラウンディーGC</span><span class="ile">Roundie GC</span><span class="ilk">라운디 GC</span></div></div>
-            </div>
-            <div class="feed-photo" style="background-image:url('https://images.unsplash.com/photo-1592937238247-cd0090e02f65?w=600&h=340&fit=crop')"><span class="feed-photo-label">HOLE 7</span></div>
-            <div class="feed-item-grid">
-              <span style="background:#4CAF50"></span><span style="background:#EF5350"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#FFD700"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span>
-              <span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#EF5350"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span>
-            </div>
-            <div class="feed-item-kudos">🎉 <span class="ilj a">ナイスバーディー！</span><span class="ile">Nice Birdie!</span><span class="ilk">나이스 버디!</span></div>
+      </div>
+      <div class="feat-block-visual">
+        <div class="feed-item">
+          <div class="feed-item-head">
+            <div class="feed-item-av">Y</div>
+            <div><div class="feed-item-name">Yuki</div><div class="feed-item-course"><span class="ilj a">ラウンディーGC</span><span class="ile">Roundie GC</span><span class="ilk">라운디 GC</span></div></div>
           </div>
-          <div class="feed-item">
-            <div class="feed-item-head">
-              <div class="feed-item-av" style="background:#FF9800">K</div>
-              <div><div class="feed-item-name">Kenji</div><div class="feed-item-course"><span class="ilj a">松風GC</span><span class="ile">Pine Wind GC</span><span class="ilk">솔바람 GC</span></div></div>
-            </div>
-            <div class="feed-photo" style="background-image:url('https://images.unsplash.com/photo-1629928727211-5b7c2e80d9cc?w=600&h=340&fit=crop')"><span class="feed-photo-label">WITH FRIENDS</span></div>
-            <div class="feed-item-grid">
-              <span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#5C6BC0"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span>
-              <span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#5C6BC0"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span>
-            </div>
-            <div class="feed-item-kudos">💪 <span class="ilj a">ナイスリカバリー！</span><span class="ile">Nice Recovery!</span><span class="ilk">나이스 리커버리!</span></div>
+          <div class="feed-photo" style="background-image:url('https://images.unsplash.com/photo-1592937238247-cd0090e02f65?w=600&h=340&fit=crop')"><span class="feed-photo-label">HOLE 7</span></div>
+          <div class="feed-item-grid">
+            <span style="background:#4CAF50"></span><span style="background:#EF5350"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#FFD700"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span>
+            <span style="background:#4CAF50"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#EF5350"></span><span style="background:#4CAF50"></span><span style="background:#42A5F5"></span><span style="background:#4CAF50"></span><span style="background:#4CAF50"></span>
           </div>
+          <div class="feed-item-kudos">🎉 <span class="ilj a">ナイスバーディー！</span><span class="ile">Nice Birdie!</span><span class="ilk">나이스 버디!</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Sub: Feed / Kudos / Ranking / ID (interactive) -->
-    <div class="soc-sub">
-      <!-- Feed -->
-      <div class="sc" onclick="tSc(this)">
-        <div class="sc-i">F</div>
-        <h3>Feed</h3>
-        <p class="sc-brief"><span class="lj a">仲間の"かたち"が集まる場所。写真やコメントも添えて…</span><span class="le">Where your crew's shapes gather. Add photos, comments…</span><span class="lk">동료의 '형태'가 모이는 곳. 사진과 코멘트도…</span></p>
-        <div class="sc-detail">
-          <div class="sc-detail-inner">
-            <p><span class="lj a">ラウンド後にアプリを開くと、<br class="sp">仲間の今日のグリッドが並んでいる。<br class="sp">写真やコメントも添えて、<br class="sp">ゴルフの1日を仲間と共有できる。</span><span class="le">Open the app after your round and see your friends' grids waiting. Add photos and comments to share your golf day.</span><span class="lk">라운드 후 앱을 열면 친구들의 그리드가 기다리고 있다. 사진과 코멘트를 더해 골프의 하루를 공유.</span></p>
-            <div class="detail-tag"><span class="ilj a">グリッド・写真・コメント</span><span class="ile">Grids · Photos · Comments</span><span class="ilk">그리드 · 사진 · 코멘트</span></div>
-          </div>
+    <!-- KUDOS -->
+    <div class="feat-block reverse">
+      <div class="feat-block-text">
+        <div class="feat-label">Kudos</div>
+        <h3><span class="lj a">「いいね」じゃ足りない。</span><span class="le">More than a like.</span><span class="lk">좋아요로는 부족하다.</span></h3>
+        <p><span class="lj a">6種類のKudosで仲間のプレーを称えよう。<br class="sp">ナイスバーディー、ナイスリカバリー、ベスト更新…<br class="sp">ゴルファーだけに通じるリスペクトを贈ろう。</span><span class="le">Celebrate with 6 types of Kudos. Nice Birdie, Nice Recovery, New Best… Send respect that only golfers understand.</span><span class="lk">6종류의 Kudos로 동료의 플레이를 칭찬하자. 나이스 버디, 나이스 리커버리, 베스트 갱신… 골퍼만이 아는 리스펙트를.</span></p>
+        <div class="feat-tags">
+          <span class="feat-tag">🎉 <span class="ilj a">ナイスバーディー</span><span class="ile">Nice Birdie</span><span class="ilk">나이스 버디</span></span>
+          <span class="feat-tag">💪 <span class="ilj a">ナイスリカバリー</span><span class="ile">Nice Recovery</span><span class="ilk">나이스 리커버리</span></span>
+          <span class="feat-tag">🔥 <span class="ilj a">ベスト更新</span><span class="ile">New Best</span><span class="ilk">베스트 갱신</span></span>
+          <span class="feat-tag">🎯 <span class="ilj a">グリーンマスター</span><span class="ile">Green Master</span><span class="ilk">그린 마스터</span></span>
+          <span class="feat-tag">🧠 <span class="ilj a">スマートプレー</span><span class="ile">Smart Play</span><span class="ilk">스마트 플레이</span></span>
+          <span class="feat-tag">👑 <span class="ilj a">スタイルキング</span><span class="ile">Style King</span><span class="ilk">스타일 킹</span></span>
         </div>
       </div>
-      <!-- Kudos -->
-      <div class="sc" onclick="tSc(this)">
-        <div class="sc-i">K</div>
-        <h3>Kudos</h3>
-        <p class="sc-brief"><span class="lj a">いいね以上の称賛を。ゴルファーならではの…</span><span class="le">More than a like. Golfer-specific respect…</span><span class="lk">좋아요 이상의 칭찬. 골퍼만의…</span></p>
-        <div class="sc-detail">
-          <div class="sc-detail-inner">
-            <p><span class="lj a">6種類のKudosで<br class="sp">仲間のプレーを称えよう。<br class="sp">「いいね」では伝えきれない、<br class="sp">ゴルファーならではのリスペクトを。</span><span class="le">Celebrate with 6 types of Kudos. Express respect that a simple "like" can't capture.</span><span class="lk">6종류의 Kudos로 동료의 플레이를 칭찬하자. '좋아요'로는 부족한 리스펙트를.</span></p>
-            <div class="kudos-cats">
-              <span class="kudos-cat">🎉 <span class="ilj a">ナイスバーディー</span><span class="ile">Nice Birdie</span><span class="ilk">나이스 버디</span></span>
-              <span class="kudos-cat">💪 <span class="ilj a">ナイスリカバリー</span><span class="ile">Nice Recovery</span><span class="ilk">나이스 리커버리</span></span>
-              <span class="kudos-cat">🔥 <span class="ilj a">ベスト更新</span><span class="ile">New Best</span><span class="ilk">베스트 갱신</span></span>
-            </div>
-          </div>
+      <div class="feat-block-visual" style="text-align:center;padding:48px 24px">
+        <div style="font-size:64px;margin-bottom:16px">🤝</div>
+        <p style="font-size:14px;color:var(--text-sub);line-height:1.8">
+          <span class="lj a">仲間のプレーに、<br class="sp">ゴルファーならではの称賛を。</span>
+          <span class="le">Celebrate your friends' play<br class="sp">with golfer-specific respect.</span>
+          <span class="lk">동료의 플레이에<br class="sp">골퍼만의 칭찬을.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- RANKING -->
+    <div class="feat-block">
+      <div class="feat-block-text">
+        <div class="feat-label">Ranking</div>
+        <h3><span class="lj a">仲間の中で、<br class="sp">今どこにいる？</span><span class="le">Where do you stand<br class="sp">among friends?</span><span class="lk">동료 중에서<br class="sp">지금 어디에?</span></h3>
+        <p><span class="lj a">フレンズランキングで仲間内の順位を確認。<br class="sp">自己成長ビューで自分の軌跡も振り返れる。<br class="sp">ランクが上がるとバッジが進化する。</span><span class="le">Check your position among friends. Track your growth over time. Earn evolving rank badges as you level up.</span><span class="lk">프렌즈 랭킹에서 순위 확인. 성장 뷰에서 궤적도 돌아보자. 랭크가 오르면 배지가 진화.</span></p>
+        <div class="feat-tags">
+          <span class="feat-tag"><span class="rb-1" style="background:#152015;color:#81C784;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700">ROOKIE</span></span>
+          <span class="feat-tag"><span class="rb-2" style="background:#201A10;color:#FF9800;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700">PLAYER</span></span>
+          <span class="feat-tag"><span class="rb-3" style="background:#1A1520;color:#CE93D8;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700">MASTER</span></span>
         </div>
       </div>
-      <!-- Ranking -->
-      <div class="sc" onclick="tSc(this)">
-        <div class="sc-i">R</div>
-        <h3>Ranking</h3>
-        <p class="sc-brief"><span class="lj a">仲間の中で、今どこにいる？ランクが上がると…</span><span class="le">Where do you stand? Earn rank badges…</span><span class="lk">지금 어디에? 랭크가 오르면…</span></p>
-        <div class="sc-detail">
-          <div class="sc-detail-inner">
-            <p><span class="lj a">フレンズランキングで<br class="sp">仲間内の順位を確認。<br class="sp">自己成長ビューで自分の軌跡も振り返れる。<br class="sp">ランクが上がるとバッジが進化。</span><span class="le">Check your position among friends. Track your growth. Earn evolving rank badges.</span><span class="lk">프렌즈 랭킹에서 순위 확인. 성장 뷰에서 궤적도 돌아보자. 랭크가 오르면 배지가 진화.</span></p>
-            <div class="rank-mini">
-              <div class="rank-row"><span class="rank-pos">1</span><span class="rank-name">Yuki</span><span class="rank-score">74.2</span></div>
-              <div class="rank-row rank-you"><span class="rank-pos">2</span><span class="rank-name"><span class="ilj a">あなた</span><span class="ile">You</span><span class="ilk">나</span></span><span class="rank-score">68.5 <span style="color:var(--primary);font-size:9px">▲+3.1</span></span></div>
-              <div class="rank-row"><span class="rank-pos">3</span><span class="rank-name">Kenji</span><span class="rank-score">62.0</span></div>
-            </div>
-            <div class="rank-badge">
-              <span class="rb-1">ROOKIE</span>
-              <span class="rb-2">PLAYER</span>
-              <span class="rb-3">MASTER</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- ROUNDIE ID -->
-      <div class="sc" onclick="tSc(this)">
-        <div class="sc-i">ID</div>
-        <h3>ROUNDIE ID</h3>
-        <p class="sc-brief"><span class="lj a">あなただけのゴルフカード。SNSでシェアすれば…</span><span class="le">Your personal golf card. Share on social…</span><span class="lk">나만의 골프 카드. SNS에서 공유하면…</span></p>
-        <div class="sc-detail">
-          <div class="sc-detail-inner">
-            <p><span class="lj a">ランク、ROUNDIE Score、<br class="sp">ラウンド履歴がひとつに。<br class="sp">見せたくなる洗練されたデザイン。<br class="sp">SNSでシェアすれば、あなたのゴルフIDに。</span><span class="le">Rank, ROUNDIE Score, round history — all in one card. A design you'll want to share. Your golf identity on social.</span><span class="lk">랭크, ROUNDIE Score, 라운드 기록이 하나로. 보여주고 싶은 디자인. SNS에서 공유하면 나의 골프 ID로.</span></p>
-            <div class="detail-tag"><span class="ilj a">ランク・スコア・履歴</span><span class="ile">Rank · Score · History</span><span class="ilk">랭크 · 스코어 · 기록</span></div>
-          </div>
+      <div class="feat-block-visual">
+        <div class="rank-mini" style="text-align:left">
+          <div class="rank-row" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;font-weight:800;color:var(--primary);width:24px">1</span><span style="font-size:13px;font-weight:600;flex:1">Yuki</span><span style="font-size:13px;font-weight:700">74.2</span></div>
+          <div class="rank-row" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);background:var(--primary-light);border-radius:6px;padding:10px 8px"><span style="font-size:13px;font-weight:800;color:var(--primary);width:24px">2</span><span style="font-size:13px;font-weight:600;flex:1"><span class="ilj a">あなた</span><span class="ile">You</span><span class="ilk">나</span></span><span style="font-size:13px;font-weight:700">68.5 <span style="color:var(--primary);font-size:10px">▲+3.1</span></span></div>
+          <div class="rank-row" style="display:flex;justify-content:space-between;padding:10px 0"><span style="font-size:13px;font-weight:800;color:var(--primary);width:24px">3</span><span style="font-size:13px;font-weight:600;flex:1">Kenji</span><span style="font-size:13px;font-weight:700">62.0</span></div>
         </div>
       </div>
     </div>
+
+    <!-- ROUNDIE ID -->
+    <div class="feat-block reverse">
+      <div class="feat-block-text">
+        <div class="feat-label">ROUNDIE ID</div>
+        <h3><span class="lj a">あなただけの<br class="sp">ゴルフカード。</span><span class="le">Your personal<br class="sp">golf card.</span><span class="lk">나만의<br class="sp">골프 카드.</span></h3>
+        <p><span class="lj a">ランク、ROUNDIE Score、ラウンド履歴が<br class="sp">ひとつのカードに。<br class="sp">見せたくなる洗練されたデザイン。<br class="sp">SNSでシェアすれば、あなたのゴルフIDに。</span><span class="le">Rank, ROUNDIE Score, round history — all in one card. A design you'll want to share. Your golf identity on social.</span><span class="lk">랭크, ROUNDIE Score, 라운드 기록이 하나로. 보여주고 싶은 디자인. SNS에서 공유하면 나의 골프 ID로.</span></p>
+        <div class="feat-tags">
+          <span class="feat-tag"><span class="ilj a">ランク</span><span class="ile">Rank</span><span class="ilk">랭크</span></span>
+          <span class="feat-tag"><span class="ilj a">スコア</span><span class="ile">Score</span><span class="ilk">스코어</span></span>
+          <span class="feat-tag"><span class="ilj a">履歴</span><span class="ile">History</span><span class="ilk">기록</span></span>
+          <span class="feat-tag"><span class="ilj a">シェア</span><span class="ile">Share</span><span class="ilk">공유</span></span>
+        </div>
+      </div>
+      <div class="feat-block-visual" style="text-align:center;padding:32px 24px">
+        <div style="background:var(--bg);border-radius:16px;padding:24px;border:1px solid var(--border);max-width:240px;margin:0 auto">
+          <div style="font-size:9px;font-weight:700;letter-spacing:3px;color:var(--primary);margin-bottom:8px">ROUNDIE ID</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:4px"><span class="ilj a">かずしげ</span><span class="ile">Kazushige</span><span class="ilk">카즈시게</span></div>
+          <div style="font-size:10px;color:var(--text-muted);margin-bottom:12px">@kazushige</div>
+          <div style="display:flex;justify-content:center;gap:8px;margin-bottom:12px">
+            <span style="background:#152015;color:#81C784;padding:3px 8px;border-radius:8px;font-size:9px;font-weight:700">ROOKIE</span>
+          </div>
+          <div style="font-size:28px;font-weight:800;color:var(--primary);margin-bottom:4px">68.5</div>
+          <div style="font-size:9px;color:var(--text-muted);letter-spacing:2px">ROUNDIE SCORE</div>
+        </div>
+      </div>
+    </div>
+
     <p style="text-align:center;font-size:9px;color:var(--text-muted);margin-top:16px;letter-spacing:1px">
       <span class="ilj a">* 開発中の画面イメージです</span><span class="ile">* Development mockup</span><span class="ilk">* 개발 중 화면 이미지입니다</span>
     </p>
