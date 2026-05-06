@@ -7,26 +7,15 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
   <style>
     :root {
-      --primary: #2D5A27;
-      --primary-light: #E8F5E9;
-      --accent: #D4735A;
-      --bg: #FAFAFA;
-      --surface: #FFFFFF;
-      --text: #212121;
-      --text-secondary: #616161;
-      --border: #E0E0E0;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --primary: #81C784;
-        --primary-light: #1B3A1A;
-        --accent: #E8977A;
-        --bg: #121212;
-        --surface: #1E1E1E;
-        --text: #E0E0E0;
-        --text-secondary: #9E9E9E;
-        --border: #333333;
-      }
+      --primary: #81C784;
+      --primary-light: #1B3A1A;
+      --bg: #0E0E0E;
+      --bg-alt: #161816;
+      --surface: #1A1C1A;
+      --text: #E8E8E8;
+      --text-secondary: #AAA;
+      --text-muted: #666;
+      --border: #2A2C2A;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -35,21 +24,23 @@
       color: var(--text);
       line-height: 1.8;
       font-size: 15px;
+      -webkit-font-smoothing: antialiased;
     }
+    ::selection { background: var(--primary); color: var(--bg); }
     .header {
-      background: var(--primary);
-      color: white;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
       padding: 24px 0;
       text-align: center;
     }
-    .header h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
-    .header .app-name { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+    .header h1 { font-size: 18px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); }
+    .header .app-name { font-size: 12px; letter-spacing: 6px; font-weight: 900; color: var(--primary); margin-bottom: 6px; }
     .lang-switch {
       display: flex;
       justify-content: center;
       gap: 8px;
-      padding: 16px 0;
-      background: var(--surface);
+      padding: 14px 0;
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -59,15 +50,18 @@
       padding: 6px 16px;
       border-radius: 20px;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       border: 1px solid var(--border);
       transition: all 0.2s;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
     }
     .lang-switch a.active, .lang-switch a:hover {
-      background: var(--primary);
-      color: white;
+      background: var(--primary-light);
+      color: var(--primary);
       border-color: var(--primary);
     }
     .container {
@@ -83,21 +77,22 @@
       border-bottom: 1px solid var(--border);
     }
     h2 {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--primary);
-      margin: 32px 0 12px;
+      margin: 36px 0 12px;
       padding-bottom: 8px;
-      border-bottom: 2px solid var(--primary-light);
+      border-bottom: 1px solid var(--border);
     }
-    p { margin: 8px 0; }
-    ul, ol { margin: 8px 0 8px 24px; }
+    p { margin: 8px 0; color: var(--text-secondary); }
+    ul, ol { margin: 8px 0 8px 24px; color: var(--text-secondary); }
     li { margin: 4px 0; }
+    a { color: var(--primary); }
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 12px 0;
-      font-size: 14px;
+      font-size: 13px;
     }
     th {
       background: var(--primary-light);
@@ -106,29 +101,32 @@
       text-align: left;
       padding: 10px 12px;
       border: 1px solid var(--border);
+      font-size: 12px;
     }
     td {
       padding: 8px 12px;
       border: 1px solid var(--border);
       vertical-align: top;
+      color: var(--text-secondary);
     }
-    tr:nth-child(even) td { background: var(--bg); }
+    tr:nth-child(even) td { background: var(--bg-alt); }
     .footer {
       text-align: center;
       padding: 32px 20px;
-      color: var(--text-secondary);
-      font-size: 13px;
+      color: var(--text-muted);
+      font-size: 12px;
       border-top: 1px solid var(--border);
     }
     .footer a { color: var(--primary); text-decoration: none; }
     .lang-content { display: none; }
     .lang-content.active { display: block; }
+    strong { color: var(--text); }
   </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="app-name" style="letter-spacing:4px;font-weight:900;font-size:14px">ROUNDIE</div>
+  <div class="app-name">ROUNDIE</div>
   <h1>利用規約</h1>
 </div>
 
