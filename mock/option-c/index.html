@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0A0A0A">
+<title>Mock Option C — Sporty / App-Linked / ROUNDIE</title>
+<style>
+:root{
+  /* Exact app brand tokens — from constants/brand-tokens.ts */
+  --bg:#0A0A0A;
+  --bg-2:#111111;
+  --bg-3:#181818;
+  --line:rgba(255,255,255,.08);
+  --line-strong:rgba(255,255,255,.18);
+  --t1:#FFFFFF;
+  --t2:#A0A0A0;
+  --t3:#666666;
+  --green:#2D5A27;
+  --green-mid:#4A9A5D;
+  --green-hi:#5BAF52;
+  --green-on-dark:#7FCF6F;
+  --green-bg:rgba(45,90,39,.18);
+  --score-eagle:#F5C400;
+  --score-birdie:#2D5A27;
+  --score-par:#2D5A27;
+  --score-bogey:#60A5FA;
+  --score-double:#9B8EC4;
+  --score-triple:#888888;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,'Inter','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;
+  background:var(--bg);color:var(--t1);
+  line-height:1.55;font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--green-on-dark);color:#0A0A0A}
+
+/* Brand wordmark — matches app exactly: Arial Black 900 + letter-spacing 6-8 */
+.wm{
+  font-family:'Arial Black','Helvetica Neue Black',Arial,sans-serif;
+  font-weight:900;
+}
+
+/* TOP — looks like the app's tab bar */
+.top{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(24px) saturate(1.4);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.top-in{
+  max-width:1200px;margin:0 auto;
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+
+/* Brand mark in nav — matches app logo */
+.brand-mark{display:flex;align-items:center;gap:12px}
+.brand-mark svg{display:block;flex-shrink:0}
+.brand-mark .wm{font-size:14px;letter-spacing:.42em;color:var(--t1)}
+
+.top nav{display:flex;gap:4px;align-items:center}
+.top nav a{
+  padding:10px 14px;font-size:13px;font-weight:600;color:var(--t2);
+  border-radius:8px;transition:color .2s,background .2s;
+}
+.top nav a:hover,.top nav a.active{color:var(--green-on-dark);background:var(--green-bg)}
+.top .cta{
+  padding:11px 20px;background:var(--green);color:#FFF;
+  font-weight:700;font-size:13px;letter-spacing:.04em;border-radius:8px;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background .2s,transform .15s;
+  box-shadow:0 0 0 1px rgba(91,175,82,.3);
+}
+.top .cta:hover{background:var(--green-mid);transform:translateY(-1px)}
+@media(max-width:768px){.top nav{display:none}}
+
+/* HERO — sporty, asymmetric, course-image vibe */
+.hero{
+  max-width:1200px;margin:0 auto;padding:64px 20px 80px;position:relative;
+}
+@media(min-width:768px){.hero{padding:100px 32px 120px}}
+@media(min-width:1024px){.hero{padding:140px 40px 160px}}
+
+.hero-grid{
+  display:grid;grid-template-columns:1fr;gap:48px;align-items:center;
+}
+@media(min-width:900px){.hero-grid{grid-template-columns:1fr .8fr;gap:80px}}
+
+.hero-eye{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.32em;
+  color:var(--green-on-dark);text-transform:uppercase;margin-bottom:28px;
+}
+.hero-eye .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green-on-dark);box-shadow:0 0 12px var(--green-on-dark);animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+
+/* Big wordmark — exactly like app logo wordmark */
+.hero-wm{
+  font-family:'Arial Black','Helvetica Neue Black',Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(56px,12vw,160px);
+  letter-spacing:.04em;
+  line-height:.95;
+  color:var(--green-on-dark);
+  margin-bottom:20px;
+  text-shadow:0 0 80px rgba(91,175,82,.3);
+}
+
+.hero-tag{
+  font-size:clamp(20px,2.4vw,28px);
+  font-weight:600;
+  line-height:1.3;
+  color:var(--t1);
+  margin-bottom:20px;
+  max-width:14ch;
+}
+.hero-tag em{color:var(--green-on-dark);font-style:normal;font-weight:800}
+
+.hero-sub{
+  font-size:15px;color:var(--t2);line-height:1.6;
+  margin-bottom:36px;max-width:42ch;
+}
+
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-sport-pri{
+  padding:14px 28px;background:var(--green);color:#FFF;font-weight:700;font-size:14px;letter-spacing:.04em;
+  border-radius:10px;display:inline-flex;align-items:center;gap:10px;
+  transition:background .2s,transform .15s,box-shadow .25s;
+  box-shadow:0 6px 18px rgba(45,90,39,.4),0 0 0 1px rgba(91,175,82,.4) inset;
+  font-family:inherit;border:0;cursor:pointer;
+}
+.btn-sport-pri:hover{background:var(--green-mid);transform:translateY(-2px);box-shadow:0 10px 28px rgba(74,154,93,.5),0 0 0 1px rgba(91,175,82,.6) inset}
+.btn-sport-sec{
+  padding:14px 26px;color:var(--t1);font-weight:600;font-size:14px;
+  border-radius:10px;border:1px solid var(--line-strong);
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background .2s,border-color .2s;
+}
+.btn-sport-sec:hover{background:var(--bg-2);border-color:var(--green-on-dark)}
+
+/* Hero proof bar */
+.hero-proof{
+  margin-top:36px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;
+  font-size:12px;color:var(--t2);
+}
+.hero-proof strong{color:var(--t1);font-family:'Arial Black',sans-serif;font-weight:900;letter-spacing:.02em}
+.hero-proof .sep{width:1px;height:14px;background:var(--line-strong)}
+
+/* Hero phone — looks like exact app screenshot */
+.hero-phone-stage{
+  position:relative;display:flex;justify-content:center;
+}
+.hero-phone-frame{
+  width:300px;background:linear-gradient(180deg,#16161A,#0A0A0A);
+  border:1px solid var(--line-strong);border-radius:40px;
+  padding:32px 18px 24px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 100px rgba(45,90,39,.3);
+  position:relative;
+}
+.hero-phone-frame::before{
+  content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:60px;height:5px;background:rgba(255,255,255,.1);border-radius:3px;
+}
+
+/* App-like Round Card */
+.ap-card-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding:0 6px}
+.ap-card-h .meta{font-size:10px;color:#888;font-weight:500;letter-spacing:.02em}
+.ap-card-h .score-big{
+  font-family:'Arial Black',sans-serif;font-weight:900;font-size:40px;
+  color:var(--green-on-dark);letter-spacing:-.02em;line-height:1;
+}
+.ap-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;margin-bottom:14px;padding:0 6px}
+.ap-grid > div{aspect-ratio:1;border-radius:18%;display:flex;align-items:center;justify-content:center;font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;color:#FFF}
+.ap-foot{display:flex;justify-content:space-around;padding:14px 6px 4px;border-top:1px solid rgba(255,255,255,.06)}
+.ap-foot div{text-align:center}
+.ap-foot .n{font-family:'Arial Black',sans-serif;font-weight:900;font-size:18px;color:#FFF;letter-spacing:-.01em}
+.ap-foot .l{font-size:9px;color:#777;letter-spacing:.12em;margin-top:2px;font-weight:600}
+
+/* Stats strip — sporty, monospaced numbers */
+.stats-strip{
+  background:var(--bg-2);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:32px 20px;
+}
+.stats-in{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:24px 20px;text-align:center;
+}
+@media(min-width:768px){.stats-in{grid-template-columns:repeat(4,1fr)}}
+.stat-it{display:flex;flex-direction:column;gap:6px}
+.stat-n{font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(24px,3vw,40px);color:var(--green-on-dark);letter-spacing:-.015em;line-height:1}
+.stat-l{font-size:10px;color:var(--t2);letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+
+/* FEATURES — sport-card grid with hero feature */
+.section{padding:80px 20px;max-width:1200px;margin:0 auto}
+@media(min-width:768px){.section{padding:120px 32px}}
+
+.section-h{margin-bottom:48px}
+.section-num{font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;letter-spacing:.32em;color:var(--green-on-dark);margin-bottom:18px}
+.section-title{
+  font-family:'Arial Black','Helvetica Neue Black',Arial,sans-serif;
+  font-weight:900;letter-spacing:-.02em;line-height:1;
+  font-size:clamp(36px,6vw,72px);max-width:14ch;
+}
+.section-title .em{color:var(--green-on-dark)}
+.section-sub{font-size:16px;color:var(--t2);max-width:54ch;margin-top:18px;line-height:1.6}
+
+/* Sporty feature cards */
+.feat-grid{
+  display:grid;grid-template-columns:1fr;gap:16px;
+}
+@media(min-width:768px){.feat-grid{grid-template-columns:repeat(6,1fr);gap:18px}}
+
+.f-card{
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:18px;padding:28px 24px;
+  display:flex;flex-direction:column;
+  transition:border-color .2s,transform .25s cubic-bezier(.32,.72,0,1);
+  position:relative;overflow:hidden;
+}
+.f-card:hover{border-color:rgba(91,175,82,.4);transform:translateY(-3px)}
+@media(min-width:768px){
+  .f-2{grid-column:span 2}
+  .f-3{grid-column:span 3}
+  .f-4{grid-column:span 4}
+}
+.f-card .head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.f-card .ic{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--green-bg);color:var(--green-on-dark);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.f-card .tag{font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.2em;color:var(--green-on-dark)}
+.f-card h3{font-size:clamp(20px,2.4vw,28px);font-weight:800;line-height:1.15;letter-spacing:-.015em;margin-bottom:12px;color:var(--t1)}
+.f-card p{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:18px}
+.f-card .visual{margin-top:auto;display:flex;align-items:center;justify-content:center;min-height:120px;padding:20px;background:var(--bg);border-radius:12px;border:1px solid var(--line)}
+
+/* Special: hero card with full Round Card preview */
+.f-card.hero-card{
+  background:linear-gradient(180deg,rgba(45,90,39,.18) 0%,rgba(45,90,39,.04) 100%);
+  border:1px solid rgba(91,175,82,.3);
+}
+
+.rc-show{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;width:100%;max-width:240px}
+.rc-show > div{aspect-ratio:1;border-radius:18%}
+
+/* ROUNDIE SCORE — 3 pillars */
+.pillars{display:grid;grid-template-columns:1fr;gap:14px;margin-top:36px}
+@media(min-width:768px){.pillars{grid-template-columns:repeat(3,1fr)}}
+.pillar{
+  padding:32px 24px;background:var(--bg-2);border:1px solid var(--line);border-radius:18px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.pillar .pn{font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;letter-spacing:.3em;color:var(--green-on-dark)}
+.pillar .pt{font-size:22px;font-weight:800;color:var(--t1);letter-spacing:-.01em}
+.pillar .pd{font-size:13px;color:var(--t2);line-height:1.65}
+.pillar .pw{
+  margin-top:auto;display:inline-flex;align-self:flex-start;
+  font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.18em;
+  color:var(--green-on-dark);background:var(--green-bg);padding:5px 12px;border-radius:6px;
+}
+
+/* PRICING — sport-table aesthetic */
+.pricing-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:48px}
+@media(min-width:900px){.pricing-grid{grid-template-columns:1fr 1.15fr 1fr;gap:20px;align-items:stretch}}
+
+.pr{
+  padding:36px 28px;background:var(--bg-2);border:1px solid var(--line);border-radius:18px;
+  display:flex;flex-direction:column;
+}
+.pr.featured{
+  background:linear-gradient(180deg,rgba(45,90,39,.2) 0%,rgba(45,90,39,.06) 100%);
+  border:2px solid var(--green);position:relative;
+  box-shadow:0 14px 40px rgba(45,90,39,.25);
+}
+.pr.featured::before{
+  content:'BEST VALUE';
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.3em;
+  background:var(--green);color:#FFF;padding:7px 16px;border-radius:6px;box-shadow:0 4px 14px rgba(45,90,39,.5);
+}
+.pr-n{font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;letter-spacing:.22em;color:var(--green-on-dark);text-transform:uppercase;margin-bottom:16px}
+.pr-p{font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(40px,5vw,56px);letter-spacing:-.02em;line-height:1;margin-bottom:6px;color:var(--t1)}
+.pr-pp{font-size:13px;color:var(--t3);margin-bottom:22px}
+.pr ul{list-style:none;padding:0;margin:0 0 26px;display:flex;flex-direction:column;gap:10px}
+.pr li{font-size:14px;line-height:1.55;color:var(--t1);padding-left:26px;position:relative}
+.pr li::before{
+  content:'';position:absolute;left:0;top:6px;width:14px;height:8px;
+  border-left:2.5px solid var(--green-on-dark);border-bottom:2.5px solid var(--green-on-dark);
+  transform:rotate(-45deg);
+}
+.pr-cta{
+  display:block;text-align:center;padding:15px;border-radius:10px;
+  background:var(--bg-3);border:1px solid var(--line-strong);color:var(--t1);
+  font-weight:700;font-size:14px;letter-spacing:.04em;
+  transition:background .2s,transform .15s;margin-top:auto;
+}
+.pr.featured .pr-cta{background:var(--green);border-color:var(--green);box-shadow:0 6px 18px rgba(45,90,39,.4)}
+.pr.featured .pr-cta:hover{background:var(--green-mid)}
+.pr-cta:hover{transform:translateY(-1px)}
+
+/* Final CTA — sport finish */
+.final{padding:120px 20px;text-align:center;background:linear-gradient(180deg,transparent 0%,rgba(45,90,39,.08) 100%);position:relative;overflow:hidden}
+.final::before{
+  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(91,175,82,.15),transparent 60%);pointer-events:none;
+}
+.final h2{font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(40px,7vw,80px);letter-spacing:-.025em;line-height:1.05;margin-bottom:20px;position:relative}
+.final h2 em{color:var(--green-on-dark);font-style:normal}
+.final p{font-size:16px;color:var(--t2);max-width:480px;margin:0 auto 36px;line-height:1.6;position:relative}
+.final .cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;position:relative}
+
+/* Footer */
+footer{padding:64px 20px 32px;border-top:1px solid var(--line);background:var(--bg)}
+.ft{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:48px}
+@media(min-width:768px){.ft{grid-template-columns:2fr 1fr 1fr 1fr}}
+.ft-b{display:flex;flex-direction:column;gap:14px;max-width:300px}
+.ft-b .wm{font-family:'Arial Black',sans-serif;font-weight:900;font-size:16px;letter-spacing:.4em;color:var(--t1)}
+.ft-b p{font-size:13px;color:var(--t2);line-height:1.65}
+.ft-c h6{font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.2em;color:var(--t1);margin-bottom:14px;text-transform:uppercase}
+.ft-c a{display:block;font-size:13px;color:var(--t2);padding:8px 0;transition:color .2s}
+.ft-c a:hover{color:var(--green-on-dark)}
+.ft-bot{max-width:1200px;margin:48px auto 0;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.ft-bot .c{font-size:12px;color:var(--t3)}
+.ft-bot .t{font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.32em;color:var(--green-on-dark)}
+
+.mock-banner{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:200;padding:10px 18px;background:rgba(20,20,20,.92);border:1px solid var(--line-strong);border-radius:100px;font-size:11px;letter-spacing:.1em;color:#888;font-weight:600;backdrop-filter:blur(20px);display:flex;gap:14px;align-items:center}
+.mock-banner a{color:var(--green-on-dark);font-weight:700}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a href="/" class="brand-mark">
+      <!-- Brand mark — exact app logo (40x40) -->
+      <svg width="36" height="36" viewBox="0 0 80 80">
+        <rect width="80" height="80" rx="18" fill="#0A0A0A"/>
+        <circle cx="40" cy="40" r="28" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+        <circle cx="40" cy="40" r="21" fill="none" stroke="#5BAF52" stroke-width="2.5" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+        <circle cx="40" cy="12" r="3" fill="#FFFFFF"/>
+        <circle cx="68" cy="40" r="3" fill="#FFFFFF"/>
+        <circle cx="40" cy="68" r="3" fill="#FFFFFF"/>
+        <circle cx="12" cy="40" r="3" fill="#FFFFFF"/>
+        <text x="40" y="51" font-family="Arial Black, sans-serif" font-weight="900" font-size="26" fill="#5BAF52" text-anchor="middle">R</text>
+      </svg>
+      <span class="wm">ROUNDIE</span>
+    </a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#score" class="active">Score</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <a href="#" class="cta">Get Early Access →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eye">
+        <span class="live-dot"></span>
+        <span>v1.0.11 · LIVE ON TESTFLIGHT</span>
+      </div>
+      <h1 class="hero-wm">ROUNDIE</h1>
+      <p class="hero-tag">
+        Shape your round.<br>
+        <em>Keep what lasts.</em>
+      </p>
+      <p class="hero-sub">
+        A golf social app for the 20s, 30s, and beyond. Record. Shape. Share. Rise — round by round. Built by golfers, for golfers.
+      </p>
+      <div class="hero-cta">
+        <a href="#" class="btn-sport-pri">
+          Get Early Access
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#features" class="btn-sport-sec">See features</a>
+      </div>
+      <div class="hero-proof">
+        <div><strong>200+</strong> early users</div>
+        <span class="sep"></span>
+        <div><strong>JA · EN · KO</strong></div>
+        <span class="sep"></span>
+        <div>★★★★★ App Store soon</div>
+      </div>
+    </div>
+
+    <div class="hero-phone-stage">
+      <div class="hero-phone-frame">
+        <div class="ap-card-h">
+          <span class="meta">Yuki · Sat Apr 12 · Par 72</span>
+          <span class="score-big">86</span>
+        </div>
+        <div class="ap-grid">
+          <div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#60A5FA">6</div><div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div style="background:#F5C400;color:#0A0A0A">3</div><div style="background:#60A5FA">4</div><div style="background:#9B8EC4">6</div>
+          <div style="background:#2D5A27">4</div><div style="background:#888">7</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#9B8EC4">7</div><div style="background:#2D5A27">4</div><div style="background:#9B8EC4">6</div><div style="background:#2D5A27">5</div><div style="background:#60A5FA">5</div>
+        </div>
+        <div class="ap-foot">
+          <div><span class="n">40</span><span class="l">OUT</span></div>
+          <div><span class="n">46</span><span class="l">IN</span></div>
+          <div><span class="n" style="color:#5BAF52">86</span><span class="l">TOTAL</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stats-in">
+    <div class="stat-it"><span class="stat-n">3 taps</span><span class="stat-l">To host a comp</span></div>
+    <div class="stat-it"><span class="stat-n">18</span><span class="stat-l">Holes → colors</span></div>
+    <div class="stat-it"><span class="stat-n">100pt</span><span class="stat-l">ROUNDIE Score</span></div>
+    <div class="stat-it"><span class="stat-n">7 ranks</span><span class="stat-l">ROOKIE → LEGEND</span></div>
+  </div>
+</div>
+
+<section id="features" class="section">
+  <div class="section-h">
+    <div class="section-num">01 · FEATURES</div>
+    <h2 class="section-title">What other golf apps <span class="em">can't do.</span></h2>
+    <p class="section-sub">Most apps track scores. ROUNDIE captures the memory. Every round becomes a one-of-a-kind canvas — saveable, shareable, returnable. Pair it with a 3-pillar score that values how you play AND who you are.</p>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="f-card hero-card f-4">
+      <div class="head">
+        <span class="ic">🎨</span>
+        <span class="tag">ROUND CARD · ONLY ON ROUNDIE</span>
+      </div>
+      <h3>18 holes become a one-of-a-kind color grid.</h3>
+      <p>No two grids are alike. Eagle gold, par green, bogey blue — your day, painted. Save it as a Round Card you can hold, share, and revisit years from now. Other apps don't do this.</p>
+      <div class="visual">
+        <div class="rc-show">
+          <div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#F5C400"></div><div style="background:#60A5FA"></div><div style="background:#9B8EC4"></div>
+          <div style="background:#2D5A27"></div><div style="background:#888"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="f-card f-2">
+      <div class="head"><span class="ic">🪪</span><span class="tag">SCORE</span></div>
+      <h3>3-pillar ROUNDIE Score.</h3>
+      <p>SKILL · VIBE · STYLE. Climb 7 ranks. Pure earning, no pay-to-win.</p>
+    </div>
+
+    <div class="f-card f-2">
+      <div class="head"><span class="ic">🔥</span><span class="tag">KUDOS</span></div>
+      <h3>Three Kudos for golfers.</h3>
+      <p>Nice Shot · Nice Fight · Best Buddy. Real comments, golf etiquette.</p>
+    </div>
+
+    <div class="f-card f-2">
+      <div class="head"><span class="ic">🏆</span><span class="tag">COMPETITIONS</span></div>
+      <h3>Host a comp in 3 taps.</h3>
+      <p>Auto-scoring, animated result reveal, individual titles auto-shared.</p>
+    </div>
+
+    <div class="f-card f-3">
+      <div class="head"><span class="ic">📱</span><span class="tag">FEED</span></div>
+      <h3>Friends' rounds, in one beautiful timeline.</h3>
+      <p>Round Cards take center stage. Photos when added. Every post tells the day's story.</p>
+    </div>
+
+    <div class="f-card f-3">
+      <div class="head"><span class="ic">🔒</span><span class="tag">PRIVACY</span></div>
+      <h3>You decide what gets shared.</h3>
+      <p>Per-round visibility. Mute · Block · per-photo controls. Supabase Tokyo. Never sold.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="score" class="section" style="border-top:1px solid var(--line)">
+  <div class="section-h">
+    <div class="section-num">02 · ROUNDIE SCORE</div>
+    <h2 class="section-title">A score that values <span class="em">how you play —<br>and who you are.</span></h2>
+    <p class="section-sub">100 points across 3 pillars. Climb from ROOKIE to LEGEND. Earned only by playing, sharing, and showing up. No way to buy your way up.</p>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pn">SKILL</span>
+      <span class="pt">Golf Skill</span>
+      <span class="pd">Average score · consistency · par-save · birdie rate. Beginners get a built-in handicap so early rounds aren't penalized.</span>
+      <span class="pw">35%</span>
+    </div>
+    <div class="pillar">
+      <span class="pn">VIBE</span>
+      <span class="pt">Reputation</span>
+      <span class="pd">Kudos given · comments left · Feed activity. ROUNDIE rewards golfers who lift others up.</span>
+      <span class="pw">30%</span>
+    </div>
+    <div class="pillar">
+      <span class="pn">STYLE</span>
+      <span class="pt">Golf Life</span>
+      <span class="pd">Play frequency · courses visited · streak weeks · profile completeness.</span>
+      <span class="pw">35%</span>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="section" style="border-top:1px solid var(--line)">
+  <div class="section-h">
+    <div class="section-num">03 · PRICING</div>
+    <h2 class="section-title">Free forever. <span class="em">Pro when ready.</span></h2>
+    <p class="section-sub">Core features are free forever. Pro unlocks unlimited competitions, advanced stats, and animated result cards. Cancel anytime.</p>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="pr">
+      <div class="pr-n">Free</div>
+      <div class="pr-p">$0</div>
+      <div class="pr-pp">forever</div>
+      <ul>
+        <li>Unlimited rounds &amp; Round Cards</li>
+        <li>ROUNDIE Score &amp; 7 ranks</li>
+        <li>Feed · Kudos · ranking</li>
+        <li>1 competition / month · 8 players</li>
+      </ul>
+      <a href="#" class="pr-cta">Start free</a>
+    </div>
+    <div class="pr featured">
+      <div class="pr-n">Pro Yearly</div>
+      <div class="pr-p">$39.99</div>
+      <div class="pr-pp">per year · save 17% · ~$3.33/mo</div>
+      <ul>
+        <li><strong>Everything in Free</strong></li>
+        <li>Unlimited competitions · unlimited players</li>
+        <li>Auto-scoring · animated result reveal</li>
+        <li>Advanced stats &amp; trends</li>
+        <li>Shareable result cards</li>
+      </ul>
+      <a href="#" class="pr-cta">Go Pro Yearly</a>
+    </div>
+    <div class="pr">
+      <div class="pr-n">Pro Monthly</div>
+      <div class="pr-p">$4.99</div>
+      <div class="pr-pp">per month · cancel anytime</div>
+      <ul>
+        <li>Same features as Yearly</li>
+        <li>Month-by-month flexibility</li>
+        <li>Apple ID billing</li>
+        <li>Cancel from App Store</li>
+      </ul>
+      <a href="#" class="pr-cta">Go Pro Monthly</a>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <h2>Your next round, <em>kept beautifully.</em></h2>
+  <p>Join Early Access. Free forever. Pro from $4.99/month.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-sport-pri">Get Early Access →</a>
+    <a href="#" class="btn-sport-sec">About KANOPY</a>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">
+    <div class="ft-b">
+      <span class="wm">ROUNDIE</span>
+      <p>Shape your round. Keep what lasts. A golf social app for the 20s, 30s, and beyond. Built by KANOPY Inc., Tokyo.</p>
+    </div>
+    <div class="ft-c"><h6>Product</h6><a href="#">ROUNDIE</a><a href="#">TestFlight</a><a href="#">FAQ</a></div>
+    <div class="ft-c"><h6>Company</h6><a href="#">KANOPY</a><a href="#">Talent</a><a href="#">Notice</a></div>
+    <div class="ft-c"><h6>Legal</h6><a href="#">Terms</a><a href="#">Privacy</a><a href="mailto:roundie@kanopy-inc.com">Contact</a></div>
+  </div>
+  <div class="ft-bot">
+    <div class="c">© 2026 KANOPY Inc. · ROUNDIE is a product of KANOPY Inc.</div>
+    <div class="t">PLAY · SHARE · RISE</div>
+  </div>
+</footer>
+
+<div class="mock-banner">
+  <span>MOCK · OPTION C — Sporty / App-linked</span>
+  <a href="/mock/">Compare</a>
+</div>
+
+</body>
+</html>

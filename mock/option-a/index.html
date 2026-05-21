@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0A0A0A">
+<title>Mock Option A — Minimal Editorial / ROUNDIE</title>
+<style>
+:root{
+  --bg:#0A0A0A;
+  --bg-2:#111111;
+  --bg-3:#161616;
+  --line:rgba(255,255,255,.08);
+  --line-strong:rgba(255,255,255,.16);
+  --t1:#FFFFFF;
+  --t2:#A8A8A8;
+  --t3:#666666;
+  --green:#2D5A27;
+  --green-hi:#5BAF52;
+  --green-bg:rgba(45,90,39,.18);
+  --gold:#F5C400;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,'SF Pro Text','Inter','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;
+  background:var(--bg);color:var(--t1);
+  line-height:1.6;font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"ss01","cv11";
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--green-hi);color:#000}
+
+/* Brand wordmark (matches app: Arial Black 900 + letter-spacing) */
+.wm{
+  font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;
+  font-weight:900;
+  letter-spacing:.32em;
+  font-feature-settings:normal;
+}
+
+/* Top bar — thin, editorial */
+.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.7);
+  backdrop-filter:saturate(1.4) blur(20px);
+  -webkit-backdrop-filter:saturate(1.4) blur(20px);
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  max-width:1200px;margin:0 auto;
+  padding:14px 24px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;
+}
+.top .brand{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Arial Black',sans-serif;font-weight:900;letter-spacing:.4em;font-size:13px;
+}
+.top .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--green-hi);box-shadow:0 0 10px var(--green-hi)}
+.top nav{display:flex;gap:6px;align-items:center}
+.top nav a{
+  padding:10px 14px;font-size:13px;color:var(--t2);
+  border-radius:8px;transition:color .2s,background .2s;font-weight:500;
+}
+.top nav a:hover{color:var(--t1);background:rgba(255,255,255,.04)}
+.top .cta{
+  padding:10px 18px;font-size:13px;font-weight:600;
+  background:var(--t1);color:#000;border-radius:8px;
+  transition:transform .15s;
+}
+.top .cta:hover{transform:translateY(-1px)}
+@media(max-width:768px){
+  .top nav{display:none}
+  .top .cta{padding:8px 14px;font-size:12px}
+}
+
+/* HERO — editorial, type-first */
+.hero{
+  max-width:1200px;margin:0 auto;
+  padding:80px 24px 60px;
+  position:relative;
+}
+@media(min-width:768px){.hero{padding:120px 32px 100px}}
+@media(min-width:1024px){.hero{padding:160px 40px 140px}}
+
+.hero-eye{
+  font-size:12px;font-weight:600;color:var(--t2);
+  letter-spacing:.16em;margin-bottom:20px;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.hero-eye::before{content:'';width:32px;height:1px;background:var(--t2)}
+
+.hero-h1{
+  font-size:clamp(40px,7vw,96px);
+  font-weight:300;
+  line-height:1.02;
+  letter-spacing:-.025em;
+  margin-bottom:24px;
+  max-width:14ch;
+}
+.hero-h1 em{
+  font-style:normal;font-weight:500;
+  color:var(--green-hi);
+  font-feature-settings:"ss01";
+}
+
+.hero-sub{
+  font-size:clamp(16px,1.6vw,19px);
+  font-weight:400;color:var(--t2);
+  max-width:54ch;margin-bottom:40px;
+  line-height:1.55;
+}
+
+.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn-pri{
+  padding:14px 24px;background:var(--t1);color:#000;
+  font-weight:600;font-size:14px;border-radius:8px;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:transform .15s,background .2s;
+  font-family:inherit;border:0;cursor:pointer;
+}
+.btn-pri:hover{transform:translateY(-1px)}
+.btn-pri:active{transform:translateY(0)}
+.btn-sec{
+  padding:14px 22px;color:var(--t1);
+  font-weight:500;font-size:14px;border-radius:8px;
+  border:1px solid var(--line-strong);
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background .2s,border-color .2s;
+}
+.btn-sec:hover{background:rgba(255,255,255,.04);border-color:var(--t1)}
+
+/* Hero meta strip — replaces marquee with editorial stats */
+.hero-meta{
+  margin-top:72px;
+  padding-top:32px;
+  border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(2,1fr);gap:24px 32px;
+  max-width:720px;
+}
+@media(min-width:768px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+.hero-meta-item{display:flex;flex-direction:column;gap:6px}
+.hero-meta-item .n{
+  font-family:'Arial Black',sans-serif;font-weight:900;
+  font-size:clamp(20px,2.4vw,28px);color:var(--t1);
+  letter-spacing:-.01em;
+}
+.hero-meta-item .l{font-size:11px;color:var(--t2);letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+
+/* Section: feature anchored editorial */
+.feat{
+  max-width:1200px;margin:0 auto;
+  padding:80px 24px;
+  border-top:1px solid var(--line);
+}
+@media(min-width:768px){.feat{padding:120px 32px}}
+.feat-h{
+  display:grid;grid-template-columns:1fr;gap:24px;
+  margin-bottom:48px;
+}
+@media(min-width:768px){.feat-h{grid-template-columns:auto 1fr;gap:64px;align-items:end}}
+.feat-num{
+  font-family:'Arial Black',sans-serif;font-weight:900;font-size:14px;
+  color:var(--green-hi);letter-spacing:.16em;
+}
+.feat-title{
+  font-size:clamp(28px,4vw,56px);font-weight:300;line-height:1.05;letter-spacing:-.02em;
+  max-width:18ch;
+}
+.feat-title em{font-style:normal;font-weight:500;color:var(--green-hi)}
+
+/* Grid that intentionally varies — editorial bento */
+.feat-grid{
+  display:grid;grid-template-columns:1fr;gap:16px;
+}
+@media(min-width:768px){.feat-grid{grid-template-columns:repeat(6,1fr);gap:20px}}
+
+.tile{
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:32px 28px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .25s,transform .35s cubic-bezier(.32,.72,0,1);
+}
+.tile:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+@media(min-width:768px){
+  .t-2{grid-column:span 2}
+  .t-3{grid-column:span 3}
+  .t-4{grid-column:span 4}
+  .t-6{grid-column:span 6}
+}
+.tile-eye{
+  font-size:11px;color:var(--green-hi);font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;
+}
+.tile h3{
+  font-size:clamp(22px,2.6vw,32px);font-weight:400;line-height:1.15;letter-spacing:-.015em;
+  margin-bottom:14px;color:var(--t1);
+}
+.tile p{
+  font-size:14px;color:var(--t2);line-height:1.65;max-width:42ch;
+}
+.tile-visual{margin-top:24px;display:flex;align-items:center;justify-content:center;min-height:140px}
+
+/* Spotlight tile: gradient outline */
+.tile-hi{
+  background:linear-gradient(180deg,rgba(45,90,39,.14) 0%,rgba(45,90,39,.04) 100%);
+  border:1px solid rgba(91,175,82,.3);
+}
+
+/* Round card grid mini-mock */
+.rc-mini{
+  display:grid;grid-template-columns:repeat(9,1fr);gap:3px;
+  width:180px;
+}
+.rc-mini > div{aspect-ratio:1;border-radius:3px}
+
+/* Pricing — editorial table, not cards */
+.pricing{
+  max-width:980px;margin:0 auto;
+  padding:80px 24px;
+  border-top:1px solid var(--line);
+}
+@media(min-width:768px){.pricing{padding:120px 32px}}
+.price-h{margin-bottom:48px}
+.price-h .feat-num{margin-bottom:18px}
+.price-grid{
+  display:grid;grid-template-columns:1fr;gap:16px;
+}
+@media(min-width:768px){.price-grid{grid-template-columns:repeat(3,1fr);gap:20px}}
+.price{
+  padding:32px 28px;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:20px;
+}
+.price.featured{
+  background:linear-gradient(180deg,rgba(91,175,82,.10) 0%,rgba(91,175,82,.02) 100%);
+  border:1px solid rgba(91,175,82,.35);
+  position:relative;
+}
+.price.featured::after{
+  content:'BEST VALUE';
+  position:absolute;top:-1px;right:24px;
+  transform:translateY(-50%);
+  font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.18em;
+  background:var(--green-hi);color:#000;
+  padding:6px 12px;border-radius:6px;
+}
+.price-name{
+  font-size:13px;color:var(--t2);font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;
+}
+.price-num{
+  font-family:'Arial Black',sans-serif;font-weight:900;
+  font-size:clamp(36px,4.2vw,48px);
+  letter-spacing:-.015em;line-height:1;margin-bottom:8px;
+}
+.price-per{font-size:13px;color:var(--t3);margin-bottom:24px}
+.price ul{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:10px}
+.price li{
+  font-size:14px;color:var(--t1);font-weight:400;
+  padding-left:24px;position:relative;line-height:1.5;
+}
+.price li::before{
+  content:'';position:absolute;left:0;top:8px;
+  width:14px;height:8px;
+  border-left:2px solid var(--green-hi);border-bottom:2px solid var(--green-hi);
+  transform:rotate(-45deg);
+}
+.price-cta{
+  display:block;width:100%;text-align:center;
+  padding:14px;background:var(--bg-3);border:1px solid var(--line-strong);
+  border-radius:10px;color:var(--t1);font-weight:600;font-size:14px;
+  transition:background .2s;
+}
+.price.featured .price-cta{background:var(--t1);color:#000;border-color:var(--t1)}
+.price-cta:hover{background:var(--bg)}
+
+/* Footer — minimal, editorial */
+footer{
+  max-width:1200px;margin:0 auto;
+  padding:64px 24px 48px;
+  border-top:1px solid var(--line);
+  display:grid;grid-template-columns:1fr;gap:48px;
+}
+@media(min-width:768px){footer{grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding:96px 32px 64px}}
+footer .ft-brand{display:flex;flex-direction:column;gap:16px;max-width:280px}
+footer .ft-brand .wm{font-size:16px;letter-spacing:.32em;color:var(--t1)}
+footer .ft-brand p{font-size:13px;color:var(--t2);line-height:1.65}
+footer .ft-col h6{
+  font-size:11px;font-weight:600;color:var(--t1);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;
+}
+footer .ft-col a{display:block;font-size:13px;color:var(--t2);padding:8px 0;transition:color .2s}
+footer .ft-col a:hover{color:var(--t1)}
+.ft-bottom{
+  max-width:1200px;margin:0 auto;
+  padding:0 24px 48px;border-top:1px solid var(--line);
+  padding-top:32px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+}
+.ft-bottom .copy{font-size:12px;color:var(--t3)}
+.ft-bottom .tag{font-size:11px;color:var(--t3);letter-spacing:.14em;font-weight:500}
+
+/* Mock-only banner */
+.mock-banner{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:200;
+  padding:10px 18px;background:rgba(20,20,20,.92);
+  border:1px solid var(--line-strong);border-radius:100px;
+  font-size:11px;letter-spacing:.1em;color:var(--t2);font-weight:600;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  display:flex;gap:14px;align-items:center;
+}
+.mock-banner a{color:var(--green-hi);font-weight:700}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a href="/" class="brand">
+      <span class="dot"></span>
+      <span>ROUNDIE</span>
+    </a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <a href="#" class="cta">Get Early Access</a>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="hero-eye">A KANOPY product · v1.0.11</span>
+  <h1 class="hero-h1">
+    Golf is more than<br>
+    a score.<br>
+    <em>Shape what lasts.</em>
+  </h1>
+  <p class="hero-sub">
+    Every round becomes a one-of-a-kind color grid — a Round Card you can save, share, and revisit years from now. Built for golfers who play with friends, grow over time, and want their rounds to mean more than a number.
+  </p>
+  <div class="hero-actions">
+    <a href="#" class="btn-pri">
+      Get Early Access
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#features" class="btn-sec">See features</a>
+  </div>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><span class="n">200+</span><span class="l">Early users</span></div>
+    <div class="hero-meta-item"><span class="n">3 langs</span><span class="l">JA / EN / KO</span></div>
+    <div class="hero-meta-item"><span class="n">v1.0.11</span><span class="l">Latest build</span></div>
+    <div class="hero-meta-item"><span class="n">iOS</span><span class="l">App Store soon</span></div>
+  </div>
+</section>
+
+<section id="features" class="feat">
+  <div class="feat-h">
+    <div class="feat-num">01 · FEATURES</div>
+    <h2 class="feat-title">Everything you need, <em>nothing you don't.</em></h2>
+  </div>
+  <div class="feat-grid">
+
+    <div class="tile tile-hi t-4">
+      <div class="tile-eye">Round Card</div>
+      <h3>Every round, a one-of-a-kind color grid.</h3>
+      <p>18 holes become 18 colors. Save, share, and revisit the shape of your golf days — years from now.</p>
+      <div class="tile-visual">
+        <div class="rc-mini">
+          <div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#F5C400"></div><div style="background:#60A5FA"></div><div style="background:#9B8EC4"></div>
+          <div style="background:#2D5A27"></div><div style="background:#888"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile t-2">
+      <div class="tile-eye">ROUNDIE Score</div>
+      <h3>Skill · Vibe · Style</h3>
+      <p>A 100-point score across 3 pillars. Rank from ROOKIE to LEGEND.</p>
+    </div>
+
+    <div class="tile t-2">
+      <div class="tile-eye">Feed</div>
+      <h3>Friends' rounds, in one timeline.</h3>
+      <p>Round Cards take center stage. Photos when added.</p>
+    </div>
+
+    <div class="tile t-2">
+      <div class="tile-eye">Kudos</div>
+      <h3>Three Kudos made for golfers.</h3>
+      <p>Nice Shot · Nice Fight · Best Buddy. Real comments.</p>
+    </div>
+
+    <div class="tile t-2">
+      <div class="tile-eye">Competitions</div>
+      <h3>Host in 3 taps.</h3>
+      <p>Auto-scoring, animated result reveal, individual titles auto-shared.</p>
+    </div>
+
+    <div class="tile tile-hi t-3">
+      <div class="tile-eye">Privacy first</div>
+      <h3>You decide what gets shared.</h3>
+      <p>Per-round visibility. Mute · Block · per-photo controls. All settings reversible.</p>
+    </div>
+
+    <div class="tile t-3">
+      <div class="tile-eye">Built for the world</div>
+      <h3>JA · EN · KO from day one.</h3>
+      <p>Stored in Supabase Tokyo. Never sold to third parties.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="pricing" class="pricing">
+  <div class="price-h">
+    <div class="feat-num">02 · PRICING</div>
+    <h2 class="feat-title">Free forever. <em>Pro when ready.</em></h2>
+  </div>
+  <div class="price-grid">
+    <div class="price">
+      <div class="price-name">Free</div>
+      <div class="price-num">$0</div>
+      <div class="price-per">forever</div>
+      <ul>
+        <li>Unlimited rounds &amp; Round Cards</li>
+        <li>ROUNDIE Score &amp; ranks</li>
+        <li>Feed · Kudos · ranking</li>
+        <li>1 competition / month · up to 8 players</li>
+      </ul>
+      <a href="#" class="price-cta">Start free</a>
+    </div>
+    <div class="price featured">
+      <div class="price-name">Pro Yearly</div>
+      <div class="price-num">$39.99</div>
+      <div class="price-per">per year · ~$3.33/mo · save 17%</div>
+      <ul>
+        <li>Everything in Free</li>
+        <li>Unlimited competitions · unlimited players</li>
+        <li>Auto-scoring · animated reveal</li>
+        <li>Advanced stats &amp; trends</li>
+        <li>Shareable result cards</li>
+      </ul>
+      <a href="#" class="price-cta">Go Pro Yearly</a>
+    </div>
+    <div class="price">
+      <div class="price-name">Pro Monthly</div>
+      <div class="price-num">$4.99</div>
+      <div class="price-per">per month · cancel anytime</div>
+      <ul>
+        <li>Same features as Yearly</li>
+        <li>Month-by-month flexibility</li>
+        <li>Apple ID billing</li>
+        <li>Cancel from App Store</li>
+      </ul>
+      <a href="#" class="price-cta">Go Pro Monthly</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-brand">
+    <span class="wm">ROUNDIE</span>
+    <p>A golf social app that turns every round into a memory worth keeping. Built by KANOPY Inc., Tokyo.</p>
+  </div>
+  <div class="ft-col">
+    <h6>Product</h6>
+    <a href="#">ROUNDIE</a>
+    <a href="#">TestFlight</a>
+    <a href="#">FAQ</a>
+  </div>
+  <div class="ft-col">
+    <h6>Company</h6>
+    <a href="#">KANOPY</a>
+    <a href="#">Talent</a>
+    <a href="#">Notice</a>
+  </div>
+  <div class="ft-col">
+    <h6>Legal</h6>
+    <a href="#">Terms</a>
+    <a href="#">Privacy</a>
+    <a href="mailto:roundie@kanopy-inc.com">Contact</a>
+  </div>
+</footer>
+<div class="ft-bottom">
+  <div class="copy">© 2026 KANOPY Inc.</div>
+  <div class="tag">SHAPE WHAT LASTS</div>
+</div>
+
+<div class="mock-banner">
+  <span>MOCK · OPTION A — Minimal Editorial</span>
+  <a href="/mock/">Compare</a>
+</div>
+
+</body>
+</html>

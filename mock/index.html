@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0A0A0A">
+<title>ROUNDIE HP — Design Mockups Comparison</title>
+<style>
+:root{
+  --bg:#0A0A0A;--bg-2:#161616;--line:rgba(255,255,255,.10);
+  --t1:#FFFFFF;--t2:#A0A0A0;--t3:#666666;
+  --green:#2D5A27;--green-hi:#5BAF52;--green-on-dark:#7FCF6F;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Inter','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wm{font-family:'Arial Black',sans-serif;font-weight:900}
+.wrap{max-width:1200px;margin:0 auto;padding:48px 24px 96px}
+@media(min-width:768px){.wrap{padding:80px 40px 120px}}
+
+.top{margin-bottom:48px}
+.top h1{font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
+.top h1 em{color:var(--green-on-dark);font-style:normal}
+.top p{font-size:15px;color:var(--t2);line-height:1.65;max-width:60ch}
+.tag{display:inline-block;font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.3em;color:var(--green-on-dark);margin-bottom:18px}
+
+.grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:48px}
+@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr);gap:24px}}
+
+.card{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .25s,transform .35s cubic-bezier(.32,.72,0,1);
+}
+.card:hover{border-color:var(--green-on-dark);transform:translateY(-4px)}
+.card .preview{
+  height:200px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.card .body{padding:28px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.card h3{font-family:'Arial Black',sans-serif;font-weight:900;font-size:22px;letter-spacing:-.01em}
+.card .sub{font-size:13px;color:var(--green-on-dark);font-weight:600;letter-spacing:.04em}
+.card .desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:8px;flex:1}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.card .meta .chip{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--t2);padding:4px 10px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:100px}
+.card .open{
+  padding:14px;text-align:center;font-weight:700;font-size:13px;letter-spacing:.04em;
+  background:var(--green);color:#FFF;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .2s,transform .15s;
+}
+.card .open:hover{background:var(--green-hi);transform:translateY(-1px)}
+
+/* Preview backgrounds — give a hint of each option's tone */
+.preview-a{background:linear-gradient(180deg,#0A0A0A 0%,#111 100%);border-bottom:1px solid var(--line)}
+.preview-a::before{content:'ROUNDIE';position:absolute;font-weight:300;font-size:64px;letter-spacing:-.02em;color:#FFF;text-align:center}
+.preview-b{background:radial-gradient(ellipse at center,rgba(91,175,82,.3) 0%,#000 70%);border-bottom:1px solid var(--line)}
+.preview-b::before{content:'ROUNDIE';position:absolute;font-family:'Arial Black',sans-serif;font-weight:900;font-size:64px;letter-spacing:-.04em;background:linear-gradient(180deg,#FFF,#5BAF52);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(91,175,82,.5)}
+.preview-c{background:#0A0A0A;border-bottom:1px solid var(--line)}
+.preview-c::before{content:'ROUNDIE';position:absolute;font-family:'Arial Black',sans-serif;font-weight:900;font-size:48px;letter-spacing:.06em;color:var(--green-on-dark)}
+.preview-c::after{content:'';position:absolute;width:32px;height:32px;border-radius:8px;background:#0A0A0A;border:2px solid #FFF;border-radius:50%;left:50%;transform:translateX(-130px);box-shadow:0 0 0 1px var(--green-hi) inset}
+
+.notes{margin-top:64px;padding-top:48px;border-top:1px solid var(--line)}
+.notes h2{font-family:'Arial Black',sans-serif;font-weight:900;font-size:20px;margin-bottom:14px}
+.notes p{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:14px}
+.notes ul{list-style:none;padding:0;margin:18px 0;display:flex;flex-direction:column;gap:10px}
+.notes li{font-size:14px;color:var(--t1);padding-left:22px;position:relative;line-height:1.6}
+.notes li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--green-on-dark)}
+.notes code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:4px;color:var(--green-on-dark)}
+
+.back{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--t2);margin-top:36px;padding:10px 16px;border:1px solid var(--line);border-radius:8px;transition:background .2s}
+.back:hover{background:var(--bg-2)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <span class="tag">ROUNDIE HP · DESIGN MOCKUPS · 2026-05-21</span>
+    <h1>3つの方向性から<br><em>選んでください。</em></h1>
+    <p>PM のフィードバックを受けて、現状の HP リデザインの方向性を 3 つの異なるコンセプトで作成しました。各モックは実際にブラウザで開いて、スマホ / iPad / PC で挙動・字体・密度を比較できます。1 つを選んでいただければ、その方向性で全 7 ページを本実装します。</p>
+  </div>
+
+  <div class="grid">
+
+    <article class="card">
+      <div class="preview preview-a"></div>
+      <div class="body">
+        <div class="sub">Option A</div>
+        <h3>Minimal Editorial</h3>
+        <p class="desc">Apple / Linear / Notion 寄り。余白を多めに取り、細い線と細めのタイポでクラスを表現。Wordmark は Arial Black、本文は light weight でコントラスト。装飾より情報構造で語る。</p>
+        <div class="meta">
+          <span class="chip">余白多め</span>
+          <span class="chip">light weight</span>
+          <span class="chip">情報設計重視</span>
+          <span class="chip">控えめな演出</span>
+        </div>
+        <a href="/mock/option-a/" target="_blank" class="open">Option A を開く →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="preview preview-b"></div>
+      <div class="body">
+        <div class="sub">Option B</div>
+        <h3>Cinematic</h3>
+        <p class="desc">Apple Vision Pro / Nike / Strava 2024 寄り。巨大な Arial Black タイポ、フルブリードのグラデ背景、グロー、3D 演出。劇場のような第一印象。"派手・劇場体験寄り"の方向。</p>
+        <div class="meta">
+          <span class="chip">巨大タイポ</span>
+          <span class="chip">グロー演出</span>
+          <span class="chip">3D要素</span>
+          <span class="chip">ドラマチック</span>
+        </div>
+        <a href="/mock/option-b/" target="_blank" class="open">Option B を開く →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="preview preview-c"></div>
+      <div class="body">
+        <div class="sub">Option C</div>
+        <h3>Sporty / App-Linked</h3>
+        <p class="desc">アプリ実物のブランドトークン（<code>Arial Black</code>・<code>#2D5A27</code>・<code>#0A0A0A</code>）を完全踏襲。アプリのロゴマーク（円＋R＋ROUNDIE wordmark）を nav から使用。スコアグリッドを各所に。GORA / PGA TOUR 寄り。</p>
+        <div class="meta">
+          <span class="chip">アプリ完全連動</span>
+          <span class="chip">Arial Black 全面</span>
+          <span class="chip">#2D5A27 緑</span>
+          <span class="chip">スポーティ</span>
+        </div>
+        <a href="/mock/option-c/" target="_blank" class="open">Option C を開く →</a>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="notes">
+    <h2>比較ポイント</h2>
+    <p>スマホ / iPad / PC それぞれで開いて、特に下記を意識してください:</p>
+    <ul>
+      <li><strong>第一印象</strong> — Hero を見た瞬間「これ良い」「これダサい」の体感</li>
+      <li><strong>アプリとの統一感</strong> — ROUNDIE という字体や緑の色味がアプリと連続しているか</li>
+      <li><strong>メリハリ</strong> — Round Card や ROUNDIE Score の独自性が伝わるか</li>
+      <li><strong>触感</strong> — ボタン、カードへの hover/tap の反応が気持ち良いか</li>
+      <li><strong>Pricing UI</strong> — 価格テーブルがどれが一番読みやすいか</li>
+      <li><strong>Footer の納まり</strong> — ページ最下部が締まって見えるか</li>
+    </ul>
+
+    <h2 style="margin-top:36px">技術メモ</h2>
+    <p>各モックは独立した HTML 1 枚で実装されており、外部依存なし（fonts は system / Arial Black 系のみ）。ブランドトークンはアプリの <code>constants/brand-tokens.ts</code> を参照しました（緑 #2D5A27、Arial Black 900、letter-spacing 6-8px、背景 #0A0A0A、scoreEagle #F5C400、scoreBogey #60A5FA など）。</p>
+    <p>3 案ともコピーは現状の本番 HP と同等のものに揃えてあります（実際の Features / Pricing 文言 と矛盾しないように）。</p>
+
+    <h2 style="margin-top:36px">選定後の進め方</h2>
+    <ul>
+      <li>1 案を選択 → その方向性で <strong>roundie.app/</strong> 本番ページに正式実装</li>
+      <li>次に <strong>kanopy-inc.com/</strong>、続いて talent / faq / notice / privacy / terms と順次同じ言語で展開</li>
+      <li>並行して React Native Simulator で実機 SS を生成し、Hero / Features に配置</li>
+    </ul>
+  </div>
+
+  <a href="/" class="back">← 現在の本番 roundie.app/ に戻る</a>
+</div>
+
+</body>
+</html>
