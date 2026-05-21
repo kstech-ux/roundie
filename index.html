@@ -1,1637 +1,788 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8YSVSPZ7E"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-T8YSVSPZ7E')</script>
-  <!-- Microsoft Clarity -->
   <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w8acp9qnxk")</script>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-  <meta name="theme-color" content="#0A0A0A">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>ROUNDIE — あなたのラウンドを、かたちに残す</title>
-  <meta name="description" content="ROUNDIE — ゴルフの体験と記憶を、かたちに残す。20代・30代から始まるゴルフソーシャルアプリ。記録し、シェアし、仲間と共に成長する。">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>ROUNDIE — Shape your round, keep what lasts</title>
+  <meta name="description" content="ROUNDIE — ゴルフの体験と記憶を、かたちに残す。Record, shape, share, and grow — round by round.">
   <meta property="og:title" content="ROUNDIE — Shape your round, keep what lasts">
   <meta property="og:description" content="ゴルフの体験と記憶を、かたちに残す。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://roundie.app/">
   <link rel="canonical" href="https://roundie.app/">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='70' font-weight='900' fill='%235BAF52' font-family='Arial'>R</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='70' font-weight='900' fill='%2381C784' font-family='Arial'>R</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-  /* ============================================================
-     ROUNDIE 2026 — Brutalist Bold (app-aligned)
-     Base: Option E. Colors: aligned with golf-id/constants/brand-tokens.ts
-     ============================================================ */
-  :root{
-    /* Background palette — app aligned */
-    --bg:#0A0A0A;
-    --bg-2:#141414;
-    --bg-3:#1A1A1A;
-    --ink:#0A0A0A;
+    :root{--bg:#050507;--bg2:#09090D;--card:#0E0E14;--t1:#EDEDEF;--t2:#6E6E7E;--t3:#35354A;--ac:#81C784;--acg:rgba(129,199,132,.1);--gold:#D4A857;--bd:rgba(255,255,255,.05)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.9;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--ac);color:var(--bg)}
+    h1,h2,h3{font-family:'Space Grotesk',sans-serif}
+    .sp{display:none}@media(max-width:640px){.sp{display:inline}}
+    [data-l]{display:none}[data-l].a{display:inline}
+    [data-b]{display:none}[data-b].a{display:block}
 
-    /* Text palette — WCAG AA on bg */
-    --t1:#FFFFFF;
-    --t2:#A8A8A8;
-    --t3:#7A7A7A;
+    nav{padding:24px 48px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);position:sticky;top:0;background:rgba(5,5,7,.95);backdrop-filter:blur(20px);z-index:50}
+    .nl{font-size:12px;font-weight:700;letter-spacing:8px;color:var(--ac);text-decoration:none}
+    .nb{display:flex;align-items:center;gap:16px}
+    .nb a{font-size:10px;color:var(--t2);text-decoration:none;letter-spacing:2px;transition:color .2s}
+    .nb a:hover{color:var(--ac)}
+    .ng{display:flex;gap:2px}
+    .ng a{padding:4px 8px;border-radius:3px;font-size:9px;font-weight:700;color:var(--t3);text-decoration:none;letter-spacing:2px;transition:all .2s;cursor:pointer}
+    .ng a.a{color:var(--ac);background:var(--acg)}
+    @media(max-width:768px){nav{padding:16px 24px}.nb a:not(.lng){display:none}}
 
-    /* Brand greens — exact app tokens */
-    --green:#2D5A27;       /* primary — logo R, wordmark, hero accent */
-    --green-mid:#4A9A5D;   /* hover, mid tone */
-    --green-hi:#5BAF52;    /* logo inner ring, brighter accent */
-    --green-on-dark:#7FCF6F; /* highlights on dark bg, top accent */
-    --green-bg:rgba(45,90,39,.18);
-    --green-glow:rgba(91,175,82,.4);
+    .si{max-width:820px;margin:0 auto;padding:0 48px}
+    @media(max-width:768px){.si{padding:0 24px}}
+    section{padding:clamp(80px,12vw,140px) 48px}
+    @media(max-width:768px){section{padding:80px 24px}}
+    .sl{font-size:9px;font-weight:700;letter-spacing:6px;color:var(--ac);text-transform:uppercase;margin-bottom:16px}
+    .sec-h{font-size:clamp(24px,3.8vw,38px);font-weight:600;letter-spacing:-.5px;margin-bottom:18px;line-height:1.25}
+    .sec-sub{font-size:15px;color:var(--t2);margin-bottom:32px;line-height:1.8}
+    .rv{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(.25,.8,.25,1)}
+    .rv.v{opacity:1;transform:translateY(0)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:6px;font-family:'Inter';font-size:11px;font-weight:600;letter-spacing:1px;text-decoration:none;transition:all .35s;border:none;cursor:pointer}
+    .btn-a{background:var(--ac);color:var(--bg)}.btn-a:hover{box-shadow:0 0 40px var(--acg);transform:translateY(-1px)}
+    .btn-g{background:transparent;color:var(--t2);border:1px solid var(--bd);margin-left:8px}.btn-g:hover{border-color:var(--ac);color:var(--ac)}
 
-    /* Score colors — exact app tokens */
-    --eagle:#F5C400;
-    --birdie:#2D5A27;
-    --par:#2D5A27;
-    --bogey:#60A5FA;
-    --double:#9B8EC4;
-    --triple:#888888;
-    --score-hi:#F87171;
+    .hero{min-height:90vh;display:flex;align-items:center;justify-content:center;padding:clamp(100px,14vw,160px) 48px clamp(80px,10vw,120px);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--acg),transparent 70%);animation:breathe 16s ease-in-out infinite;pointer-events:none}
+    @keyframes breathe{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(1)}50%{opacity:.6;transform:translate(-50%,-50%) scale(1.1)}}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:900px;position:relative;z-index:1}
+    @media(max-width:768px){.hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}}
+    .hero-text h1{font-size:clamp(40px,7vw,72px);font-weight:900;letter-spacing:12px;margin-bottom:16px;line-height:1;color:var(--ac)}
+    .hero-text .tagline{font-size:clamp(15px,1.8vw,19px);color:var(--t1);margin-bottom:12px;line-height:1.6;font-weight:500}
+    .hero-text .tagline em{font-style:normal;color:var(--ac);font-weight:700}
+    .hero-text .brand{font-family:'Space Grotesk';font-size:13px;font-weight:500;color:var(--t2);letter-spacing:1px;margin-bottom:32px;line-height:1.8}
+    .hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+    @media(max-width:768px){.hero-btns{justify-content:center}}
 
-    /* Lines & accents */
-    --line:rgba(255,255,255,.08);
-    --line-strong:rgba(255,255,255,.22);
-    --line-bold:#FFFFFF;
+    .phone{width:240px;margin:0 auto;background:var(--card);border-radius:32px;border:2px solid var(--bd);padding:36px 14px 22px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 80px var(--acg)}
+    .phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:48px;height:4px;border-radius:2px;background:var(--bd)}
+    .ph-h{text-align:center;margin-bottom:10px}
+    .ph-h .l1{font-size:8px;font-weight:700;color:var(--t3);letter-spacing:2px;text-transform:uppercase}
+    .ph-h .l2{font-size:22px;font-weight:700;color:var(--ac);margin-top:2px;font-family:'Space Grotesk'}
+    .mg{display:grid;grid-template-columns:repeat(9,1fr);gap:2px}
+    .mg div{aspect-ratio:1;border-radius:16%}
+    .ph-b{display:flex;justify-content:space-around;margin-top:12px;padding-top:10px;border-top:1px solid var(--bd)}
+    .ph-b .s{text-align:center}
+    .ph-b .n{font-size:14px;font-weight:700;color:var(--t1)}
+    .ph-b .l{font-size:7px;color:var(--t3);letter-spacing:1px}
 
-    /* Easing */
-    --ease:cubic-bezier(.32,.72,0,1);
-    --ease-sp:cubic-bezier(.34,1.56,.64,1);
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;background:#0A0A0A;scroll-padding-top:80px}
-  body{
-    font-family:'Inter',-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;
-    background:var(--bg);color:var(--t1);
-    line-height:1.6;font-size:16px;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
-  a,button{color:inherit;text-decoration:none;font-family:inherit}
-  button{border:0;background:transparent;cursor:pointer}
-  img{max-width:100%;display:block}
-  ::selection{background:var(--green-on-dark);color:var(--ink)}
+    .alt{background:var(--bg2)}
 
-  /* Brand wordmark — exact app spec */
-  .wm{font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;font-weight:900;letter-spacing:.32em}
-  .display{font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;font-weight:900;letter-spacing:-.03em;line-height:.92}
+    .ftrs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+    @media(max-width:640px){.ftrs{grid-template-columns:1fr}}
+    .ftr{padding:26px 22px;border-radius:16px;background:var(--card);border:1px solid var(--bd);transition:border-color .3s,transform .3s;display:flex;flex-direction:column}
+    .ftr:hover{border-color:var(--ac);transform:translateY(-2px)}
+    .ftr .ic{font-size:24px;margin-bottom:10px;opacity:.85}
+    .ftr .ti{font-size:14px;font-weight:700;color:var(--ac);margin-bottom:8px;letter-spacing:1px;font-family:'Space Grotesk'}
+    .ftr .dc{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:14px}
 
-  /* Language switcher visibility */
-  [data-l]{display:none}[data-l].a{display:inline}
-  [data-b]{display:none}[data-b].a{display:block}
+    /* Feature mini-mockup */
+    .ftr-mock{margin-top:auto;padding:14px 12px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05)}
+    .mock-row{display:flex;align-items:center;gap:8px}
+    .mock-meta{font-size:9px;color:var(--t3);letter-spacing:.5px}
+    .mock-avatar{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#0A0A0A;font-size:10px;font-weight:800;flex-shrink:0;font-family:'Space Grotesk'}
+    .mock-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px}
+    .mock-grid > div{aspect-ratio:1;border-radius:16%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.35);line-height:1}
+    .mock-bar{display:flex;align-items:center;gap:8px;font-size:10px;margin-bottom:5px}
+    .mock-bar .lbl{width:38px;font-weight:700;color:var(--ac);font-family:'Space Grotesk';font-size:9px;letter-spacing:1px}
+    .mock-bar .trk{flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;display:block}
+    .mock-bar .fil{display:block;height:100%;background:var(--ac);border-radius:3px;transition:width .4s ease}
+    .mock-bar .val{font-family:'Space Grotesk';font-weight:700;color:var(--t1);min-width:36px;text-align:right;font-size:10px}
+    .mock-chip{font-size:9px;padding:3px 8px;border-radius:6px;font-weight:700;letter-spacing:.8px}
+    .mock-feed-tile{width:7px;height:7px;border-radius:2px}
+    .mock-podium{display:flex;justify-content:center;align-items:flex-end;gap:14px}
+    .mock-podium .p{text-align:center}
+    .mock-photo{aspect-ratio:1;border-radius:5px}
+    .mock-emoji{font-size:14px}
 
-  /* Reusable */
-  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  a:focus-visible,button:focus-visible{outline:2px solid var(--green-on-dark);outline-offset:3px;border-radius:2px}
+    .score-system{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+    @media(max-width:640px){.score-system{grid-template-columns:1fr}}
+    .score-pillar{padding:22px 18px;border-radius:14px;background:var(--card);border:1px solid var(--bd);text-align:center}
+    .score-pillar .num{font-family:'Space Grotesk';font-size:32px;font-weight:700;color:var(--ac);margin-bottom:4px}
+    .score-pillar .name{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:10px}
+    .score-pillar .desc{font-size:11px;color:var(--t2);line-height:1.7}
+    .score-pillar .weight{display:inline-block;font-size:9px;font-weight:700;color:var(--ac);background:var(--acg);padding:3px 10px;border-radius:100px;margin-top:10px;letter-spacing:1px}
 
-  /* Custom cursor (PC) — Brutalist accent */
-  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:999;mix-blend-mode:difference}
-  .cursor-dot{width:6px;height:6px;background:#FFF;border-radius:50%;transform:translate(-50%,-50%);transition:transform .1s}
-  .cursor-ring{width:36px;height:36px;border:1.5px solid #FFF;border-radius:50%;transform:translate(-50%,-50%);transition:transform .25s var(--ease),width .25s,height .25s,background .25s}
-  .cursor-ring.hover{transform:translate(-50%,-50%) scale(1.6);background:#FFF}
-  @media(hover:none){.cursor-dot,.cursor-ring{display:none}}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+    @media(max-width:768px){.pricing-grid{grid-template-columns:1fr}}
+    .pricing-card{padding:30px 24px;border-radius:18px;background:var(--card);border:1px solid var(--bd);position:relative;transition:all .3s}
+    .pricing-card.pop{border-color:var(--ac);box-shadow:0 0 40px var(--acg)}
+    .pricing-card.pop::before{content:'BEST VALUE';position:absolute;top:-10px;right:20px;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--bg);background:var(--ac);padding:4px 10px;border-radius:100px;font-family:'Space Grotesk'}
+    .pricing-card .name{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--ac);margin-bottom:14px;text-transform:uppercase;font-family:'Space Grotesk'}
+    .pricing-card .price{font-size:34px;font-weight:700;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk'}
+    .pricing-card .period{font-size:11px;color:var(--t3);margin-bottom:18px}
+    .pricing-card .discount{display:inline-block;font-size:10px;font-weight:700;color:var(--ac);background:var(--acg);padding:3px 10px;border-radius:100px;margin-bottom:18px;font-family:'Space Grotesk'}
+    .pricing-card ul{list-style:none;padding:0;margin:18px 0}
+    .pricing-card ul li{font-size:12px;color:var(--t2);padding:6px 0;border-bottom:1px solid var(--bd);position:relative;padding-left:22px;line-height:1.6}
+    .pricing-card ul li:last-child{border-bottom:none}
+    .pricing-card ul li::before{content:'✓';position:absolute;left:4px;color:var(--ac);font-weight:700;font-size:11px}
 
-  /* ============================================================
-     TOP BAR — Sticky Brutalist with hard underline
-     ============================================================ */
-  .top{
-    position:sticky;top:0;z-index:80;
-    background:rgba(10,10,10,.92);
-    backdrop-filter:blur(28px) saturate(1.4);
-    -webkit-backdrop-filter:blur(28px) saturate(1.4);
-    border-bottom:1px solid var(--line);
-  }
-  .top-in{
-    max-width:1280px;margin:0 auto;
-    padding:14px 24px;
-    display:flex;justify-content:space-between;align-items:center;gap:16px;
-  }
-  .top .brand{display:flex;align-items:center;gap:12px}
-  .top .brand svg{flex-shrink:0;display:block}
-  .top .brand .wm{font-size:13px;letter-spacing:.38em;color:var(--t1)}
-  .top nav.desktop{display:flex;gap:0}
-  .top nav.desktop a{
-    padding:10px 14px;font-size:11px;font-weight:700;color:var(--t2);
-    letter-spacing:.18em;text-transform:uppercase;
-    border-left:1px solid var(--line);transition:color .2s,background .2s;
-  }
-  .top nav.desktop a:first-child{border-left:0}
-  .top nav.desktop a:hover{color:var(--green-on-dark)}
-  .top .lang{display:flex;gap:0}
-  .top .lang a{
-    padding:10px 12px;font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;
-    letter-spacing:.18em;color:var(--t3);min-height:44px;min-width:44px;
-    display:inline-flex;align-items:center;justify-content:center;
-    border-left:1px solid var(--line);transition:color .2s,background .2s;
-  }
-  .top .lang a:first-child{border-left:0}
-  .top .lang a.a{color:var(--green-on-dark);background:var(--green-bg)}
-  .top .lang a:hover{color:var(--green-on-dark)}
-  .top .cta-top{
-    padding:10px 18px;background:var(--green-on-dark);color:var(--ink);
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-    transition:background .2s,transform .2s;
-    border:1px solid var(--green-on-dark);
-    display:inline-flex;align-items:center;gap:8px;
-  }
-  .top .cta-top:hover{background:#FFF;border-color:#FFF;transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--green-on-dark)}
-  @media(max-width:900px){
-    .top nav.desktop{display:none}
-    .top .lang{display:none}
-  }
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+    @media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.steps{grid-template-columns:1fr}}
+    .step{padding:22px 18px;border-radius:14px;background:var(--card);border:1px solid var(--bd);text-align:center}
+    .step .num{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--ac);margin-bottom:12px;font-family:'Space Grotesk'}
+    .step h4{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--t1)}
+    .step p{font-size:11px;color:var(--t2);line-height:1.7;margin-top:10px}
 
-  /* Mobile hamburger + overlay */
-  .hamburger{display:none;position:fixed;top:12px;right:14px;z-index:200;width:44px;height:44px;flex-direction:column;justify-content:center;gap:5px;padding:0}
-  .hamburger span{display:block;width:22px;height:2px;background:var(--t1);transition:all .3s;margin:0 auto;border-radius:1px}
-  .hamburger.o span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .hamburger.o span:nth-child(2){opacity:0}
-  .hamburger.o span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .mob-overlay{display:none;position:fixed;inset:0;background:rgba(10,10,10,.98);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);z-index:150;flex-direction:column;justify-content:center;align-items:center;gap:24px;padding:0 24px}
-  .mob-overlay a{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:18px;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--t1);padding:10px 16px;min-height:44px;display:inline-flex;align-items:center;
-  }
-  .mob-overlay a.cta{margin-top:18px;padding:16px 36px;background:var(--green-on-dark);color:var(--ink);letter-spacing:.14em}
-  .mob-overlay .langs{display:flex;gap:6px;margin-top:18px}
-  .mob-overlay .langs a{padding:12px 18px;font-size:11px;letter-spacing:.18em;border:1px solid var(--line-strong);color:var(--t2)}
-  .mob-overlay .langs a.a{color:var(--green-on-dark);border-color:var(--green-on-dark);background:var(--green-bg)}
-  @media(max-width:900px){
-    .hamburger{display:flex}
-    .mob-overlay.o{display:flex}
-  }
+    .cards-row{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+    @media(max-width:640px){.cards-row{grid-template-columns:1fr}}
+    .info-card{padding:28px 24px;border-radius:16px;background:var(--card);border:1px solid var(--bd)}
+    .info-card h3{font-size:18px;font-weight:600;margin-bottom:14px;color:var(--t1)}
+    .info-card p{font-size:13px;color:var(--t2);line-height:1.8}
 
-  /* ============================================================
-     HERO — Brutalist split: message + Round Card panel
-     ============================================================ */
-  .hero{
-    display:grid;grid-template-columns:1fr;
-    border-bottom:1px solid var(--line);
-  }
-  @media(min-width:900px){.hero{grid-template-columns:3fr 2fr}}
+    .cta-final{text-align:center;background:var(--bg2);padding:clamp(80px,12vw,140px) 48px}
+    .cta-final h2{font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:16px;line-height:1.3;font-family:'Space Grotesk'}
+    .cta-final p{font-size:14px;color:var(--t2);margin-bottom:32px;line-height:1.8}
 
-  .hero-left{
-    padding:64px 24px 64px;position:relative;
-    display:flex;flex-direction:column;justify-content:flex-end;gap:32px;
-    min-height:auto;
-  }
-  @media(min-width:900px){
-    .hero-left{padding:88px 56px 100px;border-right:1px solid var(--line);min-height:80vh;min-height:80svh}
-  }
+    footer{background:#000;padding:40px 48px;text-align:center;border-top:1px solid var(--bd)}
+    @media(max-width:768px){footer{padding:32px 24px}}
+    footer .links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:18px}
+    footer .links a{font-size:11px;color:var(--t2);text-decoration:none;letter-spacing:1px;transition:color .2s}
+    footer .links a:hover{color:var(--ac)}
+    footer .copy{font-size:10px;color:var(--t3);letter-spacing:2px}
 
-  .hero-tag{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.36em;
-    color:var(--green-on-dark);text-transform:uppercase;
-    display:inline-flex;align-items:center;gap:14px;align-self:flex-start;
-    animation:slideRight 1s var(--ease) .2s both;
-  }
-  .hero-tag::before{content:'';width:42px;height:2px;background:var(--green-on-dark)}
-  .hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--green-on-dark);box-shadow:0 0 12px var(--green-on-dark);animation:pulse 2.4s ease-in-out infinite}
-  @keyframes slideRight{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes pulse{0%,100%{opacity:.5;transform:scale(.9)}50%{opacity:1;transform:scale(1.4)}}
-
-  .hero-h1{
-    font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;
-    font-weight:900;letter-spacing:-.04em;line-height:.86;
-    font-size:clamp(54px,12vw,156px);
-    color:var(--t1);overflow:hidden;
-  }
-  .hero-h1 .ln{display:block;animation:lineUp 1.1s var(--ease) both}
-  .hero-h1 .ln:nth-child(1){animation-delay:.3s}
-  .hero-h1 .ln:nth-child(2){animation-delay:.45s;color:var(--green-on-dark)}
-  .hero-h1 .ln:nth-child(3){animation-delay:.6s;-webkit-text-stroke:2px var(--t1);color:transparent}
-  @keyframes lineUp{from{opacity:0;transform:translateY(110%)}to{opacity:1;transform:translateY(0)}}
-
-  .hero-sub{
-    font-size:clamp(15px,1.6vw,18px);color:var(--t2);max-width:46ch;
-    line-height:1.7;font-weight:400;
-    animation:slideRight 1s var(--ease) .85s both;
-  }
-
-  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:slideRight 1s var(--ease) 1s both}
-
-  .btn-brut{
-    padding:18px 30px;background:var(--t1);color:var(--ink);
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-    transition:transform .2s,background .2s,box-shadow .2s;
-    display:inline-flex;align-items:center;gap:10px;
-    min-height:48px;
-  }
-  .btn-brut:hover{background:var(--green-on-dark);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--t1)}
-  .btn-brut.ghost{background:transparent;color:var(--t1);border:2px solid var(--t1)}
-  .btn-brut.ghost:hover{background:var(--t1);color:var(--ink);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--green-on-dark)}
-  .btn-brut.green{background:var(--green-on-dark);color:var(--ink)}
-  .btn-brut.green:hover{background:#FFF;transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--green-on-dark)}
-
-  /* Hero right — Round Card panel */
-  .hero-right{
-    padding:48px 24px 48px;
-    background:linear-gradient(135deg,#2D5A27 0%,#1F3F1A 100%);color:#FFF;
-    display:flex;flex-direction:column;justify-content:space-between;gap:24px;
-    position:relative;overflow:hidden;
-  }
-  @media(min-width:900px){.hero-right{padding:88px 56px 100px}}
-  .hero-right::before{
-    content:'';position:absolute;inset:0;
-    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    pointer-events:none;opacity:.5;
-  }
-  .hero-right > *{position:relative;z-index:1}
-  .hero-right-eye{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.3em;text-transform:uppercase;
-    opacity:.7;
-  }
-  .hero-right-num{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(96px,16vw,200px);
-    letter-spacing:-.05em;line-height:.85;color:#FFF;
-  }
-  .hero-right-grid{
-    display:grid;grid-template-columns:repeat(9,1fr);gap:4px;max-width:340px;
-  }
-  .hero-right-grid > div{
-    aspect-ratio:1;border-radius:0;display:flex;align-items:center;justify-content:center;
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;color:#FFF;
-    animation:tilePop .5s var(--ease-sp) both;
-  }
-  .hero-right-grid > div:nth-child(1){animation-delay:1.0s}.hero-right-grid > div:nth-child(2){animation-delay:1.05s}.hero-right-grid > div:nth-child(3){animation-delay:1.1s}.hero-right-grid > div:nth-child(4){animation-delay:1.15s}.hero-right-grid > div:nth-child(5){animation-delay:1.2s}.hero-right-grid > div:nth-child(6){animation-delay:1.25s}.hero-right-grid > div:nth-child(7){animation-delay:1.3s}.hero-right-grid > div:nth-child(8){animation-delay:1.35s}.hero-right-grid > div:nth-child(9){animation-delay:1.4s}.hero-right-grid > div:nth-child(10){animation-delay:1.45s}.hero-right-grid > div:nth-child(11){animation-delay:1.5s}.hero-right-grid > div:nth-child(12){animation-delay:1.55s}.hero-right-grid > div:nth-child(13){animation-delay:1.6s}.hero-right-grid > div:nth-child(14){animation-delay:1.65s}.hero-right-grid > div:nth-child(15){animation-delay:1.7s}.hero-right-grid > div:nth-child(16){animation-delay:1.75s}.hero-right-grid > div:nth-child(17){animation-delay:1.8s}.hero-right-grid > div:nth-child(18){animation-delay:1.85s}
-  @keyframes tilePop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-  .hero-right-meta{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-    display:flex;flex-direction:column;gap:6px;
-  }
-  .hero-right-meta .sub{opacity:.65;font-size:10px}
-
-  /* ============================================================
-     MARQUEE — Brutalist white band
-     ============================================================ */
-  .marquee{
-    background:#FFF;color:var(--ink);padding:20px 0;overflow:hidden;
-    border-bottom:1px solid var(--line);
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(20px,3vw,36px);letter-spacing:-.02em;
-  }
-  .marquee-track{display:flex;gap:48px;width:max-content;animation:scrollX 28s linear infinite}
-  @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .marquee-item{display:inline-flex;align-items:center;gap:32px;text-transform:uppercase;white-space:nowrap}
-  .marquee-item .sep{color:var(--green);font-size:.8em}
-  .marquee:hover .marquee-track{animation-play-state:paused}
-
-  /* ============================================================
-     SECTIONS — Brutalist labeled blocks
-     ============================================================ */
-  .sect{
-    padding:80px 24px;position:relative;
-    border-bottom:1px solid var(--line);
-  }
-  @media(min-width:900px){.sect{padding:140px 56px}}
-  .sect.alt{background:var(--bg-2)}
-  .sect-inner{max-width:1280px;margin:0 auto}
-
-  .sect-no{
-    position:absolute;top:24px;right:24px;
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.3em;color:var(--t3);
-  }
-  @media(min-width:900px){.sect-no{top:36px;right:56px}}
-
-  .sect-eye{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;letter-spacing:.32em;
-    color:var(--green-on-dark);text-transform:uppercase;margin-bottom:24px;
-    display:inline-flex;align-items:center;gap:14px;
-  }
-  .sect-eye::before{content:'';width:32px;height:2px;background:var(--green-on-dark)}
-
-  .sect-h{
-    font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;
-    font-weight:900;letter-spacing:-.035em;line-height:.95;text-transform:uppercase;
-    font-size:clamp(36px,7vw,96px);margin-bottom:28px;
-  }
-  .sect-h em{color:var(--green-on-dark);font-style:normal}
-
-  .sect-sub{
-    font-size:16px;color:var(--t2);max-width:54ch;line-height:1.7;margin-bottom:24px;
-  }
-
-  /* Scroll reveal */
-  .rv{opacity:0;transform:translateY(36px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
-  .rv.in{opacity:1;transform:translateY(0)}
-
-  /* ============================================================
-     VISION — Quote block
-     ============================================================ */
-  .vision-quote{
-    margin-top:48px;padding:48px 32px;
-    background:var(--bg-2);border-left:6px solid var(--green-on-dark);
-    position:relative;
-  }
-  @media(min-width:768px){.vision-quote{padding:64px 56px}}
-  .vision-quote::before{
-    content:'"';position:absolute;top:-16px;left:24px;
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:120px;color:var(--green-on-dark);
-    line-height:1;opacity:.4;
-  }
-  .vision-quote p{
-    font-size:clamp(18px,2.4vw,26px);font-weight:400;line-height:1.65;color:var(--t1);
-    position:relative;
-  }
-  .vision-quote p strong{color:var(--green-on-dark);font-weight:700}
-  .vision-after{
-    margin-top:36px;font-size:16px;color:var(--t2);line-height:1.85;max-width:60ch;
-  }
-
-  /* ============================================================
-     HOW IT WORKS — 4 step grid with connectors
-     ============================================================ */
-  .steps{
-    margin-top:56px;
-    display:grid;grid-template-columns:1fr;gap:0;
-    border:1px solid var(--line-strong);
-  }
-  @media(min-width:600px){.steps{grid-template-columns:repeat(2,1fr)}}
-  @media(min-width:1024px){.steps{grid-template-columns:repeat(4,1fr)}}
-
-  .step{
-    padding:40px 28px;
-    border-bottom:1px solid var(--line);
-    display:flex;flex-direction:column;gap:14px;
-    transition:background .25s;
-  }
-  @media(min-width:600px){
-    .step{border-right:1px solid var(--line)}
-    .step:nth-child(2n){border-right:0}
-  }
-  @media(min-width:1024px){
-    .step{border-right:1px solid var(--line);border-bottom:0}
-    .step:nth-child(2n){border-right:1px solid var(--line)}
-    .step:nth-child(4n),.step:last-child{border-right:0}
-  }
-  .step:hover{background:var(--bg-3)}
-  .step-no{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.3em;color:var(--green-on-dark);
-  }
-  .step-h{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:24px;letter-spacing:-.01em;line-height:1.15;
-    color:var(--t1);
-  }
-  .step-h .ic{display:inline-block;margin-right:8px}
-  .step-p{font-size:14px;color:var(--t2);line-height:1.7}
-
-  /* ============================================================
-     FEATURES — Brutalist mock-grid list (8 features)
-     ============================================================ */
-  .feat-list{
-    margin-top:56px;
-    display:grid;grid-template-columns:1fr;gap:0;
-    border-top:1px solid var(--line-strong);
-  }
-  .feat-item{
-    padding:48px 0;border-bottom:1px solid var(--line-strong);
-    display:grid;grid-template-columns:1fr;gap:24px;
-    transition:background .35s;
-  }
-  @media(min-width:900px){
-    .feat-item{grid-template-columns:80px 1.2fr 1fr;gap:48px;padding:64px 0;align-items:start}
-  }
-  .feat-no{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(40px,5vw,56px);
-    color:var(--green-on-dark);letter-spacing:-.02em;line-height:.95;
-  }
-  .feat-body h3{
-    font-family:'Arial Black',sans-serif;font-weight:900;
-    font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;line-height:1.08;
-    margin-bottom:14px;text-transform:uppercase;color:var(--t1);
-  }
-  .feat-body p{font-size:15px;color:var(--t2);line-height:1.75;margin-bottom:14px;max-width:46ch}
-  .feat-body p strong{color:var(--t1);font-weight:600}
-  .feat-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-  .feat-tags .tag{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--green-on-dark);background:var(--green-bg);padding:5px 10px;border:1px solid rgba(91,175,82,.25);
-  }
-  .feat-visual{
-    background:var(--bg-2);border:1px solid var(--line);padding:24px;
-    display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:200px;
-  }
-
-  /* Mock UI helpers — feature visualizations */
-  .m-rc{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;width:100%;max-width:280px}
-  .m-rc > div{aspect-ratio:1;border-radius:1px;display:flex;align-items:center;justify-content:center;font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;color:#FFF}
-  .m-rc-meta{display:flex;justify-content:space-between;align-items:baseline;width:100%;max-width:280px;margin-top:14px;font-family:'Arial Black',sans-serif;font-weight:900}
-  .m-rc-meta .nm{font-size:10px;color:var(--t3);letter-spacing:.12em}
-  .m-rc-meta .sc{font-size:28px;color:var(--green-on-dark);letter-spacing:-.02em}
-  .m-rc-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;justify-content:center;width:100%}
-  .m-rc-legend span{font-size:10px;color:var(--t3);display:inline-flex;align-items:center;gap:5px;letter-spacing:.04em}
-  .m-rc-legend i{display:inline-block;width:10px;height:10px;border-radius:1px}
-
-  /* Score bars (feature 02) */
-  .m-score{width:100%;max-width:280px}
-  .m-score-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-  .m-score-head .num{font-family:'Arial Black',sans-serif;font-weight:900;font-size:32px;color:var(--green-on-dark);letter-spacing:-.02em;line-height:1}
-  .m-score-head .num small{font-size:14px;color:var(--t3);font-weight:700}
-  .m-score-head .rank{font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.2em;color:var(--green-on-dark);background:var(--green-bg);padding:5px 10px;text-transform:uppercase}
-  .m-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-  .m-bar .lbl{font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.16em;width:48px}
-  .m-bar .trk{flex:1;height:6px;background:rgba(255,255,255,.06);overflow:hidden}
-  .m-bar .fil{display:block;height:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.5s var(--ease) .3s}
-  .feat-item.in .m-bar .fil{transform:scaleX(var(--p,.8))}
-  .m-bar .val{font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;min-width:46px;text-align:right;letter-spacing:-.01em}
-
-  /* Feed (feature 03) */
-  .m-feed{width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px}
-  .m-feed-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
-  .m-av{width:28px;height:28px;border-radius:50%;background:var(--green-on-dark);display:flex;align-items:center;justify-content:center;font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;color:var(--ink);flex-shrink:0}
-  .m-feed-name{font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;flex:1;color:var(--t1)}
-  .m-feed-name small{color:var(--t3);font-weight:500;margin-left:4px}
-  .m-feed-mini{display:flex;gap:2px}
-  .m-feed-mini div{width:6px;height:6px}
-  .m-feed-kud{font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;color:var(--green-on-dark)}
-
-  /* Kudos (feature 04) */
-  .m-kud{width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px}
-  .m-kud-row{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
-  .m-kud-emoji{font-size:22px}
-  .m-kud-name{flex:1;font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px}
-  .m-kud-cnt{font-family:'Arial Black',sans-serif;font-weight:900;font-size:14px;color:var(--green-on-dark)}
-
-  /* Podium (feature 05) */
-  .m-podium{display:flex;align-items:flex-end;justify-content:center;gap:14px;width:100%;max-width:280px;padding-bottom:24px;position:relative}
-  .m-pd{width:54px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:10px;color:var(--ink);font-family:'Arial Black',sans-serif;font-weight:900;font-size:16px;position:relative;animation:pdRise 1.2s var(--ease) both;transform:scaleY(0);transform-origin:bottom}
-  .feat-item.in .m-pd{transform:scaleY(1)}
-  .m-pd:nth-child(1){height:64px;background:linear-gradient(180deg,#C0C0C0,#888);animation-delay:.7s}
-  .m-pd:nth-child(2){height:104px;background:linear-gradient(180deg,#F5C400,#A87E00);animation-delay:.5s;font-size:20px}
-  .m-pd:nth-child(3){height:48px;background:linear-gradient(180deg,#CD7F32,#6F4419);animation-delay:.9s}
-  @keyframes pdRise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-  .m-pd::after{content:attr(data-n);position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--t2);font-weight:700;letter-spacing:.04em;font-family:'Inter',sans-serif;white-space:nowrap}
-  .m-titles{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;width:100%;max-width:280px;margin-top:18px}
-  .m-titles span{font-family:'Arial Black',sans-serif;font-weight:900;font-size:9px;letter-spacing:.16em;padding:4px 9px;text-transform:uppercase}
-
-  /* Ranking (feature 06) */
-  .m-rank{width:100%;max-width:280px;display:flex;flex-direction:column;gap:6px}
-  .m-rank-tab{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
-  .m-rank-tab span{font-family:'Arial Black',sans-serif;font-weight:900;font-size:9px;letter-spacing:.12em;padding:4px 8px;background:rgba(255,255,255,.04);color:var(--t3);border:1px solid var(--line)}
-  .m-rank-tab span.a{color:var(--green-on-dark);background:var(--green-bg);border-color:rgba(91,175,82,.3)}
-  .m-rank-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
-  .m-rank-row.you{background:var(--green-bg);border-color:rgba(91,175,82,.4)}
-  .m-rank-pos{font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;width:18px}
-  .m-rank-pos.g{color:#F5C400}.m-rank-pos.s{color:#C0C0C0}.m-rank-pos.b{color:#CD7F32}
-  .m-rank-name{flex:1;font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px}
-  .m-rank-score{font-family:'Arial Black',sans-serif;font-weight:900;font-size:13px}
-
-  /* Invite (feature 07) */
-  .m-invite{width:100%;max-width:280px;display:flex;flex-direction:column;gap:10px;align-items:center}
-  .m-invite-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-  .m-invite-row span{font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.12em;padding:6px 11px;border:1px solid var(--line-strong)}
-  .m-invite-row .line{background:#06C755;color:#FFF;border-color:#06C755}
-  .m-invite-row .share{background:var(--green-on-dark);color:var(--ink);border-color:var(--green-on-dark)}
-  .m-invite-qr{width:64px;height:64px;background:repeating-linear-gradient(0deg,#FFF 0 4px,#0A0A0A 4px 8px),repeating-linear-gradient(90deg,#FFF 0 4px,#0A0A0A 4px 8px);background-blend-mode:difference;border:2px solid #FFF;margin-top:6px}
-
-  /* Lang chips (feature 08) */
-  .m-lang{width:100%;max-width:280px;display:flex;flex-direction:column;gap:14px;align-items:center}
-  .m-lang-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-  .m-lang-row span{font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.1em;padding:8px 14px;border:1px solid var(--line-strong);color:var(--t1)}
-  .m-lang-row span.a{background:var(--green-on-dark);color:var(--ink);border-color:var(--green-on-dark)}
-  .m-lang-quote{font-style:italic;color:var(--t2);text-align:center;line-height:1.85;font-size:13px;font-family:'Inter',sans-serif}
-
-  /* ============================================================
-     ROUNDIE SCORE — 3 pillars + 7 ranks + info
-     ============================================================ */
-  .pillars{
-    display:grid;grid-template-columns:1fr;gap:0;margin-top:56px;
-    border:1px solid var(--line-strong);
-  }
-  @media(min-width:768px){.pillars{grid-template-columns:repeat(3,1fr)}}
-  .pillar{
-    padding:36px 28px;border-bottom:1px solid var(--line);
-    display:flex;flex-direction:column;gap:14px;
-    transition:background .25s;position:relative;
-  }
-  @media(min-width:768px){.pillar{border-bottom:0;border-right:1px solid var(--line)}.pillar:last-child{border-right:0}}
-  .pillar:hover{background:var(--bg-3)}
-  .pillar-tag{font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.3em;color:var(--green-on-dark)}
-  .pillar-h{font-family:'Arial Black',sans-serif;font-weight:900;font-size:22px;letter-spacing:-.015em;color:var(--t1);text-transform:uppercase}
-  .pillar-p{font-size:14px;color:var(--t2);line-height:1.75}
-  .pillar-w{
-    margin-top:auto;align-self:flex-start;
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.18em;
-    padding:6px 12px;background:var(--green-bg);color:var(--green-on-dark);
-    border:1px solid rgba(91,175,82,.25);
-  }
-
-  /* Ranks ladder */
-  .ranks{
-    margin-top:48px;padding:32px 24px;
-    background:var(--bg-2);border:1px solid var(--line-strong);
-  }
-  @media(min-width:768px){.ranks{padding:40px 48px}}
-  .ranks-eye{font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.28em;color:var(--green-on-dark);text-transform:uppercase;margin-bottom:18px}
-  .ranks-list{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
-  .rank-step{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:13px;letter-spacing:.14em;
-    padding:10px 14px;background:rgba(255,255,255,.04);color:var(--t2);
-    border:1px solid var(--line);text-transform:uppercase;
-    transition:all .2s;
-  }
-  .rank-step.hi{background:var(--green-bg);color:var(--green-on-dark);border-color:rgba(91,175,82,.4)}
-  .rank-arrow{color:var(--t3);font-size:12px}
-  .ranks-note{margin-top:18px;font-size:13px;color:var(--t3);line-height:1.7}
-
-  /* Score info cards */
-  .score-info{display:grid;grid-template-columns:1fr;gap:0;margin-top:32px;border:1px solid var(--line-strong)}
-  @media(min-width:768px){.score-info{grid-template-columns:1fr 1fr}}
-  .score-info-card{padding:36px 28px;border-bottom:1px solid var(--line)}
-  @media(min-width:768px){.score-info-card{border-bottom:0;border-right:1px solid var(--line)}.score-info-card:last-child{border-right:0}}
-  .score-info-card h4{font-family:'Arial Black',sans-serif;font-weight:900;font-size:20px;letter-spacing:-.015em;margin-bottom:14px;line-height:1.2}
-  .score-info-card p{font-size:14px;color:var(--t2);line-height:1.8}
-  .score-info-card p strong{color:var(--t1);font-weight:600}
-
-  /* ============================================================
-     PRICING — Brutalist split panels
-     ============================================================ */
-  .pr-grid{
-    display:grid;grid-template-columns:1fr;gap:0;margin-top:56px;
-    border:1px solid var(--line-strong);
-  }
-  @media(min-width:900px){.pr-grid{grid-template-columns:1fr 1fr 1fr}}
-  .pr{
-    padding:40px 32px;border-bottom:1px solid var(--line);
-    display:flex;flex-direction:column;background:var(--bg);
-    transition:background .25s;
-  }
-  @media(min-width:900px){.pr{border-bottom:0;border-right:1px solid var(--line)}.pr:last-child{border-right:0}}
-  .pr:hover{background:var(--bg-3)}
-  .pr.feat{
-    background:linear-gradient(180deg,rgba(91,175,82,.18) 0%,rgba(45,90,39,.04) 100%);
-    border:2px solid var(--green-on-dark);position:relative;
-    box-shadow:0 0 0 1px rgba(91,175,82,.2),0 20px 50px rgba(91,175,82,.15);
-  }
-  .pr.feat::before{
-    content:'★ BEST VALUE';
-    position:absolute;top:-12px;left:50%;transform:translateX(-50%);
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.32em;
-    background:var(--green-on-dark);color:var(--ink);padding:7px 16px;
-    box-shadow:0 6px 16px rgba(91,175,82,.4);
-  }
-  .pr-name{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;letter-spacing:.24em;
-    color:var(--green-on-dark);text-transform:uppercase;margin-bottom:14px;
-  }
-  .pr-price{
-    font-family:'Arial Black',sans-serif;font-weight:900;
-    font-size:clamp(44px,5.5vw,64px);letter-spacing:-.035em;line-height:.9;margin-bottom:6px;
-  }
-  .pr-period{font-size:13px;color:var(--t3);margin-bottom:14px;letter-spacing:.04em}
-  .pr-discount{
-    display:inline-block;font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.18em;
-    background:var(--green-on-dark);color:var(--ink);padding:5px 11px;margin-bottom:20px;text-transform:uppercase;
-  }
-  .pr ul{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:12px}
-  .pr li{
-    font-size:14px;line-height:1.55;color:var(--t1);padding-left:24px;position:relative;font-weight:500;
-  }
-  .pr li::before{
-    content:'';position:absolute;left:0;top:6px;width:14px;height:8px;
-    border-left:2.5px solid var(--green-on-dark);border-bottom:2.5px solid var(--green-on-dark);transform:rotate(-45deg);
-  }
-  .pr li strong{color:var(--t1);font-weight:700}
-  .pr-cta{
-    display:block;text-align:center;padding:16px;
-    background:transparent;color:var(--t1);border:2px solid var(--t1);
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-    transition:all .2s;margin-top:auto;
-  }
-  .pr-cta:hover{background:var(--t1);color:var(--ink);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--green-on-dark)}
-  .pr.feat .pr-cta{background:var(--green-on-dark);color:var(--ink);border-color:var(--green-on-dark)}
-  .pr.feat .pr-cta:hover{background:#FFF;border-color:#FFF;transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--green-on-dark)}
-
-  /* Compe Pack — separate Brutalist card */
-  .compe-pack{
-    margin-top:24px;padding:28px 32px;
-    background:linear-gradient(135deg,rgba(245,196,0,.10),rgba(245,196,0,.02));
-    border:2px solid rgba(245,196,0,.4);
-    display:grid;grid-template-columns:1fr;gap:18px;align-items:center;
-  }
-  @media(min-width:768px){.compe-pack{grid-template-columns:auto 1fr auto;gap:28px}}
-  .compe-pack-tag{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;letter-spacing:.28em;
-    background:#F5C400;color:var(--ink);padding:6px 12px;text-transform:uppercase;justify-self:start;
-  }
-  .compe-pack-h{font-family:'Arial Black',sans-serif;font-weight:900;font-size:18px;letter-spacing:-.01em;color:var(--t1);margin-bottom:6px}
-  .compe-pack-p{font-size:13px;color:var(--t2);line-height:1.75}
-  .compe-pack-price{font-family:'Arial Black',sans-serif;font-weight:900;font-size:32px;color:#F5C400;letter-spacing:-.02em;line-height:1;white-space:nowrap}
-
-  .pr-note{margin-top:24px;font-size:12px;color:var(--t3);line-height:1.8;max-width:80ch}
-  .pr-note a{color:var(--green-on-dark);text-decoration:underline}
-
-  /* ============================================================
-     TRUST & PRIVACY — 3 cards
-     ============================================================ */
-  .trust{
-    display:grid;grid-template-columns:1fr;gap:0;margin-top:56px;
-    border:1px solid var(--line-strong);
-  }
-  @media(min-width:900px){.trust{grid-template-columns:repeat(3,1fr)}}
-  .trust-card{
-    padding:36px 28px;border-bottom:1px solid var(--line);
-    display:flex;flex-direction:column;gap:14px;transition:background .25s;
-  }
-  @media(min-width:900px){.trust-card{border-bottom:0;border-right:1px solid var(--line)}.trust-card:last-child{border-right:0}}
-  .trust-card:hover{background:var(--bg-3)}
-  .trust-card .ic{font-size:24px;margin-bottom:6px}
-  .trust-card h4{font-family:'Arial Black',sans-serif;font-weight:900;font-size:18px;letter-spacing:-.01em;line-height:1.3}
-  .trust-card p{font-size:13px;color:var(--t2);line-height:1.8}
-
-  /* ============================================================
-     FINAL CTA — Brutalist closing
-     ============================================================ */
-  .final{
-    padding:120px 24px;text-align:center;
-    background:linear-gradient(180deg,var(--bg) 0%,#040804 100%);
-    position:relative;overflow:hidden;border-bottom:1px solid var(--line);
-  }
-  @media(min-width:768px){.final{padding:160px 48px}}
-  .final::before{
-    content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:min(700px,90vw);height:min(700px,90vw);border-radius:50%;
-    background:radial-gradient(circle,rgba(91,175,82,.18) 0%,transparent 60%);pointer-events:none;
-    animation:pulseBg 9s ease-in-out infinite;
-  }
-  @keyframes pulseBg{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.7}50%{transform:translate(-50%,-50%) scale(1.12);opacity:1}}
-
-  .final h2{
-    font-family:'Arial Black',sans-serif;font-weight:900;
-    font-size:clamp(44px,9vw,140px);letter-spacing:-.05em;line-height:.92;
-    margin-bottom:32px;text-transform:uppercase;position:relative;
-  }
-  .final h2 em{color:var(--green-on-dark);font-style:normal}
-  .final h2 .stroke{-webkit-text-stroke:2px var(--t1);color:transparent}
-  .final p{
-    font-size:17px;color:var(--t2);max-width:560px;margin:0 auto 40px;line-height:1.7;position:relative;
-  }
-  .final-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;position:relative}
-  .final-note{margin-top:24px;font-size:12px;color:var(--t3);letter-spacing:.06em;position:relative}
-
-  /* ============================================================
-     FOOTER — Brutalist grid
-     ============================================================ */
-  footer{
-    padding:64px 24px 0;background:#000;
-    display:grid;grid-template-columns:1fr;gap:40px;
-  }
-  @media(min-width:768px){footer{grid-template-columns:2fr 1fr 1fr 1fr;padding:80px 56px 0;gap:48px}}
-  .ft-brand .wm{font-size:16px;letter-spacing:.4em;color:var(--t1);display:block;margin-bottom:16px}
-  .ft-brand p{font-size:13px;color:var(--t2);line-height:1.75;max-width:30ch}
-  .ft-col h6{
-    font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--green-on-dark);margin-bottom:18px;
-  }
-  .ft-col a{
-    display:block;font-family:'Arial Black',sans-serif;font-weight:900;font-size:13px;
-    color:var(--t2);padding:8px 0;letter-spacing:.06em;
-    transition:color .2s;
-  }
-  .ft-col a:hover{color:var(--green-on-dark)}
-  .ft-bot{
-    grid-column:1/-1;
-    margin-top:32px;padding:28px 0;
-    border-top:1px solid var(--line);
-    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
-  }
-  .ft-bot .c{font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.14em;color:var(--t3);text-transform:uppercase}
-  .ft-bot .t{font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.3em;color:var(--green-on-dark);text-transform:uppercase}
-
-  /* Reduced motion */
-  @media(prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important}
-    .cursor-dot,.cursor-ring{display:none}
-    html,a,button{cursor:auto!important}
-    .rv{opacity:1;transform:none}
-    .hero-h1 .ln{opacity:1;transform:none}
-    .m-bar .fil{transform:scaleX(.8)!important}
-    .m-pd{transform:scaleY(1)!important}
-    .hero-right-grid > div{opacity:1;transform:none!important}
-  }
+    .quote-block{margin:48px 0;padding:36px 32px;border-left:3px solid var(--ac);background:var(--card);border-radius:0 12px 12px 0}
+    .quote-block p{font-size:clamp(17px,2.2vw,22px);font-weight:300;line-height:1.8;color:var(--t1)}
+    .quote-block p strong{font-weight:500;color:var(--ac)}
   </style>
 </head>
 <body>
 
-<!-- Custom cursor (PC only) -->
-<div class="cursor-dot" id="cd" aria-hidden="true"></div>
-<div class="cursor-ring" id="cr" aria-hidden="true"></div>
-
-<!-- ============================================================
-     TOP BAR
-     ============================================================ -->
-<header class="top">
-  <div class="top-in">
-    <a href="/" class="brand" aria-label="ROUNDIE トップ">
-      <svg width="36" height="36" viewBox="0 0 80 80" aria-hidden="true">
-        <rect width="80" height="80" rx="18" fill="#0A0A0A"/>
-        <circle cx="40" cy="40" r="28" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="5 3.5" stroke-linecap="round"/>
-        <circle cx="40" cy="40" r="21" fill="none" stroke="#5BAF52" stroke-width="2.5" stroke-dasharray="5 3.5" stroke-linecap="round"/>
-        <circle cx="40" cy="12" r="3" fill="#FFFFFF"/><circle cx="68" cy="40" r="3" fill="#FFFFFF"/><circle cx="40" cy="68" r="3" fill="#FFFFFF"/><circle cx="12" cy="40" r="3" fill="#FFFFFF"/>
-        <text x="40" y="51" font-family="Arial Black, sans-serif" font-weight="900" font-size="26" fill="#5BAF52" text-anchor="middle">R</text>
-      </svg>
-      <span class="wm">ROUNDIE</span>
-    </a>
-    <nav class="desktop" aria-label="メインナビゲーション">
-      <a href="#vision"><span data-l="en">VISION</span><span data-l="ja" class="a">VISION</span><span data-l="ko">VISION</span></a>
-      <a href="#how"><span data-l="en">HOW IT WORKS</span><span data-l="ja" class="a">使い方</span><span data-l="ko">사용법</span></a>
-      <a href="#features"><span data-l="en">FEATURES</span><span data-l="ja" class="a">機能</span><span data-l="ko">기능</span></a>
-      <a href="#score"><span data-l="en">SCORE</span><span data-l="ja" class="a">SCORE</span><span data-l="ko">SCORE</span></a>
-      <a href="#pricing"><span data-l="en">PRICING</span><span data-l="ja" class="a">料金</span><span data-l="ko">요금</span></a>
-      <a href="/faq/">FAQ</a>
-    </nav>
-    <div class="lang" role="group" aria-label="Language">
-      <a onclick="sl('en',this)">EN</a>
-      <a class="a" onclick="sl('ja',this)">JA</a>
-      <a onclick="sl('ko',this)">KO</a>
+<nav>
+  <a href="https://kanopy-inc.com/" class="nl">KANOPY</a>
+  <div class="nb">
+    <a href="https://kanopy-inc.com/"><span data-l="en">← KANOPY</span><span data-l="ja" class="a">← KANOPY</span><span data-l="ko">← KANOPY</span></a>
+    <a href="#features"><span data-l="en">Features</span><span data-l="ja" class="a">機能</span><span data-l="ko">기능</span></a>
+    <a href="#pricing">Pricing</a>
+    <a href="/faq/">FAQ</a>
+    <div class="ng">
+      <a class="lng" onclick="sl('en',this)">EN</a>
+      <a class="a lng" onclick="sl('ja',this)">JA</a>
+      <a class="lng" onclick="sl('ko',this)">KO</a>
     </div>
-    <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="cta-top">
-      <span data-l="en">EARLY ACCESS</span><span data-l="ja" class="a">先行体験</span><span data-l="ko">선행 액세스</span>
-      <span aria-hidden="true">→</span>
-    </a>
   </div>
-</header>
+</nav>
 
-<!-- Mobile hamburger -->
-<button class="hamburger" id="hbBtn" onclick="toggleMenu()" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
-
-<div class="mob-overlay" id="mobMenu" role="dialog" aria-modal="true" aria-label="モバイルナビゲーション">
-  <a href="#vision" onclick="closeMenu()"><span data-l="en">VISION</span><span data-l="ja" class="a">VISION</span><span data-l="ko">VISION</span></a>
-  <a href="#how" onclick="closeMenu()"><span data-l="en">HOW IT WORKS</span><span data-l="ja" class="a">使い方</span><span data-l="ko">사용법</span></a>
-  <a href="#features" onclick="closeMenu()"><span data-l="en">FEATURES</span><span data-l="ja" class="a">機能</span><span data-l="ko">기능</span></a>
-  <a href="#score" onclick="closeMenu()">SCORE</a>
-  <a href="#pricing" onclick="closeMenu()"><span data-l="en">PRICING</span><span data-l="ja" class="a">料金</span><span data-l="ko">요금</span></a>
-  <a href="/faq/" onclick="closeMenu()">FAQ</a>
-  <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" onclick="closeMenu()" class="cta">
-    <span data-l="en">EARLY ACCESS →</span><span data-l="ja" class="a">先行体験 →</span><span data-l="ko">선행 액세스 →</span>
-  </a>
-  <div class="langs">
-    <a onclick="sl('en',this);closeMenu()">EN</a>
-    <a class="a" onclick="sl('ja',this);closeMenu()">JA</a>
-    <a onclick="sl('ko',this);closeMenu()">KO</a>
-  </div>
-</div>
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<main>
 <section class="hero">
-  <div class="hero-left">
-    <span class="hero-tag">
-      <span class="dot"></span>
-      <span data-l="en">A KANOPY PRODUCT · v1.0.11 · LIVE ON TESTFLIGHT</span>
-      <span data-l="ja" class="a">KANOPY のプロダクト · v1.0.11 · TestFlight 配信中</span>
-      <span data-l="ko">KANOPY 프로덕트 · v1.0.11 · TestFlight 배포중</span>
-    </span>
-    <h1 class="hero-h1">
-      <span class="ln" data-l="en">SHAPE</span><span class="ln" data-l="ja" class="a">ラウンドを、</span><span class="ln" data-l="ko">라운드를,</span>
-      <span class="ln" data-l="en">YOUR ROUND.</span><span class="ln" data-l="ja" class="a">かたちに。</span><span class="ln" data-l="ko">형태로.</span>
-      <span class="ln" data-l="en">KEEP IT.</span><span class="ln" data-l="ja" class="a">残そう。</span><span class="ln" data-l="ko">남기자.</span>
-    </h1>
-    <p class="hero-sub">
-      <span data-l="en">A golf social app for the 20s, 30s, and beyond. Every round becomes a one-of-a-kind color grid you can save, share, and revisit years from now. Record. Shape. Share. Rise — round by round.</span>
-      <span data-l="ja" class="a">20代・30代から始まる、ゴルフソーシャルアプリ。<br>あなたのラウンドは、世界に一つだけのカラーグリッドになり、保存・シェア・何年経っても振り返れる「かたち」として残ります。記録し、シェアし、仲間と共に成長する。</span>
-      <span data-l="ko">20대·30대부터의 골프 소셜 앱. 라운드는 세상에 단 하나뿐인 컬러 그리드가 되어, 저장·공유·몇 년이 지나도 다시 볼 수 있는 「형태」로 남습니다.</span>
-    </p>
-    <div class="hero-actions">
-      <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="btn-brut">
-        <span data-l="en">EARLY ACCESS →</span><span data-l="ja" class="a">先行体験 →</span><span data-l="ko">선행 액세스 →</span>
-      </a>
-      <a href="#features" class="btn-brut ghost">
-        <span data-l="en">SEE FEATURES</span><span data-l="ja" class="a">機能を見る</span><span data-l="ko">기능 보기</span>
-      </a>
+  <div class="hero-grid">
+    <div class="hero-text rv">
+      <div class="sl">A KANOPY Product · v1.0.11</div>
+      <h1>ROUNDIE</h1>
+      <p class="tagline">
+        <span data-l="en">Shape your round. <em>Keep what lasts.</em></span>
+        <span data-l="ja" class="a">あなたのラウンドを、<br class="sp"><em>かたちに残す。</em></span>
+        <span data-l="ko">당신의 라운드를, <em>형태로.</em></span>
+      </p>
+      <div class="brand">
+        <span data-l="en">A golf social app for the 20s, 30s, and beyond. Record. Shape. Share. Rise — round by round.</span>
+        <span data-l="ja" class="a">20代・30代から始まるゴルフソーシャルアプリ。<br class="sp">記録し、かたちにし、シェアし、仲間と共に成長する。</span>
+        <span data-l="ko">20대·30대부터의 골프 소셜 앱. 기록·형태로·공유·성장.</span>
+      </div>
+      <div class="hero-btns">
+        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn btn-a">
+          <span data-l="en">Get Early Access</span>
+          <span data-l="ja" class="a">TestFlightで先行体験</span>
+          <span data-l="ko">선행 액세스 신청</span>
+        </a>
+        <a href="#features" class="btn btn-g">
+          <span data-l="en">See features →</span>
+          <span data-l="ja" class="a">機能を見る →</span>
+          <span data-l="ko">기능 보기 →</span>
+        </a>
+      </div>
     </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="hero-right-eye">
-      <span data-l="en">SAMPLE ROUND CARD</span><span data-l="ja" class="a">サンプルラウンドカード</span><span data-l="ko">샘플 라운드카드</span>
-      <span style="display:block;opacity:.6;font-size:9px;margin-top:4px;letter-spacing:.16em">YUKI · 04.12 · PAR 72</span>
-    </div>
-    <div class="hero-right-num">86</div>
-    <div class="hero-right-grid">
-      <div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#60A5FA">6</div><div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div style="background:#F5C400;color:#0A0A0A">3</div><div style="background:#60A5FA">4</div><div style="background:#9B8EC4">6</div>
-      <div style="background:#2D5A27">4</div><div style="background:#888888">7</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#9B8EC4">7</div><div style="background:#2D5A27">4</div><div style="background:#9B8EC4">6</div><div style="background:#2D5A27">5</div><div style="background:#60A5FA">5</div>
-    </div>
-    <div class="hero-right-meta">
-      <span>OUT 40 · IN 46 · TOTAL 86</span>
-      <span class="sub">
-        <span data-l="en">1 EAGLE · MOSTLY PARS/BOGEYS · 1 TRIPLE</span>
-        <span data-l="ja" class="a">1イーグル · パー/ボギー中心 · 1トリプル</span>
-        <span data-l="ko">1 이글 · 대부분 파/보기 · 1 트리플</span>
-      </span>
+    <div class="rv">
+      <div class="phone">
+        <div class="ph-h">
+          <div class="l1">Yuki · Sat Apr 12 · Par 72</div>
+          <div class="l2">86</div>
+        </div>
+        <div class="mg" id="vg"></div>
+        <div class="ph-b">
+          <div class="s"><div class="n">40</div><div class="l">OUT</div></div>
+          <div class="s"><div class="n">46</div><div class="l">IN</div></div>
+          <div class="s"><div class="n">86</div><div class="l">TOTAL</div></div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:8px;color:var(--t3);margin-top:10px;letter-spacing:1px">
+        <span data-l="en">* Sample Round Card</span>
+        <span data-l="ja" class="a">* サンプルラウンドカード</span>
+        <span data-l="ko">* 샘플 라운드카드</span>
+      </p>
     </div>
   </div>
 </section>
 
-<!-- Marquee -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item">SHAPE YOUR ROUND<span class="sep">★</span></span>
-    <span class="marquee-item">記憶を、かたちに<span class="sep">★</span></span>
-    <span class="marquee-item">PLAY · SHARE · RISE<span class="sep">★</span></span>
-    <span class="marquee-item">KEEP WHAT LASTS<span class="sep">★</span></span>
-    <span class="marquee-item">골프 소셜 앱<span class="sep">★</span></span>
-    <span class="marquee-item">A KANOPY PRODUCT<span class="sep">★</span></span>
-    <span class="marquee-item">SHAPE YOUR ROUND<span class="sep">★</span></span>
-    <span class="marquee-item">記憶を、かたちに<span class="sep">★</span></span>
-    <span class="marquee-item">PLAY · SHARE · RISE<span class="sep">★</span></span>
-    <span class="marquee-item">KEEP WHAT LASTS<span class="sep">★</span></span>
-    <span class="marquee-item">골프 소셜 앱<span class="sep">★</span></span>
-    <span class="marquee-item">A KANOPY PRODUCT<span class="sep">★</span></span>
-  </div>
-</div>
-
-<!-- ============================================================
-     VISION
-     ============================================================ -->
-<section id="vision" class="sect alt">
-  <div class="sect-no">01 / 06</div>
-  <div class="sect-inner">
-    <div class="rv">
-      <div class="sect-eye"><span data-l="en">VISION</span><span data-l="ja" class="a">ビジョン</span><span data-l="ko">비전</span></div>
-      <h2 class="sect-h">
-        <span data-l="en">GOLF IS MORE THAN<br><em>A SCORE.</em></span>
-        <span data-l="ja" class="a">ゴルフは、<br><em>スコアだけじゃない。</em></span>
-        <span data-l="ko">골프는,<br><em>스코어만이 아니다.</em></span>
-      </h2>
-    </div>
-
-    <div class="vision-quote rv">
+<section class="alt">
+  <div class="si">
+    <div class="sl rv">Vision</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">Golf is more than a score.</span>
+      <span data-l="ja" class="a">ゴルフは、スコアだけじゃない。</span>
+      <span data-l="ko">골프는 스코어만이 아니다.</span>
+    </h2>
+    <div class="quote-block rv">
       <p>
         <span data-l="en">It's the <strong>four hours</strong> on the fairway. The conversations, the laughter, the perfect approach, the comeback putt. The greatest gift of golf is <strong>sharing those moments</strong> with the people beside you.</span>
-        <span data-l="ja" class="a">それは<strong>フェアウェイで過ごす4時間</strong>。会話、笑い、最高のアプローチ、復活のパット。ゴルフの最大の贈り物は、<strong>その瞬間を仲間とシェアできる</strong>こと。</span>
+        <span data-l="ja" class="a">それは<strong>フェアウェイで過ごす4時間</strong>。<br class="sp">会話、笑い、最高のアプローチ、復活のパット。<br class="sp">ゴルフの最大の贈り物は、<br class="sp"><strong>その瞬間を仲間とシェアできる</strong>こと。</span>
         <span data-l="ko">그것은 <strong>페어웨이의 4시간</strong>. 대화, 웃음, 최고의 어프로치, 컴백 퍼팅. 골프의 가장 큰 선물은 <strong>그 순간을 함께한 사람들과 나누는 것</strong>.</span>
       </p>
     </div>
-
-    <p class="vision-after rv">
+    <p class="sec-sub rv">
       <span data-l="en">ROUNDIE keeps those memories as something you can hold. Every round becomes a beautiful color grid — a Round Card you can save, share, and revisit years from now.</span>
-      <span data-l="ja" class="a">ROUNDIE は、その記憶を「かたち」として残します。ラウンドは美しいカラーグリッドになり、あなただけのラウンドカードとして手元に残ります。何年経っても、あの日のラウンドをいつでも振り返ることができます。</span>
-      <span data-l="ko">ROUNDIE는 그 기억을 형태로 남깁니다. 라운드는 아름다운 컬러 그리드가 되어, 몇 년이 지나도 언제든 그날의 라운드를 다시 볼 수 있습니다.</span>
+      <span data-l="ja" class="a">ROUNDIE は、その記憶を「かたち」として残します。<br class="sp">ラウンドは美しいカラーグリッドになり、<br class="sp">あなただけのラウンドカードとして手元に残ります。<br class="sp">何年経っても、あの日のラウンドをいつでも振り返ることができます。</span>
+      <span data-l="ko">ROUNDIE는 그 기억을 형태로 남깁니다. 라운드는 아름다운 컬러 그리드가 되어 나만의 라운드카드로 남고, 몇 년이 지나도 언제든 그날의 라운드를 다시 볼 수 있습니다.</span>
     </p>
   </div>
 </section>
 
-<!-- ============================================================
-     HOW IT WORKS
-     ============================================================ -->
-<section id="how" class="sect">
-  <div class="sect-no">02 / 06</div>
-  <div class="sect-inner">
-    <div class="rv">
-      <div class="sect-eye"><span data-l="en">HOW IT WORKS</span><span data-l="ja" class="a">使い方</span><span data-l="ko">사용법</span></div>
-      <h2 class="sect-h">
-        <span data-l="en">30 SECONDS.<br><em>ONE BEAUTIFUL ROUND CARD.</em></span>
-        <span data-l="ja" class="a">30秒で、<br><em>美しいラウンドカードが完成。</em></span>
-        <span data-l="ko">30초로,<br><em>아름다운 라운드카드 완성.</em></span>
-      </h2>
-      <p class="sect-sub">
-        <span data-l="en">From scoring to sharing — ROUNDIE keeps the best of every round.</span>
-        <span data-l="ja" class="a">スコア入力から共有まで。ROUNDIE はラウンドの最高の瞬間を残します。</span>
-        <span data-l="ko">스코어 입력부터 공유까지. ROUNDIE는 라운드의 최고의 순간을 남깁니다.</span>
-      </p>
-    </div>
-
-    <div class="steps rv">
-      <div class="step">
-        <span class="step-no">STEP 01</span>
-        <h3 class="step-h"><span class="ic">⛳</span><span data-l="en">RECORD</span><span data-l="ja" class="a">記録する</span><span data-l="ko">기록</span></h3>
-        <p class="step-p">
-          <span data-l="en">Enter scores in quick or detailed mode. Add weather, partners, and photos to capture the day.</span>
-          <span data-l="ja" class="a">クイック／詳細モードでスコア入力。天気・同伴者・写真も追加して、その日を残せます。</span>
-          <span data-l="ko">퀵·상세 모드로 스코어 입력. 날씨·동반자·사진 추가 가능.</span>
-        </p>
+<section>
+  <div class="si">
+    <div class="sl rv">How It Works</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">30 seconds. One beautiful Round Card.</span>
+      <span data-l="ja" class="a">30秒で、美しいラウンドカードが完成。</span>
+      <span data-l="ko">30초로, 아름다운 라운드카드 완성.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">From scoring to sharing, ROUNDIE keeps the best of every round.</span>
+      <span data-l="ja" class="a">スコア入力から共有まで。ROUNDIEはラウンドの最高の瞬間を残す。</span>
+      <span data-l="ko">스코어 입력부터 공유까지. ROUNDIE는 라운드의 최고의 순간을 남긴다.</span>
+    </p>
+    <div class="steps">
+      <div class="step rv">
+        <div class="num">STEP 1</div>
+        <h4>⛳ <span data-l="en">Record</span><span data-l="ja" class="a">記録する</span><span data-l="ko">기록</span></h4>
+        <p><span data-l="en">Enter scores in quick or detailed mode. Add weather, partners, photos.</span><span data-l="ja" class="a">クイック／詳細モードでスコア入力。天気・同伴者・写真も追加可能。</span><span data-l="ko">퀵·상세 모드로 스코어 입력. 날씨·동반자·사진 추가 가능.</span></p>
       </div>
-      <div class="step">
-        <span class="step-no">STEP 02</span>
-        <h3 class="step-h"><span class="ic">🎨</span><span data-l="en">SHAPE</span><span data-l="ja" class="a">かたちにする</span><span data-l="ko">형태로</span></h3>
-        <p class="step-p">
-          <span data-l="en">Each hole becomes a color. 18 holes form a unique grid — no two are alike.</span>
-          <span data-l="ja" class="a">各ホールが色に変わる。18 ホールでカラーグリッドが完成。同じグリッドは二つとない。</span>
-          <span data-l="ko">각 홀이 색으로. 18홀이 그리드가 됩니다. 같은 그리드는 없습니다.</span>
-        </p>
+      <div class="step rv">
+        <div class="num">STEP 2</div>
+        <h4>🎨 <span data-l="en">Shape</span><span data-l="ja" class="a">かたちにする</span><span data-l="ko">형태로</span></h4>
+        <p><span data-l="en">Each hole becomes a color. 18 holes form a unique grid — no two are alike.</span><span data-l="ja" class="a">各ホールが色に変わる。18ホールでカラーグリッドが完成。同じグリッドは二つとない。</span><span data-l="ko">각 홀이 색으로 변한다. 같은 그리드는 없다.</span></p>
       </div>
-      <div class="step">
-        <span class="step-no">STEP 03</span>
-        <h3 class="step-h"><span class="ic">🤝</span><span data-l="en">SHARE</span><span data-l="ja" class="a">シェアする</span><span data-l="ko">공유</span></h3>
-        <p class="step-p">
-          <span data-l="en">Post to the Feed. Send Kudos. Add comments. Celebrate together with friends.</span>
-          <span data-l="ja" class="a">フィードに投稿。Kudos を送る。コメントで盛り上がる。仲間と一緒に。</span>
-          <span data-l="ko">피드 공유. Kudos · 댓글로 함께 즐기기.</span>
-        </p>
+      <div class="step rv">
+        <div class="num">STEP 3</div>
+        <h4>🤝 <span data-l="en">Share</span><span data-l="ja" class="a">シェアする</span><span data-l="ko">공유</span></h4>
+        <p><span data-l="en">Post to the Feed. Send Kudos. Add comments. Celebrate together.</span><span data-l="ja" class="a">フィードに投稿。Kudosを送る。コメントで盛り上がる。</span><span data-l="ko">피드 공유. Kudos 보내기. 댓글로 함께 즐기기.</span></p>
       </div>
-      <div class="step">
-        <span class="step-no">STEP 04</span>
-        <h3 class="step-h"><span class="ic">📈</span><span data-l="en">RISE</span><span data-l="ja" class="a">成長する</span><span data-l="ko">성장</span></h3>
-        <p class="step-p">
-          <span data-l="en">Track growth in Ranking. Climb the ROUNDIE Score. Earn rank badges from ROOKIE to LEGEND.</span>
-          <span data-l="ja" class="a">ランキングで成長を可視化。ROUNDIE Score を上げ、ROOKIE から LEGEND までランクアップ。</span>
-          <span data-l="ko">랭킹에서 성장 확인. ROUNDIE Score 상승. 랭크 배지 획득.</span>
-        </p>
+      <div class="step rv">
+        <div class="num">STEP 4</div>
+        <h4>📈 <span data-l="en">Rise</span><span data-l="ja" class="a">成長する</span><span data-l="ko">성장</span></h4>
+        <p><span data-l="en">Track growth in Ranking. Climb the ROUNDIE Score. Earn rank badges.</span><span data-l="ja" class="a">ランキングで成長を可視化。ROUNDIE Scoreを上げる。ランクバッジを獲得する。</span><span data-l="ko">랭킹에서 성장 확인. ROUNDIE Score 상승. 랭크 배지 획득.</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     FEATURES — 8 detailed feature blocks with mock UI
-     ============================================================ -->
-<section id="features" class="sect alt">
-  <div class="sect-no">03 / 06</div>
-  <div class="sect-inner">
-    <div class="rv">
-      <div class="sect-eye"><span data-l="en">FEATURES</span><span data-l="ja" class="a">機能</span><span data-l="ko">기능</span></div>
-      <h2 class="sect-h">
-        <span data-l="en">EVERYTHING YOU NEED,<br><em>IN ONE APP.</em></span>
-        <span data-l="ja" class="a">必要なものが、<br><em>すべてひとつに。</em></span>
-        <span data-l="ko">필요한 모든 것이,<br><em>하나에.</em></span>
-      </h2>
-      <p class="sect-sub">
-        <span data-l="en">Built for golfers who play with friends, grow over time, and want their rounds to mean more than a number.</span>
-        <span data-l="ja" class="a">仲間とラウンドし、時間をかけて成長し、ラウンドを数字以上のものにしたいゴルファーのために。</span>
-        <span data-l="ko">동료와 라운드하며 시간이 지나도 성장하고, 라운드를 숫자 이상으로 만들고 싶은 골퍼를 위해.</span>
-      </p>
-    </div>
+<section id="features" class="alt">
+  <div class="si">
+    <div class="sl rv">Features</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">Everything you need, in one app.</span>
+      <span data-l="ja" class="a">必要なものが、すべてひとつに。</span>
+      <span data-l="ko">필요한 모든 것을, 하나에.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">Built for golfers who play with friends, grow over time, and want their rounds to mean more than a number.</span>
+      <span data-l="ja" class="a">仲間とラウンドし、時間をかけて成長し、ラウンドを数字以上のものにしたいゴルファーのために。</span>
+      <span data-l="ko">동료와 라운드하며 시간이 지나도 성장하고, 라운드를 숫자 이상으로 만들고 싶은 골퍼를 위해.</span>
+    </p>
 
-    <div class="feat-list">
+    <div class="ftrs">
 
       <!-- 01: Round Card -->
-      <article class="feat-item rv">
-        <div class="feat-no">01</div>
-        <div class="feat-body">
-          <h3><span data-l="en">ROUND CARD</span><span data-l="ja" class="a">ラウンドカード</span><span data-l="ko">라운드카드</span></h3>
-          <p>
-            <span data-l="en">Every round becomes a <strong>one-of-a-kind color grid</strong>. 18 holes, 18 colors. Eagle gold, par green, bogey blue, double purple. Save your day. Share it. Revisit it years from now. <strong>Other golf apps don't do this.</strong></span>
-            <span data-l="ja" class="a">ラウンドが<strong>世界に一つだけのカラーグリッド</strong>になります。18 ホール、18 色。イーグルは金、パーは緑、ボギーは青、ダブルは紫。あなたの一日を保存・シェア・何年経っても振り返れます。<strong>他のゴルフアプリには、これがありません。</strong></span>
-            <span data-l="ko">라운드가 <strong>세상에 단 하나뿐인 컬러 그리드</strong>로. 18홀, 18색. 이글 금, 파 녹, 보기 파랑, 더블 보라. 저장 · 공유 · 몇 년 지나도 다시 볼 수 있습니다. <strong>다른 골프 앱에는 없습니다.</strong></span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag"><span data-l="en">ROUNDIE ONLY</span><span data-l="ja" class="a">ROUNDIE 独自</span><span data-l="ko">ROUNDIE 독자</span></span>
-            <span class="tag"><span data-l="en">NO 2 ALIKE</span><span data-l="ja" class="a">唯一無二</span><span data-l="ko">유일무이</span></span>
+      <div class="ftr rv">
+        <div class="ic">🎨</div>
+        <div class="ti">Round Card</div>
+        <div class="dc"><span data-l="en">Every round becomes a one-of-a-kind color grid. Save, share, and revisit the shape of your golf days.</span><span data-l="ja" class="a">ラウンドが世界に一つだけのカラーグリッドに。保存・シェア・いつでも振り返れる。</span><span data-l="ko">라운드가 세상에 단 하나뿐인 컬러 그리드로.</span></div>
+        <div class="ftr-mock">
+          <!-- Actual color mapping: Eagle=Gold, Birdie=Red, Par=Green, Bogey=Blue, Double=Indigo, Triple+=DarkSlate. Score numbers shown inside each tile. -->
+          <div class="mock-grid">
+            <!-- OUT 9 holes: 4·5·3·6·4·5·3·4·6 = 40 -->
+            <div style="background:#4CAF50">4</div><div style="background:#42A5F5">5</div><div style="background:#4CAF50">3</div><div style="background:#42A5F5">6</div><div style="background:#4CAF50">4</div><div style="background:#42A5F5">5</div><div style="background:#FFD700;color:#0A0A0A;text-shadow:none">3</div><div style="background:#42A5F5">4</div><div style="background:#5C6BC0">6</div>
+            <!-- IN 9 holes: 4·7·5·3·7·4·6·5·5 = 46 -->
+            <div style="background:#4CAF50">4</div><div style="background:#37474F">7</div><div style="background:#42A5F5">5</div><div style="background:#4CAF50">3</div><div style="background:#5C6BC0">7</div><div style="background:#4CAF50">4</div><div style="background:#5C6BC0">6</div><div style="background:#4CAF50">5</div><div style="background:#42A5F5">5</div>
+          </div>
+          <!-- OUT / IN / TOTAL summary -->
+          <div class="mock-row" style="margin-top:10px;justify-content:space-between;padding:6px 8px;background:rgba(255,255,255,.025);border-radius:6px">
+            <span style="font-size:9px;color:var(--t3);letter-spacing:1px">OUT <strong style="color:var(--t1);font-family:'Space Grotesk';font-size:11px;font-weight:700">40</strong></span>
+            <span style="font-size:9px;color:var(--t3);letter-spacing:1px">IN <strong style="color:var(--t1);font-family:'Space Grotesk';font-size:11px;font-weight:700">46</strong></span>
+            <span style="font-size:9px;color:var(--ac);letter-spacing:1px">TOTAL <strong style="color:var(--ac);font-family:'Space Grotesk';font-size:14px;font-weight:800">86</strong></span>
+          </div>
+          <div class="mock-row" style="margin-top:6px;justify-content:space-between">
+            <span class="mock-meta">Yuki · Sat Apr 12 · Par 72</span>
+          </div>
+          <!-- Legend with abbreviations (E / B / P / Bo / D / T) -->
+          <div style="display:flex;gap:6px;margin-top:8px;font-size:8px;color:var(--t3);flex-wrap:wrap;letter-spacing:.3px;align-items:center">
+            <span><span style="display:inline-block;width:8px;height:8px;background:#FFD700;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">E</strong> Eagle</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#EF5350;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">B</strong> Birdie</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#4CAF50;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">P</strong> Par</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#42A5F5;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">Bo</strong> Bogey</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#5C6BC0;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">D</strong> Double</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#37474F;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">T</strong> Triple+</span>
           </div>
         </div>
-        <div class="feat-visual">
-          <div class="m-rc">
-            <div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#60A5FA">6</div><div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div style="background:#F5C400;color:#0A0A0A">3</div><div style="background:#60A5FA">4</div><div style="background:#9B8EC4">6</div>
-            <div style="background:#2D5A27">4</div><div style="background:#888888">7</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#9B8EC4">7</div><div style="background:#2D5A27">4</div><div style="background:#9B8EC4">6</div><div style="background:#2D5A27">5</div><div style="background:#60A5FA">5</div>
-          </div>
-          <div class="m-rc-meta">
-            <span class="nm">YUKI · 04.12 · PAR 72</span>
-            <span class="sc">86</span>
-          </div>
-          <div class="m-rc-legend">
-            <span><i style="background:#F5C400"></i>Eagle</span>
-            <span><i style="background:#2D5A27"></i>Par</span>
-            <span><i style="background:#60A5FA"></i>Bogey</span>
-            <span><i style="background:#9B8EC4"></i>Double</span>
-            <span><i style="background:#888888"></i>Triple+</span>
-          </div>
-        </div>
-      </article>
+      </div>
 
       <!-- 02: ROUNDIE Score -->
-      <article class="feat-item rv">
-        <div class="feat-no">02</div>
-        <div class="feat-body">
-          <h3><span data-l="en">ROUNDIE SCORE</span><span data-l="ja" class="a">ROUNDIE スコア</span><span data-l="ko">ROUNDIE 스코어</span></h3>
-          <p>
-            <span data-l="en">A <strong>3-pillar score</strong> capturing technique, community presence, and golf life. <strong>SKILL · VIBE · STYLE</strong> — 100 points total. Rank up through 7 stages from ROOKIE to LEGEND. No pay-to-win — every rank is earned.</span>
-            <span data-l="ja" class="a"><strong>3 軸スコア</strong>で技術・コミュニティでの存在感・ゴルフライフを表現。<strong>SKILL · VIBE · STYLE</strong> の 100 点満点。ROOKIE から LEGEND まで 7 段階のランクアップ。課金で先に進むことはできません。</span>
-            <span data-l="ko"><strong>3축 스코어</strong>로 기술·커뮤니티·골프 라이프를 표현. <strong>SKILL · VIBE · STYLE</strong> 100점. 7단계 랭크업. 결제로 건너뛸 수 없습니다.</span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag">SKILL 35%</span>
-            <span class="tag">VIBE 30%</span>
-            <span class="tag">STYLE 35%</span>
-            <span class="tag"><span data-l="en">NO PAY-TO-WIN</span><span data-l="ja" class="a">課金で進めず</span><span data-l="ko">결제 불가</span></span>
+      <div class="ftr rv">
+        <div class="ic">🪪</div>
+        <div class="ti">ROUNDIE Score</div>
+        <div class="dc"><span data-l="en">A 3-pillar score (Skill / Vibe / Style) capturing technique, community presence, and golf life. Rank up from ROOKIE to LEGEND.</span><span data-l="ja" class="a">スキル・評判・スタイルの3軸スコア。<br class="sp">技術・コミュニティでの存在感・ゴルフライフを表現。<br class="sp">ROOKIEからLEGENDまでランクアップしていきます。</span><span data-l="ko">스킬·평판·스타일 3축 스코어. ROOKIE에서 LEGEND까지.</span></div>
+        <div class="ftr-mock">
+          <div class="mock-row" style="justify-content:space-between;margin-bottom:10px">
+            <span style="font-family:'Space Grotesk';font-weight:700;font-size:20px;color:var(--ac)">72<span style="font-size:11px;color:var(--t3);font-weight:500"> / 100</span></span>
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">REGULAR</span>
           </div>
+          <div class="mock-bar"><span class="lbl" style="color:#66BB6A">SKILL</span><span class="trk"><span class="fil" style="width:80%;background:#66BB6A"></span></span><span class="val">28<span style="font-weight:500;color:var(--t3);font-size:9px">/35</span></span></div>
+          <div class="mock-bar"><span class="lbl" style="color:#FFA726">VIBE</span><span class="trk"><span class="fil" style="width:60%;background:#FFA726"></span></span><span class="val">18<span style="font-weight:500;color:var(--t3);font-size:9px">/30</span></span></div>
+          <div class="mock-bar" style="margin-bottom:0"><span class="lbl" style="color:#AB47BC">STYLE</span><span class="trk"><span class="fil" style="width:74%;background:#AB47BC"></span></span><span class="val">26<span style="font-weight:500;color:var(--t3);font-size:9px">/35</span></span></div>
         </div>
-        <div class="feat-visual">
-          <div class="m-score">
-            <div class="m-score-head">
-              <div class="num">72<small> / 100</small></div>
-              <span class="rank">REGULAR</span>
-            </div>
-            <div class="m-bar"><span class="lbl" style="color:#7FCF6F">SKILL</span><span class="trk"><span class="fil" style="--p:.8;background:#7FCF6F"></span></span><span class="val">28<small style="color:#666">/35</small></span></div>
-            <div class="m-bar"><span class="lbl" style="color:#F5C400">VIBE</span><span class="trk"><span class="fil" style="--p:.6;background:#F5C400"></span></span><span class="val">18<small style="color:#666">/30</small></span></div>
-            <div class="m-bar"><span class="lbl" style="color:#9B8EC4">STYLE</span><span class="trk"><span class="fil" style="--p:.74;background:#9B8EC4"></span></span><span class="val">26<small style="color:#666">/35</small></span></div>
-          </div>
-        </div>
-      </article>
+      </div>
 
       <!-- 03: Feed -->
-      <article class="feat-item rv">
-        <div class="feat-no">03</div>
-        <div class="feat-body">
-          <h3><span data-l="en">FEED</span><span data-l="ja" class="a">フィード</span><span data-l="ko">피드</span></h3>
-          <p>
-            <span data-l="en">Friends' rounds in <strong>one beautiful timeline</strong>. Round Cards take center stage, with photos when added — every post tells the day's story.</span>
-            <span data-l="ja" class="a">仲間のラウンドが<strong>美しいタイムライン</strong>に並びます。ラウンドカードが主役で、写真が添付されればそれも一緒に。投稿ひとつひとつがその日の物語になります。</span>
-            <span data-l="ko">동료의 라운드가 <strong>아름다운 타임라인</strong>으로. 라운드카드가 중심이 되고, 사진이 함께라면 그것까지. 게시물 하나하나가 그날의 이야기가 됩니다.</span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag"><span data-l="en">FRIENDS-FIRST</span><span data-l="ja" class="a">仲間優先</span><span data-l="ko">친구 우선</span></span>
-            <span class="tag"><span data-l="en">PHOTO + GRID</span><span data-l="ja" class="a">写真 + グリッド</span><span data-l="ko">사진 + 그리드</span></span>
-          </div>
-        </div>
-        <div class="feat-visual">
-          <div class="m-feed">
-            <div class="m-feed-row">
-              <span class="m-av">Y</span>
-              <span class="m-feed-name">Yuki<small> · 2h</small></span>
-              <span class="m-feed-mini"><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#F5C400"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div></span>
-              <span class="m-feed-kud">🔥 12</span>
+      <div class="ftr rv">
+        <div class="ic">📱</div>
+        <div class="ti">Feed</div>
+        <div class="dc"><span data-l="en">Friends' rounds in one beautiful timeline. Round Cards take center stage, with photos when added — every post tells the day's story.</span><span data-l="ja" class="a">仲間のラウンドが美しいタイムラインに並びます。<br class="sp">ラウンドカードが主役で、写真が添付されればそれも一緒に。<br class="sp">投稿ひとつひとつがその日の物語に。</span><span data-l="ko">동료의 라운드가 아름다운 타임라인으로. 라운드카드가 중심이 되고, 사진이 함께라면 그것까지 — 게시물 하나하나가 그날의 이야기가 됩니다.</span></div>
+        <div class="ftr-mock">
+          <!-- Photo-hero post (Yuki) -->
+          <div style="margin-bottom:10px">
+            <div class="mock-row" style="margin-bottom:6px">
+              <div class="mock-avatar" style="background:#81C784">Y</div>
+              <div style="flex:1;font-size:11px;font-weight:600;color:var(--t1)">Yuki<span style="font-size:9px;color:var(--t3);font-weight:400">  · 2h</span></div>
+              <span style="font-size:10px;color:var(--ac);font-weight:600">🔥 12</span>
             </div>
-            <div class="m-feed-row">
-              <span class="m-av" style="background:#F5C400">K</span>
-              <span class="m-feed-name">Kenji<small> · 5h</small></span>
-              <span class="m-feed-mini"><div style="background:#2D5A27"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div></span>
-              <span class="m-feed-kud">💪 8</span>
-            </div>
-            <div class="m-feed-row">
-              <span class="m-av" style="background:#9B8EC4">M</span>
-              <span class="m-feed-name">Mio<small> · 1d</small></span>
-              <span class="m-feed-mini"><div style="background:#2D5A27"></div><div style="background:#F5C400"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#888"></div></span>
-              <span class="m-feed-kud">🤝 5</span>
+            <div style="position:relative;border-radius:6px;overflow:hidden;height:90px;background:#1A1A1A">
+              <!-- Real golf course photo -->
+              <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=520&h=180&fit=crop&q=80" alt="Golf course" style="width:100%;height:100%;object-fit:cover;display:block">
+              <!-- Bottom gradient for legibility -->
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 50%);pointer-events:none"></div>
+              <!-- Mini grid overlay (corner) -->
+              <div style="position:absolute;bottom:6px;left:6px;display:grid;grid-template-columns:repeat(9,1fr);gap:1px;width:74px;padding:3px;background:rgba(0,0,0,.35);border-radius:3px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)">
+                <div style="aspect-ratio:1;background:#4CAF50;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#4CAF50;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#4CAF50;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#FFD700;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#5C6BC0;border-radius:1px"></div>
+              </div>
+              <span style="position:absolute;bottom:8px;right:8px;font-family:'Space Grotesk';font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)">86</span>
             </div>
           </div>
+          <!-- Grid-hero post (Kenji) -->
+          <div class="mock-row">
+            <div class="mock-avatar" style="background:#FF9800">K</div>
+            <div style="flex:1;font-size:11px;font-weight:600;color:var(--t1)">Kenji<span style="font-size:9px;color:var(--t3);font-weight:400">  · 5h</span></div>
+            <div style="display:flex;gap:2px">
+              <span class="mock-feed-tile" style="background:#4CAF50"></span><span class="mock-feed-tile" style="background:#4CAF50"></span><span class="mock-feed-tile" style="background:#42A5F5"></span><span class="mock-feed-tile" style="background:#4CAF50"></span><span class="mock-feed-tile" style="background:#5C6BC0"></span>
+            </div>
+            <span style="font-size:10px;color:var(--ac);font-weight:600">💪 8</span>
+          </div>
         </div>
-      </article>
+      </div>
 
       <!-- 04: Kudos & Comments -->
-      <article class="feat-item rv">
-        <div class="feat-no">04</div>
-        <div class="feat-body">
-          <h3><span data-l="en">KUDOS &amp; COMMENTS</span><span data-l="ja" class="a">KUDOS &amp; コメント</span><span data-l="ko">KUDOS · 댓글</span></h3>
-          <p>
-            <span data-l="en"><strong>Three Kudos made for golfers</strong> — Nice Shot, Nice Fight, Best Buddy. Add real comments with golf etiquette built in. Cheer for your friends, the golfer way.</span>
-            <span data-l="ja" class="a"><strong>ゴルファーならではの 3 種類の Kudos</strong> — ナイスショット・ナイスファイト・ベストバディ。コメントも、ゴルフの作法を持ったまま仲間のラウンドに反応できます。</span>
-            <span data-l="ko"><strong>골퍼를 위한 3가지 Kudos</strong> — Nice Shot · Nice Fight · Best Buddy. 매너 있는 댓글로 동료의 라운드에 반응할 수 있습니다.</span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag">NICE SHOT 🔥</span>
-            <span class="tag">NICE FIGHT 💪</span>
-            <span class="tag">BEST BUDDY 🤝</span>
+      <div class="ftr rv">
+        <div class="ic">🔥</div>
+        <div class="ti">Kudos & Comments</div>
+        <div class="dc"><span data-l="en">Three Kudos made for golfers — Nice Shot, Nice Fight, Best Buddy. Add a real comment with golf etiquette in mind.</span><span data-l="ja" class="a">ゴルファーならではの3種類の Kudos — ナイスショット・ナイスファイト・ベストバディ。<br class="sp">コメントもゴルフの作法を持ったまま、仲間のラウンドに反応できます。</span><span data-l="ko">골퍼를 위한 3가지 Kudos — Nice Shot · Nice Fight · Best Buddy. 매너 있는 댓글로 동료의 라운드에 반응할 수 있습니다.</span></div>
+        <div class="ftr-mock">
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+            <div class="mock-row" style="justify-content:space-between">
+              <span><span class="mock-emoji">🔥</span> <span style="font-size:10px;color:var(--t1);font-weight:600;margin-left:4px"><span data-l="en">Nice Shot</span><span data-l="ja" class="a">ナイスショット</span><span data-l="ko">나이스샷</span></span></span>
+              <span style="font-size:10px;color:var(--ac);font-weight:700;font-family:'Space Grotesk'">12</span>
+            </div>
+            <div class="mock-row" style="justify-content:space-between">
+              <span><span class="mock-emoji">💪</span> <span style="font-size:10px;color:var(--t1);font-weight:600;margin-left:4px"><span data-l="en">Nice Fight</span><span data-l="ja" class="a">ナイスファイト</span><span data-l="ko">나이스 파이트</span></span></span>
+              <span style="font-size:10px;color:var(--ac);font-weight:700;font-family:'Space Grotesk'">8</span>
+            </div>
+            <div class="mock-row" style="justify-content:space-between">
+              <span><span class="mock-emoji">🤝</span> <span style="font-size:10px;color:var(--t1);font-weight:600;margin-left:4px"><span data-l="en">Best Buddy</span><span data-l="ja" class="a">ベストバディ</span><span data-l="ko">베스트 버디</span></span></span>
+              <span style="font-size:10px;color:var(--ac);font-weight:700;font-family:'Space Grotesk'">5</span>
+            </div>
+          </div>
+          <div class="mock-row" style="gap:8px;align-items:flex-start;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+            <div class="mock-avatar" style="background:#EC4899;width:18px;height:18px;font-size:9px">M</div>
+            <div style="flex:1">
+              <div style="font-size:11px;color:var(--t1);line-height:1.5">
+                <span data-l="en">"Nice birdie on 7!"</span>
+                <span data-l="ja" class="a">「7番のバーディ最高でした」</span>
+                <span data-l="ko">"7번 홀 버디 최고"</span>
+              </div>
+              <div style="font-size:9px;color:var(--t3);margin-top:3px">Mio · 1h</div>
+            </div>
           </div>
         </div>
-        <div class="feat-visual">
-          <div class="m-kud">
-            <div class="m-kud-row"><span class="m-kud-emoji">🔥</span><span class="m-kud-name"><span data-l="en">NICE SHOT</span><span data-l="ja" class="a">ナイスショット</span><span data-l="ko">나이스샷</span></span><span class="m-kud-cnt">12</span></div>
-            <div class="m-kud-row"><span class="m-kud-emoji">💪</span><span class="m-kud-name"><span data-l="en">NICE FIGHT</span><span data-l="ja" class="a">ナイスファイト</span><span data-l="ko">나이스 파이트</span></span><span class="m-kud-cnt">8</span></div>
-            <div class="m-kud-row"><span class="m-kud-emoji">🤝</span><span class="m-kud-name"><span data-l="en">BEST BUDDY</span><span data-l="ja" class="a">ベストバディ</span><span data-l="ko">베스트 버디</span></span><span class="m-kud-cnt">5</span></div>
-          </div>
-        </div>
-      </article>
+      </div>
 
       <!-- 05: Competitions -->
-      <article class="feat-item rv">
-        <div class="feat-no">05</div>
-        <div class="feat-body">
-          <h3><span data-l="en">COMPETITIONS</span><span data-l="ja" class="a">コンペ機能</span><span data-l="ko">대회 기능</span></h3>
-          <p>
-            <span data-l="en"><strong>Host a competition in 3 taps.</strong> Auto-scoring, animated result reveal, and individual titles — Champion, Birdie Hunter, Mr. Consistent — automatically shared to the Feed when earned. <strong>Free plan hosts 1 / month, Pro is unlimited.</strong></span>
-            <span data-l="ja" class="a"><strong>3 タップでコンペを開催できます。</strong>自動集計・結果リビール演出・個人タイトル（チャンピオン、バーディハンター、安定感の鬼など）が付与され、受賞時はフィードにも自動シェア。<strong>無料プランは月 1 回、Pro は無制限。</strong></span>
-            <span data-l="ko"><strong>3번 탭으로 대회 개최.</strong> 자동 집계 · 결과 발표 연출 · 개인 타이틀(챔피언 · 버디 헌터 · 안정감의 강자) 부여, 수상 시 피드에 자동 공유. 무료 1회/월, Pro 무제한.</span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag"><span data-l="en">3 TAPS</span><span data-l="ja" class="a">3 タップ</span><span data-l="ko">3 탭</span></span>
-            <span class="tag"><span data-l="en">AUTO RESULTS</span><span data-l="ja" class="a">自動集計</span><span data-l="ko">자동 집계</span></span>
-            <span class="tag"><span data-l="en">PRO: UNLIMITED</span><span data-l="ja" class="a">Pro: 無制限</span><span data-l="ko">Pro: 무제한</span></span>
+      <div class="ftr rv">
+        <div class="ic">🏆</div>
+        <div class="ti"><span data-l="en">Competitions</span><span data-l="ja" class="a">コンペ機能</span><span data-l="ko">대회 기능</span></div>
+        <div class="dc"><span data-l="en">Host a competition in 3 taps. Auto-scoring, animated result reveal, and individual titles (Champion, Birdie Hunter, Mr. Consistent, and more) — automatically shared to the Feed when earned. Free plan hosts 1 competition per month; Pro unlocks unlimited hosting and unlimited participants.</span><span data-l="ja" class="a">3タップでコンペを開催できます。<br class="sp">自動集計・結果リビール演出・個人タイトル（チャンピオン、バーディーハンター、安定感の鬼など）が付与され、受賞時はフィードにも自動でシェアされます。<br class="sp">無料プランは月1回まで、Pro は開催回数も参加人数も無制限に。</span><span data-l="ko">3번 탭으로 대회를 개최할 수 있습니다. 자동 집계·결과 발표 연출·개인 타이틀(챔피언·버디 헌터·안정감의 강자 등)이 부여되고, 수상 시 피드에도 자동 공유됩니다. 무료 플랜은 월 1회까지, Pro는 개최 횟수·참가자 모두 무제한입니다.</span></div>
+        <div class="ftr-mock">
+          <div class="mock-podium" style="margin-bottom:12px">
+            <div class="p"><div style="font-size:16px">🥈</div><div style="font-size:10px;font-weight:600;color:var(--t2);margin-top:2px">Kenji</div></div>
+            <div class="p"><div style="font-size:22px">🥇</div><div style="font-size:11px;font-weight:700;color:var(--ac);margin-top:2px">Yuki</div></div>
+            <div class="p"><div style="font-size:16px">🥉</div><div style="font-size:10px;font-weight:600;color:var(--t2);margin-top:2px"><span data-l="en">You</span><span data-l="ja" class="a">あなた</span><span data-l="ko">나</span></div></div>
+          </div>
+          <div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap">
+            <span class="mock-chip" style="background:rgba(212,168,87,.15);color:var(--gold)">
+              <span data-l="en">CHAMPION</span><span data-l="ja" class="a">チャンピオン</span><span data-l="ko">챔피언</span>
+            </span>
+            <span class="mock-chip" style="background:rgba(239,83,80,.12);color:#EF8B89">
+              <span data-l="en">BIRDIE HUNTER</span><span data-l="ja" class="a">バーディーハンター</span><span data-l="ko">버디 헌터</span>
+            </span>
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">
+              <span data-l="en">MR. CONSISTENT</span><span data-l="ja" class="a">安定感の鬼</span><span data-l="ko">안정감의 강자</span>
+            </span>
           </div>
         </div>
-        <div class="feat-visual">
-          <div class="m-podium">
-            <div class="m-pd" data-n="Kenji">2</div>
-            <div class="m-pd" data-n="Yuki">1</div>
-            <div class="m-pd" data-n="You">3</div>
-          </div>
-          <div class="m-titles">
-            <span style="background:rgba(245,196,0,.15);color:#F5C400">CHAMPION</span>
-            <span style="background:rgba(248,113,113,.12);color:#F87171">BIRDIE HUNTER</span>
-            <span style="background:var(--green-bg);color:var(--green-on-dark)">MR. CONSISTENT</span>
-          </div>
-        </div>
-      </article>
+      </div>
 
-      <!-- 06: Ranking & Growth -->
-      <article class="feat-item rv">
-        <div class="feat-no">06</div>
-        <div class="feat-body">
-          <h3><span data-l="en">RANKING &amp; GROWTH</span><span data-l="ja" class="a">ランキング &amp; 成長</span><span data-l="ko">랭킹 · 성장</span></h3>
-          <p>
-            <span data-l="en">Five categories (<strong>Total · Skill · Vibe · Style · Best Score</strong>) and two scopes (<strong>Friends / All Users</strong>). The default is the self-growth view — climb at your own pace.</span>
-            <span data-l="ja" class="a">5 カテゴリ（<strong>総合・スキル・評判・スタイル・ベストスコア</strong>）と 2 スコープ（<strong>仲間・全ユーザー</strong>）。デフォルトは自己成長ビューなので、人と比べずマイペースで楽しめます。</span>
-            <span data-l="ko">5개 카테고리(<strong>총합 · 스킬 · 평판 · 스타일 · 베스트 스코어</strong>)와 2개 스코프(<strong>친구 · 전체 사용자</strong>). 기본은 자기 성장 뷰 — 나의 페이스로.</span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag"><span data-l="en">5 CATEGORIES</span><span data-l="ja" class="a">5 カテゴリ</span><span data-l="ko">5 카테고리</span></span>
-            <span class="tag"><span data-l="en">SELF-GROWTH</span><span data-l="ja" class="a">自己成長</span><span data-l="ko">자기 성장</span></span>
+      <!-- 06: Ranking -->
+      <div class="ftr rv">
+        <div class="ic">📊</div>
+        <div class="ti"><span data-l="en">Ranking & Growth</span><span data-l="ja" class="a">ランキング・成長</span><span data-l="ko">랭킹·성장</span></div>
+        <div class="dc"><span data-l="en">Five categories (Total, Skill, Vibe, Style, Best Score) and two scopes (Friends / All Users). The default is the self-growth view — climb at your own pace.</span><span data-l="ja" class="a">5カテゴリ（総合・スキル・評判・スタイル・ベストスコア）と、2スコープ（仲間・全ユーザー）。<br class="sp">デフォルトは自己成長ビューなので、人と比べずマイペースで楽しめます。</span><span data-l="ko">5개 카테고리(총합·스킬·평판·스타일·베스트 스코어)와 2개 스코프(친구·전체 사용자). 기본은 자기 성장 뷰 — 나의 페이스로 성장을 즐길 수 있습니다.</span></div>
+        <div class="ftr-mock">
+          <!-- Scope tabs (actual: 2 only) -->
+          <div style="display:flex;gap:6px;margin-bottom:8px">
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">👥 <span data-l="en">Friends</span><span data-l="ja" class="a">仲間</span><span data-l="ko">친구</span></span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3)">🌐 <span data-l="en">All Users</span><span data-l="ja" class="a">全ユーザー</span><span data-l="ko">전체 사용자</span></span>
           </div>
-        </div>
-        <div class="feat-visual">
-          <div class="m-rank">
-            <div class="m-rank-tab">
-              <span class="a">TOTAL</span>
-              <span>SKILL</span>
-              <span>VIBE</span>
-              <span>STYLE</span>
-              <span>BEST</span>
+          <!-- Category tabs (5 actual categories) -->
+          <div style="display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap">
+            <span class="mock-chip" style="background:rgba(129,199,132,.18);color:var(--ac);padding:3px 6px;font-size:8px">TOTAL</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">SKILL</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">VIBE</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">STYLE</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">SCORE</span>
+          </div>
+          <!-- Mini leaderboard -->
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div class="mock-row" style="padding:5px 6px;background:rgba(255,215,0,.08);border-radius:6px">
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:#FFD700;width:18px">1</span>
+              <div class="mock-avatar" style="background:#EC4899;width:18px;height:18px;font-size:9px">M</div>
+              <span style="flex:1;font-size:10px;font-weight:600;color:var(--t1)">Mio</span>
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:var(--t1)">86</span>
             </div>
-            <div class="m-rank-row"><span class="m-rank-pos g">1</span><span class="m-av" style="width:22px;height:22px;font-size:10px;background:#9B8EC4">M</span><span class="m-rank-name">Mio</span><span class="m-rank-score">86</span></div>
-            <div class="m-rank-row"><span class="m-rank-pos s">2</span><span class="m-av" style="width:22px;height:22px;font-size:10px;background:#7FCF6F">Y</span><span class="m-rank-name">Yuki</span><span class="m-rank-score">72</span></div>
-            <div class="m-rank-row you"><span class="m-rank-pos b">3</span><span class="m-av" style="width:22px;height:22px;font-size:10px;background:#F5C400">K</span><span class="m-rank-name" style="color:var(--green-on-dark)"><span data-l="en">YOU</span><span data-l="ja" class="a">あなた</span><span data-l="ko">나</span></span><span class="m-rank-score" style="color:var(--green-on-dark)">68</span></div>
+            <div class="mock-row" style="padding:5px 6px">
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:#C0C0C0;width:18px">2</span>
+              <div class="mock-avatar" style="background:#81C784;width:18px;height:18px;font-size:9px">Y</div>
+              <span style="flex:1;font-size:10px;font-weight:600;color:var(--t1)">Yuki</span>
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:600;color:var(--t1)">72</span>
+              <span style="font-size:9px;color:#4CAF50;font-weight:600">+3 ▲</span>
+            </div>
+            <div class="mock-row" style="padding:5px 6px;background:rgba(129,199,132,.08);border-radius:6px">
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:#CD7F32;width:18px">3</span>
+              <div class="mock-avatar" style="background:#FF9800;width:18px;height:18px;font-size:9px">K</div>
+              <span style="flex:1;font-size:10px;font-weight:600;color:var(--ac)"><span data-l="en">You</span><span data-l="ja" class="a">あなた</span><span data-l="ko">나</span></span>
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:var(--ac)">68</span>
+            </div>
           </div>
         </div>
-      </article>
+      </div>
 
       <!-- 07: Invite Friends -->
-      <article class="feat-item rv">
-        <div class="feat-no">07</div>
-        <div class="feat-body">
-          <h3><span data-l="en">INVITE FRIENDS</span><span data-l="ja" class="a">フレンド招待</span><span data-l="ko">친구 초대</span></h3>
-          <p>
-            <span data-l="en">Share an invite link via <strong>LINE, SMS, share sheet, or QR code</strong>. Friends join with a single tap.</span>
-            <span data-l="ja" class="a"><strong>LINE・SMS・共有シート・QR コード</strong>で招待リンクをシェア。フレンドはワンタップで参加できます。</span>
-            <span data-l="ko"><strong>LINE · SMS · 공유 시트 · QR</strong>로 초대 링크 공유. 원탭 가입.</span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag">LINE</span>
-            <span class="tag">SMS</span>
-            <span class="tag">QR</span>
-            <span class="tag">ONE TAP</span>
+      <div class="ftr rv">
+        <div class="ic">💬</div>
+        <div class="ti"><span data-l="en">Invite Friends</span><span data-l="ja" class="a">フレンド招待</span><span data-l="ko">친구 초대</span></div>
+        <div class="dc"><span data-l="en">Share an invite link via LINE, SMS, the system share sheet, or a QR code. Friends join with a tap.</span><span data-l="ja" class="a">LINE・SMS・共有シート・QRコードで招待リンクをシェア。<br class="sp">フレンドはワンタップで参加できます。</span><span data-l="ko">LINE·SMS·공유 시트·QR로 초대 링크 공유. 원탭 가입.</span></div>
+        <div class="ftr-mock">
+          <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+            <span class="mock-chip" style="background:rgba(6,199,85,.15);color:#06C755">LINE</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">SMS</span>
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">
+              <span data-l="en">Share</span>
+              <span data-l="ja" class="a">共有</span>
+              <span data-l="ko">공유</span>
+            </span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">
+              <span data-l="en">Copy Link</span>
+              <span data-l="ja" class="a">リンクをコピー</span>
+              <span data-l="ko">링크 복사</span>
+            </span>
           </div>
+          <div style="font-size:9px;color:var(--t3);font-family:'Space Grotesk';letter-spacing:.5px">+ QR code in sheet</div>
         </div>
-        <div class="feat-visual">
-          <div class="m-invite">
-            <div class="m-invite-row">
-              <span class="line">LINE</span>
-              <span>SMS</span>
-              <span class="share"><span data-l="en">SHARE</span><span data-l="ja" class="a">共有</span><span data-l="ko">공유</span></span>
-              <span><span data-l="en">COPY</span><span data-l="ja" class="a">コピー</span><span data-l="ko">복사</span></span>
-            </div>
-            <div class="m-invite-qr"></div>
-            <span style="font-size:10px;color:var(--t3);letter-spacing:.18em;margin-top:4px">+ QR CODE</span>
-          </div>
-        </div>
-      </article>
+      </div>
 
       <!-- 08: Multi-Language -->
-      <article class="feat-item rv">
-        <div class="feat-no">08</div>
-        <div class="feat-body">
-          <h3><span data-l="en">MULTI-LANGUAGE</span><span data-l="ja" class="a">多言語対応</span><span data-l="ko">다국어</span></h3>
-          <p>
-            <span data-l="en"><strong>Japanese · English · Korean</strong>. Built for global golfers from day one. Switch languages anytime, including the app's interface and your shareable cards.</span>
-            <span data-l="ja" class="a"><strong>日本語・英語・韓国語</strong>に対応。初日からグローバルゴルファーのために設計。アプリの UI もシェアカードも、いつでも言語を切り替えられます。</span>
-            <span data-l="ko"><strong>일본어·영어·한국어</strong> 대응. 처음부터 글로벌 골퍼를 위한 설계.</span>
-          </p>
-          <div class="feat-tags">
-            <span class="tag">JA / EN / KO</span>
-            <span class="tag">DAY 1</span>
+      <div class="ftr rv">
+        <div class="ic">🌐</div>
+        <div class="ti"><span data-l="en">Multi-Language</span><span data-l="ja" class="a">多言語対応</span><span data-l="ko">다국어</span></div>
+        <div class="dc"><span data-l="en">Japanese, English, Korean. Built for global golfers from day one.</span><span data-l="ja" class="a">日本語・英語・韓国語に対応。<br class="sp">初日からグローバルゴルファーのために設計。</span><span data-l="ko">일본어·영어·한국어 대응. 처음부터 글로벌 골퍼를 위한 설계.</span></div>
+        <div class="ftr-mock">
+          <div style="display:flex;gap:6px;margin-bottom:10px">
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">日本語</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">EN</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">한국어</span>
+          </div>
+          <div style="font-size:10px;color:var(--t2);line-height:1.6;font-style:italic">
+            記憶をかたちに。<br>
+            Shape your round.<br>
+            기억을, 형태로.
           </div>
         </div>
-        <div class="feat-visual">
-          <div class="m-lang">
-            <div class="m-lang-row">
-              <span>EN</span>
-              <span class="a">日本語</span>
-              <span>한국어</span>
-            </div>
-            <div class="m-lang-quote">
-              記憶を、かたちに。<br>
-              Shape your round.<br>
-              기억을, 형태로.
-            </div>
-          </div>
-        </div>
-      </article>
+      </div>
 
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     ROUNDIE SCORE (deep section)
-     ============================================================ -->
-<section id="score" class="sect">
-  <div class="sect-no">04 / 06</div>
-  <div class="sect-inner">
-    <div class="rv">
-      <div class="sect-eye"><span data-l="en">ROUNDIE SCORE</span><span data-l="ja" class="a">ROUNDIE スコア</span><span data-l="ko">ROUNDIE 스코어</span></div>
-      <h2 class="sect-h">
-        <span data-l="en">A SCORE THAT VALUES <em>HOW YOU PLAY —<br>AND WHO YOU ARE.</em></span>
-        <span data-l="ja" class="a">スコアではなく、<br><em>あなたを表現する指標。</em></span>
-        <span data-l="ko">스코어가 아닌, <em>당신을 표현하는 지표.</em></span>
-      </h2>
-      <p class="sect-sub">
-        <span data-l="en">A 0–100 point score combining three pillars. Rank from ROOKIE to LEGEND.</span>
-        <span data-l="ja" class="a">3 つの軸を組み合わせた 0〜100 点のスコア。ROOKIE から LEGEND までランクアップしていきます。</span>
-        <span data-l="ko">3개의 축을 조합한 0〜100점의 스코어. ROOKIE에서 LEGEND까지 랭크업.</span>
-      </p>
-    </div>
+<section>
+  <div class="si">
+    <div class="sl rv">ROUNDIE Score</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">A score that values how you play — and who you are.</span>
+      <span data-l="ja" class="a">スコアではなく、あなたを表現する指標。</span>
+      <span data-l="ko">스코어가 아닌, 당신을 표현하는 지표.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">A 0–100 point score combining three pillars. Rank from ROOKIE to LEGEND.</span>
+      <span data-l="ja" class="a">3つの軸を組み合わせた0〜100点のスコア。<br class="sp">ROOKIEからLEGENDまでランクアップしていきます。</span>
+      <span data-l="ko">3개의 축을 조합한 0〜100점의 스코어. ROOKIE에서 LEGEND까지 랭크업.</span>
+    </p>
 
-    <div class="pillars rv">
-      <div class="pillar">
-        <span class="pillar-tag">SKILL</span>
-        <h3 class="pillar-h"><span data-l="en">GOLF SKILL</span><span data-l="ja" class="a">ゴルフスキル</span><span data-l="ko">골프 실력</span></h3>
-        <p class="pillar-p">
-          <span data-l="en">Average score, consistency, par-save and birdie rates. Beginners get a built-in handicap so early rounds aren't penalized.</span>
-          <span data-l="ja" class="a">平均スコア・安定性・パーセーブ率・バーディ率で算出。初心者の最初の数ラウンドには補正がかかるので、低くなりすぎません。</span>
-          <span data-l="ko">평균 스코어 · 안정성 · 파세이브 · 버디율로 산출. 초보자는 첫 몇 라운드에 보정 적용.</span>
-        </p>
-        <span class="pillar-w">35%</span>
+    <div class="score-system">
+      <div class="score-pillar rv">
+        <div class="num">SKILL</div>
+        <div class="name"><span data-l="en">Golf Skill</span><span data-l="ja" class="a">ゴルフスキル</span><span data-l="ko">골프 실력</span></div>
+        <div class="desc"><span data-l="en">Average score, consistency, par-save and birdie rates. Beginners get a built-in handicap so early rounds aren't penalized.</span><span data-l="ja" class="a">平均スコア・安定性・パーセーブ率・バーディ率で算出。初心者の最初の数ラウンドには補正がかかるので、低くなりすぎません。</span><span data-l="ko">평균 스코어·안정성·파세이브·버디율로 산출. 초보자는 첫 몇 라운드에 보정이 적용되어 점수가 너무 낮아지지 않습니다.</span></div>
+        <div class="weight">35%</div>
       </div>
-      <div class="pillar">
-        <span class="pillar-tag">VIBE</span>
-        <h3 class="pillar-h"><span data-l="en">REPUTATION</span><span data-l="ja" class="a">評判</span><span data-l="ko">평판</span></h3>
-        <p class="pillar-p">
-          <span data-l="en">Kudos given, comments left, and how much you bring to the Feed. ROUNDIE rewards golfers who lift others up.</span>
-          <span data-l="ja" class="a">仲間に送る Kudos やコメント、フィードでの活動量で算出。ROUNDIE は「与える側」のゴルファーを評価します。</span>
-          <span data-l="ko">동료에게 보낸 Kudos · 댓글 · 피드 활동량. 함께하는 동료를 응원하는 골퍼를 높이 평가.</span>
-        </p>
-        <span class="pillar-w">30%</span>
+      <div class="score-pillar rv">
+        <div class="num">VIBE</div>
+        <div class="name"><span data-l="en">Reputation</span><span data-l="ja" class="a">評判</span><span data-l="ko">평판</span></div>
+        <div class="desc"><span data-l="en">Kudos given, comments left, and how much you bring to the Feed. ROUNDIE rewards golfers who lift others up.</span><span data-l="ja" class="a">仲間に送る Kudos やコメント、フィードでの活動量で算出。<br class="sp">ROUNDIE は「与える側」のゴルファーを評価します。</span><span data-l="ko">동료에게 보낸 Kudos·댓글·피드 활동량으로 산출. ROUNDIE는 함께하는 동료를 응원하는 골퍼를 높이 평가합니다.</span></div>
+        <div class="weight">30%</div>
       </div>
-      <div class="pillar">
-        <span class="pillar-tag">STYLE</span>
-        <h3 class="pillar-h"><span data-l="en">GOLF LIFE</span><span data-l="ja" class="a">ゴルフライフ</span><span data-l="ko">골프 라이프</span></h3>
-        <p class="pillar-p">
-          <span data-l="en">How often you play, how many different courses you visit, your streak weeks, and how complete your profile feels.</span>
-          <span data-l="ja" class="a">ラウンド頻度・回ったコースの数・継続週数・プロフィールの充実度で算出。</span>
-          <span data-l="ko">라운드 빈도 · 다녀온 코스 · 연속 주 · 프로필 충실도.</span>
-        </p>
-        <span class="pillar-w">35%</span>
+      <div class="score-pillar rv">
+        <div class="num">STYLE</div>
+        <div class="name"><span data-l="en">Golf Life</span><span data-l="ja" class="a">ゴルフライフ</span><span data-l="ko">골프 라이프</span></div>
+        <div class="desc"><span data-l="en">How often you play, how many different courses you visit, your streak weeks, and how complete your profile feels.</span><span data-l="ja" class="a">ラウンド頻度・回ったコースの数・継続週数・プロフィールの充実度で算出。</span><span data-l="ko">라운드 빈도·다녀온 코스의 다양성·연속 주·프로필 충실도로 산출.</span></div>
+        <div class="weight">35%</div>
       </div>
     </div>
 
-    <div class="ranks rv">
-      <div class="ranks-eye">
-        <span data-l="en">CLIMB 7 RANKS, STEP BY STEP</span>
-        <span data-l="ja" class="a">7 段階のランクを、自分のペースで</span>
-        <span data-l="ko">7단계 랭크, 나의 페이스로</span>
+    <div class="cards-row" style="margin-top:36px">
+      <div class="info-card rv">
+        <h3><span data-l="en">Climb 7 ranks, step by step.</span><span data-l="ja" class="a">ROOKIE から LEGEND まで、自分のペースで。</span><span data-l="ko">ROOKIE에서 LEGEND까지, 나의 페이스로.</span></h3>
+        <p><span data-l="en">Start as a <strong>ROOKIE</strong> and climb through PLAYER → REGULAR → SINGLE → SCRATCH → PRO → <strong>LEGEND</strong>. Your rank rises as you play, share with friends, and keep coming back. There's no way to buy your way up — every rank is earned.</span><span data-l="ja" class="a">最初はみんな <strong>ROOKIE</strong>。ラウンドを記録し、仲間と Kudos やコメントを交わし、続けるうちに <strong>PLAYER → REGULAR → SINGLE → SCRATCH → PRO → LEGEND</strong> へとランクが上がっていきます。<br class="sp">ランクは行動の積み重ねで決まり、課金で先に進むことはできません。</span><span data-l="ko">처음은 <strong>ROOKIE</strong>부터. 라운드 기록·동료와의 교류·꾸준함이 쌓여 <strong>PLAYER → REGULAR → SINGLE → SCRATCH → PRO → LEGEND</strong>로 올라갑니다. 결제로 건너뛸 수 없어, 모든 랭크는 행동의 결과입니다.</span></p>
       </div>
-      <div class="ranks-list">
-        <span class="rank-step">ROOKIE</span>
-        <span class="rank-arrow">→</span>
-        <span class="rank-step">PLAYER</span>
-        <span class="rank-arrow">→</span>
-        <span class="rank-step hi">REGULAR</span>
-        <span class="rank-arrow">→</span>
-        <span class="rank-step">SINGLE</span>
-        <span class="rank-arrow">→</span>
-        <span class="rank-step">SCRATCH</span>
-        <span class="rank-arrow">→</span>
-        <span class="rank-step">PRO</span>
-        <span class="rank-arrow">→</span>
-        <span class="rank-step">LEGEND</span>
-      </div>
-      <p class="ranks-note">
-        <span data-l="en">Your rank rises as you play, share with friends, and keep coming back. <strong>There's no way to buy your way up — every rank is earned.</strong></span>
-        <span data-l="ja" class="a">ランクは行動の積み重ねで決まり、<strong>課金で先に進むことはできません。</strong>ラウンドを記録し、仲間と Kudos やコメントを交わし、続けるうちに上がっていきます。</span>
-        <span data-l="ko">랭크는 행동의 결과로 결정되며, <strong>결제로 건너뛸 수 없습니다.</strong></span>
-      </p>
-    </div>
-
-    <div class="score-info rv">
-      <div class="score-info-card">
-        <h4>
-          <span data-l="en">CLEAR AT A GLANCE, DEEPER ON TAP.</span>
-          <span data-l="ja" class="a">一目でわかり、タップで深掘り。</span>
-          <span data-l="ko">한눈에 파악, 탭하면 깊이.</span>
-        </h4>
-        <p>
-          <span data-l="en">Open the screen and you instantly see your <strong>score, rank, and progress bar</strong>. Tap them, and you'll see how you compare with others your age and what specifically to focus on next.</span>
-          <span data-l="ja" class="a">画面を開いた瞬間に、<strong>スコア・ランク・進捗バー</strong>がひと目でわかります。スコアをタップすると、「同世代と比べてどのくらい」「次に何を伸ばすか」のヒントが表示されます。</span>
-          <span data-l="ko">화면을 열면 <strong>점수 · 랭크 · 진척 바</strong>가 한눈에. 탭하면 비교와 다음 강화 포인트 힌트 표시.</span>
-        </p>
-      </div>
-      <div class="score-info-card">
-        <h4>
-          <span data-l="en">SIMPLE EXPERIENCE, DEEP MATH BEHIND.</span>
-          <span data-l="ja" class="a">表示はシンプル、計算は奥深く。</span>
-          <span data-l="ko">표시는 심플, 계산은 깊게.</span>
-        </h4>
-        <p>
-          <span data-l="en">The math behind it stays in the background, so the experience always feels simple. <strong>No formulas to memorize, no spreadsheets — just play.</strong></span>
-          <span data-l="ja" class="a">複雑な計算式は裏側に隠して、表示はシンプルに保ちました。<strong>覚えることはありません — ただプレーするだけ。</strong></span>
-          <span data-l="ko">복잡한 계산식은 뒤로 숨기고, 표시는 심플. <strong>외울 것 없이, 그저 플레이.</strong></span>
-        </p>
+      <div class="info-card rv">
+        <h3><span data-l="en">Clear at a glance, deeper on tap.</span><span data-l="ja" class="a">一目でわかり、タップで深掘り。</span><span data-l="ko">한눈에 파악, 탭하면 깊이.</span></h3>
+        <p><span data-l="en">Open the screen — you instantly see your <strong>score, rank, and progress bar</strong>. Tap them, and you'll see how you compare with others your age and what specifically to focus on next to grow. The math behind it stays in the background, so the experience always feels simple.</span><span data-l="ja" class="a">画面を開いた瞬間に、<strong>スコア・ランク・進捗バー</strong>がひと目でわかります。<br class="sp">スコアをタップすると、<strong>「同世代と比べてどのくらいの位置か」「次に何を伸ばせばランクアップに近づくか」</strong>がわかるヒントが表示されます。<br class="sp">複雑な計算式は裏側に隠して、表示はあくまでシンプルに保ちました。</span><span data-l="ko">화면을 열면 <strong>점수·랭크·진척 바</strong>가 한눈에. 점수를 탭하면 <strong>"같은 연령대와 비교하여 어느 정도인지"</strong>와 <strong>"다음에 무엇을 강화하면 랭크업에 가까워지는지"</strong>의 힌트를 표시. 복잡한 계산식은 뒤로 숨기고, 표시는 심플하게.</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     PRICING
-     ============================================================ -->
-<section id="pricing" class="sect alt">
-  <div class="sect-no">05 / 06</div>
-  <div class="sect-inner">
-    <div class="rv">
-      <div class="sect-eye"><span data-l="en">PRICING</span><span data-l="ja" class="a">料金</span><span data-l="ko">요금</span></div>
-      <h2 class="sect-h">
-        <span data-l="en">FREE FOREVER.<br><em>PRO WHEN READY.</em></span>
-        <span data-l="ja" class="a">基本は永続無料。<br><em>本気になったら Pro へ。</em></span>
-        <span data-l="ko">기본은 영구 무료.<br><em>본격적으로 하고 싶으면 Pro로.</em></span>
-      </h2>
-      <p class="sect-sub">
-        <span data-l="en">Core features stay free forever. Pro unlocks unlimited competitions and advanced stats. Cancel anytime.</span>
-        <span data-l="ja" class="a">コア機能は永続無料。Pro でコンペ機能の制限解除と詳細統計をどうぞ。いつでも解約可能です。</span>
-        <span data-l="ko">코어 기능은 영구 무료. Pro로 대회 기능 제한 해제와 상세 통계. 언제든지 해지 가능.</span>
-      </p>
-    </div>
+<section id="pricing" class="alt">
+  <div class="si">
+    <div class="sl rv">Pricing</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">Start free. Go Pro when you're ready.</span>
+      <span data-l="ja" class="a">無料から始めて、<br class="sp">準備ができたらProへ。</span>
+      <span data-l="ko">무료로 시작, 준비되면 Pro로.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">All core features are free. Pro unlocks unlimited competition participants, advanced stats, and more.</span>
+      <span data-l="ja" class="a">すべてのコア機能は無料でお使いいただけます。<br class="sp">Proに加入すると、コンペ参加人数の無制限化や詳細統計などが開放されます。</span>
+      <span data-l="ko">모든 핵심 기능 무료. Pro로 대회 참가자 무제한·상세 통계 등 개방.</span>
+    </p>
 
-    <div class="pr-grid rv">
-
-      <!-- Free -->
-      <div class="pr">
-        <span class="pr-name">Free</span>
-        <div class="pr-price">$0</div>
-        <div class="pr-period">
-          <span data-l="en">forever</span><span data-l="ja" class="a">永続無料</span><span data-l="ko">영구 무료</span>
-        </div>
+    <div class="pricing-grid">
+      <div class="pricing-card rv">
+        <div class="name">Free</div>
+        <div class="price">$0</div>
+        <div class="period"><span data-l="en">forever</span><span data-l="ja" class="a">永続無料</span><span data-l="ko">영구 무료</span></div>
         <ul>
-          <li><span data-l="en">Unlimited rounds &amp; Round Cards</span><span data-l="ja" class="a">ラウンド記録 無制限</span><span data-l="ko">라운드 기록 무제한</span></li>
-          <li><span data-l="en">ROUNDIE Score &amp; ranks (ROOKIE → LEGEND)</span><span data-l="ja" class="a">ROUNDIE スコア・7 段階ランク</span><span data-l="ko">ROUNDIE 스코어 · 7단계 랭크</span></li>
-          <li><span data-l="en">Feed, Kudos, comments, ranking</span><span data-l="ja" class="a">フィード・Kudos・コメント・ランキング</span><span data-l="ko">피드 · Kudos · 댓글 · 랭킹</span></li>
-          <li><span data-l="en">Grid sharing (with logo)</span><span data-l="ja" class="a">グリッドシェア（ロゴ付き）</span><span data-l="ko">그리드 공유 (로고 포함)</span></li>
+          <li><span data-l="en">Unlimited rounds & Round Cards</span><span data-l="ja" class="a">ラウンド記録 無制限</span><span data-l="ko">라운드 기록 무제한</span></li>
+          <li><span data-l="en">ROUNDIE Score & ranks</span><span data-l="ja" class="a">ROUNDIE Score・ランク</span><span data-l="ko">ROUNDIE Score·랭크</span></li>
+          <li><span data-l="en">Feed, Kudos, comments, ranking</span><span data-l="ja" class="a">フィード・Kudos・コメント・ランキング</span><span data-l="ko">피드·Kudos·댓글·랭킹</span></li>
+          <li><span data-l="en">Grid sharing (with logo)</span><span data-l="ja" class="a">グリッドシェア（ロゴ付き）</span><span data-l="ko">그리드 공유 (로고)</span></li>
           <li><span data-l="en">Basic stats</span><span data-l="ja" class="a">基本統計</span><span data-l="ko">기본 통계</span></li>
-          <li><span data-l="en">Comp hosting: <strong>1 / month · up to 8 players</strong></span><span data-l="ja" class="a">コンペ開催: <strong>月 1 回・最大 8 名</strong></span><span data-l="ko">대회 개최: <strong>월 1회 · 8명까지</strong></span></li>
+          <li><span data-l="en">Compe hosting: <strong>1/month · up to 8 players</strong></span><span data-l="ja" class="a">コンペ開催: <strong>月1回・8人まで</strong></span><span data-l="ko">대회 개최: <strong>월 1회·8명까지</strong></span></li>
         </ul>
-        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="pr-cta">
-          <span data-l="en">START FREE</span><span data-l="ja" class="a">無料で始める</span><span data-l="ko">무료로 시작</span>
-        </a>
       </div>
 
-      <!-- Pro Yearly (featured) -->
-      <div class="pr feat">
-        <span class="pr-name"><span data-l="en">Pro Yearly</span><span data-l="ja" class="a">Pro 年額</span><span data-l="ko">Pro 연간</span></span>
-        <div class="pr-price">$39.99</div>
-        <div class="pr-period">
-          <span data-l="en">/ year · ~$3.33/mo</span><span data-l="ja" class="a">/ 年（実質 約 $3.33/月）</span><span data-l="ko">/ 년 (월 약 $3.33)</span>
-        </div>
-        <span class="pr-discount"><span data-l="en">2 MONTHS FREE · 17% OFF</span><span data-l="ja" class="a">2 ヶ月分お得 · 17% OFF</span><span data-l="ko">2개월 무료 · 17% OFF</span></span>
+      <div class="pricing-card pop rv">
+        <div class="name"><span data-l="en">Pro · Yearly</span><span data-l="ja" class="a">Pro 年額</span><span data-l="ko">Pro 연간</span></div>
+        <div class="price">$39.99</div>
+        <div class="period"><span data-l="en">/ year ($3.33/mo)</span><span data-l="ja" class="a">/ 年（実質 約$3.33/月）</span><span data-l="ko">/ 년 (월 약 $3.33)</span></div>
+        <div class="discount"><span data-l="en">2 months free · 17% OFF</span><span data-l="ja" class="a">2ヶ月分お得 · 17% OFF</span><span data-l="ko">2개월 무료 · 17% OFF</span></div>
         <ul>
-          <li><strong><span data-l="en">EVERYTHING IN FREE</span><span data-l="ja" class="a">Free の全機能</span><span data-l="ko">Free 전체 기능</span></strong></li>
-          <li><span data-l="en">Comp hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催 <strong>無制限</strong>・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최 · 참가자 <strong>무제한</strong></span></li>
-          <li><span data-l="en">Auto scoring &amp; live ranking</span><span data-l="ja" class="a">自動集計 &amp; ランキング</span><span data-l="ko">자동 집계 · 랭킹</span></li>
+          <li><span data-l="en"><strong>Everything in Free</strong></span><span data-l="ja" class="a"><strong>Free の全機能</strong></span><span data-l="ko"><strong>Free 전체 기능</strong></span></li>
+          <li><span data-l="en">Compe hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催 <strong>無制限</strong>・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최·참가자 <strong>무제한</strong></span></li>
+          <li><span data-l="en">Auto scoring & live ranking</span><span data-l="ja" class="a">自動集計 & ランキング</span><span data-l="ko">자동 집계·랭킹</span></li>
           <li><span data-l="en">Animated result reveal</span><span data-l="ja" class="a">結果発表アニメーション</span><span data-l="ko">결과 발표 애니메이션</span></li>
           <li><span data-l="en">Shareable result cards</span><span data-l="ja" class="a">シェア可能な結果カード</span><span data-l="ko">공유 가능한 결과 카드</span></li>
-          <li><span data-l="en">Advanced stats &amp; trends</span><span data-l="ja" class="a">詳細統計・トレンド分析</span><span data-l="ko">상세 통계 · 트렌드 분석</span></li>
-          <li><span data-l="en">No need to buy Comp Packs</span><span data-l="ja" class="a">コンペパックの都度購入が不要</span><span data-l="ko">대회 팩 추가 구매 불필요</span></li>
+          <li><span data-l="en">Advanced stats & trends</span><span data-l="ja" class="a">詳細統計・トレンド分析</span><span data-l="ko">상세 통계·트렌드 분석</span></li>
+          <li><span data-l="en">No need to buy Compe Packs</span><span data-l="ja" class="a">コンペパックの都度購入が不要</span><span data-l="ko">대회 팩 추가 구매 불필요</span></li>
         </ul>
-        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="pr-cta">
-          <span data-l="en">GO PRO YEARLY</span><span data-l="ja" class="a">Pro 年額にする</span><span data-l="ko">Pro 연간으로</span>
-        </a>
       </div>
 
-      <!-- Pro Monthly -->
-      <div class="pr">
-        <span class="pr-name"><span data-l="en">Pro Monthly</span><span data-l="ja" class="a">Pro 月額</span><span data-l="ko">Pro 월간</span></span>
-        <div class="pr-price">$4.99</div>
-        <div class="pr-period">
-          <span data-l="en">/ month · cancel anytime</span><span data-l="ja" class="a">/ 月 · いつでも解約可能</span><span data-l="ko">/ 월 · 언제든 해지</span>
-        </div>
-        <p style="font-size:12px;color:var(--t2);margin-bottom:18px;line-height:1.7;padding-top:8px">
-          <span data-l="en">Start month-by-month — same features as Yearly.</span>
-          <span data-l="ja" class="a">月単位で気軽に始められるプラン。機能内容は年額プランと同じです。</span>
+      <div class="pricing-card rv">
+        <div class="name"><span data-l="en">Pro · Monthly</span><span data-l="ja" class="a">Pro 月額</span><span data-l="ko">Pro 월간</span></div>
+        <div class="price">$4.99</div>
+        <div class="period"><span data-l="en">/ month</span><span data-l="ja" class="a">/ 月</span><span data-l="ko">/ 월</span></div>
+        <div style="font-size:11px;color:var(--t2);margin-top:6px;margin-bottom:16px;line-height:1.7">
+          <span data-l="en">Start month-by-month, same features as Yearly.</span>
+          <span data-l="ja" class="a">月単位で気軽に始められるプラン。<br>機能内容は年額プランと同じです。</span>
           <span data-l="ko">월 단위로 부담 없이 시작. 기능은 연간 플랜과 동일.</span>
-        </p>
+        </div>
         <ul>
-          <li><strong><span data-l="en">EVERYTHING IN FREE</span><span data-l="ja" class="a">Free の全機能</span><span data-l="ko">Free 전체 기능</span></strong></li>
-          <li><span data-l="en">Comp hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최 · 참가자 <strong>무제한</strong></span></li>
-          <li><span data-l="en">Auto scoring &amp; live ranking</span><span data-l="ja" class="a">自動集計 &amp; ランキング</span><span data-l="ko">자동 집계 · 랭킹</span></li>
+          <li><span data-l="en"><strong>Everything in Free</strong></span><span data-l="ja" class="a"><strong>Free の全機能</strong></span><span data-l="ko"><strong>Free 전체 기능</strong></span></li>
+          <li><span data-l="en">Compe hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催 <strong>無制限</strong>・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최·참가자 <strong>무제한</strong></span></li>
+          <li><span data-l="en">Auto scoring & live ranking</span><span data-l="ja" class="a">自動集計 & ランキング</span><span data-l="ko">자동 집계·랭킹</span></li>
           <li><span data-l="en">Animated result reveal</span><span data-l="ja" class="a">結果発表アニメーション</span><span data-l="ko">결과 발표 애니메이션</span></li>
           <li><span data-l="en">Shareable result cards</span><span data-l="ja" class="a">シェア可能な結果カード</span><span data-l="ko">공유 가능한 결과 카드</span></li>
-          <li><span data-l="en">Advanced stats &amp; trends</span><span data-l="ja" class="a">詳細統計・トレンド分析</span><span data-l="ko">상세 통계 · 트렌드 분석</span></li>
+          <li><span data-l="en">Advanced stats & trends</span><span data-l="ja" class="a">詳細統計・トレンド分析</span><span data-l="ko">상세 통계·트렌드 분석</span></li>
+          <li><span data-l="en">No need to buy Compe Packs</span><span data-l="ja" class="a">コンペパックの都度購入が不要</span><span data-l="ko">대회 팩 추가 구매 불필요</span></li>
         </ul>
-        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="pr-cta">
-          <span data-l="en">GO PRO MONTHLY</span><span data-l="ja" class="a">Pro 月額にする</span><span data-l="ko">Pro 월간으로</span>
-        </a>
       </div>
-
     </div>
 
-    <!-- Compe Pack -->
-    <div class="compe-pack rv">
-      <span class="compe-pack-tag"><span data-l="en">ONE-TIME</span><span data-l="ja" class="a">買い切り</span><span data-l="ko">일회성</span></span>
-      <div>
-        <h4 class="compe-pack-h">
-          <span data-l="en">Comp Pack — host a single competition</span>
-          <span data-l="ja" class="a">コンペパック — 1 回だけコンペを開く</span>
-          <span data-l="ko">대회 팩 — 1회 대회 개최</span>
-        </h4>
-        <p class="compe-pack-p">
-          <span data-l="en">Need to host one comp without a subscription? <strong>$9.99 / event.</strong> That one comp includes unlimited players, auto scoring, animated result reveal, and a shareable result card. Pro members never need this.</span>
-          <span data-l="ja" class="a">サブスク契約なしで 1 回だけコンペを開きたい時に。<strong>$9.99 / 1 コンペ。</strong>その 1 コンペだけ、人数無制限・自動集計・結果アニメーション・シェア可能な結果カードがすべて含まれます。Pro 加入者は不要です。</span>
-          <span data-l="ko">구독 없이 1회만 대회를 개최하고 싶을 때. <strong>$9.99 / 1대회.</strong> 인원 무제한 · 자동 집계 · 결과 애니메이션 · 결과 카드 포함. Pro 가입자는 불필요.</span>
-        </p>
+    <div class="rv" style="margin-top:32px;padding:24px;background:var(--card);border:1px solid var(--bd);border-radius:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">
+          <div style="font-size:14px;font-weight:700;color:var(--gold);letter-spacing:1px;font-family:'Space Grotesk';margin-bottom:6px">
+            <span data-l="en">Compe Pack · $9.99 / competition</span>
+            <span data-l="ja" class="a">コンペパック · $9.99 / 1コンペ</span>
+            <span data-l="ko">대회 팩 · $9.99 / 1대회</span>
+          </div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.8">
+            <span data-l="en">Host a single competition without a subscription. <strong>That one competition only</strong>: unlimited players, auto scoring, animated result reveal, and a shareable result card — included. One-time purchase. Pro members never need this.</span>
+            <span data-l="ja" class="a">サブスク契約なしで1回だけコンペを開きたい時に。<br><strong>その1コンペだけ</strong>、人数無制限・自動集計・結果アニメーション・シェア可能な結果カードがすべて含まれます。1回購入の買い切り型。Pro加入者は不要です。</span>
+            <span data-l="ko">구독 없이 1회만 대회를 개최하고 싶을 때. 해당 1대회만 인원 무제한·자동 집계·결과 애니메이션·결과 카드 포함. 일회성 구매. Pro 가입자는 불필요.</span>
+          </div>
+        </div>
       </div>
-      <div class="compe-pack-price">$9.99</div>
     </div>
 
-    <p class="pr-note rv">
-      <span data-l="en">All prices in USD. Subscriptions are billed through Apple ID and renew automatically until cancelled. You can cancel anytime from your App Store account settings — your Pro access continues until the end of the current billing period. Comp Packs are consumable items and are non-refundable per Apple's policy. See <a href="/terms/">Terms</a> and <a href="/privacy/">Privacy Policy</a>. Available on iOS first; Android rollout to follow.</span>
-      <span data-l="ja" class="a">価格はすべて米ドル表示。サブスクリプションは Apple ID を通じて課金され、自動更新されます。App Store のアカウント設定からいつでも解約可能で、現在の課金期間の終了まで Pro としてお使いいただけます。コンペパックは消費型アイテムのため、Apple の規約に従い返金には対応していません。<a href="/terms/">利用規約</a>と<a href="/privacy/">プライバシーポリシー</a>もあわせてご確認ください。iOS から順次提供、Android 対応予定。</span>
-      <span data-l="ko">가격은 모두 USD. 구독은 Apple ID로 청구되며 자동 갱신. App Store 설정에서 언제든 해지 가능. 대회 팩은 소모성으로 환불 불가. <a href="/terms/">이용약관</a> · <a href="/privacy/">개인정보처리방침</a>. iOS 우선, Android 추후.</span>
+    <p class="rv" style="font-size:11px;color:var(--t3);margin-top:24px;line-height:1.8;text-align:center">
+      <span data-l="en">All prices in USD. Subscriptions are billed through Apple ID and renew automatically until cancelled. You can cancel anytime from your App Store account settings — your Pro access continues until the end of the current billing period. Compe Packs are consumable items and are non-refundable per Apple's policy. See <a href="https://roundie.app/terms/" target="_blank" style="color:var(--ac)">Terms</a> and <a href="https://roundie.app/privacy/" target="_blank" style="color:var(--ac)">Privacy Policy</a>. Available on iOS first; Android rollout to follow.</span>
+      <span data-l="ja" class="a">価格はすべて米ドル表示です。サブスクリプションはApple IDを通じて課金され、自動更新されます。App Storeのアカウント設定からいつでも解約可能で、現在の課金期間の終了までProとしてお使いいただけます。コンペパックは消費型アイテムのため、Appleの規約に従い返金には対応していません。<a href="https://roundie.app/terms/" target="_blank" style="color:var(--ac)">利用規約</a>と<a href="https://roundie.app/privacy/" target="_blank" style="color:var(--ac)">プライバシーポリシー</a>もあわせてご確認ください。iOSから順次提供、Android対応予定。</span>
+      <span data-l="ko">가격은 모두 USD. 구독은 Apple ID로 청구되며 자동 갱신. App Store 설정에서 언제든 해지 가능, 현재 결제 기간 종료까지 Pro 유지. 대회 팩은 소모성으로 환불 불가. <a href="https://roundie.app/terms/" target="_blank" style="color:var(--ac)">이용약관</a>·<a href="https://roundie.app/privacy/" target="_blank" style="color:var(--ac)">개인정보처리방침</a> 확인. iOS 우선, Android 추후.</span>
     </p>
   </div>
 </section>
 
-<!-- ============================================================
-     TRUST & PRIVACY
-     ============================================================ -->
-<section id="trust" class="sect">
-  <div class="sect-no">06 / 06</div>
-  <div class="sect-inner">
-    <div class="rv">
-      <div class="sect-eye"><span data-l="en">TRUST &amp; PRIVACY</span><span data-l="ja" class="a">信頼性 &amp; プライバシー</span><span data-l="ko">신뢰 · 프라이버시</span></div>
-      <h2 class="sect-h">
-        <span data-l="en">YOU DECIDE<br><em>WHAT GETS SHARED.</em></span>
-        <span data-l="ja" class="a">何をシェアするかは、<br><em>あなたが決める。</em></span>
-        <span data-l="ko">무엇을 공유할지는, <em>당신이 정한다.</em></span>
-      </h2>
-      <p class="sect-sub">
-        <span data-l="en">Privacy controls are built into every action. Choose who sees your rounds, your photos, your stats — round by round.</span>
-        <span data-l="ja" class="a">プライバシー設定はあらゆるアクションに組み込まれています。ラウンドごと・写真ごとに、誰に見せるかを選べます。</span>
-        <span data-l="ko">프라이버시 설정은 모든 액션에 내장. 라운드별 · 사진별로 누구에게 보일지 선택 가능.</span>
-      </p>
-    </div>
+<section>
+  <div class="si">
+    <div class="sl rv">Trust & Privacy</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">You decide what gets shared.</span>
+      <span data-l="ja" class="a">何をシェアするかは、あなたが決める。</span>
+      <span data-l="ko">무엇을 공유할지는 당신이 정한다.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">Privacy controls are built into every action. Choose who sees your rounds, your photos, your stats — round by round.</span>
+      <span data-l="ja" class="a">プライバシー設定はあらゆるアクションに組み込まれている。<br>ラウンドごと・写真ごとに、誰に見せるかを選べる。</span>
+      <span data-l="ko">프라이버시 설정은 모든 액션에 내장. 라운드별·사진별로 누구에게 보일지 선택 가능.</span>
+    </p>
 
-    <div class="trust rv">
-      <div class="trust-card">
-        <span class="ic">🔒</span>
-        <h4><span data-l="en">PER-ROUND VISIBILITY</span><span data-l="ja" class="a">ラウンドごとの公開範囲</span><span data-l="ko">라운드별 공개 범위</span></h4>
-        <p>
-          <span data-l="en">Public, friends-only, or private. Set it round-by-round. Change it anytime.</span>
-          <span data-l="ja" class="a">公開・フレンドのみ・非公開を、ラウンドごとに設定できます。いつでも変更可能です。</span>
-          <span data-l="ko">공개 · 친구만 · 비공개. 라운드별로 설정. 언제든 변경 가능.</span>
-        </p>
+    <div class="cards-row" style="grid-template-columns:repeat(3,1fr)">
+      <div class="info-card rv">
+        <h3><span data-l="en">Per-round visibility</span><span data-l="ja" class="a">ラウンドごとの公開範囲</span><span data-l="ko">라운드별 공개 범위</span></h3>
+        <p><span data-l="en">Public, friends-only, or private. Set it round-by-round. Change it anytime.</span><span data-l="ja" class="a">公開・フレンドのみ・非公開を、ラウンドごとに設定できます。いつでも変更可能です。</span><span data-l="ko">공개·친구만·비공개. 라운드별로 설정.</span></p>
       </div>
-      <div class="trust-card">
-        <span class="ic">🤐</span>
-        <h4><span data-l="en">MUTE &amp; BLOCK, YOUR WAY</span><span data-l="ja" class="a">ミュート &amp; ブロックも、自分のペースで</span><span data-l="ko">뮤트 · 차단도, 나의 페이스로</span></h4>
-        <p>
-          <span data-l="en">Don't want to see someone's posts? Mute them quietly. Need stronger separation? Block. All settings are reversible at any time.</span>
-          <span data-l="ja" class="a">特定の人の投稿を見たくない時はミュート、もっとはっきり距離を置きたい時はブロック。どちらもいつでも解除できます。</span>
-          <span data-l="ko">조용히 보고 싶지 않을 때는 뮤트, 더 분명한 거리가 필요할 때는 차단. 모두 언제든 해제.</span>
-        </p>
+      <div class="info-card rv">
+        <h3><span data-l="en">Mute & Block, your way</span><span data-l="ja" class="a">ミュート & ブロックも、自分のペースで</span><span data-l="ko">뮤트·차단도, 나의 페이스로</span></h3>
+        <p><span data-l="en">Don't want to see someone's posts? Mute them quietly. Need stronger separation? Block. All settings are reversible at any time.</span><span data-l="ja" class="a">特定の人の投稿を見たくない時はミュート、もっとはっきり距離を置きたい時はブロック。<br class="sp">どちらもいつでも解除できます。</span><span data-l="ko">조용히 보고 싶지 않을 때는 뮤트, 더 분명한 거리가 필요할 때는 차단. 모두 언제든 해제 가능.</span></p>
       </div>
-      <div class="trust-card">
-        <span class="ic">🛡</span>
-        <h4><span data-l="en">DATA YOU OWN</span><span data-l="ja" class="a">あなたのデータはあなたのもの</span><span data-l="ko">데이터는 당신의 것</span></h4>
-        <p>
-          <span data-l="en">Stored securely on Supabase (Tokyo region). <strong>We never sell user data to third parties.</strong></span>
-          <span data-l="ja" class="a">データは Supabase（東京リージョン）で安全に管理しています。<strong>第三者への販売は一切いたしません。</strong></span>
-          <span data-l="ko">Supabase(도쿄 리전)에서 안전하게 보관. <strong>제3자 판매 없음.</strong></span>
-        </p>
+      <div class="info-card rv">
+        <h3><span data-l="en">Data you own</span><span data-l="ja" class="a">あなたのデータはあなたのもの</span><span data-l="ko">데이터는 당신의 것</span></h3>
+        <p><span data-l="en">Stored securely on Supabase (Tokyo region). We never sell user data to third parties.</span><span data-l="ja" class="a">データは Supabase（東京リージョン）で安全に管理しています。<br class="sp">第三者への販売は一切いたしません。</span><span data-l="ko">Supabase(도쿄 리전)에서 안전하게 보관. 제3자 판매 없음.</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     FINAL CTA
-     ============================================================ -->
-<section class="final">
-  <div class="rv" style="position:relative">
+<section class="cta-final">
+  <div class="rv">
     <h2>
-      <span data-l="en">YOUR NEXT<br>ROUND, <em>KEPT</em><br><span class="stroke">BEAUTIFULLY.</span></span>
-      <span data-l="ja" class="a">次のラウンドを、<br><em>美しく</em><br><span class="stroke">残そう。</span></span>
-      <span data-l="ko">다음 라운드를,<br><em>아름답게</em><br><span class="stroke">남기자.</span></span>
+      <span data-l="en">Your next round, kept beautifully.</span>
+      <span data-l="ja" class="a">次のラウンドを、<br class="sp">美しく残そう。</span>
+      <span data-l="ko">다음 라운드를, 아름답게.</span>
     </h2>
     <p>
-      <span data-l="en">Join Early Access. Free forever. Pro from $4.99/month. App Store launch coming soon · 2026.</span>
-      <span data-l="ja" class="a">Early Access にご参加ください。コア機能は永続無料、Pro は $4.99/月から。App Store 正式公開準備中 · 2026。</span>
-      <span data-l="ko">얼리 액세스 참여. 기본 영구 무료. Pro $4.99/월부터. App Store 출시 준비중 · 2026.</span>
+      <span data-l="en">Join Early Access. Free forever. Pro from $4.99/month.</span>
+      <span data-l="ja" class="a">Early Accessにご参加ください。コア機能は永続無料。Proは$4.99/月から。</span>
+      <span data-l="ko">얼리 액세스에 참여. 기본은 영구 무료. Pro는 $4.99/월부터.</span>
     </p>
-    <div class="final-row">
-      <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="btn-brut green">
-        <span data-l="en">EARLY ACCESS →</span><span data-l="ja" class="a">先行体験 →</span><span data-l="ko">선행 액세스 →</span>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+      <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn btn-a" style="font-size:12px;padding:14px 36px">
+        <span data-l="en">Get Early Access</span>
+        <span data-l="ja" class="a">TestFlightで先行体験</span>
+        <span data-l="ko">선행 액세스 신청</span>
       </a>
-      <a href="https://kanopy-inc.com/" class="btn-brut ghost">
-        <span data-l="en">ABOUT KANOPY</span><span data-l="ja" class="a">KANOPY について</span><span data-l="ko">KANOPY 소개</span>
+      <a href="https://kanopy-inc.com/" class="btn btn-g" style="font-size:12px;padding:14px 36px;margin-left:0">
+        <span data-l="en">About KANOPY →</span>
+        <span data-l="ja" class="a">KANOPYについて →</span>
+        <span data-l="ko">KANOPY 소개 →</span>
       </a>
     </div>
-    <div class="final-note">
-      <span data-l="en">APP STORE LAUNCH COMING SOON · 2026</span>
-      <span data-l="ja" class="a">APP STORE 正式公開準備中 · 2026</span>
-      <span data-l="ko">APP STORE 출시 준비중 · 2026</span>
-    </div>
+    <p style="margin-top:18px;font-size:11px;color:var(--t3)">
+      <span data-l="en">App Store launch coming soon · 2026</span>
+      <span data-l="ja" class="a">App Store 正式公開準備中 · 2026</span>
+      <span data-l="ko">App Store 정식 출시 준비중 · 2026</span>
+    </p>
   </div>
 </section>
-</main>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
 <footer>
-  <div class="ft-brand">
-    <span class="wm">ROUNDIE</span>
-    <p>
-      <span data-l="en">Shape your round. Keep what lasts. A golf social app built by KANOPY Inc., Tokyo.</span>
-      <span data-l="ja" class="a">あなたのラウンドを、かたちに残す。株式会社 KANOPY（東京）が手がけるゴルフソーシャルアプリ。</span>
-      <span data-l="ko">당신의 라운드를, 형태로. KANOPY 주식회사(도쿄)가 만드는 골프 소셜 앱.</span>
-    </p>
-  </div>
-  <div class="ft-col">
-    <h6><span data-l="en">PRODUCT</span><span data-l="ja" class="a">プロダクト</span><span data-l="ko">프로덕트</span></h6>
-    <a href="/">ROUNDIE</a>
-    <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener">TESTFLIGHT ↗</a>
-    <a href="/faq/">FAQ</a>
-  </div>
-  <div class="ft-col">
-    <h6><span data-l="en">COMPANY</span><span data-l="ja" class="a">会社</span><span data-l="ko">회사</span></h6>
+  <div class="links">
     <a href="https://kanopy-inc.com/">KANOPY</a>
-    <a href="https://kanopy-inc.com/talent/">TALENT</a>
-    <a href="https://kanopy-inc.com/notice/">NOTICE</a>
+    <a href="/">ROUNDIE</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/terms/"><span data-l="en">Terms</span><span data-l="ja" class="a">利用規約</span><span data-l="ko">이용약관</span></a>
+    <a href="/privacy/"><span data-l="en">Privacy</span><span data-l="ja" class="a">プライバシー</span><span data-l="ko">개인정보</span></a>
+    <a href="mailto:roundie@kanopy-inc.com">roundie@kanopy-inc.com</a>
   </div>
-  <div class="ft-col">
-    <h6><span data-l="en">LEGAL</span><span data-l="ja" class="a">法的情報</span><span data-l="ko">법적 정보</span></h6>
-    <a href="/terms/"><span data-l="en">TERMS</span><span data-l="ja" class="a">利用規約</span><span data-l="ko">이용약관</span></a>
-    <a href="/privacy/"><span data-l="en">PRIVACY</span><span data-l="ja" class="a">プライバシー</span><span data-l="ko">개인정보</span></a>
-    <a href="mailto:roundie@kanopy-inc.com" style="word-break:break-all">CONTACT</a>
-  </div>
-  <div class="ft-bot">
-    <div class="c">© 2026 KANOPY INC. · ALL RIGHTS RESERVED</div>
-    <div class="t">★ SHAPE WHAT LASTS</div>
-  </div>
+  <div class="copy">© 2026 KANOPY Inc. · ROUNDIE is a product of KANOPY Inc.</div>
 </footer>
 
 <script>
-/* ========================================================================
-   Language switcher (preserves URL of selection, persists in localStorage)
-   ======================================================================== */
 function sl(lang, el){
   document.querySelectorAll('[data-l]').forEach(e=>{e.classList.toggle('a', e.getAttribute('data-l')===lang)});
   document.querySelectorAll('[data-b]').forEach(e=>{e.classList.toggle('a', e.getAttribute('data-b')===lang)});
-  document.querySelectorAll('.lang a, .mob-overlay .langs a').forEach(a=>a.classList.remove('a'));
-  if(el){el.classList.add('a')}
-  else{document.querySelectorAll('.lang a, .mob-overlay .langs a').forEach(a=>{if(a.textContent.trim().toLowerCase()===lang)a.classList.add('a')})}
+  document.querySelectorAll('.ng a').forEach(a=>a.classList.remove('a'));
+  if(el) el.classList.add('a');
   document.documentElement.setAttribute('lang', lang);
   try{localStorage.setItem('kanopy_lang', lang)}catch(e){}
 }
 (function(){
   try{
     var saved = localStorage.getItem('kanopy_lang');
-    if(saved){sl(saved);return}
+    if(saved){
+      sl(saved);
+      document.querySelectorAll('.ng a').forEach(a=>{if(a.textContent.toLowerCase()===saved) a.classList.add('a')});
+      return;
+    }
   }catch(e){}
   var nav = (navigator.language||'').toLowerCase();
-  if(nav.startsWith('en')) sl('en');
-  else if(nav.startsWith('ko')) sl('ko');
-  // else: stay JA (default)
+  if(nav.startsWith('en')) sl('en', document.querySelector('.ng a[onclick*="en"]'));
+  else if(nav.startsWith('ko')) sl('ko', document.querySelector('.ng a[onclick*="ko"]'));
 })();
 
-/* Mobile menu */
-function toggleMenu(){
-  var menu=document.getElementById('mobMenu'),btn=document.getElementById('hbBtn');
-  var open=menu.classList.toggle('o');
-  btn.classList.toggle('o',open);
-  btn.setAttribute('aria-expanded',open?'true':'false');
-  document.body.style.overflow=open?'hidden':'';
-}
-function closeMenu(){
-  var menu=document.getElementById('mobMenu'),btn=document.getElementById('hbBtn');
-  menu.classList.remove('o');btn.classList.remove('o');
-  btn.setAttribute('aria-expanded','false');document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape') closeMenu()});
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('v')});
+}, {threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 
-/* Scroll reveal */
-var io = new IntersectionObserver(function(es){
-  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in')}});
-}, {threshold:.12,rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.rv, .feat-item').forEach(function(el){io.observe(el)});
-
-/* Custom cursor — PC only */
 (function(){
-  if(matchMedia('(hover:none)').matches || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  var cd=document.getElementById('cd'),cr=document.getElementById('cr');
-  if(!cd||!cr) return;
-  var mx=0,my=0,rx=0,ry=0;
-  window.addEventListener('mousemove',function(e){
-    mx=e.clientX;my=e.clientY;
-    cd.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';
-  });
-  function loop(){
-    rx+=(mx-rx)*.18;ry+=(my-ry)*.18;
-    cr.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
-    requestAnimationFrame(loop);
-  }
-  loop();
-  document.querySelectorAll('a,button').forEach(function(el){
-    el.addEventListener('mouseenter',function(){cr.classList.add('hover')});
-    el.addEventListener('mouseleave',function(){cr.classList.remove('hover')});
-  });
+  // Yuki's Sat Apr 12 round — Par 72, total 86 (OUT 40 + IN 46). 1 Eagle, 1 Triple, mostly pars/bogeys/doubles. Matches Features mock.
+  var colors = ['#4CAF50','#42A5F5','#4CAF50','#42A5F5','#4CAF50','#42A5F5','#FFD700','#42A5F5','#5C6BC0', '#4CAF50','#37474F','#42A5F5','#4CAF50','#5C6BC0','#4CAF50','#5C6BC0','#4CAF50','#42A5F5'];
+  var g = document.getElementById('vg');
+  if(g) g.innerHTML = colors.map(c=>'<div style="background:'+c+'"></div>').join('');
 })();
 </script>
-
 </body>
 </html>
