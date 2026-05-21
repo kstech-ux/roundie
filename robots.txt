@@ -1,3 +1,16 @@
 User-agent: *
 Allow: /
+Disallow: /docs/
+Disallow: /mock/
+
+# AI search crawlers — allow indexing for AEO
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://roundie.app/sitemap.xml
