@@ -171,9 +171,313 @@
     .quote-block{margin:48px 0;padding:36px 32px;border-left:3px solid var(--ac);background:var(--card);border-radius:0 12px 12px 0}
     .quote-block p{font-size:clamp(17px,2.2vw,22px);font-weight:300;line-height:1.8;color:var(--t1)}
     .quote-block p strong{font-weight:500;color:var(--ac)}
+
+    /* ========================================================================
+       2026 PREMIUM LAYER — Modern design language overrides
+       ======================================================================== */
+    :root{
+      --ac-deep:#4ADE80;
+      --ac-bright:#86EFAC;
+      --ac-electric:#22D3EE;
+      --gold-warm:#FCD34D;
+      --plum:#A78BFA;
+      --rose:#F472B6;
+      --bg-deep:#040406;
+      --glass-bg:rgba(255,255,255,.04);
+      --glass-border:rgba(255,255,255,.08);
+      --glass-hi:rgba(255,255,255,.12);
+      --shadow-soft:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.32);
+      --shadow-deep:0 2px 4px rgba(0,0,0,.5),0 16px 48px rgba(0,0,0,.4),0 32px 96px rgba(0,0,0,.3);
+      --shadow-glow-ac:0 0 0 1px rgba(134,239,172,.2),0 8px 32px rgba(134,239,172,.18),0 24px 64px rgba(74,222,128,.12);
+      --shadow-glow-gold:0 0 0 1px rgba(252,211,77,.2),0 8px 32px rgba(252,211,77,.16);
+      --ease-fluid:cubic-bezier(.32,.72,0,1);
+      --ease-spring:cubic-bezier(.34,1.56,.64,1);
+      --ease-smooth:cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Mesh gradient background (sits behind body content) */
+    .mesh-bg{
+      position:fixed;inset:0;z-index:-2;pointer-events:none;
+      background:
+        radial-gradient(at 18% 12%,rgba(74,222,128,.18) 0px,transparent 42%),
+        radial-gradient(at 82% 18%,rgba(252,211,77,.10) 0px,transparent 38%),
+        radial-gradient(at 14% 78%,rgba(167,139,250,.08) 0px,transparent 40%),
+        radial-gradient(at 86% 84%,rgba(34,211,238,.08) 0px,transparent 40%),
+        radial-gradient(at 50% 50%,rgba(134,239,172,.04) 0px,transparent 60%);
+      filter:saturate(1.1);
+    }
+    /* Subtle grain to remove banding on dark gradients */
+    .grain{
+      position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.4;mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* Modern glass card */
+    .glass{
+      background:var(--glass-bg);
+      backdrop-filter:blur(20px) saturate(1.2);
+      -webkit-backdrop-filter:blur(20px) saturate(1.2);
+      border:1px solid var(--glass-border);
+      border-radius:18px;
+      box-shadow:var(--shadow-soft);
+      transition:transform .5s var(--ease-fluid),border-color .3s,box-shadow .5s var(--ease-fluid),background .3s;
+    }
+    .glass:hover{
+      border-color:var(--glass-hi);
+      background:rgba(255,255,255,.06);
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-deep);
+    }
+    .glass-strong{
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+      backdrop-filter:blur(24px) saturate(1.3);
+      -webkit-backdrop-filter:blur(24px) saturate(1.3);
+      border:1px solid var(--glass-hi);
+      border-radius:22px;
+      box-shadow:var(--shadow-deep);
+    }
+
+    /* Premium glow card (Pricing 'pop', emphasis) */
+    .glow-card{
+      position:relative;
+      background:linear-gradient(180deg,rgba(74,222,128,.06),rgba(74,222,128,.02));
+      border:1px solid rgba(134,239,172,.25);
+      border-radius:22px;
+      box-shadow:var(--shadow-glow-ac);
+      overflow:hidden;
+    }
+    .glow-card::before{
+      content:'';position:absolute;inset:-1px;border-radius:22px;padding:1px;
+      background:linear-gradient(135deg,rgba(134,239,172,.5),rgba(134,239,172,0) 40%,rgba(252,211,77,.4) 100%);
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.8;
+    }
+    .glow-card::after{
+      content:'';position:absolute;top:-40%;left:-20%;width:140%;height:80%;
+      background:radial-gradient(ellipse at center,rgba(134,239,172,.1),transparent 60%);
+      pointer-events:none;animation:floatGlow 12s ease-in-out infinite alternate;
+    }
+    @keyframes floatGlow{from{transform:translate(0,0)}to{transform:translate(8%,12%)}}
+
+    /* Magnetic / tactile button */
+    .btn-mag{
+      position:relative;overflow:hidden;
+      transition:transform .3s var(--ease-spring),box-shadow .35s var(--ease-fluid),background .3s;
+    }
+    .btn-mag::before{
+      content:'';position:absolute;inset:0;border-radius:inherit;
+      background:radial-gradient(circle 80px at var(--mx,50%) var(--my,50%),rgba(255,255,255,.18),transparent 70%);
+      opacity:0;transition:opacity .3s;pointer-events:none;
+    }
+    .btn-mag:hover::before{opacity:1}
+    .btn-mag:active{transform:scale(.96)}
+
+    /* Premium primary CTA */
+    .btn-pri{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:14px 32px;min-height:48px;
+      background:linear-gradient(135deg,var(--ac-bright) 0%,var(--ac-deep) 100%);
+      color:#04140A;font-weight:700;font-size:13px;letter-spacing:.5px;
+      border-radius:100px;text-decoration:none;border:none;cursor:pointer;
+      box-shadow:0 1px 0 rgba(255,255,255,.3) inset,0 8px 24px rgba(74,222,128,.32),0 2px 4px rgba(0,0,0,.4);
+      transition:transform .25s var(--ease-spring),box-shadow .35s var(--ease-fluid);
+      font-family:inherit;
+    }
+    .btn-pri:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 14px 36px rgba(74,222,128,.45),0 4px 8px rgba(0,0,0,.4)}
+    .btn-pri:active{transform:translateY(0) scale(.98)}
+    .btn-sec{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:13px 28px;min-height:48px;
+      background:var(--glass-bg);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      color:var(--t1);font-weight:600;font-size:13px;letter-spacing:.3px;
+      border:1px solid var(--glass-border);border-radius:100px;
+      text-decoration:none;cursor:pointer;font-family:inherit;
+      transition:all .25s var(--ease-fluid);
+    }
+    .btn-sec:hover{border-color:var(--glass-hi);background:rgba(255,255,255,.08);transform:translateY(-2px)}
+
+    /* Modern badge / chip */
+    .chip-pro{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 14px;border-radius:100px;
+      background:var(--glass-bg);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);
+      font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--t1);
+    }
+    .chip-pro .dot{width:6px;height:6px;border-radius:50%;background:var(--ac-bright);box-shadow:0 0 12px var(--ac-bright);animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+
+    /* Fluid display typography (Inter Display weight) */
+    .display-xxl{
+      font-family:'Inter','Space Grotesk',sans-serif;
+      font-size:clamp(48px,10vw,128px);
+      font-weight:800;letter-spacing:-.04em;line-height:.95;
+      background:linear-gradient(180deg,#FAFAFA 0%,#A1A1AA 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .display-xl{
+      font-family:'Inter','Space Grotesk',sans-serif;
+      font-size:clamp(32px,5.5vw,68px);
+      font-weight:700;letter-spacing:-.03em;line-height:1.05;color:var(--t1);
+    }
+    .display-grad{
+      background:linear-gradient(135deg,#FAFAFA 0%,#86EFAC 50%,#FCD34D 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:11px;font-weight:700;letter-spacing:3px;color:var(--ac-bright);text-transform:uppercase;
+    }
+    .eyebrow::before{content:'';width:24px;height:1px;background:var(--ac-bright)}
+
+    /* Scroll-driven reveal (CSS-native, modern browsers) */
+    @supports (animation-timeline:view()){
+      .reveal{
+        animation:rvIn linear both;
+        animation-timeline:view();
+        animation-range:entry 5% cover 28%;
+      }
+      .reveal-soft{
+        animation:rvSoft linear both;
+        animation-timeline:view();
+        animation-range:entry 0% cover 22%;
+      }
+      .parallax-up{
+        animation:plxUp linear both;
+        animation-timeline:view();
+        animation-range:entry 0% exit 100%;
+      }
+    }
+    @keyframes rvIn{from{opacity:0;transform:translateY(40px) scale(.96);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+    @keyframes rvSoft{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes plxUp{from{transform:translateY(60px)}to{transform:translateY(-60px)}}
+
+    /* Bento grid */
+    .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:40px}
+    .bento > *{grid-column:span 12}
+    @media(min-width:640px){
+      .bento{gap:16px}
+      .bento .b-6{grid-column:span 6}
+      .bento .b-4{grid-column:span 4}
+      .bento .b-8{grid-column:span 8}
+      .bento .b-12{grid-column:span 12}
+    }
+    @media(min-width:1024px){
+      .bento{gap:18px}
+    }
+
+    /* iPad-specific tweaks (768-1023px) */
+    @media(min-width:768px) and (max-width:1023px){
+      .hero{padding:clamp(110px,12vw,140px) 36px 80px}
+      .si{padding:0 36px}
+      section{padding:80px 36px}
+      .ftrs{grid-template-columns:repeat(2,1fr)}
+      .pricing-grid{grid-template-columns:1fr 1fr;gap:18px}
+      .pricing-card.pop{grid-column:span 2}
+      .steps{grid-template-columns:repeat(4,1fr)}
+      .display-xxl{font-size:clamp(64px,9vw,96px)}
+    }
+
+    /* PC enhancements (1024+) */
+    @media(min-width:1024px){
+      .hero{padding:clamp(140px,15vw,200px) 64px 120px}
+      .si{max-width:1100px;padding:0 64px}
+      section{padding:clamp(120px,14vw,180px) 64px}
+    }
+
+    /* Modern marquee / ticker */
+    .marquee{
+      overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+    }
+    .marquee-track{
+      display:flex;gap:48px;animation:scrollX 30s linear infinite;width:max-content;
+    }
+    .marquee:hover .marquee-track{animation-play-state:paused}
+    @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .marquee-item{
+      display:inline-flex;align-items:center;gap:12px;
+      font-size:14px;color:var(--t2);font-weight:500;letter-spacing:1px;
+      white-space:nowrap;
+    }
+    .marquee-item .sep{width:6px;height:6px;border-radius:50%;background:var(--ac-bright);opacity:.6}
+
+    /* Modern footer */
+    .footer-pro{
+      position:relative;background:linear-gradient(180deg,transparent,#000 60%);
+      padding:80px 24px 40px;border-top:1px solid var(--glass-border);overflow:hidden;
+    }
+    .footer-pro::before{
+      content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+      width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--ac-bright),transparent);opacity:.5;
+    }
+    .footer-pro .wm{
+      font-family:'Inter','Space Grotesk',sans-serif;
+      font-size:clamp(48px,12vw,140px);font-weight:900;letter-spacing:-.04em;line-height:1;
+      text-align:center;
+      background:linear-gradient(180deg,rgba(134,239,172,.18) 0%,transparent 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      margin-bottom:48px;user-select:none;
+    }
+
+    /* Scroll progress bar */
+    .scroll-progress{
+      position:fixed;top:0;left:0;right:0;height:2px;z-index:99;pointer-events:none;
+      background:transparent;
+    }
+    .scroll-progress .bar{
+      height:100%;background:linear-gradient(90deg,var(--ac-bright),var(--gold-warm));
+      transform-origin:left;transform:scaleX(0);transition:transform .1s linear;
+      box-shadow:0 0 12px var(--ac-bright);
+    }
+
+    /* Progressive enhancement: existing card patterns get glass treatment */
+    .ftr, .score-pillar, .info-card, .pricing-card{
+      background:linear-gradient(180deg,rgba(255,255,255,.025) 0%,rgba(255,255,255,.01) 100%)!important;
+      backdrop-filter:blur(20px) saturate(1.15);
+      -webkit-backdrop-filter:blur(20px) saturate(1.15);
+      border-radius:18px!important;
+      transition:transform .5s var(--ease-fluid),border-color .3s,box-shadow .5s var(--ease-fluid),background .3s;
+    }
+    .ftr:hover, .score-pillar:hover, .info-card:hover{
+      border-color:var(--glass-hi)!important;
+      background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,rgba(255,255,255,.015) 100%)!important;
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-deep);
+    }
+    /* Pricing pop now uses glow-card; reset the original glow rule */
+    .pricing-card.pop.glow-card{border-color:transparent!important;background:linear-gradient(180deg,rgba(74,222,128,.06),rgba(74,222,128,.02))!important;box-shadow:var(--shadow-glow-ac)!important}
+    /* Modernize hero h1 if needed */
+    .hero-text h1.display-xxl{color:transparent}
+    /* Nav: stronger sticky glass */
+    nav{background:rgba(5,5,7,.7)!important;backdrop-filter:blur(28px) saturate(1.3)!important;-webkit-backdrop-filter:blur(28px) saturate(1.3)!important;border-bottom:1px solid var(--glass-border)!important}
+    /* Section padding tighter on mobile to use space better */
+    @media(max-width:639px){
+      section{padding:72px 20px}
+      .hero{padding:120px 20px 80px;min-height:auto}
+      .hero-grid{gap:32px}
+      .display-xxl{font-size:clamp(56px,16vw,80px)}
+    }
+    /* Image and video defaults */
+    img{max-width:100%;height:auto;display:block}
+    /* Selection accent */
+    ::selection{background:var(--ac-bright);color:#04140A}
+
+    /* Reduced motion final safety net */
+    @media(prefers-reduced-motion:reduce){
+      .reveal,.reveal-soft,.parallax-up,.marquee-track,.glow-card::after,.chip-pro .dot{animation:none!important}
+      .glass:hover,.btn-pri:hover,.btn-sec:hover,.ftr:hover,.score-pillar:hover,.info-card:hover{transform:none!important}
+      .hero-scroll span:last-child span{animation:none!important}
+    }
   </style>
 </head>
 <body>
+
+<div class="mesh-bg" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="scroll-progress" aria-hidden="true"><div class="bar" id="progressBar"></div></div>
 
 <nav>
   <a href="https://kanopy-inc.com/" class="nl">KANOPY</a>
@@ -202,76 +506,118 @@
 
 <section class="hero">
   <div class="hero-grid">
-    <div class="hero-text rv">
-      <div class="sl">A KANOPY Product · v1.0.11</div>
-      <h1>ROUNDIE</h1>
-      <p class="tagline">
-        <span data-l="en">Shape your round. <em>Keep what lasts.</em></span>
-        <span data-l="ja" class="a">あなたのラウンドを、<br class="sp"><em>かたちに残す。</em></span>
-        <span data-l="ko">당신의 라운드를, <em>형태로.</em></span>
+    <div class="hero-text reveal-soft">
+      <span class="chip-pro" style="margin-bottom:24px"><span class="dot"></span><span data-l="en">A KANOPY Product · v1.0.11</span><span data-l="ja" class="a">KANOPY のプロダクト · v1.0.11</span><span data-l="ko">KANOPY 프로덕트 · v1.0.11</span></span>
+      <h1 class="display-xxl" style="margin-bottom:20px">ROUNDIE</h1>
+      <p class="tagline" style="font-size:clamp(18px,2.4vw,28px);font-weight:400;line-height:1.4;color:var(--t1);margin-bottom:16px;max-width:540px">
+        <span data-l="en">Shape your round. <em class="display-grad" style="font-weight:700;font-style:normal">Keep what lasts.</em></span>
+        <span data-l="ja" class="a">あなたのラウンドを、<br class="sp"><em class="display-grad" style="font-weight:700;font-style:normal">かたちに残す。</em></span>
+        <span data-l="ko">당신의 라운드를, <em class="display-grad" style="font-weight:700;font-style:normal">형태로.</em></span>
       </p>
-      <div class="brand">
+      <p style="font-size:15px;color:var(--t2);line-height:1.7;margin-bottom:36px;max-width:520px;font-weight:400">
         <span data-l="en">A golf social app for the 20s, 30s, and beyond. Record. Shape. Share. Rise — round by round.</span>
         <span data-l="ja" class="a">20代・30代から始まるゴルフソーシャルアプリ。<br class="sp">記録し、かたちにし、シェアし、仲間と共に成長する。</span>
         <span data-l="ko">20대·30대부터의 골프 소셜 앱. 기록·형태로·공유·성장.</span>
-      </div>
-      <div class="hero-btns">
-        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn btn-a">
+      </p>
+      <div class="hero-btns" style="gap:12px">
+        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn-pri btn-mag" onmousemove="magMove(event,this)">
           <span data-l="en">Get Early Access</span>
           <span data-l="ja" class="a">TestFlightで先行体験</span>
           <span data-l="ko">선행 액세스 신청</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
-        <a href="#features" class="btn btn-g">
-          <span data-l="en">See features →</span>
-          <span data-l="ja" class="a">機能を見る →</span>
-          <span data-l="ko">기능 보기 →</span>
+        <a href="#features" class="btn-sec">
+          <span data-l="en">See features</span>
+          <span data-l="ja" class="a">機能を見る</span>
+          <span data-l="ko">기능 보기</span>
         </a>
       </div>
+      <div style="display:flex;gap:18px;margin-top:32px;align-items:center;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t2)">
+          <span style="display:inline-flex;gap:-6px">
+            <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#86EFAC,#4ADE80);border:2px solid var(--bg);margin-right:-8px"></span>
+            <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#FCD34D,#F59E0B);border:2px solid var(--bg);margin-right:-8px"></span>
+            <span style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#A78BFA,#8B5CF6);border:2px solid var(--bg)"></span>
+          </span>
+          <span><strong style="color:var(--t1);font-weight:700">200+</strong> <span data-l="en">early users</span><span data-l="ja" class="a">名が早期参加</span><span data-l="ko">명 얼리 사용자</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2)">
+          <span style="color:var(--gold-warm);letter-spacing:2px">★★★★★</span>
+          <span data-l="en">App Store soon</span><span data-l="ja" class="a">App Store 公開準備中</span><span data-l="ko">App Store 출시 예정</span>
+        </div>
+      </div>
     </div>
-    <div class="rv">
-      <div class="phone">
+    <div class="reveal" style="perspective:1200px">
+      <div class="phone" id="heroPhone" style="transform-style:preserve-3d;transition:transform .8s var(--ease-fluid);background:linear-gradient(180deg,#16161A 0%,#0E0E14 100%);border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 120px rgba(134,239,172,.18),0 0 0 1px rgba(255,255,255,.04) inset">
         <div class="ph-h">
           <div class="l1">Yuki · Sat Apr 12 · Par 72</div>
-          <div class="l2">86</div>
+          <div class="l2" style="background:linear-gradient(135deg,var(--ac-bright),var(--gold-warm));-webkit-background-clip:text;background-clip:text;color:transparent">86</div>
         </div>
         <div class="mg" id="vg"></div>
         <div class="ph-b">
           <div class="s"><div class="n">40</div><div class="l">OUT</div></div>
           <div class="s"><div class="n">46</div><div class="l">IN</div></div>
-          <div class="s"><div class="n">86</div><div class="l">TOTAL</div></div>
+          <div class="s"><div class="n" style="color:var(--ac-bright)">86</div><div class="l">TOTAL</div></div>
         </div>
       </div>
-      <p style="text-align:center;font-size:8px;color:var(--t3);margin-top:10px;letter-spacing:1px">
-        <span data-l="en">* Sample Round Card</span>
-        <span data-l="ja" class="a">* サンプルラウンドカード</span>
-        <span data-l="ko">* 샘플 라운드카드</span>
+      <p style="text-align:center;font-size:10px;color:var(--t3);margin-top:14px;letter-spacing:1.5px;font-weight:500">
+        <span data-l="en">SAMPLE ROUND CARD</span>
+        <span data-l="ja" class="a">サンプルラウンドカード</span>
+        <span data-l="ko">샘플 라운드카드</span>
       </p>
     </div>
   </div>
+  <a href="#vision" class="hero-scroll" aria-label="Scroll down" style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t3);text-decoration:none;font-size:10px;letter-spacing:3px;font-weight:600;transition:color .3s">
+    <span data-l="en">SCROLL</span><span data-l="ja" class="a">下へ</span><span data-l="ko">아래로</span>
+    <span style="width:1px;height:32px;background:linear-gradient(180deg,var(--ac-bright),transparent);position:relative;overflow:hidden"><span style="position:absolute;top:0;width:1px;height:50%;background:var(--ac-bright);animation:drop2 2s ease-in-out infinite"></span></span>
+  </a>
 </section>
 
-<section class="alt">
+<style>@keyframes drop2{0%{top:-100%}100%{top:100%}}.hero-scroll:hover{color:var(--ac-bright)}</style>
+
+<section id="vision" class="alt">
   <div class="si">
-    <div class="sl rv">Vision</div>
-    <h2 class="sec-h rv">
-      <span data-l="en">Golf is more than a score.</span>
-      <span data-l="ja" class="a">ゴルフは、スコアだけじゃない。</span>
-      <span data-l="ko">골프는 스코어만이 아니다.</span>
+    <span class="eyebrow reveal-soft">Vision</span>
+    <h2 class="display-xl reveal" style="margin-top:18px;margin-bottom:36px">
+      <span data-l="en">Golf is more than <span class="display-grad">a score.</span></span>
+      <span data-l="ja" class="a">ゴルフは、<span class="display-grad">スコア</span>だけじゃない。</span>
+      <span data-l="ko">골프는, <span class="display-grad">스코어</span>만이 아니다.</span>
     </h2>
-    <div class="quote-block rv">
-      <p>
-        <span data-l="en">It's the <strong>four hours</strong> on the fairway. The conversations, the laughter, the perfect approach, the comeback putt. The greatest gift of golf is <strong>sharing those moments</strong> with the people beside you.</span>
-        <span data-l="ja" class="a">それは<strong>フェアウェイで過ごす4時間</strong>。<br class="sp">会話、笑い、最高のアプローチ、復活のパット。<br class="sp">ゴルフの最大の贈り物は、<br class="sp"><strong>その瞬間を仲間とシェアできる</strong>こと。</span>
-        <span data-l="ko">그것은 <strong>페어웨이의 4시간</strong>. 대화, 웃음, 최고의 어프로치, 컴백 퍼팅. 골프의 가장 큰 선물은 <strong>그 순간을 함께한 사람들과 나누는 것</strong>.</span>
+    <div class="glass-strong reveal" style="padding:48px 40px;margin:32px 0">
+      <p style="font-size:clamp(18px,2.4vw,26px);font-weight:300;line-height:1.65;color:var(--t1)">
+        <span data-l="en">It's the <strong style="color:var(--ac-bright);font-weight:600">four hours</strong> on the fairway. The conversations, the laughter, the perfect approach, the comeback putt. The greatest gift of golf is <strong style="color:var(--ac-bright);font-weight:600">sharing those moments</strong> with the people beside you.</span>
+        <span data-l="ja" class="a">それは<strong style="color:var(--ac-bright);font-weight:600">フェアウェイで過ごす4時間</strong>。<br class="sp">会話、笑い、最高のアプローチ、復活のパット。<br class="sp">ゴルフの最大の贈り物は、<br class="sp"><strong style="color:var(--ac-bright);font-weight:600">その瞬間を仲間とシェアできる</strong>こと。</span>
+        <span data-l="ko">그것은 <strong style="color:var(--ac-bright);font-weight:600">페어웨이의 4시간</strong>. 대화, 웃음, 최고의 어프로치, 컴백 퍼팅. 골프의 가장 큰 선물은 <strong style="color:var(--ac-bright);font-weight:600">그 순간을 함께한 사람들과 나누는 것</strong>.</span>
       </p>
     </div>
-    <p class="sec-sub rv">
+    <p class="reveal" style="font-size:16px;color:var(--t2);line-height:1.85;max-width:680px">
       <span data-l="en">ROUNDIE keeps those memories as something you can hold. Every round becomes a beautiful color grid — a Round Card you can save, share, and revisit years from now.</span>
       <span data-l="ja" class="a">ROUNDIE は、その記憶を「かたち」として残します。<br class="sp">ラウンドは美しいカラーグリッドになり、<br class="sp">あなただけのラウンドカードとして手元に残ります。<br class="sp">何年経っても、あの日のラウンドをいつでも振り返ることができます。</span>
       <span data-l="ko">ROUNDIE는 그 기억을 형태로 남깁니다. 라운드는 아름다운 컬러 그리드가 되어 나만의 라운드카드로 남고, 몇 년이 지나도 언제든 그날의 라운드를 다시 볼 수 있습니다.</span>
     </p>
   </div>
 </section>
+
+<!-- Marquee ticker between sections -->
+<div class="marquee" style="padding:36px 0;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">RECORD<span class="sep"></span></span>
+    <span class="marquee-item">SHAPE<span class="sep"></span></span>
+    <span class="marquee-item">SHARE<span class="sep"></span></span>
+    <span class="marquee-item">RISE<span class="sep"></span></span>
+    <span class="marquee-item" style="color:var(--ac-bright)">記憶を、かたちに<span class="sep"></span></span>
+    <span class="marquee-item">RECORD<span class="sep"></span></span>
+    <span class="marquee-item">SHAPE<span class="sep"></span></span>
+    <span class="marquee-item">SHARE<span class="sep"></span></span>
+    <span class="marquee-item">RISE<span class="sep"></span></span>
+    <span class="marquee-item" style="color:var(--ac-bright)">記憶を、かたちに<span class="sep"></span></span>
+    <span class="marquee-item">RECORD<span class="sep"></span></span>
+    <span class="marquee-item">SHAPE<span class="sep"></span></span>
+    <span class="marquee-item">SHARE<span class="sep"></span></span>
+    <span class="marquee-item">RISE<span class="sep"></span></span>
+    <span class="marquee-item" style="color:var(--ac-bright)">記憶を、かたちに<span class="sep"></span></span>
+  </div>
+</div>
 
 <section>
   <div class="si">
@@ -641,11 +987,11 @@
         </ul>
       </div>
 
-      <div class="pricing-card pop rv">
-        <div class="name"><span data-l="en">Pro · Yearly</span><span data-l="ja" class="a">Pro 年額</span><span data-l="ko">Pro 연간</span></div>
-        <div class="price">$39.99</div>
-        <div class="period"><span data-l="en">/ year ($3.33/mo)</span><span data-l="ja" class="a">/ 年（実質 約$3.33/月）</span><span data-l="ko">/ 년 (월 약 $3.33)</span></div>
-        <div class="discount"><span data-l="en">2 months free · 17% OFF</span><span data-l="ja" class="a">2ヶ月分お得 · 17% OFF</span><span data-l="ko">2개월 무료 · 17% OFF</span></div>
+      <div class="pricing-card pop glow-card reveal">
+        <div class="name" style="position:relative;z-index:1"><span data-l="en">Pro · Yearly</span><span data-l="ja" class="a">Pro 年額</span><span data-l="ko">Pro 연간</span></div>
+        <div class="price display-grad" style="position:relative;z-index:1;font-size:38px">$39.99</div>
+        <div class="period" style="position:relative;z-index:1"><span data-l="en">/ year ($3.33/mo)</span><span data-l="ja" class="a">/ 年（実質 約$3.33/月）</span><span data-l="ko">/ 년 (월 약 $3.33)</span></div>
+        <div class="discount" style="position:relative;z-index:1;background:linear-gradient(135deg,var(--ac-bright),var(--gold-warm));color:#04140A;font-weight:800"><span data-l="en">2 months free · 17% OFF</span><span data-l="ja" class="a">2ヶ月分お得 · 17% OFF</span><span data-l="ko">2개월 무료 · 17% OFF</span></div>
         <ul>
           <li><span data-l="en"><strong>Everything in Free</strong></span><span data-l="ja" class="a"><strong>Free の全機能</strong></span><span data-l="ko"><strong>Free 전체 기능</strong></span></li>
           <li><span data-l="en">Compe hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催 <strong>無制限</strong>・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최·참가자 <strong>무제한</strong></span></li>
@@ -734,31 +1080,34 @@
   </div>
 </section>
 
-<section class="cta-final">
-  <div class="rv">
-    <h2>
-      <span data-l="en">Your next round, kept beautifully.</span>
-      <span data-l="ja" class="a">次のラウンドを、<br class="sp">美しく残そう。</span>
-      <span data-l="ko">다음 라운드를, 아름답게.</span>
+<section class="cta-final" style="position:relative;overflow:hidden">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(900px,90vw);height:min(900px,90vw);border-radius:50%;background:radial-gradient(circle,rgba(134,239,172,.15) 0%,transparent 60%);pointer-events:none;animation:floatGlow 18s ease-in-out infinite alternate" aria-hidden="true"></div>
+  <div class="reveal" style="position:relative;z-index:1">
+    <span class="eyebrow" style="display:inline-flex;justify-content:center;margin-bottom:24px">Ready when you are</span>
+    <h2 class="display-xl" style="font-size:clamp(36px,7vw,84px);text-align:center;margin-bottom:24px;line-height:1.05">
+      <span data-l="en">Your next round,<br><span class="display-grad">kept beautifully.</span></span>
+      <span data-l="ja" class="a">次のラウンドを、<br><span class="display-grad">美しく残そう。</span></span>
+      <span data-l="ko">다음 라운드를,<br><span class="display-grad">아름답게.</span></span>
     </h2>
-    <p>
+    <p style="font-size:16px;color:var(--t2);text-align:center;margin-bottom:40px;line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto">
       <span data-l="en">Join Early Access. Free forever. Pro from $4.99/month.</span>
-      <span data-l="ja" class="a">Early Accessにご参加ください。コア機能は永続無料。Proは$4.99/月から。</span>
+      <span data-l="ja" class="a">Early Accessにご参加ください。<br class="sp">コア機能は永続無料。Proは$4.99/月から。</span>
       <span data-l="ko">얼리 액세스에 참여. 기본은 영구 무료. Pro는 $4.99/월부터.</span>
     </p>
-    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
-      <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn btn-a" style="font-size:12px;padding:14px 36px">
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+      <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn-pri btn-mag" onmousemove="magMove(event,this)">
         <span data-l="en">Get Early Access</span>
         <span data-l="ja" class="a">TestFlightで先行体験</span>
         <span data-l="ko">선행 액세스 신청</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
-      <a href="https://kanopy-inc.com/" class="btn btn-g" style="font-size:12px;padding:14px 36px;margin-left:0">
-        <span data-l="en">About KANOPY →</span>
-        <span data-l="ja" class="a">KANOPYについて →</span>
-        <span data-l="ko">KANOPY 소개 →</span>
+      <a href="https://kanopy-inc.com/" class="btn-sec">
+        <span data-l="en">About KANOPY</span>
+        <span data-l="ja" class="a">KANOPYについて</span>
+        <span data-l="ko">KANOPY 소개</span>
       </a>
     </div>
-    <p style="margin-top:18px;font-size:11px;color:var(--t3)">
+    <p style="margin-top:24px;font-size:12px;color:var(--t3);text-align:center;letter-spacing:1px">
       <span data-l="en">App Store launch coming soon · 2026</span>
       <span data-l="ja" class="a">App Store 正式公開準備中 · 2026</span>
       <span data-l="ko">App Store 정식 출시 준비중 · 2026</span>
@@ -766,17 +1115,47 @@
   </div>
 </section>
 
-<footer>
-  <div class="links">
-    <a href="https://kanopy-inc.com/">KANOPY</a>
-    <a href="/">ROUNDIE</a>
-    <a href="/faq/">FAQ</a>
-    <a href="/terms/"><span data-l="en">Terms</span><span data-l="ja" class="a">利用規約</span><span data-l="ko">이용약관</span></a>
-    <a href="/privacy/"><span data-l="en">Privacy</span><span data-l="ja" class="a">プライバシー</span><span data-l="ko">개인정보</span></a>
-    <a href="mailto:roundie@kanopy-inc.com">roundie@kanopy-inc.com</a>
+<footer class="footer-pro">
+  <div class="wm reveal-soft" aria-hidden="true">ROUNDIE</div>
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:1fr;gap:36px;margin-bottom:48px" id="ftGrid">
+      <div>
+        <div style="font-family:'Inter','Space Grotesk',sans-serif;font-size:14px;font-weight:700;letter-spacing:6px;color:var(--ac-bright);margin-bottom:14px">ROUNDIE</div>
+        <p style="font-size:13px;color:var(--t2);line-height:1.8;max-width:280px">
+          <span data-l="en">Shape your round. Keep what lasts. A KANOPY product.</span>
+          <span data-l="ja" class="a">あなたのラウンドを、かたちに残す。<br>KANOPYのプロダクト。</span>
+          <span data-l="ko">당신의 라운드를, 형태로. KANOPY 프로덕트.</span>
+        </p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px;text-transform:uppercase"><span data-l="en">Product</span><span data-l="ja" class="a">プロダクト</span><span data-l="ko">프로덕트</span></div>
+        <a href="/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">ROUNDIE</a>
+        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">TestFlight ↗</a>
+        <a href="/faq/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">FAQ</a>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px;text-transform:uppercase"><span data-l="en">Company</span><span data-l="ja" class="a">会社</span><span data-l="ko">회사</span></div>
+        <a href="https://kanopy-inc.com/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">KANOPY</a>
+        <a href="https://kanopy-inc.com/talent/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">Talent</a>
+        <a href="https://kanopy-inc.com/notice/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">Notice</a>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px;text-transform:uppercase"><span data-l="en">Legal</span><span data-l="ja" class="a">法的情報</span><span data-l="ko">법적 정보</span></div>
+        <a href="/terms/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px"><span data-l="en">Terms</span><span data-l="ja" class="a">利用規約</span><span data-l="ko">이용약관</span></a>
+        <a href="/privacy/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px"><span data-l="en">Privacy</span><span data-l="ja" class="a">プライバシー</span><span data-l="ko">개인정보</span></a>
+        <a href="mailto:roundie@kanopy-inc.com" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px;word-break:break-all">roundie@kanopy-inc.com</a>
+      </div>
+    </div>
+    <div style="padding-top:32px;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div style="font-size:12px;color:var(--t3);letter-spacing:.5px">© 2026 KANOPY Inc.</div>
+      <div style="font-size:11px;color:var(--t3);letter-spacing:2px;font-weight:600">SHAPE WHAT LASTS</div>
+    </div>
   </div>
-  <div class="copy">© 2026 KANOPY Inc. · ROUNDIE is a product of KANOPY Inc.</div>
 </footer>
+<style>
+@media(min-width:640px){#ftGrid{grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px}}
+.footer-pro a:hover{color:var(--ac-bright)!important}
+</style>
 
 <script>
 function sl(lang, el){
@@ -830,6 +1209,74 @@ document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
   var colors = ['#4CAF50','#42A5F5','#4CAF50','#42A5F5','#4CAF50','#42A5F5','#FFD700','#42A5F5','#5C6BC0', '#4CAF50','#37474F','#42A5F5','#4CAF50','#5C6BC0','#4CAF50','#5C6BC0','#4CAF50','#42A5F5'];
   var g = document.getElementById('vg');
   if(g) g.innerHTML = colors.map(c=>'<div style="background:'+c+'"></div>').join('');
+})();
+
+// Magnetic button mouse-following spotlight
+function magMove(e, el){
+  var r = el.getBoundingClientRect();
+  el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+  el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}
+document.querySelectorAll('.btn-mag').forEach(function(b){
+  b.addEventListener('mouseleave', function(){
+    b.style.removeProperty('--mx'); b.style.removeProperty('--my');
+  });
+});
+
+// Scroll progress bar
+(function(){
+  var bar = document.getElementById('progressBar');
+  if(!bar) return;
+  var ticking = false;
+  function update(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var pct = max > 0 ? (h.scrollTop / max) : 0;
+    bar.style.transform = 'scaleX(' + pct + ')';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
+  }, {passive:true});
+  update();
+})();
+
+// Hero phone subtle 3D tilt on PC mouse-move
+(function(){
+  var p = document.getElementById('heroPhone');
+  if(!p) return;
+  if(matchMedia('(hover:none)').matches || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var hero = p.closest('.hero');
+  if(!hero) return;
+  hero.addEventListener('mousemove', function(e){
+    var r = hero.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - .5;
+    var y = (e.clientY - r.top) / r.height - .5;
+    p.style.transform = 'rotateY(' + (x * 10) + 'deg) rotateX(' + (-y * 8) + 'deg) translateZ(0)';
+  });
+  hero.addEventListener('mouseleave', function(){ p.style.transform = ''; });
+})();
+
+// Fallback reveal for browsers without animation-timeline (CSS scroll-driven animations)
+(function(){
+  if(window.CSS && CSS.supports && CSS.supports('animation-timeline', 'view()')) return;
+  var ro = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+        e.target.style.filter = 'none';
+        ro.unobserve(e.target);
+      }
+    });
+  }, {threshold:.1, rootMargin:'0px 0px -10% 0px'});
+  document.querySelectorAll('.reveal,.reveal-soft').forEach(function(el){
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(36px)';
+    el.style.filter = 'blur(6px)';
+    el.style.transition = 'opacity .8s cubic-bezier(.32,.72,0,1), transform .8s cubic-bezier(.32,.72,0,1), filter .8s cubic-bezier(.32,.72,0,1)';
+    ro.observe(el);
+  });
 })();
 </script>
 </body>
