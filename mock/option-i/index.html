@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#040404">
+<title>Mock Option I — ライブアート / ROUNDIE</title>
+<style>
+:root{
+  --bg:#040404;
+  --bg-2:#0A0A0A;
+  --bg-3:#141414;
+  --t1:#F5F5F5;--t2:#A1A1AA;--t3:#52525B;
+  --green:#2D5A27;--green-hi:#5BAF52;--green-on-dark:#7FCF6F;
+  --gold:#F5C400;--bogey:#60A5FA;--double:#9B8EC4;
+  --line:rgba(255,255,255,.07);
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:#000}
+body{
+  font-family:-apple-system,'Inter','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;
+  background:var(--bg);color:var(--t1);
+  line-height:1.55;font-size:16px;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.wm{font-family:'Arial Black',sans-serif;font-weight:900}
+::selection{background:var(--green-on-dark);color:#000}
+
+/* TOP — floating glass */
+.top{
+  position:fixed;top:14px;left:14px;right:14px;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 14px 10px 20px;
+  background:rgba(10,10,10,.55);
+  backdrop-filter:blur(28px) saturate(1.5);
+  -webkit-backdrop-filter:blur(28px) saturate(1.5);
+  border:1px solid var(--line);border-radius:100px;
+}
+.top .brand{font-family:'Arial Black',sans-serif;font-weight:900;letter-spacing:.42em;font-size:13px;display:flex;align-items:center;gap:8px}
+.top .brand::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--green-on-dark);box-shadow:0 0 16px var(--green-on-dark);animation:pulseDot 2.4s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:.5;transform:scale(.9)}50%{opacity:1;transform:scale(1.3)}}
+.top nav{display:flex;gap:2px;font-family:'Hiragino Kaku Gothic ProN',sans-serif}
+.top nav a{padding:8px 14px;font-size:12px;color:var(--t2);border-radius:100px;font-weight:500;transition:color .2s,background .2s}
+.top nav a:hover{color:var(--t1);background:rgba(255,255,255,.06)}
+.top .cta{font-family:'Hiragino Kaku Gothic ProN',sans-serif;padding:9px 18px;background:var(--green-on-dark);color:#0A0A0A;font-weight:700;font-size:12px;letter-spacing:.02em;border-radius:100px;transition:transform .2s;display:inline-flex;align-items:center;gap:6px}
+.top .cta:hover{transform:scale(1.04)}
+@media(max-width:768px){.top nav{display:none}}
+
+/* HERO — 呼吸する generative art */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:96px 24px 60px;text-align:center;overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;inset:0;z-index:0;overflow:hidden;
+}
+/* Generative blobs — each blob morphs and drifts */
+.blob{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:.6;mix-blend-mode:screen;
+  animation:blobFloat 18s ease-in-out infinite alternate;
+}
+.blob.b1{width:520px;height:520px;background:#2D5A27;top:-20%;left:-10%;animation-duration:22s}
+.blob.b2{width:480px;height:480px;background:#F5C400;top:30%;right:-10%;animation-duration:19s;animation-delay:-3s}
+.blob.b3{width:420px;height:420px;background:#60A5FA;bottom:-15%;left:20%;animation-duration:24s;animation-delay:-7s}
+.blob.b4{width:380px;height:380px;background:#9B8EC4;top:50%;left:40%;animation-duration:21s;animation-delay:-11s}
+@keyframes blobFloat{
+  0%{transform:translate(0,0) scale(1) rotate(0)}
+  33%{transform:translate(40px,-30px) scale(1.1) rotate(20deg)}
+  66%{transform:translate(-30px,50px) scale(.95) rotate(-10deg)}
+  100%{transform:translate(50px,40px) scale(1.05) rotate(15deg)}
+}
+
+/* Grain overlay */
+.hero-bg::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.5;mix-blend-mode:overlay;pointer-events:none;
+}
+
+/* Vignette over blobs */
+.hero-bg::before{
+  content:'';position:absolute;inset:0;z-index:2;
+  background:radial-gradient(ellipse at center,transparent 30%,rgba(4,4,4,.55) 75%,#040404 100%);
+  pointer-events:none;
+}
+
+.hero-c{position:relative;z-index:5;max-width:900px}
+
+.hero-eye{
+  font-family:'Hiragino Kaku Gothic ProN',sans-serif;
+  font-size:11px;letter-spacing:.42em;color:var(--t2);font-weight:500;
+  margin-bottom:36px;
+  animation:fadeUp 1.2s var(--ease) .2s both;
+}
+.hero-eye .stripe{display:inline-block;width:32px;height:1px;background:var(--green-on-dark);vertical-align:middle;margin:0 14px 4px 0}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-h1{
+  font-family:'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;
+  font-weight:700;letter-spacing:-.03em;line-height:1.05;
+  font-size:clamp(48px,9vw,128px);margin-bottom:32px;
+  animation:fadeUp 1.4s var(--ease) .4s both;
+}
+.hero-h1 .ln{display:block}
+.hero-h1 .em{
+  font-style:normal;
+  background:linear-gradient(135deg,#FFF,#7FCF6F 40%,#F5C400 70%,#FFF);
+  background-size:200% 200%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:gradientShift 6s ease-in-out infinite;
+}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+.hero-sub{
+  font-size:clamp(15px,1.6vw,18px);color:var(--t2);max-width:48ch;margin:0 auto 40px;line-height:1.7;font-family:'Hiragino Kaku Gothic ProN',sans-serif;
+  animation:fadeUp 1.4s var(--ease) .6s both;
+}
+
+.hero-cta{
+  display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  animation:fadeUp 1.4s var(--ease) .8s both;
+  font-family:'Hiragino Kaku Gothic ProN',sans-serif;
+}
+.btn-i-pri{
+  padding:14px 28px;background:var(--green-on-dark);color:#0A0A0A;
+  font-weight:700;font-size:13px;border-radius:100px;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:transform .25s var(--ease),box-shadow .3s;
+  box-shadow:0 8px 32px rgba(127,207,111,.3);
+}
+.btn-i-pri:hover{transform:translateY(-2px);box-shadow:0 14px 42px rgba(127,207,111,.5)}
+.btn-i-sec{
+  padding:14px 26px;color:var(--t1);font-weight:500;font-size:13px;
+  border:1px solid var(--line);border-radius:100px;
+  backdrop-filter:blur(20px);background:rgba(255,255,255,.03);
+  transition:background .25s,border-color .25s;
+}
+.btn-i-sec:hover{background:rgba(255,255,255,.08);border-color:var(--t1)}
+
+/* Hero bottom — Breathing Round Card art */
+.hero-art{
+  margin-top:64px;position:relative;z-index:5;width:100%;max-width:540px;
+  animation:fadeUp 1.6s var(--ease) 1s both;
+}
+.art-grid{
+  display:grid;grid-template-columns:repeat(9,1fr);gap:6px;
+  padding:24px;background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:24px;
+  backdrop-filter:blur(24px);
+}
+.art-grid > div{
+  aspect-ratio:1;border-radius:12%;
+  animation:breathe 8s ease-in-out infinite;
+}
+.art-grid > div:nth-child(odd){animation-delay:0s}
+.art-grid > div:nth-child(3n){animation-delay:-2s}
+.art-grid > div:nth-child(4n){animation-delay:-4s}
+.art-grid > div:nth-child(5n){animation-delay:-6s}
+@keyframes breathe{
+  0%,100%{opacity:.9;transform:scale(1)}
+  50%{opacity:.65;transform:scale(.94)}
+}
+.art-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:18px;font-family:'Hiragino Kaku Gothic ProN',sans-serif;
+  font-size:11px;color:var(--t3);letter-spacing:.16em;
+}
+
+/* SECTION */
+.sect{
+  max-width:1280px;margin:0 auto;
+  padding:120px 24px;position:relative;
+}
+@media(min-width:768px){.sect{padding:160px 48px}}
+
+.sect-eye{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:11px;letter-spacing:.32em;color:var(--green-on-dark);text-transform:uppercase;font-weight:600;margin-bottom:24px;display:inline-flex;align-items:center;gap:14px}
+.sect-eye::before{content:'';width:32px;height:1px;background:var(--green-on-dark)}
+.sect-h{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-weight:700;letter-spacing:-.025em;line-height:1.1;font-size:clamp(36px,6vw,76px);margin-bottom:24px;max-width:18em}
+.sect-h .em{background:linear-gradient(135deg,#FFF,#7FCF6F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sect-lead{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:16px;color:var(--t2);max-width:46ch;line-height:1.8}
+
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+
+/* Feature gallery — generative tiles */
+.gal{display:grid;grid-template-columns:1fr;gap:16px;margin-top:56px}
+@media(min-width:768px){.gal{grid-template-columns:repeat(6,1fr);gap:20px}}
+
+.g{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:24px;
+  padding:32px 28px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:space-between;min-height:280px;
+  transition:transform .5s var(--ease),border-color .3s;
+}
+.g:hover{transform:translateY(-6px);border-color:rgba(127,207,111,.4)}
+@media(min-width:768px){.g-2{grid-column:span 2}.g-3{grid-column:span 3}.g-4{grid-column:span 4}.g-6{grid-column:span 6}}
+
+/* Living glow background */
+.g::before{
+  content:'';position:absolute;top:-50%;right:-50%;width:140%;height:140%;
+  background:radial-gradient(ellipse,rgba(127,207,111,.18),transparent 60%);
+  animation:glowDrift 14s ease-in-out infinite alternate;
+  pointer-events:none;opacity:.4;
+}
+.g:nth-child(2)::before{background:radial-gradient(ellipse,rgba(245,196,0,.16),transparent 60%);animation-delay:-3s}
+.g:nth-child(3)::before{background:radial-gradient(ellipse,rgba(96,165,250,.16),transparent 60%);animation-delay:-6s}
+.g:nth-child(4)::before{background:radial-gradient(ellipse,rgba(155,142,196,.16),transparent 60%);animation-delay:-9s}
+.g:nth-child(5)::before{background:radial-gradient(ellipse,rgba(127,207,111,.16),transparent 60%);animation-delay:-12s}
+@keyframes glowDrift{from{transform:translate(0,0)}to{transform:translate(-30%,40%)}}
+
+.g-eye{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:11px;letter-spacing:.24em;color:var(--green-on-dark);text-transform:uppercase;font-weight:600;margin-bottom:14px;position:relative;z-index:1}
+.g h3{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:clamp(22px,2.4vw,32px);font-weight:700;letter-spacing:-.015em;line-height:1.15;margin-bottom:12px;color:var(--t1);position:relative;z-index:1}
+.g p{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:14px;color:var(--t2);line-height:1.7;max-width:42ch;position:relative;z-index:1}
+
+.g-visual{margin-top:24px;display:flex;justify-content:center;align-items:center;min-height:120px;position:relative;z-index:1}
+
+/* Mini breathing grid in g cell */
+.mini-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;width:180px}
+.mini-grid > div{aspect-ratio:1;border-radius:18%;animation:breathe 6s ease-in-out infinite}
+
+/* Pricing */
+.pr-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:48px}
+@media(min-width:900px){.pr-grid{grid-template-columns:1fr 1.15fr 1fr;gap:16px;align-items:stretch}}
+.pr{padding:32px 28px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:24px;backdrop-filter:blur(20px);display:flex;flex-direction:column;transition:transform .35s var(--ease),border-color .25s}
+.pr:hover{transform:translateY(-4px);border-color:rgba(127,207,111,.3)}
+.pr.feat{background:linear-gradient(180deg,rgba(127,207,111,.14) 0%,rgba(127,207,111,.02) 100%);border:1.5px solid rgba(127,207,111,.45);box-shadow:0 0 0 1px rgba(127,207,111,.15),0 24px 60px rgba(127,207,111,.18);position:relative;overflow:hidden}
+.pr.feat::before{content:'';position:absolute;top:-30%;right:-30%;width:100%;height:100%;background:radial-gradient(ellipse,rgba(127,207,111,.2),transparent 60%);animation:glowDrift 12s ease-in-out infinite alternate;pointer-events:none}
+.pr.feat::after{content:'おすすめ';position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-weight:700;font-size:11px;letter-spacing:.24em;background:var(--green-on-dark);color:#000;padding:7px 18px;border-radius:100px;box-shadow:0 8px 20px rgba(127,207,111,.4)}
+.pr-n{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;color:var(--green-on-dark);margin-bottom:14px;position:relative;z-index:1}
+.pr-p{font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(40px,5vw,56px);letter-spacing:-.025em;line-height:1;margin-bottom:6px;position:relative;z-index:1}
+.pr.feat .pr-p{background:linear-gradient(135deg,#FFF,#7FCF6F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pr-pp{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:13px;color:var(--t3);margin-bottom:24px;position:relative;z-index:1}
+.pr ul{list-style:none;padding:0;margin:0 0 26px;display:flex;flex-direction:column;gap:11px;position:relative;z-index:1;font-family:'Hiragino Kaku Gothic ProN',sans-serif}
+.pr li{font-size:14px;line-height:1.5;padding-left:24px;position:relative}
+.pr li::before{content:'';position:absolute;left:0;top:6px;width:14px;height:8px;border-left:2.5px solid var(--green-on-dark);border-bottom:2.5px solid var(--green-on-dark);transform:rotate(-45deg)}
+.pr-cta{display:block;text-align:center;padding:15px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-weight:600;font-size:13px;letter-spacing:.04em;transition:background .2s,transform .15s;margin-top:auto;color:var(--t1);position:relative;z-index:1}
+.pr.feat .pr-cta{background:var(--green-on-dark);border-color:var(--green-on-dark);color:#000;box-shadow:0 8px 20px rgba(127,207,111,.3)}
+.pr-cta:hover{transform:translateY(-2px)}
+
+/* Final — living mesh */
+.final{
+  padding:140px 24px 120px;text-align:center;position:relative;overflow:hidden;
+}
+.final-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.final-bg .blob{filter:blur(100px);opacity:.5}
+.final-bg .blob.b1{width:480px;height:480px;background:#2D5A27;top:0;left:10%}
+.final-bg .blob.b2{width:520px;height:520px;background:#7FCF6F;bottom:-10%;right:10%;animation-delay:-5s}
+.final-c{position:relative;z-index:5}
+.final h2{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-weight:700;font-size:clamp(40px,7vw,96px);letter-spacing:-.03em;line-height:1.02;margin-bottom:28px}
+.final h2 .em{background:linear-gradient(135deg,#FFF,#7FCF6F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.final p{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:17px;color:var(--t2);max-width:36em;margin:0 auto 36px;line-height:1.7}
+.final .row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* Footer */
+footer{padding:80px 24px 40px;border-top:1px solid var(--line);background:#000;position:relative;z-index:5}
+.ft{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:36px}
+@media(min-width:768px){.ft{grid-template-columns:2fr 1fr 1fr 1fr}}
+.ft-b .wm{font-size:14px;letter-spacing:.4em;display:block;margin-bottom:14px}
+.ft-b p{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:13px;color:var(--t2);line-height:1.7;max-width:300px}
+.ft-c h6{font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-weight:700;font-size:11px;letter-spacing:.22em;color:var(--green-on-dark);margin-bottom:14px;text-transform:uppercase}
+.ft-c a{font-family:'Hiragino Kaku Gothic ProN',sans-serif;display:block;font-size:13px;color:var(--t2);padding:8px 0;transition:color .25s}
+.ft-c a:hover{color:var(--t1)}
+.ft-bot{max-width:1280px;margin:48px auto 0;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:12px;color:var(--t3);letter-spacing:.06em}
+
+.mock-banner{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:200;padding:10px 18px;background:rgba(20,20,20,.92);border:1px solid var(--line);border-radius:100px;font-family:'Hiragino Kaku Gothic ProN',sans-serif;font-size:11px;letter-spacing:.06em;color:#888;font-weight:600;backdrop-filter:blur(20px);display:flex;gap:14px;align-items:center}
+.mock-banner a{color:var(--green-on-dark);font-weight:700}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="/" class="brand">ROUNDIE</a>
+  <nav>
+    <a href="#features">機能</a>
+    <a href="#pricing">料金</a>
+    <a href="#">FAQ</a>
+  </nav>
+  <a href="#" class="cta">先行体験 →</a>
+</header>
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+  </div>
+
+  <div class="hero-c">
+    <div class="hero-eye"><span class="stripe"></span>A KANOPY PRODUCT ／ v1.0.11</div>
+    <h1 class="hero-h1">
+      <span class="ln">あなたのラウンドは、</span>
+      <span class="ln"><span class="em">一枚の絵になる。</span></span>
+    </h1>
+    <p class="hero-sub">18 ホールが、世界に一つだけのカラーグリッドへ。<br>記録して、シェアして、何年経っても振り返れる。</p>
+    <div class="hero-cta">
+      <a href="#" class="btn-i-pri">TestFlight で先行体験 →</a>
+      <a href="#features" class="btn-i-sec">機能を見る</a>
+    </div>
+  </div>
+
+  <div class="hero-art">
+    <div class="art-grid">
+      <div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#F5C400"></div><div style="background:#60A5FA"></div><div style="background:#9B8EC4"></div>
+      <div style="background:#2D5A27"></div><div style="background:#888"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div>
+    </div>
+    <div class="art-meta">
+      <span>Round Card ／ Yuki ／ 04.12（土）</span>
+      <span style="color:var(--green-on-dark);font-family:'Arial Black',sans-serif;font-weight:900;font-size:18px;letter-spacing:-.02em">86</span>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="sect">
+  <div class="rv">
+    <div class="sect-eye">FEATURES</div>
+    <h2 class="sect-h">他のゴルフアプリには<br><span class="em">できないこと。</span></h2>
+    <p class="sect-lead">スコアを記録するだけのアプリではありません。ラウンドそのものを記憶として残し、仲間とシェアし、自分の成長を可視化する。</p>
+  </div>
+
+  <div class="gal">
+    <div class="g g-4 rv">
+      <div>
+        <div class="g-eye">RAUND CARD ／ 独自</div>
+        <h3>18 ホール、<br>一枚の色になる。</h3>
+        <p>イーグル金、パー緑、ボギー青、ダブル紫。あなたの一日が、絵になる。</p>
+      </div>
+      <div class="g-visual">
+        <div class="mini-grid">
+          <div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#F5C400"></div><div style="background:#60A5FA"></div><div style="background:#9B8EC4"></div>
+          <div style="background:#2D5A27"></div><div style="background:#888"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g g-2 rv">
+      <div class="g-eye">SCORE</div>
+      <h3>3 軸スコア</h3>
+      <p>SKILL · VIBE · STYLE。100 点満点、7 ランク。ROOKIE から LEGEND まで。</p>
+    </div>
+
+    <div class="g g-2 rv">
+      <div class="g-eye">FEED</div>
+      <h3>仲間のラウンド、<br>一覧で。</h3>
+      <p>ラウンドカードが主役のタイムライン。</p>
+    </div>
+
+    <div class="g g-2 rv">
+      <div class="g-eye">KUDOS</div>
+      <h3>3 種類の応援</h3>
+      <p>ナイスショット ／ ナイスファイト ／ ベストバディ。</p>
+    </div>
+
+    <div class="g g-3 rv">
+      <div class="g-eye">COMPETITIONS</div>
+      <h3>3 タップで開催</h3>
+      <p>自動集計、結果発表アニメーション、個人タイトルの自動シェア。Pro なら無制限。</p>
+    </div>
+
+    <div class="g g-3 rv">
+      <div class="g-eye">PRIVACY ＆ i18n</div>
+      <h3>あなたが、決める。</h3>
+      <p>ラウンドごとの公開範囲・ミュート・ブロック。3 言語対応。Supabase 東京。</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="sect" style="border-top:1px solid var(--line)">
+  <div class="rv">
+    <div class="sect-eye">PRICING</div>
+    <h2 class="sect-h">基本は<span class="em">永続無料。</span><br>本気になったら Pro へ。</h2>
+    <p class="sect-lead">コア機能は無料。Pro でコンペ機能の制限解除と詳細統計をどうぞ。</p>
+  </div>
+
+  <div class="pr-grid rv">
+    <div class="pr">
+      <div class="pr-n">Free</div>
+      <div class="pr-p">¥0</div>
+      <div class="pr-pp">永続無料</div>
+      <ul>
+        <li>ラウンド記録・ラウンドカード 無制限</li>
+        <li>ROUNDIE スコア・7 段階ランク</li>
+        <li>フィード・Kudos・ランキング</li>
+        <li>コンペ開催 月 1 回（8 名まで）</li>
+      </ul>
+      <a href="#" class="pr-cta">無料ではじめる</a>
+    </div>
+    <div class="pr feat">
+      <div class="pr-n">Pro 年額</div>
+      <div class="pr-p">$39.99</div>
+      <div class="pr-pp">年額 ／ 月あたり実質 $3.33 ／ 2 ヶ月分お得</div>
+      <ul>
+        <li><strong>Free の全機能</strong></li>
+        <li>コンペ開催・参加人数 <strong>無制限</strong></li>
+        <li>自動集計 ＆ 結果発表アニメーション</li>
+        <li>詳細統計 ＆ トレンド分析</li>
+        <li>シェア可能な結果カード</li>
+      </ul>
+      <a href="#" class="pr-cta">Pro 年額にする</a>
+    </div>
+    <div class="pr">
+      <div class="pr-n">Pro 月額</div>
+      <div class="pr-p">$4.99</div>
+      <div class="pr-pp">月額 ／ いつでも解約可能</div>
+      <ul>
+        <li>機能は年額と同じ</li>
+        <li>月単位で気軽に</li>
+        <li>Apple ID 課金</li>
+        <li>App Store から解約</li>
+      </ul>
+      <a href="#" class="pr-cta">Pro 月額にする</a>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="final-bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <div class="final-c rv">
+    <h2>次のラウンドを、<br><span class="em">美しく残そう。</span></h2>
+    <p>App Store 正式公開準備中。今すぐ TestFlight で先行体験いただけます。</p>
+    <div class="row">
+      <a href="#" class="btn-i-pri">TestFlight で先行体験 →</a>
+      <a href="#" class="btn-i-sec">KANOPY について</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">
+    <div class="ft-b"><span class="wm">ROUNDIE</span><p>あなたのラウンドを、かたちに残す。株式会社 KANOPY（東京）が手がけるゴルフソーシャルアプリ。</p></div>
+    <div class="ft-c"><h6>PRODUCT</h6><a href="#">ROUNDIE</a><a href="#">TestFlight</a><a href="#">FAQ</a></div>
+    <div class="ft-c"><h6>COMPANY</h6><a href="#">KANOPY</a><a href="#">Talent</a><a href="#">Notice</a></div>
+    <div class="ft-c"><h6>LEGAL</h6><a href="#">利用規約</a><a href="#">プライバシー</a><a href="mailto:roundie@kanopy-inc.com">お問い合わせ</a></div>
+  </div>
+  <div class="ft-bot"><div>© 2026 KANOPY Inc.</div><div>SHAPE WHAT LASTS ／ 記憶を、かたちに</div></div>
+</footer>
+
+<div class="mock-banner"><span>MOCK · OPTION I ／ ライブアート</span><a href="/mock/">比較</a></div>
+
+<script>
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+}, {threshold:.15,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
