@@ -5,7 +5,10 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-T8YSVSPZ7E')</script>
   <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w8acp9qnxk")</script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+  <meta name="theme-color" content="#050507">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>ROUNDIE — Shape your round, keep what lasts</title>
   <meta name="description" content="ROUNDIE — ゴルフの体験と記憶を、かたちに残す。Record, shape, share, and grow — round by round.">
   <meta property="og:title" content="ROUNDIE — Shape your round, keep what lasts">
@@ -16,10 +19,15 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='70' font-weight='900' fill='%2381C784' font-family='Arial'>R</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#050507;--bg2:#09090D;--card:#0E0E14;--t1:#EDEDEF;--t2:#6E6E7E;--t3:#35354A;--ac:#81C784;--acg:rgba(129,199,132,.1);--gold:#D4A857;--bd:rgba(255,255,255,.05)}
+    :root{--bg:#050507;--bg2:#09090D;--card:#0E0E14;--t1:#EDEDEF;--t2:#9095A0;--t3:#7A7A8C;--ac:#81C784;--acg:rgba(129,199,132,.1);--gold:#D4A857;--bd:rgba(255,255,255,.06)}
     *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{font-family:'Inter',-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.9;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    html{scroll-behavior:smooth;scroll-padding-top:80px}
+    body{font-family:'Inter',-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.7;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:6px}
+    button:active,.btn:active{transform:scale(.97)}
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    }
     ::selection{background:var(--ac);color:var(--bg)}
     h1,h2,h3{font-family:'Space Grotesk',sans-serif}
     .sp{display:none}@media(max-width:640px){.sp{display:inline}}
@@ -32,9 +40,20 @@
     .nb a{font-size:10px;color:var(--t2);text-decoration:none;letter-spacing:2px;transition:color .2s}
     .nb a:hover{color:var(--ac)}
     .ng{display:flex;gap:2px}
-    .ng a{padding:4px 8px;border-radius:3px;font-size:9px;font-weight:700;color:var(--t3);text-decoration:none;letter-spacing:2px;transition:all .2s;cursor:pointer}
+    .ng a{padding:10px 12px;border-radius:6px;font-size:11px;font-weight:700;color:var(--t2);text-decoration:none;letter-spacing:2px;transition:all .2s;cursor:pointer;min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center}
     .ng a.a{color:var(--ac);background:var(--acg)}
-    @media(max-width:768px){nav{padding:16px 24px}.nb a:not(.lng){display:none}}
+    @media(max-width:768px){nav{padding:14px 20px}.nb a:not(.lng){display:none}}
+
+    /* Mobile hamburger menu */
+    .hamburger{display:none;position:fixed;top:14px;right:18px;z-index:200;background:transparent;border:none;cursor:pointer;width:44px;height:44px;flex-direction:column;justify-content:center;gap:5px;padding:0}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--t1);transition:all .3s;margin:0 auto;border-radius:1px}
+    .hamburger.o span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.o span:nth-child(2){opacity:0}
+    .hamburger.o span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mob-overlay{display:none;position:fixed;inset:0;background:rgba(5,5,7,.98);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);z-index:150;flex-direction:column;justify-content:center;align-items:center;gap:28px;padding:0 24px}
+    .mob-overlay a{font-size:20px;font-weight:600;color:var(--t1);text-decoration:none;letter-spacing:2px;padding:8px 16px;min-height:44px;display:inline-flex;align-items:center}
+    .mob-overlay a.cta{margin-top:12px;padding:16px 36px;background:var(--ac);color:var(--bg);border-radius:8px;font-weight:700;letter-spacing:1px;font-size:14px}
+    @media(max-width:768px){.hamburger{display:flex}.mob-overlay.o{display:flex}}
 
     .si{max-width:820px;margin:0 auto;padding:0 48px}
     @media(max-width:768px){.si{padding:0 24px}}
@@ -49,7 +68,7 @@
     .btn-a{background:var(--ac);color:var(--bg)}.btn-a:hover{box-shadow:0 0 40px var(--acg);transform:translateY(-1px)}
     .btn-g{background:transparent;color:var(--t2);border:1px solid var(--bd);margin-left:8px}.btn-g:hover{border-color:var(--ac);color:var(--ac)}
 
-    .hero{min-height:90vh;display:flex;align-items:center;justify-content:center;padding:clamp(100px,14vw,160px) 48px clamp(80px,10vw,120px);position:relative;overflow:hidden}
+    .hero{min-height:90svh;display:flex;align-items:center;justify-content:center;padding:clamp(100px,14vw,160px) 48px clamp(80px,10vw,120px);position:relative;overflow:hidden}
     .hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--acg),transparent 70%);animation:breathe 16s ease-in-out infinite;pointer-events:none}
     @keyframes breathe{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(1)}50%{opacity:.6;transform:translate(-50%,-50%) scale(1.1)}}
     .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:900px;position:relative;z-index:1}
@@ -143,11 +162,11 @@
     .cta-final p{font-size:14px;color:var(--t2);margin-bottom:32px;line-height:1.8}
 
     footer{background:#000;padding:40px 48px;text-align:center;border-top:1px solid var(--bd)}
-    @media(max-width:768px){footer{padding:32px 24px}}
-    footer .links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:18px}
-    footer .links a{font-size:11px;color:var(--t2);text-decoration:none;letter-spacing:1px;transition:color .2s}
+    @media(max-width:768px){footer{padding:32px 20px}}
+    footer .links{display:flex;justify-content:center;gap:8px 18px;flex-wrap:wrap;margin-bottom:18px}
+    footer .links a{font-size:13px;color:var(--t2);text-decoration:none;letter-spacing:.5px;transition:color .2s;padding:10px 8px;min-height:44px;display:inline-flex;align-items:center}
     footer .links a:hover{color:var(--ac)}
-    footer .copy{font-size:10px;color:var(--t3);letter-spacing:2px}
+    footer .copy{font-size:12px;color:var(--t2);letter-spacing:1px;line-height:1.7}
 
     .quote-block{margin:48px 0;padding:36px 32px;border-left:3px solid var(--ac);background:var(--card);border-radius:0 12px 12px 0}
     .quote-block p{font-size:clamp(17px,2.2vw,22px);font-weight:300;line-height:1.8;color:var(--t1)}
@@ -170,6 +189,16 @@
     </div>
   </div>
 </nav>
+
+<button class="hamburger" id="hbBtn" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+
+<div class="mob-overlay" id="mobMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <a href="https://kanopy-inc.com/" onclick="closeMenu()"><span data-l="en">← KANOPY</span><span data-l="ja" class="a">← KANOPY</span><span data-l="ko">← KANOPY</span></a>
+  <a href="#features" onclick="closeMenu()"><span data-l="en">Features</span><span data-l="ja" class="a">機能</span><span data-l="ko">기능</span></a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="/faq/" onclick="closeMenu()">FAQ</a>
+  <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" onclick="closeMenu()" class="cta"><span data-l="en">Get Early Access</span><span data-l="ja" class="a">TestFlightで先行体験</span><span data-l="ko">선행 액세스 신청</span></a>
+</div>
 
 <section class="hero">
   <div class="hero-grid">
@@ -771,6 +800,25 @@ function sl(lang, el){
   if(nav.startsWith('en')) sl('en', document.querySelector('.ng a[onclick*="en"]'));
   else if(nav.startsWith('ko')) sl('ko', document.querySelector('.ng a[onclick*="ko"]'));
 })();
+
+// Mobile hamburger menu
+function toggleMenu(){
+  var menu = document.getElementById('mobMenu');
+  var btn = document.getElementById('hbBtn');
+  var open = menu.classList.toggle('o');
+  btn.classList.toggle('o', open);
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMenu(){
+  var menu = document.getElementById('mobMenu');
+  var btn = document.getElementById('hbBtn');
+  menu.classList.remove('o');
+  btn.classList.remove('o');
+  btn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){if(e.key==='Escape') closeMenu()});
 
 var obs = new IntersectionObserver(function(entries){
   entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('v')});
