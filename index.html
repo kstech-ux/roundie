@@ -180,24 +180,25 @@
     --font-display:"Arial Black","Helvetica Neue",system-ui,sans-serif;
     --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter","Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
 
-    /* Type scale */
-    --fs-9xl:clamp(56px,12vw,156px);
-    --fs-8xl:clamp(40px,8vw,96px);
-    --fs-7xl:clamp(32px,5vw,64px);
-    --fs-6xl:clamp(24px,3.6vw,40px);
-    --fs-5xl:clamp(20px,2.4vw,28px);
-    --fs-4xl:clamp(18px,1.8vw,22px);
+    /* Type scale — pushed for dramatic Brutalist hierarchy */
+    --fs-10xl:clamp(72px,16vw,220px);
+    --fs-9xl:clamp(56px,13vw,176px);
+    --fs-8xl:clamp(44px,9vw,108px);
+    --fs-7xl:clamp(34px,5.6vw,72px);
+    --fs-6xl:clamp(26px,3.8vw,44px);
+    --fs-5xl:clamp(20px,2.4vw,30px);
+    --fs-4xl:clamp(17px,1.8vw,22px);
     --fs-3xl:17px; --fs-2xl:15px; --fs-xl:13px;
     --fs-l:11px; --fs-m:10px; --fs-s:9px;
 
     /* Spacing */
     --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
     --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px;
-    --sp-16:64px; --sp-20:80px; --sp-24:96px; --sp-32:128px;
+    --sp-16:64px; --sp-20:80px; --sp-24:96px; --sp-32:128px; --sp-40:160px;
 
-    --section-py:clamp(80px,12vw,160px);
-    --container-max:1200px;
-    --container-px:clamp(20px,4vw,64px);
+    --section-py:clamp(96px,14vw,200px);
+    --container-max:1280px;
+    --container-px:clamp(20px,4vw,72px);
 
     /* Radius */
     --r-0:0; --r-1:2px; --r-2:6px; --r-3:12px; --r-4:18px; --r-pill:9999px;
@@ -419,12 +420,12 @@
   }
 
   /* ============================================================
-     HERO
+     HERO — Brutalist world-class
      ============================================================ */
   .hero{
-    min-height:max(640px, 92dvh);
-    padding-top:var(--sp-20);
-    padding-bottom:var(--sp-20);
+    min-height:max(720px, 96dvh);
+    padding-top:clamp(var(--sp-20),12vh,var(--sp-32));
+    padding-bottom:clamp(var(--sp-20),12vh,var(--sp-32));
     display:flex; align-items:center;
     position:relative; overflow:hidden;
   }
@@ -433,33 +434,39 @@
     max-width:var(--container-max);
     margin:0 auto;
     padding:0 var(--container-px);
-    display:grid; gap:var(--sp-16);
+    display:grid; gap:var(--sp-12);
     align-items:center;
   }
   @media (min-width:1024px){
-    .hero-inner{grid-template-columns:1.1fr .9fr;gap:var(--sp-20)}
+    .hero-inner{grid-template-columns:1.15fr .85fr;gap:var(--sp-20);align-items:end}
   }
-  .hero-eye{margin-bottom:var(--sp-8)}
+  .hero-eye{margin-bottom:var(--sp-10)}
   .hero-h1{
     font-family:var(--font-display); font-weight:900;
-    font-size:var(--fs-9xl);
-    line-height:.95; letter-spacing:-.02em;
+    font-size:var(--fs-10xl);
+    line-height:.88; letter-spacing:-.035em;
     color:var(--t1);
-    margin-bottom:var(--sp-8);
+    margin-bottom:var(--sp-10);
+    text-wrap:balance;
   }
   /* Line containers (block-level) — language spans inside use [data-l] visibility rules */
   .hero-h1 .ln{display:block}
   .hero-h1 [data-l]{display:none}
   .hero-h1 [data-l].a{display:inline}
+  /* JA needs slightly tighter to fit "記憶を、" + "かたちに。" */
+  :lang(ja) .hero-h1{letter-spacing:-.04em}
+  :lang(ko) .hero-h1{letter-spacing:-.03em}
+
   .hero-sub{
     font-size:var(--fs-4xl); color:var(--t2);
-    line-height:1.75; max-width:40ch;
+    line-height:1.7; max-width:34ch;
     margin-bottom:var(--sp-10);
+    text-wrap:pretty;
   }
-  :lang(ja) .hero-sub{max-width:26ch}
-  :lang(ko) .hero-sub{max-width:26ch}
+  :lang(ja) .hero-sub{max-width:22ch}
+  :lang(ko) .hero-sub{max-width:22ch}
 
-  .hero-actions{display:flex;flex-direction:column;gap:var(--sp-3);max-width:380px}
+  .hero-actions{display:flex;flex-direction:column;gap:var(--sp-3);max-width:420px}
   @media (min-width:480px){.hero-actions{flex-direction:row}}
 
   .cta-primary{
@@ -489,43 +496,71 @@
     .cta-secondary:hover{border-color:var(--green-on-dark);color:var(--green-on-dark)}
   }
 
-  /* hero right — Round Card sample */
+  /* hero right — Round Card sample (Brutalist hard frame) */
   .hero-card{
     background:var(--bg-2);
-    border:1px solid var(--border-2);
-    padding:var(--sp-6);
-    border-radius:var(--r-1);
-    max-width:420px;
+    border:2px solid var(--t1);
+    padding:clamp(var(--sp-5),3vw,var(--sp-8));
+    border-radius:0;
+    max-width:520px;
     margin-left:auto; margin-right:auto;
+    position:relative;
+    box-shadow:8px 8px 0 var(--green-on-dark);
+  }
+  .hero-card-eye{
+    font-family:var(--font-display); font-weight:900;
+    font-size:var(--fs-l); letter-spacing:.22em; color:var(--green-on-dark);
+    margin-bottom:var(--sp-4);
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .hero-card-eye small{
+    font-size:var(--fs-m); letter-spacing:.16em; color:var(--t3); font-weight:900;
   }
   .hero-card-meta{
     display:flex; justify-content:space-between; align-items:baseline;
-    margin-bottom:var(--sp-4);
+    margin-bottom:var(--sp-5);
     font-family:var(--font-display); font-weight:900;
-    font-size:var(--fs-m); letter-spacing:.18em; color:var(--t3);
+    font-size:var(--fs-l); letter-spacing:.16em; color:var(--t2);
   }
   .hero-card-score{
-    font-size:48px; color:var(--green-on-dark);
+    font-family:var(--font-display); font-weight:900;
+    font-size:clamp(64px,9vw,108px); line-height:1;
+    color:var(--green-on-dark);
+    letter-spacing:-.04em;
   }
   .grid-18{
-    display:grid; grid-template-columns:repeat(9,1fr); gap:3px;
-    margin-bottom:var(--sp-4);
+    display:grid; grid-template-columns:repeat(9,1fr); gap:4px;
+    margin-bottom:var(--sp-5);
   }
   .grid-18 > div{
     aspect-ratio:1;
     display:flex; align-items:center; justify-content:center;
     font-family:var(--font-display); font-weight:900;
-    font-size:var(--fs-xl); color:#fff;
+    font-size:var(--fs-2xl); color:#fff;
     text-shadow:0 1px 2px rgba(0,0,0,.5);
+    border-radius:2px;
   }
   .grid-18 > div.eagle{color:var(--ink);text-shadow:none}
   .hero-card-summary{
-    display:flex; justify-content:space-between; padding-top:var(--sp-3);
-    border-top:1px solid var(--border-1);
+    display:flex; justify-content:space-between; padding-top:var(--sp-5);
+    border-top:2px solid var(--t1);
     font-family:var(--font-display); font-weight:900;
-    font-size:var(--fs-l); letter-spacing:.14em; color:var(--t2);
+    font-size:var(--fs-l); letter-spacing:.18em; color:var(--t2);
+    margin-bottom:var(--sp-5);
   }
   .hero-card-summary .total{color:var(--green-on-dark)}
+  .hero-card-summary .num{font-size:var(--fs-3xl);color:var(--t1);display:block;margin-top:4px;letter-spacing:-.02em}
+  .hero-card-summary .total .num{color:var(--green-on-dark)}
+  .hero-card-legend{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-2) var(--sp-3);
+    padding-top:var(--sp-4); border-top:1px solid var(--border-1);
+    font-size:var(--fs-xl); color:var(--t2);
+  }
+  .hero-card-legend span{display:flex;align-items:center;gap:8px;line-height:1}
+  .hero-card-legend i{
+    display:inline-block; width:12px; height:12px; border-radius:50%;
+    flex-shrink:0;
+  }
 
   /* ============================================================
      01. VISION
@@ -561,28 +596,112 @@
   @media (min-width:480px){.steps{grid-template-columns:repeat(2,1fr)}}
   @media (min-width:1024px){.steps{grid-template-columns:repeat(4,1fr);gap:var(--sp-6)}}
   .step{
-    padding:var(--sp-8) var(--sp-6);
+    position:relative;
+    padding:var(--sp-10) var(--sp-6) var(--sp-8);
     background:var(--bg);
-    border:1px solid var(--border-1);
-    border-radius:var(--r-1);
-    transition:border-color var(--dur-base);
+    border:2px solid var(--border-2);
+    border-radius:0;
+    transition:border-color var(--dur-base) var(--ease-out),
+               transform var(--dur-base) var(--ease-out),
+               box-shadow var(--dur-base) var(--ease-out);
   }
+  .step::before{
+    /* Giant background number */
+    content:attr(data-bigno);
+    position:absolute; top:-12px; right:8px;
+    font-family:var(--font-display); font-weight:900;
+    font-size:var(--fs-9xl); line-height:1; letter-spacing:-.04em;
+    color:var(--bg-3);
+    z-index:0;
+    pointer-events:none;
+  }
+  .step > *{position:relative;z-index:1}
   @media (hover:hover){
-    .step:hover{border-color:var(--green-on-dark)}
+    .step:hover{
+      border-color:var(--green-on-dark);
+      transform:translate(-4px,-4px);
+      box-shadow:8px 8px 0 var(--green-on-dark);
+    }
+    .step:hover::before{color:rgba(127,207,111,.08)}
   }
   .step-no{
     font-family:var(--font-display); font-weight:900;
     font-size:var(--fs-l); letter-spacing:.22em;
     color:var(--green-on-dark);
-    margin-bottom:var(--sp-3);
+    margin-bottom:var(--sp-4);
+    padding-bottom:var(--sp-3);
+    border-bottom:1px solid var(--border-2);
+    display:inline-block;
   }
-  .step-icon{font-size:32px;margin-bottom:var(--sp-3);line-height:1}
+  .step-icon{font-size:40px;margin-bottom:var(--sp-4);line-height:1}
   .step-title{
     font-family:var(--font-display); font-weight:900;
-    font-size:var(--fs-5xl); letter-spacing:.04em;
+    font-size:var(--fs-5xl); letter-spacing:.02em;
     color:var(--t1); margin-bottom:var(--sp-3);
+    text-wrap:balance;
   }
-  .step-body{font-size:var(--fs-2xl);color:var(--t2);line-height:1.75}
+  .step-body{font-size:var(--fs-2xl);color:var(--t2);line-height:1.75;text-wrap:pretty}
+
+  /* ============================================================
+     Marquee — Brutalist signature element
+     ============================================================ */
+  .marquee{
+    position:relative;
+    background:var(--t1); color:var(--ink);
+    padding:var(--sp-3) 0;
+    overflow:hidden;
+    border-top:2px solid var(--t1); border-bottom:2px solid var(--t1);
+  }
+  .marquee-track{
+    display:flex; align-items:center; gap:var(--sp-12);
+    width:max-content;
+    animation:marquee 36s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:900;
+    font-size:var(--fs-3xl); letter-spacing:.18em;
+    white-space:nowrap;
+  }
+  .marquee-track .dot{
+    display:inline-block; width:10px; height:10px; background:var(--green);
+    border-radius:50%; flex-shrink:0;
+  }
+  @keyframes marquee{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track{animation-play-state:paused}
+  @media (prefers-reduced-motion:reduce){
+    .marquee-track{animation:none}
+  }
+
+  /* ============================================================
+     Custom cursor (PC, hover devices only)
+     ============================================================ */
+  .cursor-dot,.cursor-ring{
+    position:fixed; top:0; left:0;
+    pointer-events:none; z-index:9000;
+    mix-blend-mode:difference;
+    will-change:transform;
+  }
+  .cursor-dot{
+    width:6px; height:6px; background:#fff;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    transition:transform .08s linear;
+  }
+  .cursor-ring{
+    width:32px; height:32px;
+    border:1.5px solid #fff;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    transition:transform .25s var(--ease-out), width .25s, height .25s, opacity .25s;
+  }
+  .cursor-ring.hover{
+    transform:translate(-50%,-50%) scale(1.4);
+    background:rgba(255,255,255,.08);
+  }
+  @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){
+    .cursor-dot,.cursor-ring{display:none}
+  }
 
   /* ============================================================
      03. FEATURES (8 items)
@@ -622,25 +741,66 @@
     border-radius:var(--r-pill);
   }
 
-  /* Real device screenshot placeholder */
+  /* Real device screenshot placeholder — iPhone-style mock frame */
   .ss{
-    border:2px dashed var(--border-2);
-    background:linear-gradient(135deg,#0F1F18 0%,#142E1F 100%);
-    aspect-ratio:9/16;
-    max-width:200px;
-    border-radius:var(--r-3);
-    padding:var(--sp-6);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; gap:var(--sp-3);
-    margin:var(--sp-4) 0;
+    position:relative;
+    max-width:260px;
+    aspect-ratio:9/19.5;
+    margin:var(--sp-6) auto;
+    background:linear-gradient(180deg,#0F1F18 0%,#142E1F 100%);
+    border:11px solid #0A0A0A;
+    border-radius:42px;
+    box-shadow:
+      inset 0 0 0 1px var(--border-2),
+      0 24px 60px rgba(0,0,0,.5),
+      0 0 0 2px var(--green-on-dark);
+    overflow:hidden;
   }
-  .ss-icon{font-size:36px;line-height:1}
+  .ss::before{
+    /* Dynamic Island / Notch */
+    content:'';
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:88px; height:24px;
+    background:#000;
+    border-radius:0 0 16px 16px;
+    z-index:3;
+  }
+  .ss::after{
+    /* Status bar time */
+    content:'9:41';
+    position:absolute; top:8px; left:24px;
+    font-family:var(--font-display); font-weight:900;
+    font-size:11px; color:#fff; letter-spacing:.04em;
+    z-index:4;
+  }
+  .ss-inner{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:60px 20px 28px; text-align:center; gap:var(--sp-3);
+  }
+  .ss-icon{font-size:48px;line-height:1;opacity:.85}
   .ss-label{
     font-family:var(--font-display); font-weight:900;
-    font-size:var(--fs-l); letter-spacing:.18em;
-    color:var(--green-on-dark);
+    font-size:var(--fs-l); letter-spacing:.18em; color:var(--green-on-dark);
   }
-  .ss-sub{font-size:var(--fs-m);color:var(--t2);line-height:1.6;letter-spacing:.08em}
+  .ss-sub{
+    font-size:var(--fs-m); color:var(--t3); line-height:1.6; letter-spacing:.06em;
+    max-width:18ch;
+  }
+  /* status indicators (top right) */
+  .ss .ss-status{
+    position:absolute; top:8px; right:20px;
+    font-family:var(--font-display); font-weight:900;
+    font-size:9px; color:#fff; letter-spacing:.06em;
+    z-index:4;
+    display:flex; gap:4px; align-items:center;
+  }
+  .ss .ss-status::before{
+    content:''; width:14px; height:8px;
+    background:#fff; border-radius:2px;
+    opacity:.9;
+  }
 
   /* feature visuals — Score bars */
   .score-vis{
@@ -1311,6 +1471,10 @@
 <!-- A11y: Skip link -->
 <a href="#main" class="skip">SKIP TO CONTENT / 本文へ / 본문으로</a>
 
+<!-- Custom cursor (PC, hover devices only) -->
+<div class="cursor-dot" id="cdot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cring" aria-hidden="true"></div>
+
 <!-- ============================================================
      HEADER (sticky)
      ============================================================ -->
@@ -1376,6 +1540,24 @@
 
 <main id="main">
 
+<!-- Brutalist marquee — signature element -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>SHAPE</span><span class="dot"></span>
+    <span>記憶を、かたちに</span><span class="dot"></span>
+    <span>MEMORIES, IN FORM</span><span class="dot"></span>
+    <span>기억을, 형태로</span><span class="dot"></span>
+    <span>PLAY · SHARE · RISE</span><span class="dot"></span>
+    <span>NO 2 ALIKE</span><span class="dot"></span>
+    <span>SHAPE</span><span class="dot"></span>
+    <span>記憶を、かたちに</span><span class="dot"></span>
+    <span>MEMORIES, IN FORM</span><span class="dot"></span>
+    <span>기억을, 형태로</span><span class="dot"></span>
+    <span>PLAY · SHARE · RISE</span><span class="dot"></span>
+    <span>NO 2 ALIKE</span><span class="dot"></span>
+  </div>
+</div>
+
 <!-- ============================================================
      00. HERO
      ============================================================ -->
@@ -1412,7 +1594,11 @@
     </div>
 
     <div class="rv">
-      <div class="hero-card" role="img" aria-label="Sample Round Card — YUKI's 86 stroke round on Par 72 course">
+      <div class="hero-card" role="img" aria-label="Sample Round Card — YUKI's 86 stroke round on Par 72 course showing one eagle, two doubles, one triple, and mostly pars and bogeys">
+        <div class="hero-card-eye">
+          <span data-l="ja" class="a" lang="ja">サンプル ラウンドカード</span><span data-l="en" lang="en">SAMPLE ROUND CARD</span><span data-l="ko" lang="ko">샘플 라운드카드</span>
+          <small>NO 2 ALIKE</small>
+        </div>
         <div class="hero-card-meta">
           <span>YUKI · 04.12 · PAR 72</span>
           <span class="hero-card-score tabular">86</span>
@@ -1422,7 +1608,16 @@
           <div style="background:#2D5A27">4</div><div style="background:#888888">7</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#9B8EC4">7</div><div style="background:#2D5A27">4</div><div style="background:#9B8EC4">6</div><div style="background:#2D5A27">5</div><div style="background:#60A5FA">5</div>
         </div>
         <div class="hero-card-summary">
-          <span>OUT 40</span><span>IN 46</span><span class="total tabular">TOTAL 86</span>
+          <span>OUT<span class="num tabular">40</span></span>
+          <span>IN<span class="num tabular">46</span></span>
+          <span class="total">TOTAL<span class="num tabular">86</span></span>
+        </div>
+        <div class="hero-card-legend" aria-label="Color legend">
+          <span><i style="background:#F5C400"></i>EAGLE</span>
+          <span><i style="background:#2D5A27"></i>PAR</span>
+          <span><i style="background:#60A5FA"></i>BOGEY</span>
+          <span><i style="background:#9B8EC4"></i>DOUBLE</span>
+          <span><i style="background:#888888"></i>TRIPLE+</span>
         </div>
       </div>
     </div>
@@ -1480,7 +1675,7 @@
     </div>
 
     <div class="steps">
-      <article class="step rv">
+      <article class="step rv" data-bigno="01">
         <div class="step-no">STEP 01</div>
         <div class="step-icon" aria-hidden="true">⛳</div>
         <h3 class="step-title"><span data-l="ja" class="a" lang="ja">記録する</span><span data-l="en" lang="en">Record</span><span data-l="ko" lang="ko">기록</span></h3>
@@ -1491,7 +1686,7 @@
         </p>
       </article>
 
-      <article class="step rv">
+      <article class="step rv" data-bigno="02">
         <div class="step-no">STEP 02</div>
         <div class="step-icon" aria-hidden="true">🎨</div>
         <h3 class="step-title"><span data-l="ja" class="a" lang="ja">かたちにする</span><span data-l="en" lang="en">Shape</span><span data-l="ko" lang="ko">형태로</span></h3>
@@ -1502,7 +1697,7 @@
         </p>
       </article>
 
-      <article class="step rv">
+      <article class="step rv" data-bigno="03">
         <div class="step-no">STEP 03</div>
         <div class="step-icon" aria-hidden="true">🤝</div>
         <h3 class="step-title"><span data-l="ja" class="a" lang="ja">シェアする</span><span data-l="en" lang="en">Share</span><span data-l="ko" lang="ko">공유</span></h3>
@@ -1513,7 +1708,7 @@
         </p>
       </article>
 
-      <article class="step rv">
+      <article class="step rv" data-bigno="04">
         <div class="step-no">STEP 04</div>
         <div class="step-icon" aria-hidden="true">📈</div>
         <h3 class="step-title"><span data-l="ja" class="a" lang="ja">成長する</span><span data-l="en" lang="en">Rise</span><span data-l="ko" lang="ko">성장</span></h3>
@@ -1560,10 +1755,17 @@
           <span data-l="en" lang="en">Every round becomes a <strong>one-of-a-kind color grid</strong>. 18 holes, 18 colors. Save, share, and revisit years from now.</span>
           <span data-l="ko" lang="ko">라운드가 <strong>세상에 단 하나뿐인 컬러 그리드</strong>로. 18홀, 18색.</span>
         </p>
-        <div class="ss" role="img" aria-label="Round Card screen mockup">
-          <span class="ss-icon" aria-hidden="true">📱</span>
-          <span class="ss-label">REAL APP SS</span>
-          <span class="ss-sub">app/round/[id]</span>
+        <div class="ss" role="img" aria-label="Real device screenshot placeholder — Round Card detail screen, to be replaced with actual app screenshot">
+          <span class="ss-status" aria-hidden="true">100%</span>
+          <div class="ss-inner">
+            <span class="ss-icon" aria-hidden="true">📱</span>
+            <span class="ss-label">
+              <span data-l="ja" class="a" lang="ja">実機 SS 配置予定</span>
+              <span data-l="en" lang="en">REAL APP SS</span>
+              <span data-l="ko" lang="ko">실기 SS 예정</span>
+            </span>
+            <span class="ss-sub">app/round/[id]</span>
+          </div>
         </div>
         <div class="feat-tags">
           <span class="tag">ROUNDIE ONLY</span>
@@ -2667,6 +2869,33 @@ emailForm.addEventListener('submit', function(e){
 
   setTimeout(closeEmail, 2400);
 });
+
+/* ============================================================
+   Custom cursor (PC, hover devices only)
+   ============================================================ */
+(function(){
+  if (window.matchMedia('(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce)').matches) return;
+  var cdot = document.getElementById('cdot');
+  var cring = document.getElementById('cring');
+  if (!cdot || !cring) return;
+  document.addEventListener('mousemove', function(e){
+    var t = 'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
+    cdot.style.transform = t;
+    cring.style.transform = t;
+  }, { passive: true });
+  document.addEventListener('mouseleave', function(){
+    cdot.style.opacity = '0';
+    cring.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', function(){
+    cdot.style.opacity = '1';
+    cring.style.opacity = '1';
+  });
+  document.querySelectorAll('a,button,[role="button"],[data-cta-loc],summary,.cmp-toggle:not(.locked),.lang-group button,[data-lang],input,textarea').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ cring.classList.add('hover'); });
+    el.addEventListener('mouseleave', function(){ cring.classList.remove('hover'); });
+  });
+})();
 
 </script>
 
