@@ -42,7 +42,11 @@
     .ng{display:flex;gap:2px}
     .ng a{padding:10px 12px;border-radius:6px;font-size:11px;font-weight:700;color:var(--t2);text-decoration:none;letter-spacing:2px;transition:all .2s;cursor:pointer;min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center}
     .ng a.a{color:var(--ac);background:var(--acg)}
-    @media(max-width:768px){nav{padding:14px 20px}.nb a:not(.lng){display:none}}
+    @media(max-width:768px){
+      nav{padding:14px 20px}
+      .nb{display:none}
+      /* lang switch lives inside hamburger overlay on mobile */
+    }
 
     /* Mobile hamburger menu */
     .hamburger{display:none;position:fixed;top:14px;right:18px;z-index:200;background:transparent;border:none;cursor:pointer;width:44px;height:44px;flex-direction:column;justify-content:center;gap:5px;padding:0}
@@ -447,8 +451,7 @@
       transform:translateY(-4px);
       box-shadow:var(--shadow-deep);
     }
-    /* Pricing pop now uses glow-card; reset the original glow rule */
-    .pricing-card.pop.glow-card{border-color:transparent!important;background:linear-gradient(180deg,rgba(74,222,128,.06),rgba(74,222,128,.02))!important;box-shadow:var(--shadow-glow-ac)!important}
+    /* Pricing pop: keep simple, original BEST VALUE badge layout */
     /* Modernize hero h1 if needed */
     .hero-text h1.display-xxl{color:transparent}
     /* Nav: stronger sticky glass */
@@ -502,6 +505,11 @@
   <a href="#pricing" onclick="closeMenu()">Pricing</a>
   <a href="/faq/" onclick="closeMenu()">FAQ</a>
   <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" onclick="closeMenu()" class="cta"><span data-l="en">Get Early Access</span><span data-l="ja" class="a">TestFlightで先行体験</span><span data-l="ko">선행 액세스 신청</span></a>
+  <div style="display:flex;gap:6px;margin-top:24px">
+    <a onclick="sl('en',this);closeMenu()" style="padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t2);border:1px solid var(--bd);border-radius:6px;min-height:44px;min-width:44px">EN</a>
+    <a onclick="sl('ja',this);closeMenu()" style="padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t2);border:1px solid var(--bd);border-radius:6px;min-height:44px;min-width:44px">JA</a>
+    <a onclick="sl('ko',this);closeMenu()" style="padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t2);border:1px solid var(--bd);border-radius:6px;min-height:44px;min-width:44px">KO</a>
+  </div>
 </div>
 
 <section class="hero">
@@ -598,26 +606,6 @@
   </div>
 </section>
 
-<!-- Marquee ticker between sections -->
-<div class="marquee" style="padding:36px 0;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item">RECORD<span class="sep"></span></span>
-    <span class="marquee-item">SHAPE<span class="sep"></span></span>
-    <span class="marquee-item">SHARE<span class="sep"></span></span>
-    <span class="marquee-item">RISE<span class="sep"></span></span>
-    <span class="marquee-item" style="color:var(--ac-bright)">記憶を、かたちに<span class="sep"></span></span>
-    <span class="marquee-item">RECORD<span class="sep"></span></span>
-    <span class="marquee-item">SHAPE<span class="sep"></span></span>
-    <span class="marquee-item">SHARE<span class="sep"></span></span>
-    <span class="marquee-item">RISE<span class="sep"></span></span>
-    <span class="marquee-item" style="color:var(--ac-bright)">記憶を、かたちに<span class="sep"></span></span>
-    <span class="marquee-item">RECORD<span class="sep"></span></span>
-    <span class="marquee-item">SHAPE<span class="sep"></span></span>
-    <span class="marquee-item">SHARE<span class="sep"></span></span>
-    <span class="marquee-item">RISE<span class="sep"></span></span>
-    <span class="marquee-item" style="color:var(--ac-bright)">記憶を、かたちに<span class="sep"></span></span>
-  </div>
-</div>
 
 <section>
   <div class="si">
@@ -987,11 +975,11 @@
         </ul>
       </div>
 
-      <div class="pricing-card pop glow-card reveal">
-        <div class="name" style="position:relative;z-index:1"><span data-l="en">Pro · Yearly</span><span data-l="ja" class="a">Pro 年額</span><span data-l="ko">Pro 연간</span></div>
-        <div class="price display-grad" style="position:relative;z-index:1;font-size:38px">$39.99</div>
-        <div class="period" style="position:relative;z-index:1"><span data-l="en">/ year ($3.33/mo)</span><span data-l="ja" class="a">/ 年（実質 約$3.33/月）</span><span data-l="ko">/ 년 (월 약 $3.33)</span></div>
-        <div class="discount" style="position:relative;z-index:1;background:linear-gradient(135deg,var(--ac-bright),var(--gold-warm));color:#04140A;font-weight:800"><span data-l="en">2 months free · 17% OFF</span><span data-l="ja" class="a">2ヶ月分お得 · 17% OFF</span><span data-l="ko">2개월 무료 · 17% OFF</span></div>
+      <div class="pricing-card pop rv">
+        <div class="name"><span data-l="en">Pro · Yearly</span><span data-l="ja" class="a">Pro 年額</span><span data-l="ko">Pro 연간</span></div>
+        <div class="price">$39.99</div>
+        <div class="period"><span data-l="en">/ year ($3.33/mo)</span><span data-l="ja" class="a">/ 年（実質 約$3.33/月）</span><span data-l="ko">/ 년 (월 약 $3.33)</span></div>
+        <div class="discount"><span data-l="en">2 months free · 17% OFF</span><span data-l="ja" class="a">2ヶ月分お得 · 17% OFF</span><span data-l="ko">2개월 무료 · 17% OFF</span></div>
         <ul>
           <li><span data-l="en"><strong>Everything in Free</strong></span><span data-l="ja" class="a"><strong>Free の全機能</strong></span><span data-l="ko"><strong>Free 전체 기능</strong></span></li>
           <li><span data-l="en">Compe hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催 <strong>無制限</strong>・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최·참가자 <strong>무제한</strong></span></li>
@@ -1115,47 +1103,17 @@
   </div>
 </section>
 
-<footer class="footer-pro">
-  <div class="wm reveal-soft" aria-hidden="true">ROUNDIE</div>
-  <div style="max-width:1100px;margin:0 auto">
-    <div style="display:grid;grid-template-columns:1fr;gap:36px;margin-bottom:48px" id="ftGrid">
-      <div>
-        <div style="font-family:'Inter','Space Grotesk',sans-serif;font-size:14px;font-weight:700;letter-spacing:6px;color:var(--ac-bright);margin-bottom:14px">ROUNDIE</div>
-        <p style="font-size:13px;color:var(--t2);line-height:1.8;max-width:280px">
-          <span data-l="en">Shape your round. Keep what lasts. A KANOPY product.</span>
-          <span data-l="ja" class="a">あなたのラウンドを、かたちに残す。<br>KANOPYのプロダクト。</span>
-          <span data-l="ko">당신의 라운드를, 형태로. KANOPY 프로덕트.</span>
-        </p>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px;text-transform:uppercase"><span data-l="en">Product</span><span data-l="ja" class="a">プロダクト</span><span data-l="ko">프로덕트</span></div>
-        <a href="/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">ROUNDIE</a>
-        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">TestFlight ↗</a>
-        <a href="/faq/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">FAQ</a>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px;text-transform:uppercase"><span data-l="en">Company</span><span data-l="ja" class="a">会社</span><span data-l="ko">회사</span></div>
-        <a href="https://kanopy-inc.com/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">KANOPY</a>
-        <a href="https://kanopy-inc.com/talent/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">Talent</a>
-        <a href="https://kanopy-inc.com/notice/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px">Notice</a>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px;text-transform:uppercase"><span data-l="en">Legal</span><span data-l="ja" class="a">法的情報</span><span data-l="ko">법적 정보</span></div>
-        <a href="/terms/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px"><span data-l="en">Terms</span><span data-l="ja" class="a">利用規約</span><span data-l="ko">이용약관</span></a>
-        <a href="/privacy/" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px"><span data-l="en">Privacy</span><span data-l="ja" class="a">プライバシー</span><span data-l="ko">개인정보</span></a>
-        <a href="mailto:roundie@kanopy-inc.com" style="display:block;font-size:13px;color:var(--t2);padding:8px 0;text-decoration:none;transition:color .2s;min-height:36px;word-break:break-all">roundie@kanopy-inc.com</a>
-      </div>
-    </div>
-    <div style="padding-top:32px;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
-      <div style="font-size:12px;color:var(--t3);letter-spacing:.5px">© 2026 KANOPY Inc.</div>
-      <div style="font-size:11px;color:var(--t3);letter-spacing:2px;font-weight:600">SHAPE WHAT LASTS</div>
-    </div>
+<footer>
+  <div class="links">
+    <a href="https://kanopy-inc.com/">KANOPY</a>
+    <a href="/">ROUNDIE</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/terms/"><span data-l="en">Terms</span><span data-l="ja" class="a">利用規約</span><span data-l="ko">이용약관</span></a>
+    <a href="/privacy/"><span data-l="en">Privacy</span><span data-l="ja" class="a">プライバシー</span><span data-l="ko">개인정보</span></a>
+    <a href="mailto:roundie@kanopy-inc.com">roundie@kanopy-inc.com</a>
   </div>
+  <div class="copy">© 2026 KANOPY Inc. · ROUNDIE is a product of KANOPY Inc.</div>
 </footer>
-<style>
-@media(min-width:640px){#ftGrid{grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px}}
-.footer-pro a:hover{color:var(--ac-bright)!important}
-</style>
 
 <script>
 function sl(lang, el){
