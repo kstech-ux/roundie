@@ -5,61 +5,88 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#0A0A0A">
-<title>ROUNDIE HP — Design Mockups Comparison</title>
+<title>ROUNDIE HP — 6 Design Mockups Comparison</title>
 <style>
 :root{
-  --bg:#0A0A0A;--bg-2:#161616;--line:rgba(255,255,255,.10);
+  --bg:#0A0A0A;--bg-2:#161616;--bg-3:#1A1A1A;
+  --line:rgba(255,255,255,.10);--line-strong:rgba(255,255,255,.18);
   --t1:#FFFFFF;--t2:#A0A0A0;--t3:#666666;
   --green:#2D5A27;--green-hi:#5BAF52;--green-on-dark:#7FCF6F;
+  --ease:cubic-bezier(.32,.72,0,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'Inter','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 .wm{font-family:'Arial Black',sans-serif;font-weight:900}
-.wrap{max-width:1200px;margin:0 auto;padding:48px 24px 96px}
+.wrap{max-width:1280px;margin:0 auto;padding:48px 24px 96px}
 @media(min-width:768px){.wrap{padding:80px 40px 120px}}
 
 .top{margin-bottom:48px}
 .top h1{font-family:'Arial Black',sans-serif;font-weight:900;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
 .top h1 em{color:var(--green-on-dark);font-style:normal}
-.top p{font-size:15px;color:var(--t2);line-height:1.65;max-width:60ch}
+.top p{font-size:15px;color:var(--t2);line-height:1.65;max-width:64ch}
 .tag{display:inline-block;font-family:'Arial Black',sans-serif;font-weight:900;font-size:11px;letter-spacing:.3em;color:var(--green-on-dark);margin-bottom:18px}
 
-.grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:48px}
-@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr);gap:24px}}
+.grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:40px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr);gap:18px}}
+@media(min-width:1100px){.grid{grid-template-columns:repeat(3,1fr);gap:20px}}
 
 .card{
   background:var(--bg-2);border:1px solid var(--line);border-radius:18px;
   overflow:hidden;display:flex;flex-direction:column;
-  transition:border-color .25s,transform .35s cubic-bezier(.32,.72,0,1);
+  transition:border-color .25s,transform .35s var(--ease);
 }
 .card:hover{border-color:var(--green-on-dark);transform:translateY(-4px)}
-.card .preview{
-  height:200px;display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-}
-.card .body{padding:28px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
-.card h3{font-family:'Arial Black',sans-serif;font-weight:900;font-size:22px;letter-spacing:-.01em}
-.card .sub{font-size:13px;color:var(--green-on-dark);font-weight:600;letter-spacing:.04em}
-.card .desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:8px;flex:1}
-.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.card .meta .chip{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--t2);padding:4px 10px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:100px}
+.card .preview{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card .body{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font-family:'Arial Black',sans-serif;font-weight:900;font-size:20px;letter-spacing:-.01em}
+.card .sub{font-size:12px;color:var(--green-on-dark);font-weight:700;letter-spacing:.06em}
+.card .desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:4px;flex:1}
+.card .meta{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.card .meta .chip{font-size:9px;font-weight:600;letter-spacing:.06em;color:var(--t2);padding:3px 9px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:100px}
 .card .open{
-  padding:14px;text-align:center;font-weight:700;font-size:13px;letter-spacing:.04em;
+  padding:12px;text-align:center;font-weight:700;font-size:12px;letter-spacing:.04em;
   background:var(--green);color:#FFF;border-radius:10px;
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   transition:background .2s,transform .15s;
 }
 .card .open:hover{background:var(--green-hi);transform:translateY(-1px)}
 
-/* Preview backgrounds — give a hint of each option's tone */
-.preview-a{background:linear-gradient(180deg,#0A0A0A 0%,#111 100%);border-bottom:1px solid var(--line)}
-.preview-a::before{content:'ROUNDIE';position:absolute;font-weight:300;font-size:64px;letter-spacing:-.02em;color:#FFF;text-align:center}
-.preview-b{background:radial-gradient(ellipse at center,rgba(91,175,82,.3) 0%,#000 70%);border-bottom:1px solid var(--line)}
-.preview-b::before{content:'ROUNDIE';position:absolute;font-family:'Arial Black',sans-serif;font-weight:900;font-size:64px;letter-spacing:-.04em;background:linear-gradient(180deg,#FFF,#5BAF52);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(91,175,82,.5)}
-.preview-c{background:#0A0A0A;border-bottom:1px solid var(--line)}
-.preview-c::before{content:'ROUNDIE';position:absolute;font-family:'Arial Black',sans-serif;font-weight:900;font-size:48px;letter-spacing:.06em;color:var(--green-on-dark)}
-.preview-c::after{content:'';position:absolute;width:32px;height:32px;border-radius:8px;background:#0A0A0A;border:2px solid #FFF;border-radius:50%;left:50%;transform:translateX(-130px);box-shadow:0 0 0 1px var(--green-hi) inset}
+/* Previews — animated hints */
+.prev-a{background:linear-gradient(180deg,#0A0A0A,#111);border-bottom:1px solid var(--line);overflow:hidden}
+.prev-a::before{content:'ROUNDIE';position:absolute;font-weight:300;font-size:48px;letter-spacing:-.02em;color:#FFF}
+
+.prev-b{background:radial-gradient(ellipse at center,rgba(91,175,82,.4) 0%,#000 70%);border-bottom:1px solid var(--line)}
+.prev-b::before{content:'ROUNDIE';position:absolute;font-family:'Arial Black',sans-serif;font-weight:900;font-size:54px;letter-spacing:-.04em;background:linear-gradient(180deg,#FFF,#5BAF52);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(91,175,82,.5);animation:bGlow 3s ease-in-out infinite}
+@keyframes bGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
+
+.prev-c{background:#0A0A0A;border-bottom:1px solid var(--line);display:flex !important;gap:12px;justify-content:center;align-items:center}
+.prev-c svg{flex-shrink:0}
+.prev-c .lbl{font-family:'Arial Black',sans-serif;font-weight:900;font-size:32px;letter-spacing:.06em;color:var(--green-on-dark)}
+
+.prev-d{background:linear-gradient(135deg,rgba(45,90,39,.2) 0%,#0A0A0A 70%);border-bottom:1px solid var(--line);display:grid !important;grid-template-columns:repeat(6,1fr);gap:4px;padding:18px}
+.prev-d > div{border-radius:6px;animation:dFlash 3s ease-in-out infinite}
+.prev-d > div:nth-child(1){background:#2D5A27;animation-delay:.0s}
+.prev-d > div:nth-child(2){background:#60A5FA;animation-delay:.1s}
+.prev-d > div:nth-child(3){background:#F5C400;animation-delay:.2s}
+.prev-d > div:nth-child(4){background:#9B8EC4;animation-delay:.3s}
+.prev-d > div:nth-child(5){background:#2D5A27;animation-delay:.4s}
+.prev-d > div:nth-child(6){background:#60A5FA;animation-delay:.5s}
+.prev-d > div:nth-child(7){background:#7FCF6F;animation-delay:.15s;grid-column:span 3;border-radius:8px}
+.prev-d > div:nth-child(8){background:#161616;animation-delay:.25s;grid-column:span 3;border-radius:8px;border:1px solid rgba(91,175,82,.3)}
+@keyframes dFlash{0%,100%{opacity:.9}50%{opacity:.6}}
+
+.prev-e{background:#0A0A0A;border-bottom:3px solid #FFF;display:flex !important;align-items:center;padding:0 24px}
+.prev-e .l{font-family:'Arial Black',sans-serif;font-weight:900;font-size:42px;line-height:.9;letter-spacing:-.04em;color:#FFF;text-transform:uppercase;flex:1}
+.prev-e .l em{color:#D4FF3A;font-style:normal}
+.prev-e .l .stroke{-webkit-text-stroke:1.5px #FFF;color:transparent}
+.prev-e .r{background:#D4FF3A;color:#0A0A0A;font-family:'Arial Black',sans-serif;font-weight:900;font-size:48px;padding:0 14px;line-height:1}
+
+.prev-f{background:linear-gradient(180deg,rgba(45,90,39,.15),#0A0A0A);border-bottom:1px solid var(--line);display:grid !important;grid-template-columns:repeat(6,1fr);gap:4px;padding:18px;position:relative}
+.prev-f > div{aspect-ratio:1;border-radius:14%;border:1.5px dashed rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:'Arial Black',sans-serif;font-weight:900;font-size:10px;color:var(--t3)}
+.prev-f > div.s{border:0;color:#FFF;animation:fPop 1s ease both}
+@keyframes fPop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.prev-f::after{content:'TAP ME';position:absolute;bottom:10px;right:14px;font-family:'Arial Black',sans-serif;font-size:10px;color:var(--green-on-dark);letter-spacing:.18em}
 
 .notes{margin-top:64px;padding-top:48px;border-top:1px solid var(--line)}
 .notes h2{font-family:'Arial Black',sans-serif;font-weight:900;font-size:20px;margin-bottom:14px}
@@ -69,66 +96,143 @@ a{color:inherit;text-decoration:none}
 .notes li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--green-on-dark)}
 .notes code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:4px;color:var(--green-on-dark)}
 
+.refs{margin-top:48px;display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.refs{grid-template-columns:repeat(2,1fr)}}
+.ref{padding:16px 20px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;font-size:13px;color:var(--t2);line-height:1.65}
+.ref strong{color:var(--green-on-dark);font-family:'Arial Black',sans-serif;font-weight:900;letter-spacing:.04em;font-size:12px;display:block;margin-bottom:6px;text-transform:uppercase}
+
 .back{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--t2);margin-top:36px;padding:10px 16px;border:1px solid var(--line);border-radius:8px;transition:background .2s}
 .back:hover{background:var(--bg-2)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <div class="top">
-    <span class="tag">ROUNDIE HP · DESIGN MOCKUPS · 2026-05-21</span>
-    <h1>3つの方向性から<br><em>選んでください。</em></h1>
-    <p>PM のフィードバックを受けて、現状の HP リデザインの方向性を 3 つの異なるコンセプトで作成しました。各モックは実際にブラウザで開いて、スマホ / iPad / PC で挙動・字体・密度を比較できます。1 つを選んでいただければ、その方向性で全 7 ページを本実装します。</p>
+    <span class="tag">ROUNDIE HP · DESIGN MOCKUPS · 6 OPTIONS · 2026-05-21</span>
+    <h1>6つの方向性から<br><em>選んでください。</em></h1>
+    <p>PM の要望「2025-2026年トレンドの作り込み + 動きあり + 5案以上」を反映し、6 種類の異なるデザイン方向で作成しました。それぞれが意図的に違う「個性」を持っています。スマホ / iPad / PC で実際に触ってみて、動き・触感・第一印象を比較してください。1 案を選んでいただければその方向性で全 7 ページを本実装します。</p>
   </div>
 
   <div class="grid">
 
     <article class="card">
-      <div class="preview preview-a"></div>
+      <div class="preview prev-a"></div>
       <div class="body">
-        <div class="sub">Option A</div>
+        <div class="sub">OPTION A</div>
         <h3>Minimal Editorial</h3>
-        <p class="desc">Apple / Linear / Notion 寄り。余白を多めに取り、細い線と細めのタイポでクラスを表現。Wordmark は Arial Black、本文は light weight でコントラスト。装飾より情報構造で語る。</p>
+        <p class="desc">Apple / Linear / Notion 寄り。余白多め、細い線、light weight、控えめな演出。装飾より情報構造で語る。落ち着いた大人向け。</p>
         <div class="meta">
           <span class="chip">余白多め</span>
           <span class="chip">light weight</span>
-          <span class="chip">情報設計重視</span>
-          <span class="chip">控えめな演出</span>
+          <span class="chip">控えめな動き</span>
+          <span class="chip">情報構造重視</span>
         </div>
         <a href="/mock/option-a/" target="_blank" class="open">Option A を開く →</a>
       </div>
     </article>
 
     <article class="card">
-      <div class="preview preview-b"></div>
+      <div class="preview prev-b"></div>
       <div class="body">
-        <div class="sub">Option B</div>
+        <div class="sub">OPTION B</div>
         <h3>Cinematic</h3>
-        <p class="desc">Apple Vision Pro / Nike / Strava 2024 寄り。巨大な Arial Black タイポ、フルブリードのグラデ背景、グロー、3D 演出。劇場のような第一印象。"派手・劇場体験寄り"の方向。</p>
+        <p class="desc">Apple Vision Pro / Apple AirPods Max / Nike 寄り。巨大な Arial Black + フルブリードグラデ + glow + 3D phone tilt。劇場のような第一印象。</p>
         <div class="meta">
           <span class="chip">巨大タイポ</span>
-          <span class="chip">グロー演出</span>
-          <span class="chip">3D要素</span>
-          <span class="chip">ドラマチック</span>
+          <span class="chip">フルブリードグラデ</span>
+          <span class="chip">3D演出</span>
+          <span class="chip">劇場体験</span>
         </div>
         <a href="/mock/option-b/" target="_blank" class="open">Option B を開く →</a>
       </div>
     </article>
 
     <article class="card">
-      <div class="preview preview-c"></div>
+      <div class="preview prev-c">
+        <svg width="56" height="56" viewBox="0 0 80 80">
+          <rect width="80" height="80" rx="18" fill="#0A0A0A"/>
+          <circle cx="40" cy="40" r="28" fill="none" stroke="#FFF" stroke-width="3" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+          <circle cx="40" cy="40" r="21" fill="none" stroke="#5BAF52" stroke-width="2.5" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+          <circle cx="40" cy="12" r="3" fill="#FFF"/><circle cx="68" cy="40" r="3" fill="#FFF"/><circle cx="40" cy="68" r="3" fill="#FFF"/><circle cx="12" cy="40" r="3" fill="#FFF"/>
+          <text x="40" y="51" font-family="Arial Black" font-weight="900" font-size="26" fill="#5BAF52" text-anchor="middle">R</text>
+        </svg>
+        <span class="lbl">ROUNDIE</span>
+      </div>
       <div class="body">
-        <div class="sub">Option C</div>
-        <h3>Sporty / App-Linked</h3>
-        <p class="desc">アプリ実物のブランドトークン（<code>Arial Black</code>・<code>#2D5A27</code>・<code>#0A0A0A</code>）を完全踏襲。アプリのロゴマーク（円＋R＋ROUNDIE wordmark）を nav から使用。スコアグリッドを各所に。GORA / PGA TOUR 寄り。</p>
+        <div class="sub">OPTION C</div>
+        <h3>Sporty · App-Linked</h3>
+        <p class="desc">アプリの brand-tokens.ts を完全踏襲。アプリのロゴマーク（4 点付き円 + R）を nav に直配置。GORA / Strava / PGA TOUR 寄りスポーティ。</p>
         <div class="meta">
           <span class="chip">アプリ完全連動</span>
-          <span class="chip">Arial Black 全面</span>
-          <span class="chip">#2D5A27 緑</span>
+          <span class="chip">本物ロゴ採用</span>
+          <span class="chip">緑 #2D5A27</span>
           <span class="chip">スポーティ</span>
         </div>
         <a href="/mock/option-c/" target="_blank" class="open">Option C を開く →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="preview prev-d">
+        <div></div><div></div><div></div><div></div><div></div><div></div>
+        <div></div><div></div>
+      </div>
+      <div class="body">
+        <div class="sub">OPTION D · NEW</div>
+        <h3>Bento Showcase</h3>
+        <p class="desc">Apple Vision / Cursor / Notion 2025 寄り。Bento グリッドに機能を密度高く配置。各セルが順次 reveal + count-up + bar fill アニメ。情報量と動きを両立。</p>
+        <div class="meta">
+          <span class="chip">Bento グリッド</span>
+          <span class="chip">順次 reveal 動き</span>
+          <span class="chip">bar fill アニメ</span>
+          <span class="chip">タイル pop in</span>
+        </div>
+        <a href="/mock/option-d/" target="_blank" class="open">Option D を開く →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="preview prev-e">
+        <div class="l">SHAPE<br><em>ROUND</em><br><span class="stroke">KEEP</span></div>
+        <div class="r">86</div>
+      </div>
+      <div class="body">
+        <div class="sub">OPTION E · NEW</div>
+        <h3>Brutalist Bold</h3>
+        <p class="desc">Vercel / Awwwards 2025 / Plain.com 寄り。超巨大 Arial Black、白 / 黒 / アシッドグリーンのカラーブロック、カスタムカーソル（PC）、テキスト lineUp アニメ、scroll-snap マーキー。最も「派手 + 動く」。</p>
+        <div class="meta">
+          <span class="chip">超巨大タイポ</span>
+          <span class="chip">カスタムカーソル</span>
+          <span class="chip">テキスト line reveal</span>
+          <span class="chip">マーキー</span>
+        </div>
+        <a href="/mock/option-e/" target="_blank" class="open">Option E を開く →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="preview prev-f">
+        <div class="s" style="background:#2D5A27">4</div>
+        <div class="s" style="background:#60A5FA">5</div>
+        <div class="s" style="background:#F5C400;color:#0A0A0A">3</div>
+        <div class="s" style="background:#9B8EC4">6</div>
+        <div>5</div>
+        <div>6</div>
+      </div>
+      <div class="body">
+        <div class="sub">OPTION F · NEW</div>
+        <h3>Interactive Playground</h3>
+        <p class="desc">Framer / Replicate / Resend 寄り。ヒーローでユーザーが 18 マスをタップしてスコア入力 → カラーグリッドがリアルタイム生成 + TOTAL カウントアップ。「触って分かる」第一印象。「Sample round」ボタンで Yuki の実例ロード可能。</p>
+        <div class="meta">
+          <span class="chip">触れるヒーロー</span>
+          <span class="chip">リアルタイム生成</span>
+          <span class="chip">カウントアップ</span>
+          <span class="chip">体験型</span>
+        </div>
+        <a href="/mock/option-f/" target="_blank" class="open">Option F を開く →</a>
       </div>
     </article>
 
@@ -136,25 +240,35 @@ a{color:inherit;text-decoration:none}
 
   <div class="notes">
     <h2>比較ポイント</h2>
-    <p>スマホ / iPad / PC それぞれで開いて、特に下記を意識してください:</p>
+    <p>スマホ / iPad / PC それぞれで開いて、特に以下を意識してください:</p>
     <ul>
       <li><strong>第一印象</strong> — Hero を見た瞬間「これ良い」「これダサい」の体感</li>
-      <li><strong>アプリとの統一感</strong> — ROUNDIE という字体や緑の色味がアプリと連続しているか</li>
-      <li><strong>メリハリ</strong> — Round Card や ROUNDIE Score の独自性が伝わるか</li>
-      <li><strong>触感</strong> — ボタン、カードへの hover/tap の反応が気持ち良いか</li>
-      <li><strong>Pricing UI</strong> — 価格テーブルがどれが一番読みやすいか</li>
-      <li><strong>Footer の納まり</strong> — ページ最下部が締まって見えるか</li>
+      <li><strong>動きの心地よさ</strong> — スクロール演出、hover、tap のレスポンス（特に E のカスタムカーソル、F の触れる体験）</li>
+      <li><strong>アプリとの統一感</strong> — ROUNDIE という字体や緑がアプリと連続しているか</li>
+      <li><strong>メリハリ</strong> — Round Card と ROUNDIE Score の独自性が伝わるか</li>
+      <li><strong>Pricing UI</strong> — 6 案で価格テーブルがどれが一番読みやすいか</li>
+      <li><strong>Footer 納まり</strong> — 最下部が締まって見えるか</li>
     </ul>
 
+    <h2 style="margin-top:36px">2025-2026 年トレンドのインスピレーション源</h2>
+    <div class="refs">
+      <div class="ref"><strong>Option A · Minimal Editorial</strong>linear.app · stripe.com · notion.so · apple.com/newsroom</div>
+      <div class="ref"><strong>Option B · Cinematic</strong>apple.com/apple-vision-pro · nike.com · strava.com (2024) · spotify.com/wrapped</div>
+      <div class="ref"><strong>Option C · Sporty / App-Linked</strong>gora.golf · pgatour.com · strava ゴルフカテゴリ · オリジナル app ブランド</div>
+      <div class="ref"><strong>Option D · Bento Showcase</strong>apple.com (Vision/M3 Mac) · cursor.com · notion.so/product · raycast.com</div>
+      <div class="ref"><strong>Option E · Brutalist Bold</strong>vercel.com · plain.com · awwwards.com SOTY 2025 · pitch.com</div>
+      <div class="ref"><strong>Option F · Interactive Playground</strong>framer.com · replicate.com · resend.com · cron.com</div>
+    </div>
+
     <h2 style="margin-top:36px">技術メモ</h2>
-    <p>各モックは独立した HTML 1 枚で実装されており、外部依存なし（fonts は system / Arial Black 系のみ）。ブランドトークンはアプリの <code>constants/brand-tokens.ts</code> を参照しました（緑 #2D5A27、Arial Black 900、letter-spacing 6-8px、背景 #0A0A0A、scoreEagle #F5C400、scoreBogey #60A5FA など）。</p>
-    <p>3 案ともコピーは現状の本番 HP と同等のものに揃えてあります（実際の Features / Pricing 文言 と矛盾しないように）。</p>
+    <p>全 6 案とも独立した HTML 1 枚で実装。外部依存最小（fonts は system / Arial Black 系のみ、JS は最小限）。ブランドトークンはアプリの <code>constants/brand-tokens.ts</code> を参照 (Arial Black 900 / #2D5A27 / #0A0A0A / scoreEagle #F5C400 など)。Option F のみインタラクション JS あり。Option E はカスタムカーソル JS あり（PC のみ、touch では自動無効）。全案 <code>prefers-reduced-motion</code> 対応済み。</p>
 
     <h2 style="margin-top:36px">選定後の進め方</h2>
     <ul>
-      <li>1 案を選択 → その方向性で <strong>roundie.app/</strong> 本番ページに正式実装</li>
-      <li>次に <strong>kanopy-inc.com/</strong>、続いて talent / faq / notice / privacy / terms と順次同じ言語で展開</li>
+      <li>1 案選択 → その方向性で <strong>roundie.app/</strong> 本番ページに正式実装</li>
+      <li>続いて <strong>kanopy-inc.com/</strong>、talent / faq / notice / privacy / terms と順次同じ言語で展開</li>
       <li>並行して React Native Simulator で実機 SS を生成し、Hero / Features に配置</li>
+      <li>ハイブリッド（"A の構成 + B の動き" 等）も可能。具体的にお伝えください</li>
     </ul>
   </div>
 
