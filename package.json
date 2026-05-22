@@ -5,17 +5,18 @@
   "description": "ROUNDIE LP — static site, 3 locales, CSS-only motion",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test:lh": "lighthouse-ci autorun",
-    "test:a11y": "pa11y-ci && axe-cli http://localhost:5173/ja/",
+    "build": "node scripts/build.mjs",
+    "preview": "npx -y http-server dist -p 4173 -c-1",
+    "test:lh": "lhci autorun",
+    "test:a11y": "pa11y-ci && axe-cli http://localhost:4173/ja/",
     "test:vr": "playwright test"
   },
   "devDependencies": {
-    "vite": "^5.4.0",
-    "@lhci/cli": "^0.14.0",
-    "pa11y-ci": "^3.1.0",
     "@axe-core/cli": "^4.10.0",
-    "@playwright/test": "^1.45.0"
+    "@lhci/cli": "^0.14.0",
+    "@playwright/test": "^1.45.0",
+    "jsdom": "^29.1.1",
+    "pa11y-ci": "^3.1.0",
+    "vite": "^5.4.0"
   }
 }

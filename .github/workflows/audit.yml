@@ -1,0 +1,51 @@
+name: LP Audit (Lighthouse + Axe + Pa11y)
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build SSG
+        run: npm run build
+
+      - name: Start preview
+        run: |
+          npx -y http-server dist -p 4173 -c-1 -s &
+          npx -y wait-on http://127.0.0.1:4173/
+
+      - name: Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            http://127.0.0.1:4173/
+            http://127.0.0.1:4173/ja/
+            http://127.0.0.1:4173/en/
+            http://127.0.0.1:4173/ko/
+          configPath: ./.github/lighthouse-config.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Axe a11y audit
+        run: |
+          npx -y @axe-core/cli http://127.0.0.1:4173/ja/ --exit || true
+          npx -y @axe-core/cli http://127.0.0.1:4173/en/ --exit || true
+          npx -y @axe-core/cli http://127.0.0.1:4173/ko/ --exit || true
+
+      - name: Pa11y CI
+        run: |
+          npx -y pa11y-ci --sitemap http://127.0.0.1:4173/sitemap.xml || true
