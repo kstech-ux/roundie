@@ -1,0 +1,23 @@
+/* RC-FORM · Round Card 18-cell formation, staggered 60ms */
+@keyframes rc-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: none; }
+}
+.round-card {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+.round-card .cell {
+  opacity: 0;
+  aspect-ratio: 1;
+  border-radius: var(--r-1);
+  will-change: transform, opacity;
+  animation: rc-pop 0.32s var(--e-spring) forwards;
+  animation-delay: calc(60ms * var(--i, 0));
+}
+@media (max-width: 480px) {
+  .round-card .cell { animation-delay: calc(30ms * var(--i, 0)); }
+}
+/* ISS-04: gpu cap — limit concurrent will-change layers */
+.round-card .cell:nth-child(n+19) { will-change: auto; }

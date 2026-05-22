@@ -1,0 +1,27 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ROUNDIE",
+  "url": "https://roundie.app",
+  "applicationCategory": "SportsApplication",
+  "operatingSystem": "iOS 16+",
+  "description": "ゴルファーのソーシャルアプリ。スコアじゃない、瞬間と仲間。",
+  "offers": [
+    {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "JPY",
+      "category": "FREE"
+    },
+    {
+      "@type": "Offer",
+      "price": 39.99,
+      "priceCurrency": "USD",
+      "category": "PRO"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "KANOPY, Inc."
+  }
+}

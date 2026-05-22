@@ -1,0 +1,62 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "先行申し込みって？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "先行アクセスへのご案内をメールでお送りします。リンク先は今後決定。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Android 版は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "準備中です。公開時にお知らせします。下のフォームから通知を受け取れます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pro と無料の違いは？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "無料で 6 機能、Pro でコンペ開催と高度なランキングが追加。価格は完全開示。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "解約はできますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "App Store のサブスクリプション設定からいつでも。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "スコア入力にかかる時間は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ホールごとに 1 タップ。ラウンド全体で約 30 秒。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "写真は保存されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Round Card に添付した写真のみ保存。設定からまとめて削除できます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "データ削除は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "アカウント削除で 30 日以内に全データ削除。輸出機能あり。"
+      }
+    }
+  ]
+}
