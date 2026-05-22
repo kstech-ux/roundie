@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>ROUNDIE — 記憶を、かたちに。</title>
+  <meta name="description" content="ROUNDIE は、ゴルフのラウンドを世界に一つだけのカラーグリッドにして残すソーシャルアプリ。20代・30代から始まる、新しいラウンドの楽しみ方。">
+  <meta property="og:title" content="ROUNDIE — Memories, in form.">
+  <meta property="og:description" content="A golf social app. Every round becomes a one-of-a-kind color grid you can keep.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://roundie.app/">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://roundie.app/">
+  <link rel="alternate" hreflang="ja" href="https://roundie.app/?lang=ja">
+  <link rel="alternate" hreflang="en" href="https://roundie.app/?lang=en">
+  <link rel="alternate" hreflang="ko" href="https://roundie.app/?lang=ko">
+  <link rel="alternate" hreflang="x-default" href="https://roundie.app/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230A0A0A'/><text x='50' y='65' font-family='Arial Black' font-weight='900' font-size='44' fill='%235BAF52' text-anchor='middle'>R</text></svg>">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), interest-cohort=()">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <style>
+  /* ============================================================
+     ROUNDIE LP v3 — World-class rebuild
+     設計言語: Anthropic 路線「最小・知的・呼吸」+ Strava 路線「1 章 1 ヴィジュアル」
+     捨てたもの: マーキー / 番号付き 9 セクション / 8 機能フラット羅列 / 装飾改行
+     ============================================================ */
+  :root {
+    /* ---- Color (app-aligned) ---- */
+    --bg: #0A0A0A;
+    --bg-2: #0E0E0E;
+    --bg-3: #141414;
+    --ink: #0A0A0A;
+    --line: #1F1F1F;
+    --line-2: #2A2A2A;
+
+    --green: #2D5A27;
+    --green-mid: #4A9A5D;
+    --green-hi: #5BAF52;
+    --green-on-dark: #7FCF6F;
+
+    /* Text */
+    --t1: #F5F5F5;
+    --t2: #A8A8A8;
+    --t3: #6E6E6E;
+
+    /* Score colors */
+    --eagle: #F5C400;
+    --par: #2D5A27;
+    --bogey: #60A5FA;
+    --double: #9B8EC4;
+    --triple: #888888;
+
+    /* ---- Type ---- */
+    --font-display: "Arial Black", "Helvetica Neue", system-ui, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue",
+                 "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+                 "Apple SD Gothic Neo", "Noto Sans KR",
+                 sans-serif;
+
+    /* Type scale — pulled toward editorial */
+    --fs-display: clamp(56px, 11vw, 168px);
+    --fs-h1: clamp(48px, 8vw, 112px);
+    --fs-h2: clamp(36px, 5.6vw, 76px);
+    --fs-h3: clamp(22px, 2.6vw, 32px);
+    --fs-lead: clamp(18px, 1.8vw, 22px);
+    --fs-body: 17px;
+    --fs-small: 14px;
+    --fs-meta: 12px;
+    --fs-eye: 11px;
+
+    /* ---- Space — generous ---- */
+    --container-px: clamp(20px, 5vw, 80px);
+    --container-max: 1320px;
+    --container-text: 720px;
+
+    --space-section: clamp(140px, 22vh, 280px);
+    --space-block: clamp(48px, 8vh, 96px);
+    --space-gap: clamp(24px, 3vw, 48px);
+
+    /* Motion */
+    --ease: cubic-bezier(.16, 1, .3, 1);
+    --dur-fast: 200ms;
+    --dur: 400ms;
+    --dur-slow: 800ms;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg); color: var(--t1);
+    font-size: var(--fs-body); line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  img, svg { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+  ::selection { background: var(--green); color: var(--t1); }
+
+  /* Language switching */
+  [data-l] { display: none; }
+  [data-l].a { display: inline; }
+
+  /* Language-specific stacks */
+  :lang(ja) {
+    font-family: -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    font-feature-settings: "palt" 1;
+    word-break: keep-all; overflow-wrap: anywhere; line-break: strict;
+  }
+  :lang(ko) {
+    font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    word-break: keep-all; overflow-wrap: anywhere;
+  }
+  :lang(en) {
+    font-family: -apple-system, "Inter", "Helvetica Neue", sans-serif;
+    hyphens: auto;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display); font-weight: 900;
+    line-height: .96; letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  :lang(ja) h1, :lang(ja) h2, :lang(ja) h3 { letter-spacing: -0.04em; }
+
+  p { text-wrap: pretty; }
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /* Skip link */
+  .skip {
+    position: fixed; left: -9999px; top: 0; z-index: 9999;
+    padding: 14px 22px;
+    background: var(--green-on-dark); color: var(--ink);
+    font-family: var(--font-display); font-weight: 900;
+    font-size: var(--fs-eye); letter-spacing: .18em;
+  }
+  .skip:focus { left: 0; }
+  :focus-visible {
+    outline: 2px solid var(--green-on-dark);
+    outline-offset: 3px; border-radius: 2px;
+  }
+
+  /* ============================================================
+     HEADER — Minimal, no marquee
+     ============================================================ */
+  .top {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px var(--container-px);
+    padding-top: max(20px, env(safe-area-inset-top));
+    display: flex; align-items: center; gap: 24px;
+    background: linear-gradient(180deg, rgba(10,10,10,.92) 0%, rgba(10,10,10,.78) 60%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+  }
+  .top.solid { background: rgba(10,10,10,.96); border-bottom: 1px solid var(--line); }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--t1);
+  }
+  .brand svg { width: 32px; height: 32px; }
+  .brand-wm {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 15px; letter-spacing: .2em;
+  }
+  .top-spacer { flex: 1; }
+  .top-nav { display: none; gap: 32px; }
+  @media (min-width: 1024px) {
+    .top-nav { display: flex; }
+  }
+  .top-nav a {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .18em; color: var(--t2);
+    padding: 8px 0;
+    transition: color var(--dur-fast);
+  }
+  .top-nav a:hover { color: var(--t1); }
+
+  .top-lang { display: flex; gap: 4px; }
+  .top-lang button {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .16em; color: var(--t3);
+    padding: 8px 10px;
+    transition: color var(--dur-fast);
+    min-height: 32px;
+  }
+  .top-lang button.a { color: var(--green-on-dark); }
+  .top-lang button:hover { color: var(--t1); }
+
+  .top-cta {
+    display: none; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    background: var(--t1); color: var(--ink);
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .14em;
+    transition: background var(--dur-fast), transform var(--dur-fast);
+    min-height: 40px;
+  }
+  @media (min-width: 768px) { .top-cta { display: inline-flex; } }
+  .top-cta:hover { background: var(--green-on-dark); }
+
+  .top-burger {
+    display: flex; flex-direction: column; gap: 5px;
+    width: 40px; height: 40px;
+    align-items: center; justify-content: center;
+  }
+  @media (min-width: 1024px) { .top-burger { display: none; } }
+  .top-burger span {
+    display: block; width: 20px; height: 1.5px; background: var(--t1);
+    transition: transform var(--dur-fast);
+  }
+
+  /* Mobile menu */
+  .mob {
+    position: fixed; inset: 0; z-index: 90;
+    background: var(--bg);
+    transform: translateY(-100%);
+    transition: transform var(--dur-slow) var(--ease);
+    padding: 96px var(--container-px) 48px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .mob.open { transform: translateY(0); }
+  .mob a {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(32px, 7vw, 56px); letter-spacing: -0.02em;
+    color: var(--t1);
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .mob a:last-of-type { border-bottom: none; }
+  .mob .mob-lang { display: flex; gap: 16px; margin-top: auto; padding-top: 32px; }
+  .mob .mob-lang button {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 14px; letter-spacing: .16em; color: var(--t3);
+  }
+  .mob .mob-lang button.a { color: var(--green-on-dark); }
+
+  /* ============================================================
+     Common
+     ============================================================ */
+  main { display: block; }
+  .container {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+  }
+  .container-narrow {
+    max-width: var(--container-text);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+  }
+  section { padding-top: var(--space-section); padding-bottom: var(--space-section); }
+  section:first-of-type { padding-top: clamp(120px, 18vh, 200px); }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: var(--fs-eye); letter-spacing: .28em;
+    color: var(--green-on-dark);
+    margin-bottom: var(--space-block);
+  }
+  .eyebrow::before {
+    content: ""; width: 32px; height: 1px; background: var(--green-on-dark);
+    flex-shrink: 0;
+  }
+
+  /* Reveal */
+  .rv { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .rv, *, *::before, *::after { animation: none !important; transition: none !important; }
+    .rv { opacity: 1; transform: none; }
+  }
+
+  /* ============================================================
+     1. HERO — One sentence, generous space
+     ============================================================ */
+  .hero {
+    min-height: 100dvh;
+    padding-top: clamp(140px, 22vh, 220px);
+    padding-bottom: clamp(80px, 12vh, 160px);
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .hero-eye {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: var(--fs-eye); letter-spacing: .28em; color: var(--green-on-dark);
+    margin-bottom: clamp(40px, 6vh, 80px);
+  }
+  .hero h1 {
+    font-size: var(--fs-display);
+    line-height: 0.92; letter-spacing: -0.04em;
+    margin-bottom: clamp(40px, 6vh, 72px);
+    max-width: 14ch;
+  }
+  :lang(ja) .hero h1 { max-width: 10ch; letter-spacing: -0.05em; }
+  :lang(ko) .hero h1 { max-width: 10ch; }
+
+  .hero-lead {
+    font-size: var(--fs-lead);
+    color: var(--t2); line-height: 1.6;
+    max-width: 42ch;
+    margin-bottom: clamp(48px, 8vh, 96px);
+  }
+  :lang(ja) .hero-lead { max-width: 26ch; }
+
+  .hero-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+
+  .cta-primary {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 22px 36px;
+    background: var(--t1); color: var(--ink);
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 13px; letter-spacing: .14em;
+    transition: background var(--dur-fast), transform var(--dur-fast);
+    min-height: 56px;
+  }
+  .cta-primary:hover { background: var(--green-on-dark); transform: translateY(-2px); }
+  .cta-primary .arrow {
+    display: inline-flex; transition: transform var(--dur-fast);
+  }
+  .cta-primary:hover .arrow { transform: translateX(4px); }
+
+  .cta-text {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 12px; letter-spacing: .18em; color: var(--t2);
+    padding: 12px 0; min-height: 40px;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--t3);
+    transition: color var(--dur-fast), border-color var(--dur-fast);
+  }
+  .cta-text:hover { color: var(--t1); border-color: var(--t1); }
+
+  .hero-footnote {
+    margin-top: clamp(64px, 10vh, 120px);
+    font-size: var(--fs-meta); color: var(--t3); letter-spacing: .06em;
+  }
+
+  /* ============================================================
+     2. THE ROUND CARD — Hero object, full-width display
+     ============================================================ */
+  .anchor {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+    border-top: 1px solid var(--line);
+  }
+  .anchor-text {
+    max-width: var(--container-text);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+    margin-bottom: var(--space-block);
+  }
+  .anchor h2 {
+    font-size: var(--fs-h1);
+    margin-bottom: 24px;
+    max-width: 16ch;
+  }
+  :lang(ja) .anchor h2 { max-width: 12ch; }
+  .anchor-lead {
+    font-size: var(--fs-lead); color: var(--t2);
+    line-height: 1.7; max-width: 46ch;
+  }
+  :lang(ja) .anchor-lead { max-width: 28ch; }
+
+  .card-stage {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+    margin-top: var(--space-block);
+  }
+  .card-large {
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
+    padding: clamp(28px, 4vw, 64px);
+    position: relative;
+  }
+  .card-meta-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: clamp(20px, 3vh, 36px);
+    font-family: var(--font-display); font-weight: 900;
+    font-size: var(--fs-meta); letter-spacing: .18em; color: var(--t3);
+  }
+  .card-score {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(72px, 14vw, 200px);
+    line-height: .9; letter-spacing: -0.04em;
+    color: var(--green-on-dark);
+  }
+  .card-grid {
+    display: grid; grid-template-columns: repeat(9, 1fr); gap: clamp(3px, .5vw, 6px);
+    margin: clamp(24px, 4vh, 48px) 0;
+  }
+  .card-grid > div {
+    aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(14px, 1.6vw, 22px);
+    color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5);
+  }
+  .card-grid > div.eagle { color: var(--ink); text-shadow: none; }
+  .card-summary {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: clamp(20px, 3vh, 32px);
+    border-top: 1px solid var(--line-2);
+    gap: 24px; flex-wrap: wrap;
+  }
+  .card-summary .row {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: var(--fs-meta); letter-spacing: .18em; color: var(--t3);
+  }
+  .card-summary .row .num {
+    display: block; font-size: clamp(20px, 2.6vw, 32px);
+    color: var(--t1); letter-spacing: -0.02em; margin-top: 6px;
+  }
+  .card-summary .row.total .num { color: var(--green-on-dark); }
+
+  .card-legend {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px 24px;
+    margin-top: clamp(24px, 3vh, 40px);
+    padding-top: clamp(20px, 3vh, 32px);
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-meta); color: var(--t2); letter-spacing: .06em;
+  }
+  .card-legend span { display: flex; align-items: center; gap: 10px; line-height: 1.6; }
+  .card-legend i {
+    display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     3. CHAPTERS — One chapter = one message = one visual
+     ============================================================ */
+  .chapter {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+    border-top: 1px solid var(--line);
+  }
+  .chapter-inner {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+    display: grid; gap: clamp(48px, 8vh, 96px);
+  }
+  @media (min-width: 1024px) {
+    .chapter-inner { grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(64px, 8vw, 128px); }
+    .chapter:nth-of-type(even) .chapter-inner { direction: rtl; }
+    .chapter:nth-of-type(even) .chapter-text,
+    .chapter:nth-of-type(even) .chapter-visual { direction: ltr; }
+  }
+  .chapter-text {
+    max-width: 46ch;
+  }
+  :lang(ja) .chapter-text { max-width: 28ch; }
+  .chapter-eye {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: var(--fs-eye); letter-spacing: .28em;
+    color: var(--green-on-dark);
+    margin-bottom: clamp(24px, 4vh, 40px);
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .chapter-eye::before {
+    content: ""; width: 32px; height: 1px; background: var(--green-on-dark);
+  }
+  .chapter h2 {
+    font-size: var(--fs-h2);
+    margin-bottom: clamp(24px, 4vh, 40px);
+  }
+  .chapter h2 em {
+    font-style: normal; color: var(--green-on-dark);
+  }
+  .chapter-lead {
+    font-size: var(--fs-lead); color: var(--t2);
+    line-height: 1.8;
+    margin-bottom: clamp(28px, 4vh, 48px);
+  }
+  .chapter-points { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .chapter-points li {
+    font-size: var(--fs-small); color: var(--t2); line-height: 1.7;
+    padding-left: 20px; position: relative;
+  }
+  .chapter-points li::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green-on-dark);
+    position: absolute; left: 0; top: 8px;
+  }
+
+  /* Chapter visual containers */
+  .chapter-visual { position: relative; }
+
+  /* Visual: Score (3-axis) */
+  .vis-score {
+    background: var(--bg-3); border: 1px solid var(--line-2);
+    padding: clamp(28px, 4vw, 56px);
+  }
+  .vis-score-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; }
+  .vis-score-num {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(64px, 10vw, 132px); line-height: .9;
+    color: var(--green-on-dark); letter-spacing: -0.03em;
+  }
+  .vis-score-num small { font-size: .3em; color: var(--t3); font-weight: 900; }
+  .vis-score-rank {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .22em; color: var(--green-on-dark);
+    padding: 8px 14px; border: 1px solid var(--green-on-dark);
+  }
+  .vis-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .vis-bar:last-child { margin-bottom: 0; }
+  .vis-bar .lbl {
+    width: 70px;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .18em;
+  }
+  .vis-bar .trk { flex: 1; height: 6px; background: var(--line-2); overflow: hidden; }
+  .vis-bar .fil {
+    display: block; height: 100%;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 1.2s var(--ease) .2s;
+  }
+  .rv.in .vis-bar .fil { transform: scaleX(var(--p, .8)); }
+  .vis-bar .val {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 13px; color: var(--t1); min-width: 60px; text-align: right;
+  }
+  .vis-bar .val small { color: var(--t3); font-weight: 900; }
+
+  /* Visual: Feed */
+  .vis-feed { display: flex; flex-direction: column; gap: 12px; }
+  .vis-feed-card {
+    background: var(--bg-3); border: 1px solid var(--line-2);
+    padding: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .vis-feed-av {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 14px; color: var(--ink); flex-shrink: 0;
+  }
+  .vis-feed-name {
+    flex: 1; font-size: 14px; font-weight: 600; color: var(--t1);
+  }
+  .vis-feed-name small { color: var(--t3); font-weight: 400; margin-left: 8px; }
+  .vis-feed-tiles { display: flex; gap: 2px; }
+  .vis-feed-tiles div { width: 8px; height: 8px; }
+  .vis-feed-kudos {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .04em; color: var(--green-on-dark);
+  }
+
+  /* Visual: Record (input) */
+  .vis-input {
+    background: var(--bg-3); border: 1px solid var(--line-2);
+    padding: clamp(28px, 4vw, 48px);
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .vis-input-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--line-2);
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 13px; letter-spacing: .04em;
+  }
+  .vis-input-row:last-child { border-bottom: none; }
+  .vis-input-row .hole { color: var(--t3); letter-spacing: .18em; font-size: 11px; }
+  .vis-input-row .par { color: var(--t2); font-size: 13px; }
+  .vis-input-row .score {
+    font-size: 18px;
+    padding: 4px 10px;
+    color: #fff;
+  }
+
+  /* ============================================================
+     4. PRIVACY
+     ============================================================ */
+  .privacy {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+    border-top: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+  .privacy-inner {
+    max-width: var(--container-text);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+  }
+  .privacy h2 {
+    font-size: var(--fs-h2);
+    margin-bottom: clamp(32px, 5vh, 56px);
+    max-width: 18ch;
+  }
+  :lang(ja) .privacy h2 { max-width: 14ch; }
+  .privacy h2 em { font-style: normal; color: var(--green-on-dark); }
+  .privacy-lead {
+    font-size: var(--fs-lead); color: var(--t2); line-height: 1.85;
+  }
+  .privacy-lead strong { color: var(--t1); font-weight: 600; }
+  .privacy-points {
+    margin-top: clamp(40px, 6vh, 72px);
+    display: grid; grid-template-columns: 1fr; gap: 32px;
+  }
+  @media (min-width: 768px) {
+    .privacy-points { grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 48px); }
+  }
+  .privacy-point {
+    padding-top: 24px; border-top: 1px solid var(--line-2);
+  }
+  .privacy-point h3 {
+    font-size: var(--fs-h3);
+    margin-bottom: 12px;
+  }
+  .privacy-point p { font-size: var(--fs-small); color: var(--t2); line-height: 1.75; }
+
+  /* ============================================================
+     5. JOIN EARLY (Social proof + final CTA)
+     ============================================================ */
+  .join {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .join-inner {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+  }
+  .join h2 {
+    font-size: var(--fs-h1);
+    margin-bottom: clamp(32px, 5vh, 64px);
+    max-width: 14ch;
+  }
+  :lang(ja) .join h2 { max-width: 10ch; }
+  .join h2 em { font-style: normal; color: var(--green-on-dark); }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: clamp(24px, 3vw, 48px);
+    margin: clamp(48px, 8vh, 96px) 0;
+    padding-top: clamp(32px, 5vh, 48px);
+    border-top: 1px solid var(--line-2);
+  }
+  .stat .num {
+    display: block;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(48px, 7vw, 88px); line-height: .9;
+    letter-spacing: -0.03em;
+    color: var(--t1);
+    margin-bottom: 12px;
+  }
+  .stat .num.placeholder { color: var(--t3); }
+  .stat .num.emph { color: var(--green-on-dark); }
+  .stat .lbl {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .18em; color: var(--t3);
+    line-height: 1.5;
+  }
+
+  .join-actions {
+    margin-top: clamp(48px, 6vh, 80px);
+    display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  }
+  .join-foot {
+    margin-top: 32px;
+    font-size: var(--fs-meta); color: var(--t3); letter-spacing: .06em;
+  }
+
+  .pricing-note {
+    margin-top: clamp(40px, 6vh, 64px);
+    padding-top: clamp(32px, 5vh, 48px);
+    border-top: 1px solid var(--line-2);
+    font-size: var(--fs-small); color: var(--t2); line-height: 1.8;
+    max-width: 60ch;
+  }
+  :lang(ja) .pricing-note { max-width: 38ch; }
+  .pricing-note a { color: var(--green-on-dark); border-bottom: 1px solid var(--green-on-dark); }
+
+  /* ============================================================
+     FOOTER — minimal
+     ============================================================ */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: clamp(64px, 10vh, 120px) var(--container-px) clamp(40px, 6vh, 64px);
+    padding-bottom: max(clamp(40px, 6vh, 64px), env(safe-area-inset-bottom));
+  }
+  .ft {
+    max-width: var(--container-max); margin-inline: auto;
+    display: grid; grid-template-columns: 1fr; gap: clamp(40px, 6vh, 64px);
+  }
+  @media (min-width: 768px) {
+    .ft { grid-template-columns: 2fr 1fr 1fr 1fr; gap: clamp(32px, 4vw, 64px); }
+  }
+  .ft-brand .brand-wm { font-size: 18px; display: block; margin-bottom: 18px; }
+  .ft-brand p { font-size: 13px; color: var(--t3); line-height: 1.8; max-width: 36ch; }
+  .ft-col h6 {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 10px; letter-spacing: .22em;
+    color: var(--t1);
+    margin-bottom: 18px;
+  }
+  .ft-col a, .ft-col button {
+    display: block;
+    padding: 8px 0; min-height: 32px;
+    font-size: 13px; color: var(--t3);
+    transition: color var(--dur-fast);
+    text-align: left;
+  }
+  .ft-col a:hover, .ft-col button:hover { color: var(--t1); }
+
+  .ft-bot {
+    margin-top: clamp(48px, 6vh, 80px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-size: 11px; color: var(--t3); letter-spacing: .08em;
+  }
+  .ft-bot-lang { display: flex; gap: 16px; }
+  .ft-bot-lang button {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .18em; color: var(--t3);
+  }
+  .ft-bot-lang button.a { color: var(--green-on-dark); }
+
+  /* ============================================================
+     CMP + Email modal (carried over from index.html)
+     ============================================================ */
+  .cmp {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(10,10,10,.97); backdrop-filter: blur(20px);
+    border-top: 1px solid var(--green-on-dark);
+    padding: 24px var(--container-px);
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    display: none; flex-direction: column; gap: 20px;
+  }
+  @media (min-width: 768px) {
+    .cmp { bottom: 24px; left: 24px; right: auto; max-width: 480px; border: 1px solid var(--green-on-dark); }
+  }
+  .cmp.show { display: flex; }
+  .cmp-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 14px; letter-spacing: .04em;
+  }
+  .cmp-body { font-size: 14px; color: var(--t2); line-height: 1.7; }
+  .cmp-body a { color: var(--green-on-dark); text-decoration: underline; }
+  .cmp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cmp-actions button {
+    flex: 1; min-width: 110px; min-height: 44px;
+    padding: 12px 14px;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .14em;
+  }
+  .cmp-accept { background: var(--green); color: var(--t1); border: 2px solid var(--green); }
+  .cmp-reject { background: transparent; color: var(--t1); border: 2px solid var(--line-2); }
+  .cmp-custom { background: transparent; color: var(--t2); border: 1px solid var(--line-2); }
+  .cmp-detail { display: none; flex-direction: column; gap: 16px; }
+  .cmp-detail.show { display: flex; }
+  .cmp-cat {
+    display: flex; justify-content: space-between; gap: 16px; align-items: flex-start;
+    padding-top: 16px; border-top: 1px solid var(--line);
+  }
+  .cmp-cat-name {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .14em; color: var(--t1); margin-bottom: 4px;
+  }
+  .cmp-cat-desc { font-size: 12px; color: var(--t2); line-height: 1.6; }
+  .cmp-toggle {
+    flex-shrink: 0; width: 44px; height: 26px;
+    background: var(--line-2); border-radius: 13px; position: relative;
+    cursor: pointer; transition: background var(--dur-fast);
+  }
+  .cmp-toggle::after {
+    content: ""; position: absolute; top: 3px; left: 3px;
+    width: 20px; height: 20px; background: #fff; border-radius: 50%;
+    transition: transform var(--dur-fast);
+  }
+  .cmp-toggle.on { background: var(--green-on-dark); }
+  .cmp-toggle.on::after { transform: translateX(18px); }
+  .cmp-toggle.locked { opacity: .5; cursor: not-allowed; }
+
+  /* Email modal */
+  .modal {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(10,10,10,.85); backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .modal.open { display: flex; }
+  .modal-card {
+    background: var(--bg-2); border: 1px solid var(--line-2);
+    padding: clamp(28px, 4vw, 56px);
+    max-width: 480px; width: 100%;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 40px; height: 40px;
+    font-size: 22px; color: var(--t2);
+  }
+  .modal h3 {
+    font-size: clamp(24px, 3.6vw, 36px); margin-bottom: 16px;
+  }
+  .modal p { font-size: 14px; color: var(--t2); line-height: 1.7; margin-bottom: 24px; }
+  .modal label {
+    display: block; margin-bottom: 8px;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 11px; letter-spacing: .18em; color: var(--t2);
+  }
+  .modal input {
+    width: 100%; padding: 14px; background: var(--bg);
+    border: 1px solid var(--line-2); color: var(--t1);
+    font-size: 16px; font-family: var(--font-body);
+    min-height: 48px;
+  }
+  .modal input:focus { outline: none; border-color: var(--green-on-dark); }
+  .modal-error { font-size: 12px; color: #F87171; margin-top: 8px; display: none; }
+  .modal-error.show { display: block; }
+  .modal-submit {
+    width: 100%; margin-top: 20px;
+    padding: 16px; background: var(--green); color: var(--t1);
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 12px; letter-spacing: .16em;
+    min-height: 52px;
+  }
+  .modal-submit:hover { background: var(--green-mid); }
+  .modal-success {
+    display: none; padding: 24px;
+    background: rgba(127,207,111,.12); border: 1px solid var(--green-on-dark);
+    color: var(--green-on-dark);
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 14px; letter-spacing: .04em; text-align: center;
+  }
+  .modal-success.show { display: block; }
+  .hp { position: absolute; left: -9999px; opacity: 0; }
+  .modal-foot { margin-top: 14px; font-size: 11px; color: var(--t3); line-height: 1.6; }
+  .modal-foot a { color: var(--green-on-dark); }
+  </style>
+</head>
+
+<body>
+
+<a href="#main" class="skip">SKIP TO CONTENT / 本文へ / 본문으로</a>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="top" id="top">
+  <a href="/" class="brand" aria-label="ROUNDIE — Home">
+    <svg viewBox="0 0 80 80" aria-hidden="true">
+      <rect width="80" height="80" rx="18" fill="#0A0A0A"/>
+      <circle cx="40" cy="40" r="28" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+      <circle cx="40" cy="40" r="21" fill="none" stroke="#5BAF52" stroke-width="2.5" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+      <circle cx="40" cy="12" r="3" fill="#FFFFFF"/><circle cx="68" cy="40" r="3" fill="#FFFFFF"/><circle cx="40" cy="68" r="3" fill="#FFFFFF"/><circle cx="12" cy="40" r="3" fill="#FFFFFF"/>
+      <text x="40" y="51" font-family="Arial Black, sans-serif" font-weight="900" font-size="26" fill="#5BAF52" text-anchor="middle">R</text>
+    </svg>
+    <span class="brand-wm">ROUNDIE</span>
+  </a>
+  <div class="top-spacer"></div>
+  <nav class="top-nav" aria-label="Main">
+    <a href="#card"><span data-l="ja" class="a" lang="ja">ラウンドカード</span><span data-l="en" lang="en">ROUND CARD</span><span data-l="ko" lang="ko">라운드카드</span></a>
+    <a href="#chapters"><span data-l="ja" class="a" lang="ja">アプリ</span><span data-l="en" lang="en">THE APP</span><span data-l="ko" lang="ko">앱</span></a>
+    <a href="#privacy"><span data-l="ja" class="a" lang="ja">プライバシー</span><span data-l="en" lang="en">PRIVACY</span><span data-l="ko" lang="ko">프라이버시</span></a>
+    <a href="/faq/">FAQ</a>
+  </nav>
+  <div class="top-lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ja" class="a">JA</button>
+    <button type="button" data-lang="ko">KO</button>
+  </div>
+  <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="top-cta" data-cta-loc="header" data-cta-target="testflight">
+    <span data-l="ja" class="a" lang="ja">TESTFLIGHT</span><span data-l="en" lang="en">TESTFLIGHT</span><span data-l="ko" lang="ko">TESTFLIGHT</span>
+    <span aria-hidden="true">↗</span>
+  </a>
+  <button type="button" class="top-burger" id="burger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="mob" id="mob" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <a href="#card"><span data-l="ja" class="a" lang="ja">ラウンドカード</span><span data-l="en" lang="en">Round Card</span><span data-l="ko" lang="ko">라운드카드</span></a>
+  <a href="#chapters"><span data-l="ja" class="a" lang="ja">アプリ</span><span data-l="en" lang="en">The App</span><span data-l="ko" lang="ko">앱</span></a>
+  <a href="#privacy"><span data-l="ja" class="a" lang="ja">プライバシー</span><span data-l="en" lang="en">Privacy</span><span data-l="ko" lang="ko">프라이버시</span></a>
+  <a href="/faq/">FAQ</a>
+  <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" style="color:var(--green-on-dark)">
+    <span data-l="ja" class="a" lang="ja">TestFlight で試す →</span><span data-l="en" lang="en">Try on TestFlight →</span><span data-l="ko" lang="ko">TestFlight 에서 →</span>
+  </a>
+  <div class="mob-lang">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="ja" class="a">JA</button>
+    <button type="button" data-lang="ko">KO</button>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============================================================
+       1. HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="container">
+      <div class="rv">
+        <div class="hero-eye">
+          <span data-l="ja" class="a" lang="ja">ROUNDIE — A KANOPY PRODUCT</span>
+          <span data-l="en" lang="en">ROUNDIE — A KANOPY PRODUCT</span>
+          <span data-l="ko" lang="ko">ROUNDIE — A KANOPY PRODUCT</span>
+        </div>
+        <h1>
+          <span data-l="ja" class="a" lang="ja">記憶を、かたちに。</span>
+          <span data-l="en" lang="en">Memories,<br>in form.</span>
+          <span data-l="ko" lang="ko">기억을,<br>형태로.</span>
+        </h1>
+        <p class="hero-lead">
+          <span data-l="ja" class="a" lang="ja">ゴルフのソーシャルアプリ。1 ラウンドが、世界に一つだけのカラーグリッドになる。</span>
+          <span data-l="en" lang="en">A social app for golf. Every round becomes a color grid you can keep.</span>
+          <span data-l="ko" lang="ko">골프 소셜 앱. 한 라운드가 세상에 단 하나뿐인 컬러 그리드가 됩니다.</span>
+        </p>
+        <div class="hero-actions">
+          <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="cta-primary" data-cta-loc="hero" data-cta-target="testflight">
+            <span data-l="ja" class="a" lang="ja">TestFlight で試す</span>
+            <span data-l="en" lang="en">Try on TestFlight</span>
+            <span data-l="ko" lang="ko">TestFlight 에서 시작</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <button type="button" class="cta-text" data-open-email>
+            <span data-l="ja" class="a" lang="ja">公開時に通知を受け取る</span>
+            <span data-l="en" lang="en">Notify me at launch</span>
+            <span data-l="ko" lang="ko">출시 알림 받기</span>
+          </button>
+        </div>
+        <p class="hero-footnote">
+          <span data-l="ja" class="a" lang="ja">無料 · iOS 16.0 以降 · App Store 公開予定 2026</span>
+          <span data-l="en" lang="en">Free · iOS 16.0 or later · App Store launch 2026</span>
+          <span data-l="ko" lang="ko">무료 · iOS 16.0 이상 · App Store 출시 2026</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. THE ROUND CARD — Hero object
+       ============================================================ -->
+  <section class="anchor" id="card">
+    <div class="anchor-text rv">
+      <div class="eyebrow">
+        <span data-l="ja" class="a" lang="ja">ラウンドカード</span><span data-l="en" lang="en">THE ROUND CARD</span><span data-l="ko" lang="ko">라운드카드</span>
+      </div>
+      <h2>
+        <span data-l="ja" class="a" lang="ja">これが、あなたの<br>1 日のかたち。</span>
+        <span data-l="en" lang="en">This is the shape<br>of your day.</span>
+        <span data-l="ko" lang="ko">이것이 당신의<br>하루의 형태.</span>
+      </h2>
+      <p class="anchor-lead">
+        <span data-l="ja" class="a" lang="ja">18 ホール、18 色。スコアの数字は誰にも見せず、グリッドだけを残せます。同じ並びは二つとありません。</span>
+        <span data-l="en" lang="en">18 holes, 18 colors. Your numeric score stays private — only the grid is shared. No two are ever alike.</span>
+        <span data-l="ko" lang="ko">18 홀, 18 색. 스코어 숫자는 비공개, 그리드만 남깁니다. 같은 모양은 두 번 다시 없습니다.</span>
+      </p>
+    </div>
+
+    <div class="card-stage rv">
+      <div class="card-large" role="img" aria-label="Sample Round Card — YUKI, April 12, Par 72 course, total 86 strokes — one eagle, several pars and bogeys, two doubles, one triple+">
+        <div class="card-meta-row">
+          <span>YUKI · 04.12 · PAR 72</span>
+          <span class="card-score tabular">86</span>
+        </div>
+        <div class="card-grid" aria-hidden="true">
+          <div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#60A5FA">6</div><div style="background:#2D5A27">4</div><div style="background:#60A5FA">5</div><div class="eagle" style="background:#F5C400">3</div><div style="background:#60A5FA">4</div><div style="background:#9B8EC4">6</div>
+          <div style="background:#2D5A27">4</div><div style="background:#888888">7</div><div style="background:#60A5FA">5</div><div style="background:#2D5A27">3</div><div style="background:#9B8EC4">7</div><div style="background:#2D5A27">4</div><div style="background:#9B8EC4">6</div><div style="background:#2D5A27">5</div><div style="background:#60A5FA">5</div>
+        </div>
+        <div class="card-summary">
+          <span class="row">OUT<span class="num tabular">40</span></span>
+          <span class="row">IN<span class="num tabular">46</span></span>
+          <span class="row total">TOTAL<span class="num tabular">86</span></span>
+        </div>
+        <div class="card-legend">
+          <span><i style="background:#F5C400"></i>EAGLE</span>
+          <span><i style="background:#2D5A27"></i>PAR</span>
+          <span><i style="background:#60A5FA"></i>BOGEY</span>
+          <span><i style="background:#9B8EC4"></i>DOUBLE</span>
+          <span><i style="background:#888888"></i>TRIPLE+</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. CHAPTERS — three chapters, one message each
+       ============================================================ -->
+  <div id="chapters"></div>
+
+  <!-- Chapter 1: Record -->
+  <section class="chapter">
+    <div class="chapter-inner">
+      <div class="chapter-text rv">
+        <div class="chapter-eye">
+          <span data-l="ja" class="a" lang="ja">第一章</span>
+          <span data-l="en" lang="en">CHAPTER ONE</span>
+          <span data-l="ko" lang="ko">제 1 장</span>
+        </div>
+        <h2>
+          <span data-l="ja" class="a" lang="ja"><em>記録する。</em></span>
+          <span data-l="en" lang="en"><em>Record.</em></span>
+          <span data-l="ko" lang="ko"><em>기록한다.</em></span>
+        </h2>
+        <p class="chapter-lead">
+          <span data-l="ja" class="a" lang="ja">クイック入力なら 30 秒。詳細モードなら一打ずつ。天気・同伴者・写真も添えられます。</span>
+          <span data-l="en" lang="en">30 seconds in quick mode. Detailed mode captures every stroke. Add weather, partners, photos.</span>
+          <span data-l="ko" lang="ko">퀵 모드 30 초. 상세 모드는 한 타씩. 날씨·동반자·사진까지.</span>
+        </p>
+        <ul class="chapter-points">
+          <li><span data-l="ja" class="a" lang="ja">2 つの入力モード（クイック / 詳細）</span><span data-l="en" lang="en">Two input modes (Quick / Detail)</span><span data-l="ko" lang="ko">2 가지 입력 모드</span></li>
+          <li><span data-l="ja" class="a" lang="ja">途中保存・後から編集 OK</span><span data-l="en" lang="en">Save in progress, edit anytime</span><span data-l="ko" lang="ko">중간 저장·언제든 편집</span></li>
+          <li><span data-l="ja" class="a" lang="ja">入力が終わった瞬間、カードが完成</span><span data-l="en" lang="en">Card completes the moment you finish</span><span data-l="ko" lang="ko">입력 완료 시점에 카드 완성</span></li>
+        </ul>
+      </div>
+      <div class="chapter-visual rv">
+        <div class="vis-input">
+          <div class="vis-input-row"><span class="hole">H 6</span><span class="par">PAR 4</span><span class="score" style="background:#2D5A27">4</span></div>
+          <div class="vis-input-row"><span class="hole">H 7</span><span class="par">PAR 3</span><span class="score eagle" style="background:#F5C400;color:#0A0A0A">3</span></div>
+          <div class="vis-input-row"><span class="hole">H 8</span><span class="par">PAR 4</span><span class="score" style="background:#60A5FA">5</span></div>
+          <div class="vis-input-row"><span class="hole">H 9</span><span class="par">PAR 5</span><span class="score" style="background:#9B8EC4">7</span></div>
+          <div class="vis-input-row"><span class="hole">OUT</span><span class="par">PAR 36</span><span class="score" style="background:transparent;color:var(--green-on-dark);font-size:22px">40</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 2: Share -->
+  <section class="chapter">
+    <div class="chapter-inner">
+      <div class="chapter-text rv">
+        <div class="chapter-eye">
+          <span data-l="ja" class="a" lang="ja">第二章</span>
+          <span data-l="en" lang="en">CHAPTER TWO</span>
+          <span data-l="ko" lang="ko">제 2 장</span>
+        </div>
+        <h2>
+          <span data-l="ja" class="a" lang="ja">仲間と、<em>共有する。</em></span>
+          <span data-l="en" lang="en">Share with <em>friends.</em></span>
+          <span data-l="ko" lang="ko">동료와, <em>공유한다.</em></span>
+        </h2>
+        <p class="chapter-lead">
+          <span data-l="ja" class="a" lang="ja">フィードに並ぶのは、グリッドと写真と短いコメント。Kudos は 3 種類だけ — ナイスショット、ナイスファイト、ベストバディ。</span>
+          <span data-l="en" lang="en">Your feed shows grids, photos, and short notes. Three Kudos only — Nice Shot, Nice Fight, Best Buddy.</span>
+          <span data-l="ko" lang="ko">피드에는 그리드와 사진과 짧은 코멘트. Kudos 는 3 종류만.</span>
+        </p>
+        <ul class="chapter-points">
+          <li><span data-l="ja" class="a" lang="ja">ラウンドごとに公開範囲を設定</span><span data-l="en" lang="en">Visibility per round</span><span data-l="ko" lang="ko">라운드별 공개 범위</span></li>
+          <li><span data-l="ja" class="a" lang="ja">数値スコアは非公開のまま</span><span data-l="en" lang="en">Numeric scores stay private</span><span data-l="ko" lang="ko">숫자 스코어 비공개</span></li>
+          <li><span data-l="ja" class="a" lang="ja">ミュートはいつでも、相手に通知なし</span><span data-l="en" lang="en">Mute anytime — they're not notified</span><span data-l="ko" lang="ko">뮤트 시 상대 알림 없음</span></li>
+        </ul>
+      </div>
+      <div class="chapter-visual rv">
+        <div class="vis-feed">
+          <div class="vis-feed-card">
+            <div class="vis-feed-av" style="background:#7FCF6F">Y</div>
+            <div class="vis-feed-name">Yuki<small>2h</small></div>
+            <div class="vis-feed-tiles"><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#F5C400"></div><div style="background:#9B8EC4"></div></div>
+            <span class="vis-feed-kudos">🔥 12</span>
+          </div>
+          <div class="vis-feed-card">
+            <div class="vis-feed-av" style="background:#F5C400">K</div>
+            <div class="vis-feed-name">Kenji<small>5h</small></div>
+            <div class="vis-feed-tiles"><div style="background:#2D5A27"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div><div style="background:#9B8EC4"></div></div>
+            <span class="vis-feed-kudos">💪 8</span>
+          </div>
+          <div class="vis-feed-card">
+            <div class="vis-feed-av" style="background:#9B8EC4">M</div>
+            <div class="vis-feed-name">Mio<small>1d</small></div>
+            <div class="vis-feed-tiles"><div style="background:#F5C400"></div><div style="background:#2D5A27"></div><div style="background:#2D5A27"></div><div style="background:#60A5FA"></div><div style="background:#2D5A27"></div></div>
+            <span class="vis-feed-kudos">🤝 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 3: Rise -->
+  <section class="chapter">
+    <div class="chapter-inner">
+      <div class="chapter-text rv">
+        <div class="chapter-eye">
+          <span data-l="ja" class="a" lang="ja">第三章</span>
+          <span data-l="en" lang="en">CHAPTER THREE</span>
+          <span data-l="ko" lang="ko">제 3 장</span>
+        </div>
+        <h2>
+          <span data-l="ja" class="a" lang="ja">続けるほど、<em>響く。</em></span>
+          <span data-l="en" lang="en">The longer you play,<br><em>the more it speaks.</em></span>
+          <span data-l="ko" lang="ko">계속할수록, <em>울린다.</em></span>
+        </h2>
+        <p class="chapter-lead">
+          <span data-l="ja" class="a" lang="ja">SKILL・VIBE・STYLE の 3 軸スコア、100 点満点。7 段階のランクは ROOKIE から LEGEND まで。<strong>課金で順位は上がりません。</strong></span>
+          <span data-l="en" lang="en">A 3-axis score — SKILL, VIBE, STYLE — out of 100. Ranks ascend from ROOKIE to LEGEND. <strong>No pay-to-win.</strong></span>
+          <span data-l="ko" lang="ko">SKILL · VIBE · STYLE 3 축, 100 점 만점. ROOKIE 부터 LEGEND 까지. <strong>결제로 건너뛸 수 없습니다.</strong></span>
+        </p>
+        <ul class="chapter-points">
+          <li><span data-l="ja" class="a" lang="ja">技術・コミュニティ・ライフスタイルの 3 軸</span><span data-l="en" lang="en">Three axes: skill, community, lifestyle</span><span data-l="ko" lang="ko">기술 · 커뮤니티 · 라이프스타일</span></li>
+          <li><span data-l="ja" class="a" lang="ja">ランキングは自分の伸びを見るための場</span><span data-l="en" lang="en">Ranking is for tracking your own growth</span><span data-l="ko" lang="ko">랭킹은 자신의 성장 추적용</span></li>
+          <li><span data-l="ja" class="a" lang="ja">コンペは 3 タップで開催・自動集計</span><span data-l="en" lang="en">Host competitions in 3 taps, auto-scored</span><span data-l="ko" lang="ko">3 번 탭으로 대회·자동 집계</span></li>
+        </ul>
+      </div>
+      <div class="chapter-visual rv">
+        <div class="vis-score">
+          <div class="vis-score-head">
+            <div class="vis-score-num tabular">72<small> /100</small></div>
+            <span class="vis-score-rank">REGULAR</span>
+          </div>
+          <div class="vis-bar"><span class="lbl">SKILL</span><span class="trk"><span class="fil" style="--p:.8;background:#7FCF6F"></span></span><span class="val tabular">28<small>/35</small></span></div>
+          <div class="vis-bar"><span class="lbl">VIBE</span><span class="trk"><span class="fil" style="--p:.6;background:#F5C400"></span></span><span class="val tabular">18<small>/30</small></span></div>
+          <div class="vis-bar"><span class="lbl">STYLE</span><span class="trk"><span class="fil" style="--p:.74;background:#9B8EC4"></span></span><span class="val tabular">26<small>/35</small></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. PRIVACY
+       ============================================================ -->
+  <section class="privacy" id="privacy">
+    <div class="privacy-inner rv">
+      <div class="eyebrow">
+        <span data-l="ja" class="a" lang="ja">プライバシー</span><span data-l="en" lang="en">PRIVACY</span><span data-l="ko" lang="ko">프라이버시</span>
+      </div>
+      <h2>
+        <span data-l="ja" class="a" lang="ja">スコアは見せない。<br>残すのは、<em>かたちだけ。</em></span>
+        <span data-l="en" lang="en">Scores stay hidden.<br><em>The shape stays.</em></span>
+        <span data-l="ko" lang="ko">스코어는 보이지 않고,<br>남는 건 <em>형태뿐.</em></span>
+      </h2>
+      <p class="privacy-lead">
+        <span data-l="ja" class="a" lang="ja">ROUNDIE はスコアの数字を公開しません。共有されるのはカラーグリッドだけ。<strong>あなたのデータは、あなたのもの。</strong>第三者への販売は一切行いません。</span>
+        <span data-l="en" lang="en">ROUNDIE never displays your numeric scores. Only the color grid is shared. <strong>Your data belongs to you.</strong> We never sell user data.</span>
+        <span data-l="ko" lang="ko">ROUNDIE 는 숫자 스코어를 공개하지 않습니다. 공유되는 건 컬러 그리드뿐. <strong>당신의 데이터는 당신의 것.</strong></span>
+      </p>
+      <div class="privacy-points">
+        <div class="privacy-point">
+          <h3><span data-l="ja" class="a" lang="ja">公開範囲はラウンド単位</span><span data-l="en" lang="en">Per-round visibility</span><span data-l="ko" lang="ko">라운드별 범위</span></h3>
+          <p>
+            <span data-l="ja" class="a" lang="ja">公開・フレンドのみ・非公開を、ラウンドごとに設定できます。後からの変更も可能。</span>
+            <span data-l="en" lang="en">Public, friends-only, or private — choose per round, change anytime.</span>
+            <span data-l="ko" lang="ko">공개·친구만·비공개를 라운드별 설정.</span>
+          </p>
+        </div>
+        <div class="privacy-point">
+          <h3><span data-l="ja" class="a" lang="ja">ミュートも自分のペース</span><span data-l="en" lang="en">Mute, your way</span><span data-l="ko" lang="ko">뮤트, 나의 페이스</span></h3>
+          <p>
+            <span data-l="ja" class="a" lang="ja">特定の人の投稿を見たくない時は静かにミュート。相手に通知は届きません。</span>
+            <span data-l="en" lang="en">Mute quietly. They won't be notified. Unmute anytime.</span>
+            <span data-l="ko" lang="ko">조용히 뮤트. 상대에게 알림이 가지 않습니다.</span>
+          </p>
+        </div>
+        <div class="privacy-point">
+          <h3><span data-l="ja" class="a" lang="ja">日本にデータ</span><span data-l="en" lang="en">Data in Japan</span><span data-l="ko" lang="ko">일본에 데이터</span></h3>
+          <p>
+            <span data-l="ja" class="a" lang="ja">データは Supabase（東京リージョン）で安全に管理しています。</span>
+            <span data-l="en" lang="en">Stored securely on Supabase (Tokyo region).</span>
+            <span data-l="ko" lang="ko">Supabase (도쿄 리전) 에서 안전하게 보관.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. JOIN EARLY — final CTA + placeholder proof
+       ============================================================ -->
+  <section class="join" id="join">
+    <div class="join-inner rv">
+      <div class="eyebrow">
+        <span data-l="ja" class="a" lang="ja">先行公開中</span><span data-l="en" lang="en">JOIN EARLY</span><span data-l="ko" lang="ko">선행 공개중</span>
+      </div>
+      <h2>
+        <span data-l="ja" class="a" lang="ja">今日のラウンドから、<br><em>残していく。</em></span>
+        <span data-l="en" lang="en">Start with <em>today's round.</em></span>
+        <span data-l="ko" lang="ko">오늘의 라운드부터, <em>남겨갑니다.</em></span>
+      </h2>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="num placeholder">—</span>
+          <span class="lbl">
+            <span data-l="ja" class="a" lang="ja">EARLY ACCESS 参加者<br><small style="opacity:.6">※ローンチ後表示</small></span>
+            <span data-l="en" lang="en">EARLY ACCESS<br><small style="opacity:.6">※ live after launch</small></span>
+            <span data-l="ko" lang="ko">EARLY ACCESS<br><small style="opacity:.6">※ 출시 후 표시</small></span>
+          </span>
+        </div>
+        <div class="stat">
+          <span class="num placeholder">—</span>
+          <span class="lbl">
+            <span data-l="ja" class="a" lang="ja">生成されたラウンドカード<br><small style="opacity:.6">※ローンチ後表示</small></span>
+            <span data-l="en" lang="en">ROUND CARDS GENERATED<br><small style="opacity:.6">※ live after launch</small></span>
+            <span data-l="ko" lang="ko">생성된 라운드카드<br><small style="opacity:.6">※ 출시 후 표시</small></span>
+          </span>
+        </div>
+        <div class="stat">
+          <span class="num emph tabular">3</span>
+          <span class="lbl">
+            <span data-l="ja" class="a" lang="ja">対応言語 (JA / EN / KO)</span>
+            <span data-l="en" lang="en">LANGUAGES (JA / EN / KO)</span>
+            <span data-l="ko" lang="ko">대응 언어 (JA / EN / KO)</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="join-actions">
+        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener" class="cta-primary" data-cta-loc="join" data-cta-target="testflight">
+          <span data-l="ja" class="a" lang="ja">TestFlight で試す</span>
+          <span data-l="en" lang="en">Try on TestFlight</span>
+          <span data-l="ko" lang="ko">TestFlight 에서 시작</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <button type="button" class="cta-text" data-open-email>
+          <span data-l="ja" class="a" lang="ja">公開時に通知</span>
+          <span data-l="en" lang="en">Notify me</span>
+          <span data-l="ko" lang="ko">알림 받기</span>
+        </button>
+      </div>
+      <p class="join-foot">
+        <span data-l="ja" class="a" lang="ja">無料 · iOS 16.0 以降 · App Store 公開予定 2026</span>
+        <span data-l="en" lang="en">Free · iOS 16.0 or later · App Store launch 2026</span>
+        <span data-l="ko" lang="ko">무료 · iOS 16.0 이상 · App Store 출시 2026</span>
+      </p>
+
+      <p class="pricing-note">
+        <span data-l="ja" class="a" lang="ja">コア機能は永続無料。Pro 加入で大会機能と詳細統計を解放（$4.99/月、$39.99/年）。サブスクなしでも単発のコンペは $9.99 / 1 大会。<a href="/faq/#pricing">料金の詳細を見る →</a></span>
+        <span data-l="en" lang="en">Core features stay free forever. Pro unlocks competitions and detailed stats ($4.99/mo, $39.99/yr). Single competition without subscription: $9.99 / event. <a href="/faq/#pricing">See pricing details →</a></span>
+        <span data-l="ko" lang="ko">코어 기능은 영구 무료. Pro 로 대회·상세 통계 ($4.99/월, $39.99/년). 구독 없이 단발 대회: $9.99/1 대회. <a href="/faq/#pricing">요금 상세 →</a></span>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer role="contentinfo">
+  <div class="ft">
+    <div class="ft-brand">
+      <span class="brand-wm">ROUNDIE</span>
+      <p>
+        <span data-l="ja" class="a" lang="ja">記憶を、かたちに。株式会社 KANOPY が手がけるゴルフソーシャルアプリ。</span>
+        <span data-l="en" lang="en">Memories, in form. A golf social app by KANOPY Inc., Tokyo.</span>
+        <span data-l="ko" lang="ko">기억을, 형태로. KANOPY 가 만드는 골프 소셜 앱.</span>
+      </p>
+    </div>
+    <div class="ft-col">
+      <h6><span data-l="ja" class="a" lang="ja">プロダクト</span><span data-l="en" lang="en">PRODUCT</span><span data-l="ko" lang="ko">프로덕트</span></h6>
+      <a href="/">ROUNDIE</a>
+      <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" rel="noopener">TestFlight ↗</a>
+      <a href="/faq/">FAQ</a>
+    </div>
+    <div class="ft-col">
+      <h6><span data-l="ja" class="a" lang="ja">会社</span><span data-l="en" lang="en">COMPANY</span><span data-l="ko" lang="ko">회사</span></h6>
+      <a href="https://kanopy-inc.com/">KANOPY</a>
+      <a href="https://kanopy-inc.com/talent/">Talent</a>
+      <a href="https://kanopy-inc.com/notice/">Notice</a>
+    </div>
+    <div class="ft-col">
+      <h6><span data-l="ja" class="a" lang="ja">法的情報</span><span data-l="en" lang="en">LEGAL</span><span data-l="ko" lang="ko">법적 정보</span></h6>
+      <a href="/terms/"><span data-l="ja" class="a" lang="ja">利用規約</span><span data-l="en" lang="en">Terms</span><span data-l="ko" lang="ko">이용약관</span></a>
+      <a href="/privacy/"><span data-l="ja" class="a" lang="ja">プライバシー</span><span data-l="en" lang="en">Privacy</span><span data-l="ko" lang="ko">개인정보</span></a>
+      <a href="/cookies/"><span data-l="ja" class="a" lang="ja">Cookie</span><span data-l="en" lang="en">Cookies</span><span data-l="ko" lang="ko">쿠키</span></a>
+      <a href="/accessibility/"><span data-l="ja" class="a" lang="ja">アクセシビリティ</span><span data-l="en" lang="en">Accessibility</span><span data-l="ko" lang="ko">접근성</span></a>
+      <button type="button" id="cmpReopen"><span data-l="ja" class="a" lang="ja">Cookie 設定</span><span data-l="en" lang="en">Cookie settings</span><span data-l="ko" lang="ko">쿠키 설정</span></button>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <span>© 2026 KANOPY INC.</span>
+    <div class="ft-bot-lang">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ja" class="a">JA</button>
+      <button type="button" data-lang="ko">KO</button>
+    </div>
+  </div>
+</footer>
+
+<!-- CMP -->
+<aside class="cmp" id="cmp" role="dialog" aria-labelledby="cmp-title" aria-hidden="true">
+  <div class="cmp-title" id="cmp-title">
+    <span data-l="ja" class="a" lang="ja">Cookie の使用について</span><span data-l="en" lang="en">Cookie preferences</span><span data-l="ko" lang="ko">쿠키 설정</span>
+  </div>
+  <p class="cmp-body">
+    <span data-l="ja" class="a" lang="ja">ROUNDIE はサービス改善のため Cookie を使用します。詳細は <a href="/cookies/">Cookie ポリシー</a> をご覧ください。</span>
+    <span data-l="en" lang="en">ROUNDIE uses cookies to improve service. See our <a href="/cookies/">Cookie Policy</a>.</span>
+    <span data-l="ko" lang="ko">ROUNDIE 는 서비스 개선을 위해 쿠키를 사용합니다. <a href="/cookies/">쿠키 정책</a> 참고.</span>
+  </p>
+  <div class="cmp-detail" id="cmpDetail">
+    <div class="cmp-cat">
+      <div>
+        <div class="cmp-cat-name"><span data-l="ja" class="a" lang="ja">必須</span><span data-l="en" lang="en">Essential</span><span data-l="ko" lang="ko">필수</span></div>
+        <div class="cmp-cat-desc"><span data-l="ja" class="a" lang="ja">同意状態の保存等、サイト動作に必要</span><span data-l="en" lang="en">Required for site to function</span><span data-l="ko" lang="ko">사이트 동작 필수</span></div>
+      </div>
+      <div class="cmp-toggle on locked" aria-checked="true"></div>
+    </div>
+    <div class="cmp-cat">
+      <div>
+        <div class="cmp-cat-name">Analytics</div>
+        <div class="cmp-cat-desc"><span data-l="ja" class="a" lang="ja">匿名統計 (GA4 / Clarity)</span><span data-l="en" lang="en">Anonymous analytics (GA4 / Clarity)</span><span data-l="ko" lang="ko">익명 통계 (GA4 / Clarity)</span></div>
+      </div>
+      <button type="button" class="cmp-toggle" id="catAnalytics" role="switch" aria-checked="false"></button>
+    </div>
+    <div class="cmp-cat">
+      <div>
+        <div class="cmp-cat-name">Marketing</div>
+        <div class="cmp-cat-desc"><span data-l="ja" class="a" lang="ja">広告効果計測 (Google Ads / Meta)</span><span data-l="en" lang="en">Ad performance (Google Ads / Meta)</span><span data-l="ko" lang="ko">광고 측정</span></div>
+      </div>
+      <button type="button" class="cmp-toggle" id="catMarketing" role="switch" aria-checked="false"></button>
+    </div>
+  </div>
+  <div class="cmp-actions">
+    <button type="button" class="cmp-reject" id="cmpReject"><span data-l="ja" class="a" lang="ja">すべて拒否</span><span data-l="en" lang="en">REJECT ALL</span><span data-l="ko" lang="ko">모두 거부</span></button>
+    <button type="button" class="cmp-custom" id="cmpCustomize"><span data-l="ja" class="a" lang="ja">カスタマイズ</span><span data-l="en" lang="en">CUSTOMIZE</span><span data-l="ko" lang="ko">사용자 지정</span></button>
+    <button type="button" class="cmp-accept" id="cmpAccept"><span data-l="ja" class="a" lang="ja">すべて受け入れる</span><span data-l="en" lang="en">ACCEPT ALL</span><span data-l="ko" lang="ko">모두 수락</span></button>
+  </div>
+</aside>
+
+<!-- Email modal -->
+<div class="modal" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="modal-h" aria-hidden="true">
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="modalClose" aria-label="Close">×</button>
+    <h3 id="modal-h">
+      <span data-l="ja" class="a" lang="ja">公開時に通知</span><span data-l="en" lang="en">Notify me at launch</span><span data-l="ko" lang="ko">출시 알림</span>
+    </h3>
+    <p>
+      <span data-l="ja" class="a" lang="ja">App Store 公開と TestFlight 枠追加時にお知らせします。</span>
+      <span data-l="en" lang="en">We'll email you when ROUNDIE launches on the App Store and when TestFlight slots open.</span>
+      <span data-l="ko" lang="ko">App Store 출시 및 TestFlight 추가 슬롯 알림.</span>
+    </p>
+    <form id="emailForm" novalidate>
+      <label for="email"><span data-l="ja" class="a" lang="ja">メールアドレス</span><span data-l="en" lang="en">EMAIL</span><span data-l="ko" lang="ko">이메일</span></label>
+      <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@example.com">
+      <p class="modal-error" id="email-err" role="alert">
+        <span data-l="ja" class="a" lang="ja">メールアドレスの形式が正しくありません</span>
+        <span data-l="en" lang="en">Please enter a valid email</span>
+        <span data-l="ko" lang="ko">올바른 이메일 형식을 입력해 주세요</span>
+      </p>
+      <div class="hp"><label for="website">Website (leave blank)</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <button type="submit" class="modal-submit">
+        <span data-l="ja" class="a" lang="ja">登録する</span><span data-l="en" lang="en">SIGN UP</span><span data-l="ko" lang="ko">등록</span>
+      </button>
+      <p class="modal-foot">
+        <span data-l="ja" class="a" lang="ja"><a href="/privacy/">プライバシーポリシー</a> に同意したものとみなします。配信解除はいつでも可能。</span>
+        <span data-l="en" lang="en">By signing up you agree to our <a href="/privacy/">Privacy Policy</a>. Unsubscribe anytime.</span>
+        <span data-l="ko" lang="ko"><a href="/privacy/">개인정보처리방침</a> 동의로 간주.</span>
+      </p>
+    </form>
+    <div class="modal-success" id="modalSuccess" role="status">
+      <span data-l="ja" class="a" lang="ja">✓ 登録できました</span><span data-l="en" lang="en">✓ YOU'RE IN</span><span data-l="ko" lang="ko">✓ 등록되었습니다</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Consent Mode v2 default — denied
+   ============================================================ */
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied',
+  analytics_storage:'denied', functionality_storage:'denied',
+  personalization_storage:'denied', security_storage:'granted',
+  wait_for_update: 500
+});
+gtag('set','ads_data_redaction',true);
+gtag('set','url_passthrough',true);
+
+/* ============================================================
+   Language switcher
+   ============================================================ */
+var TITLES = {
+  ja: { t: 'ROUNDIE — 記憶を、かたちに。', d: 'ROUNDIE は、ゴルフのラウンドを世界に一つだけのカラーグリッドにして残すソーシャルアプリ。20代・30代から始まる、新しいラウンドの楽しみ方。' },
+  en: { t: 'ROUNDIE — Memories, in form.', d: 'A golf social app. Every round becomes a one-of-a-kind color grid you can save, share, and revisit.' },
+  ko: { t: 'ROUNDIE — 기억을, 형태로.', d: '20대·30대부터의 골프 소셜 앱. 라운드는 세상에 단 하나뿐인 컬러 그리드가 됩니다.' }
+};
+function setLang(lang){
+  document.querySelectorAll('[data-l]').forEach(function(el){
+    el.classList.toggle('a', el.getAttribute('data-l') === lang);
+  });
+  document.querySelectorAll('[data-lang]').forEach(function(b){
+    b.classList.toggle('a', b.getAttribute('data-lang') === lang);
+  });
+  document.documentElement.setAttribute('lang', lang);
+  var m = TITLES[lang] || TITLES.ja;
+  document.title = m.t;
+  var d = document.querySelector('meta[name="description"]'); if(d) d.setAttribute('content', m.d);
+  var ot = document.querySelector('meta[property="og:title"]'); if(ot) ot.setAttribute('content', m.t);
+  var od = document.querySelector('meta[property="og:description"]'); if(od) od.setAttribute('content', m.d);
+  var ol = document.querySelector('meta[property="og:locale"]');
+  if(ol) ol.setAttribute('content', lang==='ja'?'ja_JP':lang==='ko'?'ko_KR':'en_US');
+  try { localStorage.setItem('roundie_lang', lang); } catch(e){}
+}
+document.querySelectorAll('[data-lang]').forEach(function(b){
+  b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+});
+(function(){
+  var saved; try { saved = localStorage.getItem('roundie_lang'); } catch(e){}
+  if (saved) { setLang(saved); return; }
+  var nav = (navigator.language||'').toLowerCase();
+  if (nav.indexOf('en')===0) setLang('en');
+  else if (nav.indexOf('ko')===0) setLang('ko');
+})();
+
+/* ============================================================
+   Mobile menu
+   ============================================================ */
+var burger = document.getElementById('burger');
+var mob = document.getElementById('mob');
+function toggleMob(){
+  var open = mob.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+burger.addEventListener('click', toggleMob);
+mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ if (mob.classList.contains('open')) toggleMob(); }); });
+document.addEventListener('keydown', function(e){ if (e.key==='Escape' && mob.classList.contains('open')) toggleMob(); });
+
+/* ============================================================
+   Sticky header solid background after scroll
+   ============================================================ */
+var top = document.getElementById('top');
+window.addEventListener('scroll', function(){
+  top.classList.toggle('solid', window.scrollY > 40);
+}, { passive: true });
+
+/* ============================================================
+   Scroll reveal
+   ============================================================ */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+/* ============================================================
+   CTA tracking via dataLayer (Consent gates GA4)
+   ============================================================ */
+document.querySelectorAll('[data-cta-loc]').forEach(function(el){
+  el.addEventListener('click', function(){
+    window.dataLayer.push({
+      event: 'cta_click',
+      cta_location: el.getAttribute('data-cta-loc'),
+      cta_target: el.getAttribute('data-cta-target'),
+      cta_language: document.documentElement.getAttribute('lang') || 'ja'
+    });
+  });
+});
+
+/* Section view (IntersectionObserver) */
+(function(){
+  var seen = {};
+  document.querySelectorAll('section[id], section[class]').forEach(function(s){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting && !seen[e.target.id || e.target.className]) {
+          seen[e.target.id || e.target.className] = true;
+          window.dataLayer.push({ event: 'section_view', section_name: e.target.id || e.target.className.split(' ')[0] });
+        }
+      });
+    }, { threshold: 0.4 });
+    io2.observe(s);
+  });
+})();
+
+/* ============================================================
+   CMP
+   ============================================================ */
+var CMP_KEY = 'roundie_consent_v1';
+var cmpEl = document.getElementById('cmp');
+var cmpDetail = document.getElementById('cmpDetail');
+var catA = document.getElementById('catAnalytics');
+var catM = document.getElementById('catMarketing');
+
+function loadConsent(){
+  try { var raw = localStorage.getItem(CMP_KEY); if (!raw) return null;
+    var p = JSON.parse(raw); if (Date.now() - p.t > 90*86400*1000) return null;
+    return p;
+  } catch(e){ return null; }
+}
+function saveConsent(c){ try { localStorage.setItem(CMP_KEY, JSON.stringify({ t: Date.now(), analytics: !!c.analytics, marketing: !!c.marketing })); } catch(e){} }
+function applyConsent(c){
+  gtag('consent','update',{
+    analytics_storage: c.analytics ? 'granted' : 'denied',
+    ad_storage: c.marketing ? 'granted' : 'denied',
+    ad_user_data: c.marketing ? 'granted' : 'denied',
+    ad_personalization: c.marketing ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    personalization_storage: c.analytics ? 'granted' : 'denied'
+  });
+  if (c.analytics && !window.__gaLoaded) {
+    window.__gaLoaded = true;
+    var g = document.createElement('script');
+    g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=G-T8YSVSPZ7E';
+    document.head.appendChild(g);
+    gtag('js', new Date()); gtag('config','G-T8YSVSPZ7E',{ anonymize_ip:true });
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w8acp9qnxk");
+  }
+  window.dataLayer.push({ event: 'cmp_consent_update', consent_analytics: c.analytics, consent_marketing: c.marketing });
+}
+function showCmp(){ cmpEl.classList.add('show'); cmpEl.setAttribute('aria-hidden','false'); }
+function hideCmp(){ cmpEl.classList.remove('show'); cmpEl.setAttribute('aria-hidden','true'); cmpDetail.classList.remove('show'); }
+function bindToggle(el){ if (!el || el.classList.contains('locked')) return; el.addEventListener('click', function(){ var on = el.classList.toggle('on'); el.setAttribute('aria-checked', on ? 'true' : 'false'); }); }
+bindToggle(catA); bindToggle(catM);
+document.getElementById('cmpCustomize').addEventListener('click', function(){ cmpDetail.classList.toggle('show'); });
+document.getElementById('cmpAccept').addEventListener('click', function(){
+  var c = cmpDetail.classList.contains('show')
+    ? { analytics: catA.classList.contains('on'), marketing: catM.classList.contains('on') }
+    : { analytics: true, marketing: true };
+  saveConsent(c); applyConsent(c); hideCmp();
+});
+document.getElementById('cmpReject').addEventListener('click', function(){ var c = { analytics:false, marketing:false }; saveConsent(c); applyConsent(c); hideCmp(); });
+document.getElementById('cmpReopen').addEventListener('click', function(){
+  var saved = loadConsent() || { analytics:false, marketing:false };
+  catA.classList.toggle('on', !!saved.analytics);
+  catM.classList.toggle('on', !!saved.marketing);
+  cmpDetail.classList.add('show'); showCmp();
+});
+(function(){ var saved = loadConsent(); if (saved) { applyConsent(saved); } else { setTimeout(showCmp, 600); } })();
+
+/* ============================================================
+   Email modal
+   ============================================================ */
+var emailModal = document.getElementById('emailModal');
+var emailForm = document.getElementById('emailForm');
+var emailInput = document.getElementById('email');
+var emailErr = document.getElementById('email-err');
+var modalSuccess = document.getElementById('modalSuccess');
+function openEmail(){ emailModal.classList.add('open'); emailModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(function(){ emailInput.focus(); }, 100); window.dataLayer.push({ event:'form_open', form_name:'email_signup' }); }
+function closeEmail(){ emailModal.classList.remove('open'); emailModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+document.querySelectorAll('[data-open-email]').forEach(function(el){ el.addEventListener('click', function(e){ e.preventDefault(); openEmail(); }); });
+document.getElementById('modalClose').addEventListener('click', closeEmail);
+emailModal.addEventListener('click', function(e){ if (e.target === emailModal) closeEmail(); });
+document.addEventListener('keydown', function(e){ if (e.key==='Escape' && emailModal.classList.contains('open')) closeEmail(); });
+emailInput.addEventListener('input', function(){ if (emailInput.validity.valid || emailInput.value.length===0) emailErr.classList.remove('show'); });
+emailForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  if (document.getElementById('website').value.length > 0) { modalSuccess.classList.add('show'); emailForm.style.display='none'; return; }
+  if (!emailInput.validity.valid) { emailErr.classList.add('show'); emailInput.focus(); window.dataLayer.push({ event:'form_error', form_name:'email_signup', error_type:'invalid_email' }); return; }
+  console.info('[email_signup]', { email: emailInput.value });
+  window.dataLayer.push({ event:'generate_lead', form_name:'email_signup' });
+  modalSuccess.classList.add('show'); emailForm.style.display='none';
+  setTimeout(closeEmail, 2400);
+});
+</script>
+
+</body>
+</html>
