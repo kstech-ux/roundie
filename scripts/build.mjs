@@ -344,8 +344,14 @@ function buildLocaleHtml(templateHtml, lang) {
    Bundle CSS (tokens + 6 motion files)
    ============================================================ */
 function bundleCss() {
+  /* Order matters:
+     1. tokens.css   — CSS variables (must come first)
+     2. main.css     — layout / typography / components (uses variables)
+     3. motion/*.css — overlays animations on top
+  */
   const files = [
     'src/tokens/tokens.css',
+    'src/styles/main.css',
     'src/motion/kt-a-breath.css',
     'src/motion/kt-c-pulse.css',
     'src/motion/sc-a-fade.css',
