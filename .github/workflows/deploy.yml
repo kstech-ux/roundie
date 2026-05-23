@@ -1,4 +1,4 @@
-name: Deploy to gh-pages branch
+name: Deploy static HP to gh-pages
 
 on:
   push:
@@ -9,33 +9,22 @@ permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install deps
-        run: npm ci
-
-      - name: Build SSG (dist/)
-        run: npm run build
-
       - name: Add .nojekyll
-        run: touch dist/.nojekyll
+        run: touch .nojekyll
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: .
           publish_branch: gh-pages
           force_orphan: true
+          exclude_assets: '.github,node_modules,dist,src,docs,scripts,public,package.json,package-lock.json,README.md,CLAUDE.md,.env.example,.gitignore'
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'deploy: ${{ github.sha }}'

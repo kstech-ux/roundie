@@ -1,399 +1,788 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ROUNDIE LP — Handoff Package · Claude Code</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg-0:#0a0a08; --bg-1:#111110; --bg-2:#181816; --bg-3:#21211e;
-    --line:#2a2a26; --line-soft:#1f1f1c;
-    --ink-0:#ebe8de; --ink-1:#c6c2b5; --ink-2:#8b887d; --ink-3:#5a5851;
-    --green-300:#c1f0c5; --green-400:#95e89e; --green-500:#4adb5c; --green-600:#3ac44a; --green-700:#279e36;
-    --rc-eagle:#f5c419; --rc-birdie:#e94d4d; --rc-par:#4adb5c; --rc-bogey:#3cade7; --rc-double:#6e5bd5;
-    --warn:#e6c869; --err:#e87a5b;
-    --f-mincho:"Shippori Mincho B1","Hiragino Mincho ProN",serif;
-    --f-sans:"Noto Sans JP","Inter",system-ui,sans-serif;
-    --f-mono:"JetBrains Mono",ui-monospace,monospace;
-    --r-1:6px; --r-2:10px; --r-3:14px; --r-5:28px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg-0);color:var(--ink-0);font-family:var(--f-sans);font-size:14.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
-  ::selection{background:var(--green-500);color:var(--bg-0)}
-  a{color:var(--green-400);text-decoration:none;border-bottom:1px dotted var(--green-700)}
-  a:hover{color:var(--green-500)}
-  code,pre{font-family:var(--f-mono)}
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8YSVSPZ7E"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-T8YSVSPZ7E')</script>
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w8acp9qnxk")</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>ROUNDIE — Shape your round, keep what lasts</title>
+  <meta name="description" content="ROUNDIE — ゴルフの体験と記憶を、かたちに残す。Record, shape, share, and grow — round by round.">
+  <meta property="og:title" content="ROUNDIE — Shape your round, keep what lasts">
+  <meta property="og:description" content="ゴルフの体験と記憶を、かたちに残す。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://roundie.app/">
+  <link rel="canonical" href="https://roundie.app/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='70' font-weight='900' fill='%2381C784' font-family='Arial'>R</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050507;--bg2:#09090D;--card:#0E0E14;--t1:#EDEDEF;--t2:#6E6E7E;--t3:#35354A;--ac:#81C784;--acg:rgba(129,199,132,.1);--gold:#D4A857;--bd:rgba(255,255,255,.05)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.9;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--ac);color:var(--bg)}
+    h1,h2,h3{font-family:'Space Grotesk',sans-serif}
+    .sp{display:none}@media(max-width:640px){.sp{display:inline}}
+    [data-l]{display:none}[data-l].a{display:inline}
+    [data-b]{display:none}[data-b].a{display:block}
 
-  .wrap{max-width:1200px;margin:0 auto;padding:56px 40px 96px}
+    nav{padding:24px 48px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);position:sticky;top:0;background:rgba(5,5,7,.95);backdrop-filter:blur(20px);z-index:50}
+    .nl{font-size:12px;font-weight:700;letter-spacing:8px;color:var(--ac);text-decoration:none}
+    .nb{display:flex;align-items:center;gap:16px}
+    .nb a{font-size:10px;color:var(--t2);text-decoration:none;letter-spacing:2px;transition:color .2s}
+    .nb a:hover{color:var(--ac)}
+    .ng{display:flex;gap:2px}
+    .ng a{padding:4px 8px;border-radius:3px;font-size:9px;font-weight:700;color:var(--t3);text-decoration:none;letter-spacing:2px;transition:all .2s;cursor:pointer}
+    .ng a.a{color:var(--ac);background:var(--acg)}
+    @media(max-width:768px){nav{padding:16px 24px}.nb a:not(.lng){display:none}}
 
-  /* breadcrumb */
-  .bc{font-family:var(--f-mono);font-size:11px;letter-spacing:0.16em;color:var(--ink-3);text-transform:uppercase;margin-bottom:32px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .bc a{color:var(--ink-2);border:none}
-  .bc .here{color:var(--green-400)}
+    .si{max-width:820px;margin:0 auto;padding:0 48px}
+    @media(max-width:768px){.si{padding:0 24px}}
+    section{padding:clamp(80px,12vw,140px) 48px}
+    @media(max-width:768px){section{padding:80px 24px}}
+    .sl{font-size:9px;font-weight:700;letter-spacing:6px;color:var(--ac);text-transform:uppercase;margin-bottom:16px}
+    .sec-h{font-size:clamp(24px,3.8vw,38px);font-weight:600;letter-spacing:-.5px;margin-bottom:18px;line-height:1.25}
+    .sec-sub{font-size:15px;color:var(--t2);margin-bottom:32px;line-height:1.8}
+    .rv{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(.25,.8,.25,1)}
+    .rv.v{opacity:1;transform:translateY(0)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:6px;font-family:'Inter';font-size:11px;font-weight:600;letter-spacing:1px;text-decoration:none;transition:all .35s;border:none;cursor:pointer}
+    .btn-a{background:var(--ac);color:var(--bg)}.btn-a:hover{box-shadow:0 0 40px var(--acg);transform:translateY(-1px)}
+    .btn-g{background:transparent;color:var(--t2);border:1px solid var(--bd);margin-left:8px}.btn-g:hover{border-color:var(--ac);color:var(--ac)}
 
-  /* hero */
-  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:0.18em;color:var(--ink-2);text-transform:uppercase;margin-bottom:24px}
-  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--green-500);box-shadow:0 0 0 4px rgba(74,219,92,0.12)}
-  h1{font-family:var(--f-mincho);font-weight:500;font-size:clamp(40px,5.5vw,72px);line-height:1.1;letter-spacing:0.02em;margin:0 0 24px;text-wrap:balance}
-  h1 em{font-style:normal;color:var(--green-500)}
-  .lede{color:var(--ink-1);font-size:17px;line-height:1.85;max-width:60ch;text-wrap:pretty;margin:0 0 36px}
-  .lede b{color:var(--ink-0)}
+    .hero{min-height:90vh;display:flex;align-items:center;justify-content:center;padding:clamp(100px,14vw,160px) 48px clamp(80px,10vw,120px);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--acg),transparent 70%);animation:breathe 16s ease-in-out infinite;pointer-events:none}
+    @keyframes breathe{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(1)}50%{opacity:.6;transform:translate(-50%,-50%) scale(1.1)}}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:900px;position:relative;z-index:1}
+    @media(max-width:768px){.hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}}
+    .hero-text h1{font-size:clamp(40px,7vw,72px);font-weight:900;letter-spacing:12px;margin-bottom:16px;line-height:1;color:var(--ac)}
+    .hero-text .tagline{font-size:clamp(15px,1.8vw,19px);color:var(--t1);margin-bottom:12px;line-height:1.6;font-weight:500}
+    .hero-text .tagline em{font-style:normal;color:var(--ac);font-weight:700}
+    .hero-text .brand{font-family:'Space Grotesk';font-size:13px;font-weight:500;color:var(--t2);letter-spacing:1px;margin-bottom:32px;line-height:1.8}
+    .hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+    @media(max-width:768px){.hero-btns{justify-content:center}}
 
-  .meta-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 64px}
-  .meta-row > div{padding:0 18px;border-right:1px solid var(--line-soft)}
-  .meta-row > div:last-child{border-right:none}
-  .meta-row dt{font-family:var(--f-mono);font-size:9.5px;letter-spacing:0.18em;color:var(--ink-3);text-transform:uppercase;margin-bottom:6px}
-  .meta-row dd{margin:0;font-size:13px;color:var(--ink-1)}
+    .phone{width:240px;margin:0 auto;background:var(--card);border-radius:32px;border:2px solid var(--bd);padding:36px 14px 22px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 80px var(--acg)}
+    .phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:48px;height:4px;border-radius:2px;background:var(--bd)}
+    .ph-h{text-align:center;margin-bottom:10px}
+    .ph-h .l1{font-size:8px;font-weight:700;color:var(--t3);letter-spacing:2px;text-transform:uppercase}
+    .ph-h .l2{font-size:22px;font-weight:700;color:var(--ac);margin-top:2px;font-family:'Space Grotesk'}
+    .mg{display:grid;grid-template-columns:repeat(9,1fr);gap:2px}
+    .mg div{aspect-ratio:1;border-radius:16%}
+    .ph-b{display:flex;justify-content:space-around;margin-top:12px;padding-top:10px;border-top:1px solid var(--bd)}
+    .ph-b .s{text-align:center}
+    .ph-b .n{font-size:14px;font-weight:700;color:var(--t1)}
+    .ph-b .l{font-size:7px;color:var(--t3);letter-spacing:1px}
 
-  /* download cards */
-  .download-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:64px}
-  .dl-card{background:linear-gradient(180deg,rgba(74,219,92,0.08),var(--bg-1));border:1px solid var(--green-700);border-radius:var(--r-3);padding:28px 32px;position:relative;overflow:hidden}
-  .dl-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 100% 0%,rgba(74,219,92,0.12),transparent 60%);pointer-events:none}
-  .dl-card .lbl{position:relative;font-family:var(--f-mono);font-size:10px;letter-spacing:0.2em;color:var(--green-400);text-transform:uppercase;margin-bottom:14px}
-  .dl-card h3{position:relative;font-family:var(--f-mincho);font-weight:500;font-size:24px;line-height:1.3;margin:0 0 12px;color:var(--ink-0)}
-  .dl-card p{position:relative;color:var(--ink-1);font-size:13px;margin:0 0 20px;line-height:1.75}
-  .dl-card .stat{position:relative;display:flex;gap:24px;padding-top:18px;border-top:1px dashed var(--line)}
-  .dl-card .stat div{display:flex;flex-direction:column;gap:2px}
-  .dl-card .stat .v{font-family:var(--f-mono);font-size:18px;color:var(--green-400);letter-spacing:0.02em}
-  .dl-card .stat .k{font-family:var(--f-mono);font-size:9px;letter-spacing:0.18em;color:var(--ink-3);text-transform:uppercase}
-  .dl-card.canva{background:linear-gradient(180deg,rgba(110,91,213,0.08),var(--bg-1));border-color:#6e5bd5}
-  .dl-card.canva .lbl{color:#a39de5}
-  .dl-card.canva .stat .v{color:#a39de5}
+    .alt{background:var(--bg2)}
 
-  /* section */
-  section{margin-bottom:72px;border-top:1px solid var(--line-soft);padding-top:56px}
-  section.first{border-top:none;padding-top:0}
-  .step{font-family:var(--f-mono);font-size:10px;letter-spacing:0.2em;color:var(--green-400);text-transform:uppercase;margin-bottom:6px;display:block}
-  h2{font-family:var(--f-mincho);font-weight:500;font-size:clamp(28px,3vw,38px);line-height:1.2;letter-spacing:0.02em;margin:0 0 16px;color:var(--ink-0);text-wrap:balance}
-  .sub{color:var(--ink-1);font-size:15px;line-height:1.85;max-width:72ch;margin:0 0 36px;text-wrap:pretty}
-  .sub b{color:var(--ink-0)}
+    .ftrs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+    @media(max-width:640px){.ftrs{grid-template-columns:1fr}}
+    .ftr{padding:26px 22px;border-radius:16px;background:var(--card);border:1px solid var(--bd);transition:border-color .3s,transform .3s;display:flex;flex-direction:column}
+    .ftr:hover{border-color:var(--ac);transform:translateY(-2px)}
+    .ftr .ic{font-size:24px;margin-bottom:10px;opacity:.85}
+    .ftr .ti{font-size:14px;font-weight:700;color:var(--ac);margin-bottom:8px;letter-spacing:1px;font-family:'Space Grotesk'}
+    .ftr .dc{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:14px}
 
-  /* file tree */
-  .tree{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:var(--r-2);padding:24px 28px;font-family:var(--f-mono);font-size:12.5px;line-height:1.85;color:var(--ink-1);white-space:pre;overflow-x:auto}
-  .tree .d{color:var(--ink-0);font-weight:500}
-  .tree .f{color:var(--ink-1)}
-  .tree .c{color:var(--ink-3)}
-  .tree .new{color:var(--green-400)}
-  .tree .star{color:var(--warn)}
+    /* Feature mini-mockup */
+    .ftr-mock{margin-top:auto;padding:14px 12px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05)}
+    .mock-row{display:flex;align-items:center;gap:8px}
+    .mock-meta{font-size:9px;color:var(--t3);letter-spacing:.5px}
+    .mock-avatar{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#0A0A0A;font-size:10px;font-weight:800;flex-shrink:0;font-family:'Space Grotesk'}
+    .mock-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px}
+    .mock-grid > div{aspect-ratio:1;border-radius:16%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.35);line-height:1}
+    .mock-bar{display:flex;align-items:center;gap:8px;font-size:10px;margin-bottom:5px}
+    .mock-bar .lbl{width:38px;font-weight:700;color:var(--ac);font-family:'Space Grotesk';font-size:9px;letter-spacing:1px}
+    .mock-bar .trk{flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;display:block}
+    .mock-bar .fil{display:block;height:100%;background:var(--ac);border-radius:3px;transition:width .4s ease}
+    .mock-bar .val{font-family:'Space Grotesk';font-weight:700;color:var(--t1);min-width:36px;text-align:right;font-size:10px}
+    .mock-chip{font-size:9px;padding:3px 8px;border-radius:6px;font-weight:700;letter-spacing:.8px}
+    .mock-feed-tile{width:7px;height:7px;border-radius:2px}
+    .mock-podium{display:flex;justify-content:center;align-items:flex-end;gap:14px}
+    .mock-podium .p{text-align:center}
+    .mock-photo{aspect-ratio:1;border-radius:5px}
+    .mock-emoji{font-size:14px}
 
-  /* 8 views grid */
-  .views{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .view{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:var(--r-2);padding:20px 22px;display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start}
-  .view .v{font-family:var(--f-mono);font-size:10px;letter-spacing:0.18em;color:var(--green-400);text-transform:uppercase;padding-top:4px}
-  .view h6{margin:0 0 6px;font-family:var(--f-mincho);font-weight:500;font-size:17px;color:var(--ink-0);line-height:1.3}
-  .view p{margin:0;font-size:12.5px;color:var(--ink-1);line-height:1.7}
+    .score-system{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+    @media(max-width:640px){.score-system{grid-template-columns:1fr}}
+    .score-pillar{padding:22px 18px;border-radius:14px;background:var(--card);border:1px solid var(--bd);text-align:center}
+    .score-pillar .num{font-family:'Space Grotesk';font-size:32px;font-weight:700;color:var(--ac);margin-bottom:4px}
+    .score-pillar .name{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:10px}
+    .score-pillar .desc{font-size:11px;color:var(--t2);line-height:1.7}
+    .score-pillar .weight{display:inline-block;font-size:9px;font-weight:700;color:var(--ac);background:var(--acg);padding:3px 10px;border-radius:100px;margin-top:10px;letter-spacing:1px}
 
-  /* sections table */
-  .sec-table{width:100%;border-collapse:collapse;font-size:12.5px}
-  .sec-table th,.sec-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
-  .sec-table th{font-family:var(--f-mono);font-size:9.5px;letter-spacing:0.18em;color:var(--ink-3);text-transform:uppercase;padding-top:0;padding-bottom:14px;border-bottom:1px solid var(--line)}
-  .sec-table .num{font-family:var(--f-mono);color:var(--green-400);font-size:11px;letter-spacing:0.1em}
-  .sec-table .nm{color:var(--ink-0);font-weight:500;font-family:var(--f-mincho);font-size:14px}
-  .sec-table .dir{display:inline-block;padding:2px 8px;border-radius:99px;font-family:var(--f-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase}
-  .sec-table .dir.refined{background:rgba(74,219,92,0.1);color:var(--green-400);border:1px solid var(--green-700)}
-  .sec-table .dir.bold{background:rgba(110,91,213,0.1);color:#a39de5;border:1px solid #6e5bd5}
-  .sec-table .dir.safe{background:rgba(122,166,232,0.1);color:#7aa6e8;border:1px solid #4a7ab5}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+    @media(max-width:768px){.pricing-grid{grid-template-columns:1fr}}
+    .pricing-card{padding:30px 24px;border-radius:18px;background:var(--card);border:1px solid var(--bd);position:relative;transition:all .3s}
+    .pricing-card.pop{border-color:var(--ac);box-shadow:0 0 40px var(--acg)}
+    .pricing-card.pop::before{content:'BEST VALUE';position:absolute;top:-10px;right:20px;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--bg);background:var(--ac);padding:4px 10px;border-radius:100px;font-family:'Space Grotesk'}
+    .pricing-card .name{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--ac);margin-bottom:14px;text-transform:uppercase;font-family:'Space Grotesk'}
+    .pricing-card .price{font-size:34px;font-weight:700;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk'}
+    .pricing-card .period{font-size:11px;color:var(--t3);margin-bottom:18px}
+    .pricing-card .discount{display:inline-block;font-size:10px;font-weight:700;color:var(--ac);background:var(--acg);padding:3px 10px;border-radius:100px;margin-bottom:18px;font-family:'Space Grotesk'}
+    .pricing-card ul{list-style:none;padding:0;margin:18px 0}
+    .pricing-card ul li{font-size:12px;color:var(--t2);padding:6px 0;border-bottom:1px solid var(--bd);position:relative;padding-left:22px;line-height:1.6}
+    .pricing-card ul li:last-child{border-bottom:none}
+    .pricing-card ul li::before{content:'✓';position:absolute;left:4px;color:var(--ac);font-weight:700;font-size:11px}
 
-  /* issues */
-  .issues{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-  .issue{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:var(--r-2);padding:16px 20px;display:grid;grid-template-columns:36px 56px 1fr;gap:14px;align-items:start}
-  .issue .pri{font-family:var(--f-mono);font-size:10px;letter-spacing:0.14em;font-weight:600;padding:3px 8px;border-radius:4px;text-align:center;line-height:1.4}
-  .issue.p1 .pri{background:rgba(233,77,77,0.15);color:var(--rc-birdie);border:1px solid var(--rc-birdie)}
-  .issue.p2 .pri{background:rgba(230,200,105,0.12);color:var(--warn);border:1px solid var(--warn)}
-  .issue.p3 .pri{background:rgba(122,166,232,0.12);color:#7aa6e8;border:1px solid #4a7ab5}
-  .issue .id{font-family:var(--f-mono);font-size:10px;letter-spacing:0.14em;color:var(--ink-3)}
-  .issue .ttl{font-family:var(--f-mincho);color:var(--ink-0);font-size:14px;margin-bottom:6px;line-height:1.4}
-  .issue .desc{font-size:11.5px;color:var(--ink-2);line-height:1.7}
-  .issue .status{display:inline-block;margin-top:8px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:0.14em;color:var(--green-400);text-transform:uppercase}
-  .issue .status.pending{color:var(--warn)}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+    @media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.steps{grid-template-columns:1fr}}
+    .step{padding:22px 18px;border-radius:14px;background:var(--card);border:1px solid var(--bd);text-align:center}
+    .step .num{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--ac);margin-bottom:12px;font-family:'Space Grotesk'}
+    .step h4{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--t1)}
+    .step p{font-size:11px;color:var(--t2);line-height:1.7;margin-top:10px}
 
-  /* tokens preview */
-  .tok-row{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:14px}
-  .sw{aspect-ratio:1;border-radius:var(--r-1);display:flex;flex-direction:column;justify-content:flex-end;padding:8px 10px;font-family:var(--f-mono);font-size:9px;letter-spacing:0.06em}
-  .sw.dark{color:var(--ink-0)}
-  .sw small{display:block;font-size:8px;letter-spacing:0.14em;opacity:0.7;margin-bottom:2px}
+    .cards-row{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+    @media(max-width:640px){.cards-row{grid-template-columns:1fr}}
+    .info-card{padding:28px 24px;border-radius:16px;background:var(--card);border:1px solid var(--bd)}
+    .info-card h3{font-size:18px;font-weight:600;margin-bottom:14px;color:var(--t1)}
+    .info-card p{font-size:13px;color:var(--t2);line-height:1.8}
 
-  /* AC checklist */
-  .ac-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .ac{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:var(--r-1);padding:12px 16px;display:grid;grid-template-columns:24px 60px 1fr 90px;gap:12px;align-items:center;font-size:12px}
-  .ac .ck{width:14px;height:14px;border:1.5px solid var(--green-600);border-radius:3px;justify-self:center}
-  .ac .acid{font-family:var(--f-mono);font-size:10px;letter-spacing:0.14em;color:var(--green-400)}
-  .ac .lbl{color:var(--ink-0);font-size:12.5px;line-height:1.4}
-  .ac .own{font-family:var(--f-mono);font-size:9px;letter-spacing:0.14em;color:var(--ink-3);text-align:right;text-transform:uppercase}
+    .cta-final{text-align:center;background:var(--bg2);padding:clamp(80px,12vw,140px) 48px}
+    .cta-final h2{font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:16px;line-height:1.3;font-family:'Space Grotesk'}
+    .cta-final p{font-size:14px;color:var(--t2);margin-bottom:32px;line-height:1.8}
 
-  /* footer block */
-  .closing{background:linear-gradient(180deg,rgba(74,219,92,0.06),var(--bg-1));border:1px solid var(--green-700);border-radius:var(--r-5);padding:48px 56px;text-align:center;margin-top:80px}
-  .closing .by{font-family:var(--f-mono);font-size:10px;letter-spacing:0.2em;color:var(--green-400);text-transform:uppercase;margin-bottom:18px}
-  .closing h2{font-size:clamp(32px,4vw,52px);margin:0 0 18px}
-  .closing h2 em{font-style:normal;color:var(--green-500)}
-  .closing p{color:var(--ink-1);font-size:14px;max-width:50ch;margin:0 auto;line-height:1.85}
+    footer{background:#000;padding:40px 48px;text-align:center;border-top:1px solid var(--bd)}
+    @media(max-width:768px){footer{padding:32px 24px}}
+    footer .links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:18px}
+    footer .links a{font-size:11px;color:var(--t2);text-decoration:none;letter-spacing:1px;transition:color .2s}
+    footer .links a:hover{color:var(--ac)}
+    footer .copy{font-size:10px;color:var(--t3);letter-spacing:2px}
 
-  @media (max-width:880px){
-    .wrap{padding:32px 20px 64px}
-    .download-row,.views,.issues,.ac-list{grid-template-columns:1fr}
-    .meta-row{grid-template-columns:repeat(2,1fr)}
-    .meta-row > div{border-right:none;border-bottom:1px solid var(--line-soft);padding:8px 0}
-  }
-</style>
+    .quote-block{margin:48px 0;padding:36px 32px;border-left:3px solid var(--ac);background:var(--card);border-radius:0 12px 12px 0}
+    .quote-block p{font-size:clamp(17px,2.2vw,22px);font-weight:300;line-height:1.8;color:var(--t1)}
+    .quote-block p strong{font-weight:500;color:var(--ac)}
+  </style>
 </head>
 <body>
 
-<div class="wrap">
-
-  <!-- BREADCRUMB -->
-  <div class="bc">
-    <a href="../strategy/index.html#cover">Step 0–2</a><span>›</span>
-    <a href="../strategy/step3.html#cover">Step 3</a><span>›</span>
-    <a href="../strategy/step4.html#cover">Step 4</a><span>›</span>
-    <a href="../strategy/step5.html#cover">Step 5</a><span>›</span>
-    <a href="../strategy/step6.html#cover">Step 6</a><span>›</span>
-    <a href="../strategy/step7.html#cover">Step 7</a><span>›</span>
-    <a href="../strategy/step8.html#cover">Step 8</a><span>›</span>
-    <a href="../strategy/step9.html#cover">Step 9</a><span>›</span>
-    <a href="../strategy/step10.html#cover">Step 10</a><span>›</span>
-    <span class="here">HANDOFF PACKAGE</span>
-  </div>
-
-  <!-- HERO -->
-  <p class="eyebrow"><span class="dot"></span>ROUNDIE / LP RENEWAL — CLAUDE CODE HANDOFF</p>
-  <h1>10 ステップの設計が、<br><em>1 つの封筒</em>に収まった。</h1>
-  <p class="lede">
-    Step 0 から Step 10 までの全文書を <b>Claude Code が直接読み込める実体ファイル</b>に翻訳した。トークン、3 言語コピー、モーション CSS、構造化データ、契約文書、受入チェック、30 日プレイブック ── すべて <code>handoff/</code> 配下に。<b>引き渡したら、実装者が "ここから先は私の仕事" と迷わない状態。</b>これが Step 10 の責務の完了形。
-  </p>
-
-  <dl class="meta-row">
-    <div><dt>FILES</dt><dd>34 ファイル · 7 ディレクトリ</dd></div>
-    <div><dt>FORMAT</dt><dd>Claude Code 直読可能</dd></div>
-    <div><dt>CONTRACT</dt><dd>8 視点 · 12 受入条件</dd></div>
-    <div><dt>STATUS</dt><dd><span style="color:var(--green-400)">●</span> READY TO HANDOFF</dd></div>
-  </dl>
-
-  <!-- DOWNLOAD ROW -->
-  <div class="download-row">
-    <div class="dl-card">
-      <div class="lbl">TRACK B · CLAUDE CODE</div>
-      <h3>handoff/ フォルダ一式</h3>
-      <p>静的 LP 実装に必要な一次情報。<b>tokens.css / content/*.json / motion/*.css / 構造化データ / docs/</b> が梱包済。チャット下部のダウンロードカードから ZIP で取得。</p>
-      <div class="stat">
-        <div><span class="v">34</span><span class="k">FILES</span></div>
-        <div><span class="v">7</span><span class="k">DIRS</span></div>
-        <div><span class="v">3</span><span class="k">LANG</span></div>
-        <div><span class="v">11</span><span class="k">SECTIONS</span></div>
-      </div>
-    </div>
-    <div class="dl-card canva">
-      <div class="lbl">TRACK A · CANVA (別ルート)</div>
-      <h3>Canva 編集パック</h3>
-      <p>11 セクション × 4 BP = 44 アートボード + 3 言語レイヤ + 演出 MP4 × 5。<b>Canva チーム機能</b>で別途共有。本リポジトリには含まれない (コピー仕様の "源" として参照される)。</p>
-      <div class="stat">
-        <div><span class="v">44</span><span class="k">FRAMES</span></div>
-        <div><span class="v">3</span><span class="k">LANG</span></div>
-        <div><span class="v">5</span><span class="k">MOTION MP4</span></div>
-        <div><span class="v">—</span><span class="k">SHARED LINK</span></div>
-      </div>
+<nav>
+  <a href="https://kanopy-inc.com/" class="nl">KANOPY</a>
+  <div class="nb">
+    <a href="https://kanopy-inc.com/"><span data-l="en">← KANOPY</span><span data-l="ja" class="a">← KANOPY</span><span data-l="ko">← KANOPY</span></a>
+    <a href="#features"><span data-l="en">Features</span><span data-l="ja" class="a">機能</span><span data-l="ko">기능</span></a>
+    <a href="#pricing">Pricing</a>
+    <a href="/faq/">FAQ</a>
+    <div class="ng">
+      <a class="lng" onclick="sl('en',this)">EN</a>
+      <a class="a lng" onclick="sl('ja',this)">JA</a>
+      <a class="lng" onclick="sl('ko',this)">KO</a>
     </div>
   </div>
+</nav>
 
-
-  <!-- TREE -->
-  <section class="first">
-    <span class="step">FOLDER STRUCTURE</span>
-    <h2>梱包内容 ─ <code style="font-size:0.7em;color:var(--green-400)">handoff/</code> 配下</h2>
-    <p class="sub">Step 10.2 の repo ツリーをそのまま実装。各ファイルは Claude Code が <code>read_file</code> で直接読み込めばすぐ仕様が分かる構造。</p>
-<pre class="tree"><span class="d">handoff/</span>
-├── <span class="f new">README.md</span>                   <span class="c"># 封筒の表紙 + 8 視点契約サマリ</span>
-├── <span class="f new">CLAUDE.md</span>                   <span class="c"># Claude Code 向け作業指示 (絶対原則 / PR ルール)</span>
-├── <span class="f">package.json</span>
-├── <span class="f">.env.example</span>               <span class="c"># GA4_ID / FORM_ENDPOINT / CSP_REPORT_URI</span>
-├── <span class="d">public/</span>
-│   ├── <span class="f new">index.html</span>             <span class="c"># 11 セクション骨格 (data-i18n 属性付き)</span>
-│   ├── <span class="f">robots.txt</span>
-│   └── <span class="f">sitemap.xml</span>            <span class="c"># /ja /en /ko の 3 ロケール</span>
-├── <span class="d">src/</span>
-│   ├── <span class="d">tokens/</span>
-│   │   ├── <span class="f new">tokens.css</span>          <span class="c"># 14 色 + 8 type + 9 spacing + 7 easing — 唯一の正本</span>
-│   │   └── <span class="f new">tokens.json</span>         <span class="c"># Style Dictionary 互換 / Figma 同期源</span>
-│   ├── <span class="d">content/</span>
-│   │   ├── <span class="f new">ja.json</span>             <span class="c"># Step 5.A 採用コピー · 日本語 (本番)</span>
-│   │   ├── <span class="f new">en.json</span>             <span class="c"># Step 5.A 採用コピー · 英語</span>
-│   │   └── <span class="f new">ko.json</span>             <span class="c"># Step 5.A + ISS-01/02 短縮版適用済</span>
-│   ├── <span class="d">motion/</span>
-│   │   ├── <span class="f new">kt-a-breath.css</span>     <span class="c"># Hero H1 ウェイト呼吸 5s loop</span>
-│   │   ├── <span class="f new">kt-c-pulse.css</span>      <span class="c"># 句点脈動 1.4s loop</span>
-│   │   ├── <span class="f new">sc-a-fade.css</span>       <span class="c"># VISION フェードライズ (scroll-driven)</span>
-│   │   ├── <span class="f new">rc-form.css</span>         <span class="c"># Round Card 18 セル形成 stagger 60ms</span>
-│   │   ├── <span class="f new">mi-states.css</span>       <span class="c"># MI-1 hover / MI-2 focus / MI-3 hint / MI-4 acc</span>
-│   │   └── <span class="f new">reduced-motion.css</span>  <span class="c"># prefers-reduced-motion 全演出停止</span>
-│   ├── <span class="d">structured-data/</span>
-│   │   ├── <span class="f new">organization.json</span>
-│   │   ├── <span class="f new">software-app.json</span>
-│   │   ├── <span class="f new">faq-page.json</span>
-│   │   ├── <span class="f new">breadcrumb.json</span>
-│   │   └── <span class="f new">product-pricing.json</span>
-│   └── <span class="d">scripts/</span>
-│       ├── <span class="f new">analytics.js</span>        <span class="c"># GA4 14 イベント · Consent Mode v2 · 1st party proxy</span>
-│       ├── <span class="f new">i18n.js</span>             <span class="c"># data-i18n バインディング</span>
-│       ├── <span class="f new">faq.js</span>              <span class="c"># &lt;details&gt; 増強 (JS off でも動く)</span>
-│       └── <span class="f new">kudos-demo.js</span>       <span class="c"># LP 内 Kudos デモ</span>
-└── <span class="d">docs/</span>
-    ├── <span class="f new">8-VIEWS-CONTRACT.md</span>    <span class="c"># 8 視点の全文 — 契約条文 (変更不可)</span>
-    ├── <span class="f new">SECTIONS.md</span>            <span class="c"># 11 セクション実装仕様</span>
-    ├── <span class="f new">GA4-EVENTS.md</span>          <span class="c"># 14 イベント定義</span>
-    ├── <span class="f new">ACCEPTANCE.md</span>          <span class="c"># 12 受入ゲート</span>
-    ├── <span class="f new">OPEN-ISSUES.md</span>         <span class="c"># 9.6 残課題 7 件</span>
-    ├── <span class="f new">RUNBOOK-30D.md</span>         <span class="c"># D0 → D30 プレイブック</span>
-    └── <span class="f new">DESIGN-SYSTEM.md</span>       <span class="c"># Step 2 抜粋</span></pre>
-  </section>
-
-
-  <!-- 8 VIEWS -->
-  <section>
-    <span class="step">CONTRACT</span>
-    <h2>8 視点 1 行契約 ─ README 表紙に同梱</h2>
-    <p class="sub">受け取り側が最初に読む 8 行。実装中に迷ったとき、これに照らして判断する。<b>合意済みの契約条文として変更禁止</b>。PR description には <code>[Affects: B-CRO, G-A11Y · Untouched: A,C,D,E,F,H]</code> を必置。</p>
-    <div class="views">
-      <div class="view"><span class="v">A · SEO</span><div><h6>機械可読な詩。</h6><p>JSON-LD 5 種 + AEO 用の "1 文 1 主張"。ヒトの詩と機械の構造を同じ場所に。</p></div></div>
-      <div class="view"><span class="v">B · CRO</span><div><h6>煽らず、9% を目指す。</h6><p>6 段ファネル / 4 仮説 A/B。ダークパターン禁止。意図破壊の A/B も禁止。</p></div></div>
-      <div class="view"><span class="v">C · 計測</span><div><h6>詩的 KPI も追う。</h6><p>GA4 14 イベント。vision_complete / round_card_form_view / kudos_tap_demo は等しく KPI。</p></div></div>
-      <div class="view"><span class="v">D · 法規</span><div><h6>規制範囲外でも透明に。</h6><p>ステマ規制 + UGC 二重同意。"信頼経済" を法規で支える。</p></div></div>
-      <div class="view"><span class="v">E · SEC</span><div><h6>LP は本体ではない、は禁句。</h6><p>CSP strict-dynamic + nonce、1st party proxy 計測、DKIM 署名メール。</p></div></div>
-      <div class="view"><span class="v">F · PERF</span><div><h6>動きを入れた分、軽くする。</h6><p>LCP &lt; 2s, CLS &lt; 0.05, INP &lt; 200ms, JS &lt; 80KB。CSS animation only。</p></div></div>
-      <div class="view"><span class="v">G · A11Y</span><div><h6>美しさと到達可能性を両立。</h6><p>WCAG 2.2 AA 全項目。動きが情報の主役にならない。色だけで情報を伝えない。</p></div></div>
-      <div class="view"><span class="v">H · EDGE</span><div><h6>失敗の縁こそ設計の証明。</h6><p>9 エッジケース。JS は増強のみ、最悪でも詩は読める。</p></div></div>
-    </div>
-  </section>
-
-
-  <!-- TOKENS PREVIEW -->
-  <section>
-    <span class="step">DESIGN TOKENS</span>
-    <h2>tokens.css ─ 14 色 / 8 type / 9 spacing / 7 motion</h2>
-    <p class="sub">Step 2 で確定したトークンを <b>CSS 変数</b>と <b>JSON</b>で同形に出力。一方を変えれば他方も更新する Style Dictionary パイプ前提。ROUNDIE は色トークンが少ない (基調 7 + Round Card 7) — <b>増やさないことが原則</b>。</p>
-    <div class="tok-row">
-      <div class="sw dark" style="background:#0a0a08"><small>--bg-0</small>#0A0A08</div>
-      <div class="sw dark" style="background:#181816"><small>--bg-2</small>#181816</div>
-      <div class="sw" style="background:#ebe8de;color:#0a0a08"><small>--ink-0</small>#EBE8DE</div>
-      <div class="sw" style="background:#4adb5c;color:#0a0a08"><small>--green-500</small>#4ADB5C</div>
-      <div class="sw" style="background:#f5c419;color:#0a0a08"><small>--rc-eagle</small>#F5C419</div>
-      <div class="sw" style="background:#e94d4d;color:#0a0a08"><small>--rc-birdie</small>#E94D4D</div>
-      <div class="sw" style="background:#3cade7;color:#0a0a08"><small>--rc-bogey</small>#3CADE7</div>
-    </div>
-    <p style="font-family:var(--f-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.1em;margin:14px 0 0">+ 7 more (bg-1, bg-3, ink-1, ink-2, ink-3, green-300..700, rc-par/double/triple/na, semantic 4)</p>
-  </section>
-
-
-  <!-- SECTIONS TABLE -->
-  <section>
-    <span class="step">SECTIONS</span>
-    <h2>11 セクション × 採用方向 × 演出</h2>
-    <p class="sub">B Emotion-First を主軸に、Hero は HC-02 (REFINED + Kinetic Typography)、FEATURES のみ BOLD、FAQ + 先行申し込みは SAFE。詳細は <code>docs/SECTIONS.md</code>。</p>
-    <table class="sec-table">
-      <thead><tr><th>#</th><th>セクション</th><th>採用</th><th>演出</th><th>主 GA4 イベント</th></tr></thead>
-      <tbody>
-        <tr><td class="num">01</td><td class="nm">Hero</td><td><span class="dir refined">REFINED · HC-02</span></td><td>KT-A 呼吸 · KT-C 句点脈動</td><td><code>hero_cta_click</code> · <code>scroll_25</code></td></tr>
-        <tr><td class="num">02</td><td class="nm">VISION</td><td><span class="dir refined">REFINED</span></td><td>SC-A スクロール 4 シーン</td><td><code>vision_complete</code> · <code>scroll_50</code></td></tr>
-        <tr><td class="num">03</td><td class="nm">HOW IT WORKS</td><td><span class="dir refined">REFINED</span></td><td>静的 + 4 ステップ entry</td><td><code>feature_view</code></td></tr>
-        <tr><td class="num">04</td><td class="nm">FEATURES (Bento)</td><td><span class="dir bold">BOLD</span></td><td>RC-FORM 18 セル stagger</td><td><code>round_card_form_view</code> · <code>feature_view</code></td></tr>
-        <tr><td class="num">05</td><td class="nm">ROUNDIE Score</td><td><span class="dir refined">REFINED</span></td><td>3 軸バー grow</td><td><code>feature_view</code></td></tr>
-        <tr><td class="num">06</td><td class="nm">UGC Feed</td><td><span class="dir bold">BOLD</span></td><td>静的 · hover lift</td><td><code>feature_view</code></td></tr>
-        <tr><td class="num">07</td><td class="nm">Kudos & Comments</td><td><span class="dir bold">BOLD</span></td><td>タップ spring scale</td><td><code>kudos_tap_demo</code></td></tr>
-        <tr><td class="num">08</td><td class="nm">コンペ機能</td><td><span class="dir refined">REFINED</span></td><td>静的</td><td><code>feature_view</code></td></tr>
-        <tr><td class="num">09</td><td class="nm">Pricing</td><td><span class="dir refined">REFINED</span></td><td>静的 (縦二段)</td><td><code>pricing_view</code></td></tr>
-        <tr><td class="num">10</td><td class="nm">FAQ + 先行申し込み</td><td><span class="dir safe">SAFE</span></td><td>&lt;details&gt; + MI-4 arrow</td><td><code>faq_open</code> · <code>early_access_signup</code> · <code>android_waitlist_submit</code></td></tr>
-        <tr><td class="num">11</td><td class="nm">Footer</td><td><span class="dir refined">REFINED</span></td><td>詩の余韻 (subtle)</td><td><code>language_switch</code></td></tr>
-      </tbody>
-    </table>
-  </section>
-
-
-  <!-- OPEN ISSUES -->
-  <section>
-    <span class="step">OPEN ISSUES</span>
-    <h2>残課題 ─ Step 9.6 から持ち越し 7 件</h2>
-    <p class="sub">P1 = リリース前必須解決、P2 = β 30 日で再評価、P3 = 運用 SOP 化。<b>P1 2 件は本パッケージで適用済み</b> (KO 短縮版を <code>content/ko.json</code> に同梱)。</p>
-    <div class="issues">
-      <div class="issue p1">
-        <span class="pri">P1</span><span class="id">ISS-01</span>
-        <div><div class="ttl">KO × BP390 FEATURES タイトル多行化</div><div class="desc">Bento タイトルを短縮版に置換。</div><span class="status">● 適用済み (ko.json)</span></div>
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-text rv">
+      <div class="sl">A KANOPY Product · v1.0.11</div>
+      <h1>ROUNDIE</h1>
+      <p class="tagline">
+        <span data-l="en">Shape your round. <em>Keep what lasts.</em></span>
+        <span data-l="ja" class="a">あなたのラウンドを、<br class="sp"><em>かたちに残す。</em></span>
+        <span data-l="ko">당신의 라운드를, <em>형태로.</em></span>
+      </p>
+      <div class="brand">
+        <span data-l="en">A golf social app for the 20s, 30s, and beyond. Record. Shape. Share. Rise — round by round.</span>
+        <span data-l="ja" class="a">20代・30代から始まるゴルフソーシャルアプリ。<br class="sp">記録し、かたちにし、シェアし、仲間と共に成長する。</span>
+        <span data-l="ko">20대·30대부터의 골프 소셜 앱. 기록·형태로·공유·성장.</span>
       </div>
-      <div class="issue p1">
-        <span class="pri">P1</span><span class="id">ISS-02</span>
-        <div><div class="ttl">KO × BP390 FAQ summary 2 行化</div><div class="desc">FAQ question を 16 文字以下に短縮。</div><span class="status">● 適用済み (ko.json)</span></div>
-      </div>
-      <div class="issue p2">
-        <span class="pri">P2</span><span class="id">ISS-03</span>
-        <div><div class="ttl">02 VISION 累積演出</div><div class="desc">Kinetic + Scroll の同時可視を 50% offset で回避。β 30 日で再評価。</div><span class="status pending">○ β 30 日</span></div>
-      </div>
-      <div class="issue p2">
-        <span class="pri">P2</span><span class="id">ISS-04</span>
-        <div><div class="ttl">04 FEATURES RC-FORM GPU 負荷</div><div class="desc">will-change を出現直前付与、終了で剥がす。19 セル目以降は剥がす。</div><span class="status pending">○ rc-form.css 適用</span></div>
-      </div>
-      <div class="issue p2">
-        <span class="pri">P2</span><span class="id">ISS-05</span>
-        <div><div class="ttl">05 Score 色のみ依存</div><div class="desc">aria-label + ラベル文 + stripe overlay の 3 重対応 (index.html 雛形に反映)。</div><span class="status pending">○ 実装フォロー</span></div>
-      </div>
-      <div class="issue p2">
-        <span class="pri">P2</span><span class="id">ISS-06</span>
-        <div><div class="ttl">09 Pricing 比較不足</div><div class="desc">A/B 03 で比較表モーダル ON/OFF を検証。</div><span class="status pending">○ A/B 03</span></div>
-      </div>
-      <div class="issue p3">
-        <span class="pri">P3</span><span class="id">ISS-07</span>
-        <div><div class="ttl">06 UGC β初期プレースホルダ</div><div class="desc">チーム投稿 3 件 + 開示文 (iss07_disclosure キーを同梱)。14 日で実投稿に置換。</div><span class="status pending">○ 運用 SOP</span></div>
+      <div class="hero-btns">
+        <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn btn-a">
+          <span data-l="en">Get Early Access</span>
+          <span data-l="ja" class="a">TestFlightで先行体験</span>
+          <span data-l="ko">선행 액세스 신청</span>
+        </a>
+        <a href="#features" class="btn btn-g">
+          <span data-l="en">See features →</span>
+          <span data-l="ja" class="a">機能を見る →</span>
+          <span data-l="ko">기능 보기 →</span>
+        </a>
       </div>
     </div>
-  </section>
-
-
-  <!-- ACCEPTANCE -->
-  <section>
-    <span class="step">ACCEPTANCE</span>
-    <h2>受入チェック ─ リリース前 12 ゲート</h2>
-    <p class="sub">1 つでも未通過なら <b>リリース不可</b>。詳細は <code>docs/ACCEPTANCE.md</code>。CI で自動検証可能なものは GitHub Actions で必須通過。</p>
-    <div class="ac-list">
-      <div class="ac"><span class="ck"></span><span class="acid">AC-01</span><span class="lbl">Lighthouse Performance ≥ 95 (12 ラン)</span><span class="own">CI · F PERF</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-02</span><span class="lbl">Axe + Pa11y WCAG 2.2 AA 全項目</span><span class="own">CI + QA · G</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-03</span><span class="lbl">Visual Regression 132 セル (差分 &lt; 2%)</span><span class="own">CI · 9.1</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-04</span><span class="lbl">CSP / HSTS / 7 セキュリティヘッダ</span><span class="own">DEVOPS · E</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-05</span><span class="lbl">GA4 14 イベント発火確認</span><span class="own">ANALYTICS · C</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-06</span><span class="lbl">JSON-LD 5 種 Search Console 合格</span><span class="own">SEO · A</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-07</span><span class="lbl">3 言語 × 4 BP の手動読み (KO 母語話者)</span><span class="own">QA · 9.3</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-08</span><span class="lbl">特商法 / プライバシー / 同意バナー</span><span class="own">LEGAL · D</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-09</span><span class="lbl">先行申し込みフォーム E2E + DKIM</span><span class="own">BACKEND · E</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-10</span><span class="lbl">reduced-motion 縮退の目視</span><span class="own">QA · G</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-11</span><span class="lbl">JS off / 3G / フォント未到達のエッジ通過</span><span class="own">QA · H</span></div>
-      <div class="ac"><span class="ck"></span><span class="acid">AC-12</span><span class="lbl">残課題 ISS-01..07 ステータス更新</span><span class="own">PM · 9.6</span></div>
+    <div class="rv">
+      <div class="phone">
+        <div class="ph-h">
+          <div class="l1">Yuki · Sat Apr 12 · Par 72</div>
+          <div class="l2">86</div>
+        </div>
+        <div class="mg" id="vg"></div>
+        <div class="ph-b">
+          <div class="s"><div class="n">40</div><div class="l">OUT</div></div>
+          <div class="s"><div class="n">46</div><div class="l">IN</div></div>
+          <div class="s"><div class="n">86</div><div class="l">TOTAL</div></div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:8px;color:var(--t3);margin-top:10px;letter-spacing:1px">
+        <span data-l="en">* Sample Round Card</span>
+        <span data-l="ja" class="a">* サンプルラウンドカード</span>
+        <span data-l="ko">* 샘플 라운드카드</span>
+      </p>
     </div>
-  </section>
-
-
-  <!-- NEXT -->
-  <section>
-    <span class="step">NEXT STEPS</span>
-    <h2>Claude Code 側で最初にやること</h2>
-    <p class="sub">読む順、書く順を決めておく。<b>順番を間違えると 8 視点契約のいくつかが破られる</b>。</p>
-    <ol style="color:var(--ink-1);font-size:14px;line-height:1.95;padding-left:28px;max-width:72ch">
-      <li><b style="color:var(--ink-0)">README.md → CLAUDE.md → docs/8-VIEWS-CONTRACT.md → docs/SECTIONS.md → docs/ACCEPTANCE.md</b> の順で読む</li>
-      <li><b style="color:var(--ink-0)">tokens.css と content/ja.json を <code>public/index.html</code> に配線</b>。JS off でも JA が読めることを確認</li>
-      <li><b style="color:var(--ink-0)">Lighthouse / Axe / Pa11y を CI に組み込む</b> (.github/workflows/audit.yml)</li>
-      <li><b style="color:var(--ink-0)">JSON-LD 5 種を index.html 内に inline</b>。Search Console でテスト</li>
-      <li><b style="color:var(--ink-0)">先行申し込み API (src/api/early-access)</b> を実装、DKIM 確認、レート制限 5/IP/時</li>
-      <li><b style="color:var(--ink-0)">3 ロケール展開</b> /ja/ /en/ /ko/。<code>hreflang</code> + <code>x-default</code></li>
-      <li><b style="color:var(--ink-0)">AC-01..12 をすべて green に</b>、はじめてリリース判断</li>
-    </ol>
-  </section>
-
-
-  <!-- CLOSING -->
-  <div class="closing">
-    <div class="by">A KANOPY PRODUCT · ROUNDIE · HANDOFF READY</div>
-    <h2>あなたのラウンドを、<br>かたちに<em>残す</em>。</h2>
-    <p>翻訳が終わった。原文に戻る。<br>この 1 行が、132 セル / 14 イベント / 12 ゲート / 30 日プレイブックに分解され、<br>そして今、1 つの封筒に戻った。</p>
   </div>
+</section>
 
-</div>
+<section class="alt">
+  <div class="si">
+    <div class="sl rv">Vision</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">Golf is more than a score.</span>
+      <span data-l="ja" class="a">ゴルフは、スコアだけじゃない。</span>
+      <span data-l="ko">골프는 스코어만이 아니다.</span>
+    </h2>
+    <div class="quote-block rv">
+      <p>
+        <span data-l="en">It's the <strong>four hours</strong> on the fairway. The conversations, the laughter, the perfect approach, the comeback putt. The greatest gift of golf is <strong>sharing those moments</strong> with the people beside you.</span>
+        <span data-l="ja" class="a">それは<strong>フェアウェイで過ごす4時間</strong>。<br class="sp">会話、笑い、最高のアプローチ、復活のパット。<br class="sp">ゴルフの最大の贈り物は、<br class="sp"><strong>その瞬間を仲間とシェアできる</strong>こと。</span>
+        <span data-l="ko">그것은 <strong>페어웨이의 4시간</strong>. 대화, 웃음, 최고의 어프로치, 컴백 퍼팅. 골프의 가장 큰 선물은 <strong>그 순간을 함께한 사람들과 나누는 것</strong>.</span>
+      </p>
+    </div>
+    <p class="sec-sub rv">
+      <span data-l="en">ROUNDIE keeps those memories as something you can hold. Every round becomes a beautiful color grid — a Round Card you can save, share, and revisit years from now.</span>
+      <span data-l="ja" class="a">ROUNDIE は、その記憶を「かたち」として残します。<br class="sp">ラウンドは美しいカラーグリッドになり、<br class="sp">あなただけのラウンドカードとして手元に残ります。<br class="sp">何年経っても、あの日のラウンドをいつでも振り返ることができます。</span>
+      <span data-l="ko">ROUNDIE는 그 기억을 형태로 남깁니다. 라운드는 아름다운 컬러 그리드가 되어 나만의 라운드카드로 남고, 몇 년이 지나도 언제든 그날의 라운드를 다시 볼 수 있습니다.</span>
+    </p>
+  </div>
+</section>
 
+<section>
+  <div class="si">
+    <div class="sl rv">How It Works</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">30 seconds. One beautiful Round Card.</span>
+      <span data-l="ja" class="a">30秒で、美しいラウンドカードが完成。</span>
+      <span data-l="ko">30초로, 아름다운 라운드카드 완성.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">From scoring to sharing, ROUNDIE keeps the best of every round.</span>
+      <span data-l="ja" class="a">スコア入力から共有まで。ROUNDIEはラウンドの最高の瞬間を残す。</span>
+      <span data-l="ko">스코어 입력부터 공유까지. ROUNDIE는 라운드의 최고의 순간을 남긴다.</span>
+    </p>
+    <div class="steps">
+      <div class="step rv">
+        <div class="num">STEP 1</div>
+        <h4>⛳ <span data-l="en">Record</span><span data-l="ja" class="a">記録する</span><span data-l="ko">기록</span></h4>
+        <p><span data-l="en">Enter scores in quick or detailed mode. Add weather, partners, photos.</span><span data-l="ja" class="a">クイック／詳細モードでスコア入力。天気・同伴者・写真も追加可能。</span><span data-l="ko">퀵·상세 모드로 스코어 입력. 날씨·동반자·사진 추가 가능.</span></p>
+      </div>
+      <div class="step rv">
+        <div class="num">STEP 2</div>
+        <h4>🎨 <span data-l="en">Shape</span><span data-l="ja" class="a">かたちにする</span><span data-l="ko">형태로</span></h4>
+        <p><span data-l="en">Each hole becomes a color. 18 holes form a unique grid — no two are alike.</span><span data-l="ja" class="a">各ホールが色に変わる。18ホールでカラーグリッドが完成。同じグリッドは二つとない。</span><span data-l="ko">각 홀이 색으로 변한다. 같은 그리드는 없다.</span></p>
+      </div>
+      <div class="step rv">
+        <div class="num">STEP 3</div>
+        <h4>🤝 <span data-l="en">Share</span><span data-l="ja" class="a">シェアする</span><span data-l="ko">공유</span></h4>
+        <p><span data-l="en">Post to the Feed. Send Kudos. Add comments. Celebrate together.</span><span data-l="ja" class="a">フィードに投稿。Kudosを送る。コメントで盛り上がる。</span><span data-l="ko">피드 공유. Kudos 보내기. 댓글로 함께 즐기기.</span></p>
+      </div>
+      <div class="step rv">
+        <div class="num">STEP 4</div>
+        <h4>📈 <span data-l="en">Rise</span><span data-l="ja" class="a">成長する</span><span data-l="ko">성장</span></h4>
+        <p><span data-l="en">Track growth in Ranking. Climb the ROUNDIE Score. Earn rank badges.</span><span data-l="ja" class="a">ランキングで成長を可視化。ROUNDIE Scoreを上げる。ランクバッジを獲得する。</span><span data-l="ko">랭킹에서 성장 확인. ROUNDIE Score 상승. 랭크 배지 획득.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="alt">
+  <div class="si">
+    <div class="sl rv">Features</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">Everything you need, in one app.</span>
+      <span data-l="ja" class="a">必要なものが、すべてひとつに。</span>
+      <span data-l="ko">필요한 모든 것을, 하나에.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">Built for golfers who play with friends, grow over time, and want their rounds to mean more than a number.</span>
+      <span data-l="ja" class="a">仲間とラウンドし、時間をかけて成長し、ラウンドを数字以上のものにしたいゴルファーのために。</span>
+      <span data-l="ko">동료와 라운드하며 시간이 지나도 성장하고, 라운드를 숫자 이상으로 만들고 싶은 골퍼를 위해.</span>
+    </p>
+
+    <div class="ftrs">
+
+      <!-- 01: Round Card -->
+      <div class="ftr rv">
+        <div class="ic">🎨</div>
+        <div class="ti">Round Card</div>
+        <div class="dc"><span data-l="en">Every round becomes a one-of-a-kind color grid. Save, share, and revisit the shape of your golf days.</span><span data-l="ja" class="a">ラウンドが世界に一つだけのカラーグリッドに。保存・シェア・いつでも振り返れる。</span><span data-l="ko">라운드가 세상에 단 하나뿐인 컬러 그리드로.</span></div>
+        <div class="ftr-mock">
+          <!-- Actual color mapping: Eagle=Gold, Birdie=Red, Par=Green, Bogey=Blue, Double=Indigo, Triple+=DarkSlate. Score numbers shown inside each tile. -->
+          <div class="mock-grid">
+            <!-- OUT 9 holes: 4·5·3·6·4·5·3·4·6 = 40 -->
+            <div style="background:#4CAF50">4</div><div style="background:#42A5F5">5</div><div style="background:#4CAF50">3</div><div style="background:#42A5F5">6</div><div style="background:#4CAF50">4</div><div style="background:#42A5F5">5</div><div style="background:#FFD700;color:#0A0A0A;text-shadow:none">3</div><div style="background:#42A5F5">4</div><div style="background:#5C6BC0">6</div>
+            <!-- IN 9 holes: 4·7·5·3·7·4·6·5·5 = 46 -->
+            <div style="background:#4CAF50">4</div><div style="background:#37474F">7</div><div style="background:#42A5F5">5</div><div style="background:#4CAF50">3</div><div style="background:#5C6BC0">7</div><div style="background:#4CAF50">4</div><div style="background:#5C6BC0">6</div><div style="background:#4CAF50">5</div><div style="background:#42A5F5">5</div>
+          </div>
+          <!-- OUT / IN / TOTAL summary -->
+          <div class="mock-row" style="margin-top:10px;justify-content:space-between;padding:6px 8px;background:rgba(255,255,255,.025);border-radius:6px">
+            <span style="font-size:9px;color:var(--t3);letter-spacing:1px">OUT <strong style="color:var(--t1);font-family:'Space Grotesk';font-size:11px;font-weight:700">40</strong></span>
+            <span style="font-size:9px;color:var(--t3);letter-spacing:1px">IN <strong style="color:var(--t1);font-family:'Space Grotesk';font-size:11px;font-weight:700">46</strong></span>
+            <span style="font-size:9px;color:var(--ac);letter-spacing:1px">TOTAL <strong style="color:var(--ac);font-family:'Space Grotesk';font-size:14px;font-weight:800">86</strong></span>
+          </div>
+          <div class="mock-row" style="margin-top:6px;justify-content:space-between">
+            <span class="mock-meta">Yuki · Sat Apr 12 · Par 72</span>
+          </div>
+          <!-- Legend with abbreviations (E / B / P / Bo / D / T) -->
+          <div style="display:flex;gap:6px;margin-top:8px;font-size:8px;color:var(--t3);flex-wrap:wrap;letter-spacing:.3px;align-items:center">
+            <span><span style="display:inline-block;width:8px;height:8px;background:#FFD700;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">E</strong> Eagle</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#EF5350;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">B</strong> Birdie</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#4CAF50;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">P</strong> Par</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#42A5F5;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">Bo</strong> Bogey</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#5C6BC0;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">D</strong> Double</span>
+            <span><span style="display:inline-block;width:8px;height:8px;background:#37474F;border-radius:2px;vertical-align:middle;margin-right:3px"></span><strong style="color:var(--t2)">T</strong> Triple+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02: ROUNDIE Score -->
+      <div class="ftr rv">
+        <div class="ic">🪪</div>
+        <div class="ti">ROUNDIE Score</div>
+        <div class="dc"><span data-l="en">A 3-pillar score (Skill / Vibe / Style) capturing technique, community presence, and golf life. Rank up from ROOKIE to LEGEND.</span><span data-l="ja" class="a">スキル・評判・スタイルの3軸スコア。<br class="sp">技術・コミュニティでの存在感・ゴルフライフを表現。<br class="sp">ROOKIEからLEGENDまでランクアップしていきます。</span><span data-l="ko">스킬·평판·스타일 3축 스코어. ROOKIE에서 LEGEND까지.</span></div>
+        <div class="ftr-mock">
+          <div class="mock-row" style="justify-content:space-between;margin-bottom:10px">
+            <span style="font-family:'Space Grotesk';font-weight:700;font-size:20px;color:var(--ac)">72<span style="font-size:11px;color:var(--t3);font-weight:500"> / 100</span></span>
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">REGULAR</span>
+          </div>
+          <div class="mock-bar"><span class="lbl" style="color:#66BB6A">SKILL</span><span class="trk"><span class="fil" style="width:80%;background:#66BB6A"></span></span><span class="val">28<span style="font-weight:500;color:var(--t3);font-size:9px">/35</span></span></div>
+          <div class="mock-bar"><span class="lbl" style="color:#FFA726">VIBE</span><span class="trk"><span class="fil" style="width:60%;background:#FFA726"></span></span><span class="val">18<span style="font-weight:500;color:var(--t3);font-size:9px">/30</span></span></div>
+          <div class="mock-bar" style="margin-bottom:0"><span class="lbl" style="color:#AB47BC">STYLE</span><span class="trk"><span class="fil" style="width:74%;background:#AB47BC"></span></span><span class="val">26<span style="font-weight:500;color:var(--t3);font-size:9px">/35</span></span></div>
+        </div>
+      </div>
+
+      <!-- 03: Feed -->
+      <div class="ftr rv">
+        <div class="ic">📱</div>
+        <div class="ti">Feed</div>
+        <div class="dc"><span data-l="en">Friends' rounds in one beautiful timeline. Round Cards take center stage, with photos when added — every post tells the day's story.</span><span data-l="ja" class="a">仲間のラウンドが美しいタイムラインに並びます。<br class="sp">ラウンドカードが主役で、写真が添付されればそれも一緒に。<br class="sp">投稿ひとつひとつがその日の物語に。</span><span data-l="ko">동료의 라운드가 아름다운 타임라인으로. 라운드카드가 중심이 되고, 사진이 함께라면 그것까지 — 게시물 하나하나가 그날의 이야기가 됩니다.</span></div>
+        <div class="ftr-mock">
+          <!-- Photo-hero post (Yuki) -->
+          <div style="margin-bottom:10px">
+            <div class="mock-row" style="margin-bottom:6px">
+              <div class="mock-avatar" style="background:#81C784">Y</div>
+              <div style="flex:1;font-size:11px;font-weight:600;color:var(--t1)">Yuki<span style="font-size:9px;color:var(--t3);font-weight:400">  · 2h</span></div>
+              <span style="font-size:10px;color:var(--ac);font-weight:600">🔥 12</span>
+            </div>
+            <div style="position:relative;border-radius:6px;overflow:hidden;height:90px;background:#1A1A1A">
+              <!-- Real golf course photo -->
+              <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=520&h=180&fit=crop&q=80" alt="Golf course" style="width:100%;height:100%;object-fit:cover;display:block">
+              <!-- Bottom gradient for legibility -->
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 50%);pointer-events:none"></div>
+              <!-- Mini grid overlay (corner) -->
+              <div style="position:absolute;bottom:6px;left:6px;display:grid;grid-template-columns:repeat(9,1fr);gap:1px;width:74px;padding:3px;background:rgba(0,0,0,.35);border-radius:3px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)">
+                <div style="aspect-ratio:1;background:#4CAF50;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#4CAF50;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#4CAF50;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#FFD700;border-radius:1px"></div><div style="aspect-ratio:1;background:#42A5F5;border-radius:1px"></div><div style="aspect-ratio:1;background:#5C6BC0;border-radius:1px"></div>
+              </div>
+              <span style="position:absolute;bottom:8px;right:8px;font-family:'Space Grotesk';font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)">86</span>
+            </div>
+          </div>
+          <!-- Grid-hero post (Kenji) -->
+          <div class="mock-row">
+            <div class="mock-avatar" style="background:#FF9800">K</div>
+            <div style="flex:1;font-size:11px;font-weight:600;color:var(--t1)">Kenji<span style="font-size:9px;color:var(--t3);font-weight:400">  · 5h</span></div>
+            <div style="display:flex;gap:2px">
+              <span class="mock-feed-tile" style="background:#4CAF50"></span><span class="mock-feed-tile" style="background:#4CAF50"></span><span class="mock-feed-tile" style="background:#42A5F5"></span><span class="mock-feed-tile" style="background:#4CAF50"></span><span class="mock-feed-tile" style="background:#5C6BC0"></span>
+            </div>
+            <span style="font-size:10px;color:var(--ac);font-weight:600">💪 8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04: Kudos & Comments -->
+      <div class="ftr rv">
+        <div class="ic">🔥</div>
+        <div class="ti">Kudos & Comments</div>
+        <div class="dc"><span data-l="en">Three Kudos made for golfers — Nice Shot, Nice Fight, Best Buddy. Add a real comment with golf etiquette in mind.</span><span data-l="ja" class="a">ゴルファーならではの3種類の Kudos — ナイスショット・ナイスファイト・ベストバディ。<br class="sp">コメントもゴルフの作法を持ったまま、仲間のラウンドに反応できます。</span><span data-l="ko">골퍼를 위한 3가지 Kudos — Nice Shot · Nice Fight · Best Buddy. 매너 있는 댓글로 동료의 라운드에 반응할 수 있습니다.</span></div>
+        <div class="ftr-mock">
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+            <div class="mock-row" style="justify-content:space-between">
+              <span><span class="mock-emoji">🔥</span> <span style="font-size:10px;color:var(--t1);font-weight:600;margin-left:4px"><span data-l="en">Nice Shot</span><span data-l="ja" class="a">ナイスショット</span><span data-l="ko">나이스샷</span></span></span>
+              <span style="font-size:10px;color:var(--ac);font-weight:700;font-family:'Space Grotesk'">12</span>
+            </div>
+            <div class="mock-row" style="justify-content:space-between">
+              <span><span class="mock-emoji">💪</span> <span style="font-size:10px;color:var(--t1);font-weight:600;margin-left:4px"><span data-l="en">Nice Fight</span><span data-l="ja" class="a">ナイスファイト</span><span data-l="ko">나이스 파이트</span></span></span>
+              <span style="font-size:10px;color:var(--ac);font-weight:700;font-family:'Space Grotesk'">8</span>
+            </div>
+            <div class="mock-row" style="justify-content:space-between">
+              <span><span class="mock-emoji">🤝</span> <span style="font-size:10px;color:var(--t1);font-weight:600;margin-left:4px"><span data-l="en">Best Buddy</span><span data-l="ja" class="a">ベストバディ</span><span data-l="ko">베스트 버디</span></span></span>
+              <span style="font-size:10px;color:var(--ac);font-weight:700;font-family:'Space Grotesk'">5</span>
+            </div>
+          </div>
+          <div class="mock-row" style="gap:8px;align-items:flex-start;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+            <div class="mock-avatar" style="background:#EC4899;width:18px;height:18px;font-size:9px">M</div>
+            <div style="flex:1">
+              <div style="font-size:11px;color:var(--t1);line-height:1.5">
+                <span data-l="en">"Nice birdie on 7!"</span>
+                <span data-l="ja" class="a">「7番のバーディ最高でした」</span>
+                <span data-l="ko">"7번 홀 버디 최고"</span>
+              </div>
+              <div style="font-size:9px;color:var(--t3);margin-top:3px">Mio · 1h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05: Competitions -->
+      <div class="ftr rv">
+        <div class="ic">🏆</div>
+        <div class="ti"><span data-l="en">Competitions</span><span data-l="ja" class="a">コンペ機能</span><span data-l="ko">대회 기능</span></div>
+        <div class="dc"><span data-l="en">Host a competition in 3 taps. Auto-scoring, animated result reveal, and individual titles (Champion, Birdie Hunter, Mr. Consistent, and more) — automatically shared to the Feed when earned. Free plan hosts 1 competition per month; Pro unlocks unlimited hosting and unlimited participants.</span><span data-l="ja" class="a">3タップでコンペを開催できます。<br class="sp">自動集計・結果リビール演出・個人タイトル（チャンピオン、バーディーハンター、安定感の鬼など）が付与され、受賞時はフィードにも自動でシェアされます。<br class="sp">無料プランは月1回まで、Pro は開催回数も参加人数も無制限に。</span><span data-l="ko">3번 탭으로 대회를 개최할 수 있습니다. 자동 집계·결과 발표 연출·개인 타이틀(챔피언·버디 헌터·안정감의 강자 등)이 부여되고, 수상 시 피드에도 자동 공유됩니다. 무료 플랜은 월 1회까지, Pro는 개최 횟수·참가자 모두 무제한입니다.</span></div>
+        <div class="ftr-mock">
+          <div class="mock-podium" style="margin-bottom:12px">
+            <div class="p"><div style="font-size:16px">🥈</div><div style="font-size:10px;font-weight:600;color:var(--t2);margin-top:2px">Kenji</div></div>
+            <div class="p"><div style="font-size:22px">🥇</div><div style="font-size:11px;font-weight:700;color:var(--ac);margin-top:2px">Yuki</div></div>
+            <div class="p"><div style="font-size:16px">🥉</div><div style="font-size:10px;font-weight:600;color:var(--t2);margin-top:2px"><span data-l="en">You</span><span data-l="ja" class="a">あなた</span><span data-l="ko">나</span></div></div>
+          </div>
+          <div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap">
+            <span class="mock-chip" style="background:rgba(212,168,87,.15);color:var(--gold)">
+              <span data-l="en">CHAMPION</span><span data-l="ja" class="a">チャンピオン</span><span data-l="ko">챔피언</span>
+            </span>
+            <span class="mock-chip" style="background:rgba(239,83,80,.12);color:#EF8B89">
+              <span data-l="en">BIRDIE HUNTER</span><span data-l="ja" class="a">バーディーハンター</span><span data-l="ko">버디 헌터</span>
+            </span>
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">
+              <span data-l="en">MR. CONSISTENT</span><span data-l="ja" class="a">安定感の鬼</span><span data-l="ko">안정감의 강자</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06: Ranking -->
+      <div class="ftr rv">
+        <div class="ic">📊</div>
+        <div class="ti"><span data-l="en">Ranking & Growth</span><span data-l="ja" class="a">ランキング・成長</span><span data-l="ko">랭킹·성장</span></div>
+        <div class="dc"><span data-l="en">Five categories (Total, Skill, Vibe, Style, Best Score) and two scopes (Friends / All Users). The default is the self-growth view — climb at your own pace.</span><span data-l="ja" class="a">5カテゴリ（総合・スキル・評判・スタイル・ベストスコア）と、2スコープ（仲間・全ユーザー）。<br class="sp">デフォルトは自己成長ビューなので、人と比べずマイペースで楽しめます。</span><span data-l="ko">5개 카테고리(총합·스킬·평판·스타일·베스트 스코어)와 2개 스코프(친구·전체 사용자). 기본은 자기 성장 뷰 — 나의 페이스로 성장을 즐길 수 있습니다.</span></div>
+        <div class="ftr-mock">
+          <!-- Scope tabs (actual: 2 only) -->
+          <div style="display:flex;gap:6px;margin-bottom:8px">
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">👥 <span data-l="en">Friends</span><span data-l="ja" class="a">仲間</span><span data-l="ko">친구</span></span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3)">🌐 <span data-l="en">All Users</span><span data-l="ja" class="a">全ユーザー</span><span data-l="ko">전체 사용자</span></span>
+          </div>
+          <!-- Category tabs (5 actual categories) -->
+          <div style="display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap">
+            <span class="mock-chip" style="background:rgba(129,199,132,.18);color:var(--ac);padding:3px 6px;font-size:8px">TOTAL</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">SKILL</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">VIBE</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">STYLE</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.04);color:var(--t3);padding:3px 6px;font-size:8px">SCORE</span>
+          </div>
+          <!-- Mini leaderboard -->
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div class="mock-row" style="padding:5px 6px;background:rgba(255,215,0,.08);border-radius:6px">
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:#FFD700;width:18px">1</span>
+              <div class="mock-avatar" style="background:#EC4899;width:18px;height:18px;font-size:9px">M</div>
+              <span style="flex:1;font-size:10px;font-weight:600;color:var(--t1)">Mio</span>
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:var(--t1)">86</span>
+            </div>
+            <div class="mock-row" style="padding:5px 6px">
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:#C0C0C0;width:18px">2</span>
+              <div class="mock-avatar" style="background:#81C784;width:18px;height:18px;font-size:9px">Y</div>
+              <span style="flex:1;font-size:10px;font-weight:600;color:var(--t1)">Yuki</span>
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:600;color:var(--t1)">72</span>
+              <span style="font-size:9px;color:#4CAF50;font-weight:600">+3 ▲</span>
+            </div>
+            <div class="mock-row" style="padding:5px 6px;background:rgba(129,199,132,.08);border-radius:6px">
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:#CD7F32;width:18px">3</span>
+              <div class="mock-avatar" style="background:#FF9800;width:18px;height:18px;font-size:9px">K</div>
+              <span style="flex:1;font-size:10px;font-weight:600;color:var(--ac)"><span data-l="en">You</span><span data-l="ja" class="a">あなた</span><span data-l="ko">나</span></span>
+              <span style="font-family:'Space Grotesk';font-size:11px;font-weight:700;color:var(--ac)">68</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07: Invite Friends -->
+      <div class="ftr rv">
+        <div class="ic">💬</div>
+        <div class="ti"><span data-l="en">Invite Friends</span><span data-l="ja" class="a">フレンド招待</span><span data-l="ko">친구 초대</span></div>
+        <div class="dc"><span data-l="en">Share an invite link via LINE, SMS, the system share sheet, or a QR code. Friends join with a tap.</span><span data-l="ja" class="a">LINE・SMS・共有シート・QRコードで招待リンクをシェア。<br class="sp">フレンドはワンタップで参加できます。</span><span data-l="ko">LINE·SMS·공유 시트·QR로 초대 링크 공유. 원탭 가입.</span></div>
+        <div class="ftr-mock">
+          <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+            <span class="mock-chip" style="background:rgba(6,199,85,.15);color:#06C755">LINE</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">SMS</span>
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">
+              <span data-l="en">Share</span>
+              <span data-l="ja" class="a">共有</span>
+              <span data-l="ko">공유</span>
+            </span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">
+              <span data-l="en">Copy Link</span>
+              <span data-l="ja" class="a">リンクをコピー</span>
+              <span data-l="ko">링크 복사</span>
+            </span>
+          </div>
+          <div style="font-size:9px;color:var(--t3);font-family:'Space Grotesk';letter-spacing:.5px">+ QR code in sheet</div>
+        </div>
+      </div>
+
+      <!-- 08: Multi-Language -->
+      <div class="ftr rv">
+        <div class="ic">🌐</div>
+        <div class="ti"><span data-l="en">Multi-Language</span><span data-l="ja" class="a">多言語対応</span><span data-l="ko">다국어</span></div>
+        <div class="dc"><span data-l="en">Japanese, English, Korean. Built for global golfers from day one.</span><span data-l="ja" class="a">日本語・英語・韓国語に対応。<br class="sp">初日からグローバルゴルファーのために設計。</span><span data-l="ko">일본어·영어·한국어 대응. 처음부터 글로벌 골퍼를 위한 설계.</span></div>
+        <div class="ftr-mock">
+          <div style="display:flex;gap:6px;margin-bottom:10px">
+            <span class="mock-chip" style="background:rgba(129,199,132,.12);color:var(--ac)">日本語</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">EN</span>
+            <span class="mock-chip" style="background:rgba(255,255,255,.06);color:var(--t2)">한국어</span>
+          </div>
+          <div style="font-size:10px;color:var(--t2);line-height:1.6;font-style:italic">
+            記憶をかたちに。<br>
+            Shape your round.<br>
+            기억을, 형태로.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="si">
+    <div class="sl rv">ROUNDIE Score</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">A score that values how you play — and who you are.</span>
+      <span data-l="ja" class="a">スコアではなく、あなたを表現する指標。</span>
+      <span data-l="ko">스코어가 아닌, 당신을 표현하는 지표.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">A 0–100 point score combining three pillars. Rank from ROOKIE to LEGEND.</span>
+      <span data-l="ja" class="a">3つの軸を組み合わせた0〜100点のスコア。<br class="sp">ROOKIEからLEGENDまでランクアップしていきます。</span>
+      <span data-l="ko">3개의 축을 조합한 0〜100점의 스코어. ROOKIE에서 LEGEND까지 랭크업.</span>
+    </p>
+
+    <div class="score-system">
+      <div class="score-pillar rv">
+        <div class="num">SKILL</div>
+        <div class="name"><span data-l="en">Golf Skill</span><span data-l="ja" class="a">ゴルフスキル</span><span data-l="ko">골프 실력</span></div>
+        <div class="desc"><span data-l="en">Average score, consistency, par-save and birdie rates. Beginners get a built-in handicap so early rounds aren't penalized.</span><span data-l="ja" class="a">平均スコア・安定性・パーセーブ率・バーディ率で算出。初心者の最初の数ラウンドには補正がかかるので、低くなりすぎません。</span><span data-l="ko">평균 스코어·안정성·파세이브·버디율로 산출. 초보자는 첫 몇 라운드에 보정이 적용되어 점수가 너무 낮아지지 않습니다.</span></div>
+        <div class="weight">35%</div>
+      </div>
+      <div class="score-pillar rv">
+        <div class="num">VIBE</div>
+        <div class="name"><span data-l="en">Reputation</span><span data-l="ja" class="a">評判</span><span data-l="ko">평판</span></div>
+        <div class="desc"><span data-l="en">Kudos given, comments left, and how much you bring to the Feed. ROUNDIE rewards golfers who lift others up.</span><span data-l="ja" class="a">仲間に送る Kudos やコメント、フィードでの活動量で算出。<br class="sp">ROUNDIE は「与える側」のゴルファーを評価します。</span><span data-l="ko">동료에게 보낸 Kudos·댓글·피드 활동량으로 산출. ROUNDIE는 함께하는 동료를 응원하는 골퍼를 높이 평가합니다.</span></div>
+        <div class="weight">30%</div>
+      </div>
+      <div class="score-pillar rv">
+        <div class="num">STYLE</div>
+        <div class="name"><span data-l="en">Golf Life</span><span data-l="ja" class="a">ゴルフライフ</span><span data-l="ko">골프 라이프</span></div>
+        <div class="desc"><span data-l="en">How often you play, how many different courses you visit, your streak weeks, and how complete your profile feels.</span><span data-l="ja" class="a">ラウンド頻度・回ったコースの数・継続週数・プロフィールの充実度で算出。</span><span data-l="ko">라운드 빈도·다녀온 코스의 다양성·연속 주·프로필 충실도로 산출.</span></div>
+        <div class="weight">35%</div>
+      </div>
+    </div>
+
+    <div class="cards-row" style="margin-top:36px">
+      <div class="info-card rv">
+        <h3><span data-l="en">Climb 7 ranks, step by step.</span><span data-l="ja" class="a">ROOKIE から LEGEND まで、自分のペースで。</span><span data-l="ko">ROOKIE에서 LEGEND까지, 나의 페이스로.</span></h3>
+        <p><span data-l="en">Start as a <strong>ROOKIE</strong> and climb through PLAYER → REGULAR → SINGLE → SCRATCH → PRO → <strong>LEGEND</strong>. Your rank rises as you play, share with friends, and keep coming back. There's no way to buy your way up — every rank is earned.</span><span data-l="ja" class="a">最初はみんな <strong>ROOKIE</strong>。ラウンドを記録し、仲間と Kudos やコメントを交わし、続けるうちに <strong>PLAYER → REGULAR → SINGLE → SCRATCH → PRO → LEGEND</strong> へとランクが上がっていきます。<br class="sp">ランクは行動の積み重ねで決まり、課金で先に進むことはできません。</span><span data-l="ko">처음은 <strong>ROOKIE</strong>부터. 라운드 기록·동료와의 교류·꾸준함이 쌓여 <strong>PLAYER → REGULAR → SINGLE → SCRATCH → PRO → LEGEND</strong>로 올라갑니다. 결제로 건너뛸 수 없어, 모든 랭크는 행동의 결과입니다.</span></p>
+      </div>
+      <div class="info-card rv">
+        <h3><span data-l="en">Clear at a glance, deeper on tap.</span><span data-l="ja" class="a">一目でわかり、タップで深掘り。</span><span data-l="ko">한눈에 파악, 탭하면 깊이.</span></h3>
+        <p><span data-l="en">Open the screen — you instantly see your <strong>score, rank, and progress bar</strong>. Tap them, and you'll see how you compare with others your age and what specifically to focus on next to grow. The math behind it stays in the background, so the experience always feels simple.</span><span data-l="ja" class="a">画面を開いた瞬間に、<strong>スコア・ランク・進捗バー</strong>がひと目でわかります。<br class="sp">スコアをタップすると、<strong>「同世代と比べてどのくらいの位置か」「次に何を伸ばせばランクアップに近づくか」</strong>がわかるヒントが表示されます。<br class="sp">複雑な計算式は裏側に隠して、表示はあくまでシンプルに保ちました。</span><span data-l="ko">화면을 열면 <strong>점수·랭크·진척 바</strong>가 한눈에. 점수를 탭하면 <strong>"같은 연령대와 비교하여 어느 정도인지"</strong>와 <strong>"다음에 무엇을 강화하면 랭크업에 가까워지는지"</strong>의 힌트를 표시. 복잡한 계산식은 뒤로 숨기고, 표시는 심플하게.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="alt">
+  <div class="si">
+    <div class="sl rv">Pricing</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">Start free. Go Pro when you're ready.</span>
+      <span data-l="ja" class="a">無料から始めて、<br class="sp">準備ができたらProへ。</span>
+      <span data-l="ko">무료로 시작, 준비되면 Pro로.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">All core features are free. Pro unlocks unlimited competition participants, advanced stats, and more.</span>
+      <span data-l="ja" class="a">すべてのコア機能は無料でお使いいただけます。<br class="sp">Proに加入すると、コンペ参加人数の無制限化や詳細統計などが開放されます。</span>
+      <span data-l="ko">모든 핵심 기능 무료. Pro로 대회 참가자 무제한·상세 통계 등 개방.</span>
+    </p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card rv">
+        <div class="name">Free</div>
+        <div class="price">$0</div>
+        <div class="period"><span data-l="en">forever</span><span data-l="ja" class="a">永続無料</span><span data-l="ko">영구 무료</span></div>
+        <ul>
+          <li><span data-l="en">Unlimited rounds & Round Cards</span><span data-l="ja" class="a">ラウンド記録 無制限</span><span data-l="ko">라운드 기록 무제한</span></li>
+          <li><span data-l="en">ROUNDIE Score & ranks</span><span data-l="ja" class="a">ROUNDIE Score・ランク</span><span data-l="ko">ROUNDIE Score·랭크</span></li>
+          <li><span data-l="en">Feed, Kudos, comments, ranking</span><span data-l="ja" class="a">フィード・Kudos・コメント・ランキング</span><span data-l="ko">피드·Kudos·댓글·랭킹</span></li>
+          <li><span data-l="en">Grid sharing (with logo)</span><span data-l="ja" class="a">グリッドシェア（ロゴ付き）</span><span data-l="ko">그리드 공유 (로고)</span></li>
+          <li><span data-l="en">Basic stats</span><span data-l="ja" class="a">基本統計</span><span data-l="ko">기본 통계</span></li>
+          <li><span data-l="en">Compe hosting: <strong>1/month · up to 8 players</strong></span><span data-l="ja" class="a">コンペ開催: <strong>月1回・8人まで</strong></span><span data-l="ko">대회 개최: <strong>월 1회·8명까지</strong></span></li>
+        </ul>
+      </div>
+
+      <div class="pricing-card pop rv">
+        <div class="name"><span data-l="en">Pro · Yearly</span><span data-l="ja" class="a">Pro 年額</span><span data-l="ko">Pro 연간</span></div>
+        <div class="price">$39.99</div>
+        <div class="period"><span data-l="en">/ year ($3.33/mo)</span><span data-l="ja" class="a">/ 年（実質 約$3.33/月）</span><span data-l="ko">/ 년 (월 약 $3.33)</span></div>
+        <div class="discount"><span data-l="en">2 months free · 17% OFF</span><span data-l="ja" class="a">2ヶ月分お得 · 17% OFF</span><span data-l="ko">2개월 무료 · 17% OFF</span></div>
+        <ul>
+          <li><span data-l="en"><strong>Everything in Free</strong></span><span data-l="ja" class="a"><strong>Free の全機能</strong></span><span data-l="ko"><strong>Free 전체 기능</strong></span></li>
+          <li><span data-l="en">Compe hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催 <strong>無制限</strong>・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최·참가자 <strong>무제한</strong></span></li>
+          <li><span data-l="en">Auto scoring & live ranking</span><span data-l="ja" class="a">自動集計 & ランキング</span><span data-l="ko">자동 집계·랭킹</span></li>
+          <li><span data-l="en">Animated result reveal</span><span data-l="ja" class="a">結果発表アニメーション</span><span data-l="ko">결과 발표 애니메이션</span></li>
+          <li><span data-l="en">Shareable result cards</span><span data-l="ja" class="a">シェア可能な結果カード</span><span data-l="ko">공유 가능한 결과 카드</span></li>
+          <li><span data-l="en">Advanced stats & trends</span><span data-l="ja" class="a">詳細統計・トレンド分析</span><span data-l="ko">상세 통계·트렌드 분석</span></li>
+          <li><span data-l="en">No need to buy Compe Packs</span><span data-l="ja" class="a">コンペパックの都度購入が不要</span><span data-l="ko">대회 팩 추가 구매 불필요</span></li>
+        </ul>
+      </div>
+
+      <div class="pricing-card rv">
+        <div class="name"><span data-l="en">Pro · Monthly</span><span data-l="ja" class="a">Pro 月額</span><span data-l="ko">Pro 월간</span></div>
+        <div class="price">$4.99</div>
+        <div class="period"><span data-l="en">/ month</span><span data-l="ja" class="a">/ 月</span><span data-l="ko">/ 월</span></div>
+        <div style="font-size:11px;color:var(--t2);margin-top:6px;margin-bottom:16px;line-height:1.7">
+          <span data-l="en">Start month-by-month, same features as Yearly.</span>
+          <span data-l="ja" class="a">月単位で気軽に始められるプラン。<br>機能内容は年額プランと同じです。</span>
+          <span data-l="ko">월 단위로 부담 없이 시작. 기능은 연간 플랜과 동일.</span>
+        </div>
+        <ul>
+          <li><span data-l="en"><strong>Everything in Free</strong></span><span data-l="ja" class="a"><strong>Free の全機能</strong></span><span data-l="ko"><strong>Free 전체 기능</strong></span></li>
+          <li><span data-l="en">Compe hosting <strong>unlimited</strong> · players <strong>unlimited</strong></span><span data-l="ja" class="a">コンペ開催 <strong>無制限</strong>・参加人数 <strong>無制限</strong></span><span data-l="ko">대회 개최·참가자 <strong>무제한</strong></span></li>
+          <li><span data-l="en">Auto scoring & live ranking</span><span data-l="ja" class="a">自動集計 & ランキング</span><span data-l="ko">자동 집계·랭킹</span></li>
+          <li><span data-l="en">Animated result reveal</span><span data-l="ja" class="a">結果発表アニメーション</span><span data-l="ko">결과 발표 애니메이션</span></li>
+          <li><span data-l="en">Shareable result cards</span><span data-l="ja" class="a">シェア可能な結果カード</span><span data-l="ko">공유 가능한 결과 카드</span></li>
+          <li><span data-l="en">Advanced stats & trends</span><span data-l="ja" class="a">詳細統計・トレンド分析</span><span data-l="ko">상세 통계·트렌드 분석</span></li>
+          <li><span data-l="en">No need to buy Compe Packs</span><span data-l="ja" class="a">コンペパックの都度購入が不要</span><span data-l="ko">대회 팩 추가 구매 불필요</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rv" style="margin-top:32px;padding:24px;background:var(--card);border:1px solid var(--bd);border-radius:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">
+          <div style="font-size:14px;font-weight:700;color:var(--gold);letter-spacing:1px;font-family:'Space Grotesk';margin-bottom:6px">
+            <span data-l="en">Compe Pack · $9.99 / competition</span>
+            <span data-l="ja" class="a">コンペパック · $9.99 / 1コンペ</span>
+            <span data-l="ko">대회 팩 · $9.99 / 1대회</span>
+          </div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.8">
+            <span data-l="en">Host a single competition without a subscription. <strong>That one competition only</strong>: unlimited players, auto scoring, animated result reveal, and a shareable result card — included. One-time purchase. Pro members never need this.</span>
+            <span data-l="ja" class="a">サブスク契約なしで1回だけコンペを開きたい時に。<br><strong>その1コンペだけ</strong>、人数無制限・自動集計・結果アニメーション・シェア可能な結果カードがすべて含まれます。1回購入の買い切り型。Pro加入者は不要です。</span>
+            <span data-l="ko">구독 없이 1회만 대회를 개최하고 싶을 때. 해당 1대회만 인원 무제한·자동 집계·결과 애니메이션·결과 카드 포함. 일회성 구매. Pro 가입자는 불필요.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="rv" style="font-size:11px;color:var(--t3);margin-top:24px;line-height:1.8;text-align:center">
+      <span data-l="en">All prices in USD. Subscriptions are billed through Apple ID and renew automatically until cancelled. You can cancel anytime from your App Store account settings — your Pro access continues until the end of the current billing period. Compe Packs are consumable items and are non-refundable per Apple's policy. See <a href="https://roundie.app/terms/" target="_blank" style="color:var(--ac)">Terms</a> and <a href="https://roundie.app/privacy/" target="_blank" style="color:var(--ac)">Privacy Policy</a>. Available on iOS first; Android rollout to follow.</span>
+      <span data-l="ja" class="a">価格はすべて米ドル表示です。サブスクリプションはApple IDを通じて課金され、自動更新されます。App Storeのアカウント設定からいつでも解約可能で、現在の課金期間の終了までProとしてお使いいただけます。コンペパックは消費型アイテムのため、Appleの規約に従い返金には対応していません。<a href="https://roundie.app/terms/" target="_blank" style="color:var(--ac)">利用規約</a>と<a href="https://roundie.app/privacy/" target="_blank" style="color:var(--ac)">プライバシーポリシー</a>もあわせてご確認ください。iOSから順次提供、Android対応予定。</span>
+      <span data-l="ko">가격은 모두 USD. 구독은 Apple ID로 청구되며 자동 갱신. App Store 설정에서 언제든 해지 가능, 현재 결제 기간 종료까지 Pro 유지. 대회 팩은 소모성으로 환불 불가. <a href="https://roundie.app/terms/" target="_blank" style="color:var(--ac)">이용약관</a>·<a href="https://roundie.app/privacy/" target="_blank" style="color:var(--ac)">개인정보처리방침</a> 확인. iOS 우선, Android 추후.</span>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="si">
+    <div class="sl rv">Trust & Privacy</div>
+    <h2 class="sec-h rv">
+      <span data-l="en">You decide what gets shared.</span>
+      <span data-l="ja" class="a">何をシェアするかは、あなたが決める。</span>
+      <span data-l="ko">무엇을 공유할지는 당신이 정한다.</span>
+    </h2>
+    <p class="sec-sub rv">
+      <span data-l="en">Privacy controls are built into every action. Choose who sees your rounds, your photos, your stats — round by round.</span>
+      <span data-l="ja" class="a">プライバシー設定はあらゆるアクションに組み込まれている。<br>ラウンドごと・写真ごとに、誰に見せるかを選べる。</span>
+      <span data-l="ko">프라이버시 설정은 모든 액션에 내장. 라운드별·사진별로 누구에게 보일지 선택 가능.</span>
+    </p>
+
+    <div class="cards-row" style="grid-template-columns:repeat(3,1fr)">
+      <div class="info-card rv">
+        <h3><span data-l="en">Per-round visibility</span><span data-l="ja" class="a">ラウンドごとの公開範囲</span><span data-l="ko">라운드별 공개 범위</span></h3>
+        <p><span data-l="en">Public, friends-only, or private. Set it round-by-round. Change it anytime.</span><span data-l="ja" class="a">公開・フレンドのみ・非公開を、ラウンドごとに設定できます。いつでも変更可能です。</span><span data-l="ko">공개·친구만·비공개. 라운드별로 설정.</span></p>
+      </div>
+      <div class="info-card rv">
+        <h3><span data-l="en">Mute & Block, your way</span><span data-l="ja" class="a">ミュート & ブロックも、自分のペースで</span><span data-l="ko">뮤트·차단도, 나의 페이스로</span></h3>
+        <p><span data-l="en">Don't want to see someone's posts? Mute them quietly. Need stronger separation? Block. All settings are reversible at any time.</span><span data-l="ja" class="a">特定の人の投稿を見たくない時はミュート、もっとはっきり距離を置きたい時はブロック。<br class="sp">どちらもいつでも解除できます。</span><span data-l="ko">조용히 보고 싶지 않을 때는 뮤트, 더 분명한 거리가 필요할 때는 차단. 모두 언제든 해제 가능.</span></p>
+      </div>
+      <div class="info-card rv">
+        <h3><span data-l="en">Data you own</span><span data-l="ja" class="a">あなたのデータはあなたのもの</span><span data-l="ko">데이터는 당신의 것</span></h3>
+        <p><span data-l="en">Stored securely on Supabase (Tokyo region). We never sell user data to third parties.</span><span data-l="ja" class="a">データは Supabase（東京リージョン）で安全に管理しています。<br class="sp">第三者への販売は一切いたしません。</span><span data-l="ko">Supabase(도쿄 리전)에서 안전하게 보관. 제3자 판매 없음.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="rv">
+    <h2>
+      <span data-l="en">Your next round, kept beautifully.</span>
+      <span data-l="ja" class="a">次のラウンドを、<br class="sp">美しく残そう。</span>
+      <span data-l="ko">다음 라운드를, 아름답게.</span>
+    </h2>
+    <p>
+      <span data-l="en">Join Early Access. Free forever. Pro from $4.99/month.</span>
+      <span data-l="ja" class="a">Early Accessにご参加ください。コア機能は永続無料。Proは$4.99/月から。</span>
+      <span data-l="ko">얼리 액세스에 참여. 기본은 영구 무료. Pro는 $4.99/월부터.</span>
+    </p>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+      <a href="https://testflight.apple.com/join/TecygPvk" target="_blank" class="btn btn-a" style="font-size:12px;padding:14px 36px">
+        <span data-l="en">Get Early Access</span>
+        <span data-l="ja" class="a">TestFlightで先行体験</span>
+        <span data-l="ko">선행 액세스 신청</span>
+      </a>
+      <a href="https://kanopy-inc.com/" class="btn btn-g" style="font-size:12px;padding:14px 36px;margin-left:0">
+        <span data-l="en">About KANOPY →</span>
+        <span data-l="ja" class="a">KANOPYについて →</span>
+        <span data-l="ko">KANOPY 소개 →</span>
+      </a>
+    </div>
+    <p style="margin-top:18px;font-size:11px;color:var(--t3)">
+      <span data-l="en">App Store launch coming soon · 2026</span>
+      <span data-l="ja" class="a">App Store 正式公開準備中 · 2026</span>
+      <span data-l="ko">App Store 정식 출시 준비중 · 2026</span>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="https://kanopy-inc.com/">KANOPY</a>
+    <a href="/">ROUNDIE</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/terms/"><span data-l="en">Terms</span><span data-l="ja" class="a">利用規約</span><span data-l="ko">이용약관</span></a>
+    <a href="/privacy/"><span data-l="en">Privacy</span><span data-l="ja" class="a">プライバシー</span><span data-l="ko">개인정보</span></a>
+    <a href="mailto:roundie@kanopy-inc.com">roundie@kanopy-inc.com</a>
+  </div>
+  <div class="copy">© 2026 KANOPY Inc. · ROUNDIE is a product of KANOPY Inc.</div>
+</footer>
+
+<script>
+function sl(lang, el){
+  document.querySelectorAll('[data-l]').forEach(e=>{e.classList.toggle('a', e.getAttribute('data-l')===lang)});
+  document.querySelectorAll('[data-b]').forEach(e=>{e.classList.toggle('a', e.getAttribute('data-b')===lang)});
+  document.querySelectorAll('.ng a').forEach(a=>a.classList.remove('a'));
+  if(el) el.classList.add('a');
+  document.documentElement.setAttribute('lang', lang);
+  try{localStorage.setItem('kanopy_lang', lang)}catch(e){}
+}
+(function(){
+  try{
+    var saved = localStorage.getItem('kanopy_lang');
+    if(saved){
+      sl(saved);
+      document.querySelectorAll('.ng a').forEach(a=>{if(a.textContent.toLowerCase()===saved) a.classList.add('a')});
+      return;
+    }
+  }catch(e){}
+  var nav = (navigator.language||'').toLowerCase();
+  if(nav.startsWith('en')) sl('en', document.querySelector('.ng a[onclick*="en"]'));
+  else if(nav.startsWith('ko')) sl('ko', document.querySelector('.ng a[onclick*="ko"]'));
+})();
+
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('v')});
+}, {threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+(function(){
+  // Yuki's Sat Apr 12 round — Par 72, total 86 (OUT 40 + IN 46). 1 Eagle, 1 Triple, mostly pars/bogeys/doubles. Matches Features mock.
+  var colors = ['#4CAF50','#42A5F5','#4CAF50','#42A5F5','#4CAF50','#42A5F5','#FFD700','#42A5F5','#5C6BC0', '#4CAF50','#37474F','#42A5F5','#4CAF50','#5C6BC0','#4CAF50','#5C6BC0','#4CAF50','#42A5F5'];
+  var g = document.getElementById('vg');
+  if(g) g.innerHTML = colors.map(c=>'<div style="background:'+c+'"></div>').join('');
+})();
+</script>
 </body>
 </html>

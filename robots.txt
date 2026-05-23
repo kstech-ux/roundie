@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://roundie.app/sitemap.xml
