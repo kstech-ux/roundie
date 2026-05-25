@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プライバシーポリシー | ROUNDIE</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
+  <style>
+    :root {
+      --primary: #81C784;
+      --primary-light: #1B3A1A;
+      --bg: #0E0E0E;
+      --bg-alt: #161816;
+      --surface: #1A1C1A;
+      --text: #E8E8E8;
+      --text-secondary: #AAA;
+      --text-muted: #666;
+      --border: #2A2C2A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--primary); color: var(--bg); }
+    .header {
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+    }
+    .header h1 { font-size: 18px; font-weight: 600; letter-spacing: 0.5px; color: var(--text); }
+    .header .app-name { font-size: 12px; letter-spacing: 6px; font-weight: 900; color: var(--primary); margin-bottom: 6px; }
+    .lang-switch {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .lang-switch a {
+      padding: 6px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch a.active, .lang-switch a:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+    .meta {
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 36px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 20px 0 8px;
+      color: var(--text);
+    }
+    p { margin: 8px 0; color: var(--text-secondary); }
+    ul, ol { margin: 8px 0 8px 24px; color: var(--text-secondary); }
+    li { margin: 4px 0; }
+    a { color: var(--primary); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    th {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+    td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    tr:nth-child(even) td { background: var(--bg-alt); }
+    .important {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--text-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .lang-content { display: none; }
+    .lang-content.active { display: block; }
+    strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="app-name">ROUNDIE</div>
+  <h1>プライバシーポリシー</h1>
+</div>
+
+<div class="lang-switch">
+  <a href="#" class="active" onclick="switchLang('ja')">日本語</a>
+  <a href="#" onclick="switchLang('en')">English</a>
+  <a href="#" onclick="switchLang('ko')">한국어</a>
+</div>
+
+<div class="container">
+
+<!-- ==================== 日本語 ==================== -->
+<div id="lang-ja" class="lang-content active">
+<div class="meta">最終更新日: 2026年4月8日 ｜ 施行日: 2026年4月8日</div>
+
+<p>株式会社KANOPY（以下「当社」）は、ゴルフソーシャルアプリ「ROUNDIE」（以下「本アプリ」）をご利用いただくにあたり、個人情報保護法、GDPR、CCPA/CPRAその他の関連法令に基づき、以下のとおり個人情報の取り扱いについて定めます。</p>
+
+<h2>1. 収集する情報</h2>
+
+<h3>1.1 ユーザーが提供する情報</h3>
+<table>
+  <tr><th>情報の種類</th><th>収集タイミング</th><th>利用目的</th><th>必須/任意</th></tr>
+  <tr><td>メールアドレス</td><td>アカウント登録時</td><td>認証、パスワードリセット、重要通知</td><td>必須</td></tr>
+  <tr><td>ニックネーム（表示名）</td><td>プロフィール設定時</td><td>アプリ内での表示</td><td>必須</td></tr>
+  <tr><td>ROUNDIE ID</td><td>プロフィール設定時</td><td>ユーザー固有の識別子</td><td>必須</td></tr>
+  <tr><td>ゴルフレベル</td><td>プロフィール設定時</td><td>ランキング・マッチング</td><td>任意</td></tr>
+  <tr><td>目標スコア</td><td>プロフィール設定時</td><td>成長トラッキング</td><td>任意</td></tr>
+  <tr><td>ゴルフスコア（ホール別）</td><td>ラウンド記録時</td><td>スコア管理、カラーグリッド生成、ROUNDIE Score算出</td><td>機能利用時必須</td></tr>
+  <tr><td>ホール別詳細（パット数、FW的中、GIR、使用クラブ、ショット方向、ペナルティ、バンカーセーブ、パット距離、メモ）</td><td>ラウンド記録時</td><td>統計分析、ROUNDIE Score算出</td><td>任意</td></tr>
+  <tr><td>ゴルフコース名・コースレーティング・スロープレーティング</td><td>ラウンド記録時</td><td>ラウンド記録の紐付け、ハンディキャップ算出</td><td>コース名は必須、他は任意</td></tr>
+  <tr><td>天気</td><td>ラウンド記録時</td><td>ラウンド記録の付加情報</td><td>任意</td></tr>
+  <tr><td>同伴者名</td><td>ラウンド記録時</td><td>ラウンド記録の付加情報、フィード表示</td><td>任意</td></tr>
+  <tr><td>ティーボックス</td><td>ラウンド記録時</td><td>ハンディキャップ算出</td><td>任意</td></tr>
+  <tr><td>写真（最大3枚）</td><td>アップロード時</td><td>ラウンド記録への添付、フィード表示</td><td>任意</td></tr>
+  <tr><td>コメント</td><td>投稿時</td><td>ソーシャル機能</td><td>任意</td></tr>
+  <tr><td>Kudos（3種類: ナイスショット、ナイスファイト、ベストバディ）</td><td>フィードでの送信時</td><td>ソーシャル機能</td><td>任意</td></tr>
+  <tr><td>コンペ情報（スコアリング方式: ストローク/新ペリア/ダブルペリア）</td><td>コンペ作成時</td><td>コンペ管理・結果集計</td><td>機能利用時必須</td></tr>
+  <tr><td>メールアドレス（リリース通知）</td><td>Webサイトからの通知希望時</td><td>アプリリリース時のお知らせ送付のみ。第三者への提供は行いません</td><td>任意</td></tr>
+</table>
+
+<h3>1.2 自動的に収集する情報</h3>
+<table>
+  <tr><th>情報の種類</th><th>利用目的</th></tr>
+  <tr><td>端末情報（OS種類、バージョン）</td><td>不具合対応、互換性確認</td></tr>
+  <tr><td>アプリバージョン</td><td>アップデート管理</td></tr>
+  <tr><td>言語設定</td><td>表示言語の決定</td></tr>
+  <tr><td>プッシュ通知トークン</td><td>プッシュ通知の配信</td></tr>
+  <tr><td>クラッシュログ</td><td>不具合の特定・修正</td></tr>
+</table>
+
+<h3>1.3 収集しない情報</h3>
+<p>本アプリは以下の情報を<strong>収集しません</strong>:</p>
+<ul>
+  <li>GPS位置情報・精密な位置データ</li>
+  <li>連絡先・電話帳データ</li>
+  <li>広告識別子（IDFA/GAID）による行動トラッキング</li>
+  <li>健康データ・バイオメトリクスデータ</li>
+  <li>金融情報（課金処理はApple/Googleが行います）</li>
+</ul>
+
+<h2>2. ROUNDIE Scoreについて</h2>
+<p>本アプリは、ユーザーのゴルフ体験を独自のスコアリングシステム「ROUNDIE Score」で評価します。SKILL（スコア実力）、VIBE（ゴルフ熱量）、STYLE（ゴルフライフ）、SCORE（スコア平均）の4軸で構成される当社独自の指標です。ROUNDIE Scoreはランキングやプロフィールに表示されますが、実際のゴルフスコア（数値）はデフォルトではフォロワーのみに表示されます。公開範囲はユーザーが選択できます。</p>
+
+<h2>3. プライバシー設定</h2>
+<table>
+  <tr><th>設定項目</th><th>選択肢</th><th>デフォルト</th></tr>
+  <tr><td>スコア数値の公開範囲</td><td>全員 / フォロワーのみ / 非公開</td><td>フォロワーのみ</td></tr>
+  <tr><td>統計データの公開範囲</td><td>全員 / フォロワーのみ / 非公開</td><td>フォロワーのみ</td></tr>
+  <tr><td>プロフィールの公開範囲</td><td>公開 / 非公開</td><td>公開</td></tr>
+</table>
+<div class="important">
+  <strong>重要:</strong> カラーグリッド（ラウンドの視覚パターン）は常に公開されます。グリッドにはスコアの数値は含まれず、パフォーマンスの「形」のみを色で表現します。
+</div>
+
+<h2>4. 情報の利用目的</h2>
+<ol>
+  <li>本アプリの提供・運営・維持・改善</li>
+  <li>ユーザーアカウントの認証・管理</li>
+  <li>ゴルフスコアの記録・分析・カラーグリッドの生成</li>
+  <li>ROUNDIE Scoreの算出・表示</li>
+  <li>ソーシャル機能の提供（フィード、ランキング、Kudos等）</li>
+  <li>コンペティションの管理・結果集計・表示</li>
+  <li>プッシュ通知の配信</li>
+  <li>お問い合わせへの対応</li>
+  <li>利用規約違反の調査・対処</li>
+  <li>サービスに関する重要なお知らせの送信</li>
+  <li>統計的な分析によるサービス改善（個人を特定しない形で）</li>
+</ol>
+
+<h2>5. 第三者提供</h2>
+<p>当社は、ユーザーの個人情報を<strong>販売しません</strong>。以下の場合を除き、第三者に提供しません:</p>
+<ol>
+  <li>ユーザーの同意がある場合</li>
+  <li>法令に基づく場合</li>
+  <li>人の生命・身体・財産の保護のために必要な場合</li>
+  <li>合併・事業譲渡等に伴う場合</li>
+</ol>
+
+<h2>6. 外部サービスへの委託</h2>
+<table>
+  <tr><th>サービス</th><th>提供者</th><th>用途</th><th>データ保管場所</th></tr>
+  <tr><td>Supabase</td><td>Supabase Inc.</td><td>データベース、認証、ストレージ</td><td>AWS（米国）</td></tr>
+  <tr><td>Expo</td><td>Expo Inc.</td><td>アプリ配信、プッシュ通知</td><td>AWS（米国）</td></tr>
+  <tr><td>Apple Sign In</td><td>Apple Inc.</td><td>ソーシャルログイン（iOS）</td><td>米国</td></tr>
+  <tr><td>Google Sign In</td><td>Google LLC</td><td>ソーシャルログイン（Android）</td><td>米国</td></tr>
+</table>
+
+<h2>7. 安全管理措置</h2>
+<ul>
+  <li>全通信の暗号化（HTTPS/TLS 1.3）</li>
+  <li>データベースのRow Level Security（RLS）によるアクセス制御</li>
+  <li>パスワードのハッシュ化（bcrypt）</li>
+  <li>認証トークンのセキュアストレージ保管</li>
+  <li>定期的なセキュリティレビュー</li>
+</ul>
+
+<h2>8. ユーザーの権利</h2>
+<table>
+  <tr><th>権利</th><th>方法</th></tr>
+  <tr><td>情報の開示請求</td><td>notify@kanopy-inc.com にメール</td></tr>
+  <tr><td>情報の訂正・追加</td><td>アプリ内プロフィール編集、またはメール</td></tr>
+  <tr><td>情報の削除</td><td>アプリ「設定」→「アカウント削除」、またはメール</td></tr>
+  <tr><td>プッシュ通知の停止</td><td>アプリ「設定」→「通知設定」</td></tr>
+</table>
+<p><strong>アカウント削除:</strong> 削除申請後30日間の猶予期間（復元可能）を経て、全データを完全に削除します。</p>
+<div class="important"><strong>サブスクリプションをご利用の場合:</strong> アカウント削除前に、Apple App Store または Google Play Store の設定からサブスクリプションを解約してください。アカウントを削除しても、ストア側のサブスクリプションは自動的にはキャンセルされません。</div>
+
+<h2>9. データ保持期間</h2>
+<table>
+<tr><th>データの種類</th><th>保持期間</th></tr>
+<tr><td>アカウント情報</td><td>アカウント有効期間中。削除申請後30日で完全削除</td></tr>
+<tr><td>ラウンド記録・スコア</td><td>アカウント有効期間中。削除申請後30日で完全削除</td></tr>
+<tr><td>写真</td><td>アカウント有効期間中。削除申請後30日で完全削除</td></tr>
+<tr><td>コメント・Kudos</td><td>アカウント有効期間中。削除時に匿名化</td></tr>
+<tr><td>クラッシュログ</td><td>収集後90日間</td></tr>
+<tr><td>プッシュ通知トークン</td><td>アカウント削除時に即座に削除</td></tr>
+</table>
+
+<h2>10. データ侵害時の通知</h2>
+<p>個人情報の漏洩が発生した場合、当社は速やかに影響を受けるユーザーに通知します。EEA居住者に影響がある場合は、GDPR第33条に基づき72時間以内にデータ保護監督機関に報告します。</p>
+
+<h2>11. GDPR対応（EEAのユーザーへ）</h2>
+<ul>
+  <li><strong>処理の法的根拠:</strong> 契約の履行および正当な利益</li>
+  <li><strong>データポータビリティ:</strong> 機械可読形式でデータを受け取る権利</li>
+  <li><strong>処理の制限・異議申立:</strong> 特定条件下で要求可能</li>
+  <li><strong>データ保持期間:</strong> アカウント有効期間中。削除後30日以内に完全削除</li>
+  <li><strong>苦情:</strong> お住まいの国のデータ保護機関に申し立て可能</li>
+</ul>
+
+<h2>12. CCPA/CPRA対応（カリフォルニア州居住者へ）</h2>
+<ul>
+  <li><strong>知る権利:</strong> 過去12ヶ月間の収集データの開示請求</li>
+  <li><strong>削除の権利:</strong> 個人情報の削除要求</li>
+  <li><strong>オプトアウト:</strong> 当社は個人情報を販売しません</li>
+  <li><strong>差別禁止:</strong> 権利行使による差別的取扱いは行いません</li>
+</ul>
+
+<h2>13. 広告・トラッキング</h2>
+<p>本アプリは、ローンチ時点では広告を表示しません。ただし、将来的にサービスの維持・改善を目的として、以下の形態で広告を導入する可能性があります:</p>
+<ul>
+  <li><strong>ネイティブ広告</strong>: フィード内にアプリのデザインに統合された形式で表示される広告</li>
+  <li><strong>スポンサードコンテンツ</strong>: ゴルフ関連ブランドとの提携によるコンテンツ</li>
+  <li><strong>アフィリエイトリンク</strong>: ゴルフ用品等の紹介リンク</li>
+</ul>
+<p>広告を導入する場合、以下の方針を遵守します:</p>
+<ul>
+  <li>広告トラッキング（IDFA/GAID）を使用する場合は、Apple App Tracking Transparency（ATT）に基づきユーザーの事前許可を取得します</li>
+  <li>ユーザーの行動データを広告主に直接提供することはありません</li>
+  <li>広告の表示を停止できる有料プラン（ROUNDIE Pro）を提供します</li>
+  <li>広告の導入時にはアプリ内通知でお知らせします</li>
+</ul>
+
+<h2>14. 未成年者の利用</h2>
+<p>本アプリは<strong>13歳以上</strong>を対象としています。13歳未満の方は利用できません。16歳未満のEEA居住者は保護者の同意を得てください。</p>
+
+<h2>15. 改定</h2>
+<p>重要な変更がある場合は、アプリ内通知およびメールにて事前にお知らせします。</p>
+
+<h2>16. お問い合わせ</h2>
+<p>
+  メール: <a href="mailto:notify@kanopy-inc.com">notify@kanopy-inc.com</a><br>
+  運営者: 株式会社KANOPY<br>
+  対応言語: 日本語・英語
+</p>
+</div>
+
+<!-- ==================== English ==================== -->
+<div id="lang-en" class="lang-content">
+<div class="meta">Last updated: April 8, 2026 ｜ Effective: April 8, 2026</div>
+
+<p>KANOPY Inc. ("we," "us," or "our") operates the ROUNDIE mobile application ("the App"). This Privacy Policy explains how we collect, use, and protect your personal information.</p>
+
+<h2>1. Information We Collect</h2>
+
+<h3>1.1 Information You Provide</h3>
+<table>
+  <tr><th>Type</th><th>When</th><th>Purpose</th><th>Required</th></tr>
+  <tr><td>Email address</td><td>Account registration</td><td>Authentication, password reset, notices</td><td>Required</td></tr>
+  <tr><td>Nickname</td><td>Profile setup</td><td>In-app display</td><td>Required</td></tr>
+  <tr><td>ROUNDIE ID</td><td>Profile setup</td><td>Unique identifier</td><td>Required</td></tr>
+  <tr><td>Golf level</td><td>Profile setup</td><td>Ranking, matching</td><td>Optional</td></tr>
+  <tr><td>Golf scores (hole-by-hole)</td><td>Round recording</td><td>Score management, grid generation, ROUNDIE Score</td><td>Required for feature</td></tr>
+  <tr><td>Per-hole details (putts, fairway hit, GIR, club used, shot direction, penalties, bunker saves, putt distance, memo)</td><td>Round recording</td><td>Statistics, ROUNDIE Score calculation</td><td>Optional</td></tr>
+  <tr><td>Course name, course rating, slope rating</td><td>Round recording</td><td>Round record linking, handicap calculation</td><td>Course name required; others optional</td></tr>
+  <tr><td>Weather conditions</td><td>Round recording</td><td>Round context</td><td>Optional</td></tr>
+  <tr><td>Playing companions' names</td><td>Round recording</td><td>Round context, feed display</td><td>Optional</td></tr>
+  <tr><td>Tee box selection</td><td>Round recording</td><td>Handicap calculation</td><td>Optional</td></tr>
+  <tr><td>Photos (up to 3)</td><td>User upload</td><td>Round attachment, feed display</td><td>Optional</td></tr>
+  <tr><td>Comments</td><td>Posting</td><td>Social features</td><td>Optional</td></tr>
+  <tr><td>Kudos (3 types: Nice Shot, Nice Fight, Best Buddy)</td><td>Feed interaction</td><td>Social features</td><td>Optional</td></tr>
+  <tr><td>Competition info (scoring: Stroke / New Peoria / Double Peoria)</td><td>Competition creation</td><td>Competition management</td><td>Required for feature</td></tr>
+  <tr><td>Email (launch notification)</td><td>Website notification signup</td><td>App launch notification only. Not shared with third parties</td><td>Optional</td></tr>
+</table>
+
+<h3>1.2 Automatically Collected</h3>
+<table>
+  <tr><th>Type</th><th>Purpose</th></tr>
+  <tr><td>Device info (OS, version)</td><td>Bug resolution, compatibility</td></tr>
+  <tr><td>App version</td><td>Update management</td></tr>
+  <tr><td>Language setting</td><td>Display language</td></tr>
+  <tr><td>Push notification token</td><td>Notification delivery</td></tr>
+  <tr><td>Crash logs</td><td>Bug identification</td></tr>
+</table>
+
+<h3>1.3 Information We Do NOT Collect</h3>
+<ul>
+  <li>GPS location or precise location data</li>
+  <li>Contact lists or phone book</li>
+  <li>Advertising identifiers (IDFA/GAID)</li>
+  <li>Health or biometric data</li>
+  <li>Financial information (payments via Apple/Google)</li>
+</ul>
+
+<h2>2. About ROUNDIE Score</h2>
+<p>The App evaluates your golf experience using "ROUNDIE Score" — a proprietary metric with four dimensions: SKILL (scoring ability), VIBE (golf passion), STYLE (golf lifestyle), and SCORE (scoring average). ROUNDIE Score appears on rankings and profiles, but your actual golf score numbers are visible only to followers by default. You control who can see them.</p>
+
+<h2>3. Privacy Settings</h2>
+<table>
+  <tr><th>Setting</th><th>Options</th><th>Default</th></tr>
+  <tr><td>Score number visibility</td><td>Everyone / Followers / Private</td><td>Followers only</td></tr>
+  <tr><td>Statistics visibility</td><td>Everyone / Followers / Private</td><td>Followers only</td></tr>
+  <tr><td>Profile visibility</td><td>Public / Private</td><td>Public</td></tr>
+</table>
+<div class="important">
+  <strong>Important:</strong> The color grid (visual pattern) is always public. It contains no score numbers — only the "shape" of your performance in colors.
+</div>
+
+<h2>4. How We Use Your Information</h2>
+<ol>
+  <li>Providing, operating, maintaining, and improving the App</li>
+  <li>Account authentication and management</li>
+  <li>Recording/analyzing scores, generating color grids</li>
+  <li>Calculating and displaying ROUNDIE Scores</li>
+  <li>Social features (feed, rankings, Kudos, follows)</li>
+  <li>Competition management and results</li>
+  <li>Push notification delivery</li>
+  <li>Responding to inquiries</li>
+  <li>Investigating Terms violations</li>
+  <li>Important service notices</li>
+  <li>Statistical analysis for improvement (non-identifiable)</li>
+</ol>
+
+<h2>5. Sharing Your Information</h2>
+<p>We do <strong>not sell</strong> your personal information. We share only when: you consent, required by law, to protect life/property, or in business transfers.</p>
+
+<h2>6. Third-Party Service Providers</h2>
+<table>
+  <tr><th>Service</th><th>Provider</th><th>Purpose</th><th>Location</th></tr>
+  <tr><td>Supabase</td><td>Supabase Inc.</td><td>Database, auth, storage</td><td>AWS (US)</td></tr>
+  <tr><td>Expo</td><td>Expo Inc.</td><td>App distribution, push</td><td>AWS (US)</td></tr>
+  <tr><td>Apple Sign In</td><td>Apple Inc.</td><td>Social login (iOS)</td><td>US</td></tr>
+  <tr><td>Google Sign In</td><td>Google LLC</td><td>Social login (Android)</td><td>US</td></tr>
+</table>
+
+<h2>7. Security</h2>
+<ul>
+  <li>HTTPS/TLS 1.3 encryption</li>
+  <li>Row Level Security (RLS) database access control</li>
+  <li>Password hashing (bcrypt)</li>
+  <li>Secure credential storage</li>
+  <li>Regular security reviews</li>
+</ul>
+
+<h2>8. Your Rights</h2>
+<p>Access, correct, or delete your info via app Settings or email notify@kanopy-inc.com. Account deletion: 30-day grace period, then permanent deletion.</p>
+<div class="important"><strong>If you have active subscriptions:</strong> Please cancel your subscriptions through Apple App Store or Google Play Store settings before deleting your account. Deleting your account does not automatically cancel store-side subscriptions.</div>
+
+<h2>9. Data Retention</h2>
+<table>
+<tr><th>Data Type</th><th>Retention Period</th></tr>
+<tr><td>Account information</td><td>While account is active. Fully deleted 30 days after deletion request</td></tr>
+<tr><td>Round records & scores</td><td>While account is active. Fully deleted 30 days after deletion request</td></tr>
+<tr><td>Photos</td><td>While account is active. Fully deleted 30 days after deletion request</td></tr>
+<tr><td>Comments & Kudos</td><td>While account is active. Anonymized on deletion</td></tr>
+<tr><td>Crash logs</td><td>90 days after collection</td></tr>
+<tr><td>Push notification tokens</td><td>Immediately deleted on account deletion</td></tr>
+</table>
+
+<h2>10. Data Breach Notification</h2>
+<p>In the event of a personal data breach, we will promptly notify affected users. For EEA residents, we will report to the relevant data protection authority within 72 hours in accordance with GDPR Article 33.</p>
+
+<h2>11. GDPR (EEA Users)</h2>
+<p>Legal basis: contract performance and legitimate interests. You have rights to data portability, restriction, objection, and complaints to your local authority. Data fully deleted within 30 days of account deletion.</p>
+
+<h2>12. CCPA/CPRA (California Residents)</h2>
+<p>Right to know, delete, and opt-out. We do not sell personal information. No discrimination for exercising rights.</p>
+
+<h2>13. Advertising & Tracking</h2>
+<p>The App does not display ads at launch. However, we may introduce the following forms of advertising in the future to sustain and improve the service:</p>
+<ul>
+  <li><strong>Native ads</strong>: Ads integrated into the feed matching the App's design</li>
+  <li><strong>Sponsored content</strong>: Partnerships with golf-related brands</li>
+  <li><strong>Affiliate links</strong>: Golf equipment referral links</li>
+</ul>
+<p>If advertising is introduced, we will:</p>
+<ul>
+  <li>Request user permission via Apple ATT before any ad tracking (IDFA/GAID)</li>
+  <li>Never share behavioral data directly with advertisers</li>
+  <li>Offer an ad-free paid plan (ROUNDIE Pro)</li>
+  <li>Notify users via in-app notification when ads are introduced</li>
+</ul>
+
+<h2>14. Children</h2>
+<p>The App is for users aged <strong>13+</strong>. EEA users under 16 need parental consent.</p>
+
+<h2>15. Changes</h2>
+<p>Material changes notified via in-app notification and email.</p>
+
+<h2>16. Contact</h2>
+<p>Email: <a href="mailto:notify@kanopy-inc.com">notify@kanopy-inc.com</a><br>Operator: KANOPY Inc.</p>
+</div>
+
+<!-- ==================== 한국어 ==================== -->
+<div id="lang-ko" class="lang-content">
+<div class="meta">최종 업데이트: 2026년 4월 8일 ｜ 시행일: 2026년 4월 8일</div>
+
+<p>KANOPY Inc.(이하 "회사")은 골프 소셜 앱 "ROUNDIE"(이하 "앱")의 이용자 개인정보를 다음과 같이 처리합니다.</p>
+
+<h2>1. 수집하는 정보</h2>
+
+<h3>1.1 이용자가 제공하는 정보</h3>
+<table>
+  <tr><th>정보 유형</th><th>수집 시점</th><th>이용 목적</th><th>필수/선택</th></tr>
+  <tr><td>이메일 주소</td><td>계정 등록 시</td><td>인증, 비밀번호 재설정, 알림</td><td>필수</td></tr>
+  <tr><td>닉네임</td><td>프로필 설정 시</td><td>앱 내 표시</td><td>필수</td></tr>
+  <tr><td>ROUNDIE ID</td><td>프로필 설정 시</td><td>고유 식별자</td><td>필수</td></tr>
+  <tr><td>골프 레벨</td><td>프로필 설정 시</td><td>랭킹, 매칭</td><td>선택</td></tr>
+  <tr><td>골프 스코어 (홀별)</td><td>라운드 기록 시</td><td>스코어 관리, 그리드 생성, ROUNDIE Score</td><td>기능 이용 시 필수</td></tr>
+  <tr><td>홀별 상세 (퍼트, FW 적중, GIR, 사용 클럽, 샷 방향, 페널티, 벙커 세이브, 퍼트 거리, 메모)</td><td>라운드 기록 시</td><td>통계, ROUNDIE Score 산출</td><td>선택</td></tr>
+  <tr><td>코스명, 코스 레이팅, 슬로프 레이팅</td><td>라운드 기록 시</td><td>기록 연결, 핸디캡 산출</td><td>코스명 필수, 기타 선택</td></tr>
+  <tr><td>날씨</td><td>라운드 기록 시</td><td>기록 부가 정보</td><td>선택</td></tr>
+  <tr><td>동반자 이름</td><td>라운드 기록 시</td><td>기록 부가 정보, 피드 표시</td><td>선택</td></tr>
+  <tr><td>티박스</td><td>라운드 기록 시</td><td>핸디캡 산출</td><td>선택</td></tr>
+  <tr><td>사진 (최대 3장)</td><td>업로드 시</td><td>기록 첨부, 피드 표시</td><td>선택</td></tr>
+  <tr><td>댓글</td><td>작성 시</td><td>소셜 기능</td><td>선택</td></tr>
+  <tr><td>Kudos (3종: 나이스샷, 나이스 파이트, 베스트 버디)</td><td>피드 상호작용 시</td><td>소셜 기능</td><td>선택</td></tr>
+  <tr><td>대회 정보 (채점 방식: 스트로크/뉴 페리아/더블 페리아)</td><td>대회 생성 시</td><td>대회 관리, 채점</td><td>기능 이용 시 필수</td></tr>
+</table>
+
+<h3>1.2 자동 수집 정보</h3>
+<p>기기 정보, 앱 버전, 언어 설정, 푸시 알림 토큰, 충돌 로그</p>
+
+<h3>1.3 수집하지 않는 정보</h3>
+<p>GPS 위치, 연락처, 광고 식별자(IDFA/GAID), 건강 데이터, 금융 정보</p>
+
+<h2>2. ROUNDIE Score</h2>
+<p>SKILL(스코어 실력), VIBE(골프 열정), STYLE(골프 라이프), SCORE(스코어 평균)의 4축 독자 지표입니다. 실제 스코어 숫자는 기본적으로 팔로워에게만 표시됩니다. 공개 범위는 이용자가 선택할 수 있습니다.</p>
+
+<h2>3. 개인정보 설정</h2>
+<table>
+  <tr><th>설정</th><th>선택지</th><th>기본값</th></tr>
+  <tr><td>스코어 숫자 공개</td><td>전체 / 팔로워만 / 비공개</td><td>팔로워만</td></tr>
+  <tr><td>통계 데이터 공개</td><td>전체 / 팔로워만 / 비공개</td><td>팔로워만</td></tr>
+  <tr><td>프로필 공개</td><td>공개 / 비공개</td><td>공개</td></tr>
+</table>
+<div class="important">
+  <strong>중요:</strong> 컬러 그리드(시각 패턴)는 항상 공개됩니다. 스코어 숫자는 포함되지 않습니다.
+</div>
+
+<h2>4. 이용 목적</h2>
+<p>앱 운영, 계정 관리, 스코어 기록/분석, ROUNDIE Score 산출, 소셜 기능, 대회 관리, 푸시 알림, 문의 대응, 약관 위반 조사, 서비스 개선</p>
+
+<h2>5. 제3자 제공</h2>
+<p>개인정보를 <strong>판매하지 않습니다</strong>. 동의, 법적 요구, 생명/재산 보호, 사업 양도 시에만 제공합니다.</p>
+
+<h2>6. 외부 서비스</h2>
+<p>Supabase (DB/인증/스토리지, AWS 미국), Expo (앱 배포/푸시, AWS 미국), Apple/Google Sign In (미국)</p>
+
+<h2>7. 보안 조치</h2>
+<p>HTTPS/TLS 1.3, Row Level Security, 비밀번호 해시화, 보안 자격증명 저장, 정기 보안 점검</p>
+
+<h2>8. 이용자의 권리</h2>
+<p>정보 열람, 정정, 삭제: 앱 설정 또는 notify@kanopy-inc.com. 계정 삭제: 30일 유예 후 완전 삭제.</p>
+<div class="important"><strong>구독 중인 경우:</strong> 계정 삭제 전에 Apple App Store 또는 Google Play Store 설정에서 구독을 해지해 주세요. 계정 삭제 시 스토어 측 구독은 자동으로 취소되지 않습니다.</div>
+
+<h2>9. 데이터 보존 기간</h2>
+<table>
+<tr><th>데이터 유형</th><th>보존 기간</th></tr>
+<tr><td>계정 정보</td><td>계정 활성 기간 중. 삭제 요청 후 30일 후 완전 삭제</td></tr>
+<tr><td>라운드 기록 및 스코어</td><td>계정 활성 기간 중. 삭제 요청 후 30일 후 완전 삭제</td></tr>
+<tr><td>사진</td><td>계정 활성 기간 중. 삭제 요청 후 30일 후 완전 삭제</td></tr>
+<tr><td>댓글 및 Kudos</td><td>계정 활성 기간 중. 삭제 시 익명화</td></tr>
+<tr><td>충돌 로그</td><td>수집 후 90일간</td></tr>
+<tr><td>푸시 알림 토큰</td><td>계정 삭제 시 즉시 삭제</td></tr>
+</table>
+
+<h2>10. 데이터 침해 시 통지</h2>
+<p>개인정보 유출이 발생한 경우 영향을 받는 이용자에게 신속하게 통지합니다. EEA 거주자에게 영향이 있는 경우 GDPR 제33조에 따라 72시간 이내에 데이터 보호 감독 기관에 보고합니다.</p>
+
+<h2>11. 만 13세 미만</h2>
+<p>만 13세 이상 대상. 만 13세 미만은 이용 불가.</p>
+
+<h2>12. 광고 및 추적</h2>
+<p>앱은 출시 시점에 광고를 표시하지 않습니다. 다만, 서비스 유지·개선을 위해 향후 다음 형태의 광고를 도입할 수 있습니다:</p>
+<ul>
+  <li><strong>네이티브 광고</strong>: 피드 내 앱 디자인에 통합된 형식의 광고</li>
+  <li><strong>스폰서 콘텐츠</strong>: 골프 관련 브랜드와의 제휴 콘텐츠</li>
+  <li><strong>제휴 링크</strong>: 골프 용품 등의 추천 링크</li>
+</ul>
+<p>광고 도입 시 다음 방침을 준수합니다:</p>
+<ul>
+  <li>광고 추적(IDFA/GAID) 사용 시 Apple ATT에 따라 사전 동의를 받습니다</li>
+  <li>행동 데이터를 광고주에 직접 제공하지 않습니다</li>
+  <li>광고 비표시 유료 플랜(ROUNDIE Pro)을 제공합니다</li>
+  <li>광고 도입 시 앱 내 알림으로 안내합니다</li>
+</ul>
+
+<h2>13. 변경</h2>
+<p>중요 변경 시 앱 내 알림 및 이메일로 안내합니다.</p>
+
+<h2>14. 문의</h2>
+<p>이메일: <a href="mailto:notify@kanopy-inc.com">notify@kanopy-inc.com</a><br>운영자: KANOPY Inc.</p>
+</div>
+
+</div><!-- container -->
+
+<div class="footer">
+  <a href="/" style="font-weight:900;letter-spacing:6px;font-size:14px;color:var(--primary)">ROUNDIE</a><br><br>
+  <a href="/">TOP</a> ｜
+  <a href="/terms/">利用規約 / Terms</a> ｜
+  <a href="/privacy/">プライバシーポリシー / Privacy</a><br><br>
+  &copy; 2026 KANOPY Inc.
+</div>
+
+<script>
+function switchLang(lang) {
+  document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.lang-switch a').forEach(el => el.classList.remove('active'));
+  document.getElementById('lang-' + lang).classList.add('active');
+  event.target.classList.add('active');
+  // Update header
+  const titles = { ja: 'プライバシーポリシー', en: 'Privacy Policy', ko: '개인정보 처리방침' };
+  document.querySelector('.header h1').textContent = titles[lang];
+}
+</script>
+
+</body>
+</html>
