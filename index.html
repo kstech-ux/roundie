@@ -783,6 +783,32 @@ document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
   var g = document.getElementById('vg');
   if(g) g.innerHTML = colors.map(c=>'<div style="background:'+c+'"></div>').join('');
 })();
+
+// FE-436 F17: 全 .ftr-mock セクションに「UI イメージ」サンプル明示ラベルを自動付与。
+// data-l による i18n 切替も適用。
+(function(){
+  var labels = {
+    ja: '* UI イメージ。実際の画面と異なる場合があります',
+    en: '* UI sample. Actual screens may differ.',
+    ko: '* UI 샘플. 실제 화면과 다를 수 있습니다.'
+  };
+  document.querySelectorAll('.ftr-mock').forEach(function(el){
+    if (el.querySelector('.mock-tag')) return;
+    var tag = document.createElement('div');
+    tag.className = 'mock-tag';
+    tag.style.cssText = 'margin-top:8px;font-size:8px;color:var(--t3);letter-spacing:.6px;text-align:right;line-height:1.4';
+    tag.innerHTML =
+      '<span data-l="en">' + labels.en + '</span>' +
+      '<span data-l="ja" class="a">' + labels.ja + '</span>' +
+      '<span data-l="ko">' + labels.ko + '</span>';
+    el.appendChild(tag);
+  });
+  // Re-apply current language to newly inserted spans
+  try{
+    var current = localStorage.getItem('kanopy_lang') || (document.documentElement.lang || 'ja');
+    if (typeof sl === 'function') sl(current);
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
