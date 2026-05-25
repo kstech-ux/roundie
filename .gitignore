@@ -1,0 +1,5 @@
+# FE-436 F1: dist/ は deploy workflow (publish_dir:., exclude_assets:dist) で除外されるため
+# Git tracking 対象外にして構造的クリーンに保つ。
+# root /index.html が gh-pages の本番配信ファイル。
+dist/
+node_modules/
